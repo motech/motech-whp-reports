@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="whp-report" xmlns:flyway="antlib:com.googlecode.flyway.ant">
+    <path id="flyway.lib.path">
+        <fileset dir="../lib" includes="*.jar"/>
+        <fileset dir="../whp-reports-web/target/whp-reports-web-1.0/WEB-INF/lib" includes="*.jar"/>
+    </path>
+
+
+    <taskdef uri="antlib:com.googlecode.flyway.ant"
+             resource="com/googlecode/flyway/ant/antlib.xml"
+             classpathref="flyway.lib.path"/>
+
+
+    <target name="clean.existing.database">
+
+        <echo message="Cleaning all databases"/>
+        <flyway:clean driver="org.postgresql.Driver"
+        url="jdbc:postgresql://localhost/whp/"
+        user="postgres"
+        password="p@ssw0rd"
+        schemas="whp_reports"
+        classpathref="flyway.lib.path"/>
+    </target>
+
+    <target name="setup.database">
+    <echo message="Setting up database"/>
+
+        <exec executable="psql">
+            <arg line="-U postgres"/>
+            <arg line="-d whp"/>
+            <arg line="-f ${basedir}/../whp-reports-migration/src/main/resources/db/setup/base_setup.sql"/>
+        </exec>
+
+    </target>
+
+    <target name="init.database">
+
+        <flyway:init driver="org.postgresql.Driver"
+                     url="jdbc:postgresql://localhost/whp/"
+                     user="postgres"
+                     password="p@ssw0rd"
+                     schemas="whp_reports"
+                     classpath="${runtime-classpath}"
+                     initialVersion="0"
+                     initialDescription="Base setup"/>
+    </target>
+
+    <target name="migrate.db">
+        <echo message="Applying database migrations"/>
+        <flyway:migrate driver="org.postgresql.Driver"
+                        url="jdbc:postgresql://localhost/whp/"
+                        user="postgres"
+                        password="p@ssw0rd"
+                        schemas="whp_reports"
+                        baseDir="/db/migration"
+                        classpathref="flyway.lib.path"/>
+    </target>
+</project>

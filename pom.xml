@@ -99,7 +99,7 @@
             <plugins>
                 <plugin>
                     <groupId>com.googlecode.flyway</groupId>
-                    <artifactId>flyway-maven-plugin</artifactId>
+                    <artifactId>flyway-ant</artifactId>
                     <version>1.7</version>
                 </plugin>
             </plugins>

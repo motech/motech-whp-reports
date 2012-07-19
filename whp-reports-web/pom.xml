@@ -79,6 +79,30 @@
         <plugins>
 
             <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>Copy WHP Reports Config</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.build.outputDirectory}">
+                                    <fileset dir="${project.basedir}/../whp-reports-domain/src/main/resources">
+                                        <include name="*.properties"/>
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.0.1.v20110908</version>
@@ -114,21 +138,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.googlecode.flyway</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <configuration>
-                    <user>postgres</user>
-                    <password>p@ssw0rd</password>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost/whp/;shutdown=true</url>
-                    <schemas>whp_reports</schemas>
-                    <locations>
-                        <location>db.migration</location>
-                    </locations>
-                </configuration>
             </plugin>
 
             <!--RELEASE-->
@@ -176,6 +185,54 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>clean.database</id>
+            <build>
+                <defaultGoal>antrun:run</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+
+                        <configuration>
+                            <target name="clean">
+                                <property name="runtime-classpath" refid="maven.test.classpath"/>
+                                <echo message="Cleaning existing Database : START"/>
+                                <ant antfile="${project.basedir}/../build/build.xml" target="clean.existing.database"/>
+                                <echo message="Cleaning existing Database : FINISHED"/>
+                                <echo message="Setting up Database : START"/>
+                                <ant antfile="${project.basedir}/../build/build.xml" target="setup.database"/>
+                                <echo message="Setting up Database : FINISHED"/>
+                                <echo message="Initializing Database : START"/>
+                                <ant antfile="${project.basedir}/../build/build.xml" target="init.database"/>
+                                <echo message="Migrating existing Database : START"/>
+                                <ant antfile="${project.basedir}/../build/build.xml" target="migrate.db"/>
+                                <echo message="Migrating existing Database : FINISHED"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>com.googlecode.flyway</groupId>
+                    <artifactId>flyway-ant</artifactId>
+                    <version>1.7</version>
+                </dependency>
+                <dependency>
+                    <groupId>ant-contrib</groupId>
+                    <artifactId>ant-contrib</artifactId>
+                    <version>1.0b2</version>
+                </dependency>
+            </dependencies>
+
+        </profile>
+    </profiles>
 
 
 </project>
