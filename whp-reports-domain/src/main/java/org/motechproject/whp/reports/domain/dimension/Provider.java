@@ -1,4 +1,4 @@
-package org.motechproject.whp.reporting.domain.dimension;
+package org.motechproject.whp.reports.domain.dimension;
 
 import lombok.Data;
 

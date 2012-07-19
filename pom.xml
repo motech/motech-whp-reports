@@ -4,13 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>motech-whp-reports</groupId>
+    <groupId>org.motechproject.whp.reports</groupId>
     <artifactId>motech-whp-reports</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
         <module>whp-reports-domain</module>
         <module>whp-reports-migration</module>
+        <module>whp-reports-web</module>
     </modules>
 
     <properties>
