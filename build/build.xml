@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="whp-report" xmlns:flyway="antlib:com.googlecode.flyway.ant">
     <path id="flyway.lib.path">
-        <fileset dir="../lib" includes="*.jar"/>
+        <fileset dir="../build/lib" includes="*.jar"/>
         <fileset dir="../whp-reports-web/target/whp-reports-web-1.0/WEB-INF/lib" includes="*.jar"/>
     </path>
 
