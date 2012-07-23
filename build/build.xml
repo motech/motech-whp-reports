@@ -28,7 +28,7 @@
         <exec executable="psql">
             <arg line="-U postgres"/>
             <arg line="-d whp"/>
-            <arg line="-f ${basedir}/../whp-reports-migration/src/main/resources/db/setup/base_setup.sql"/>
+            <arg line="-f ../build/resources/db/setup/base_setup.sql"/>
         </exec>
 
     </target>

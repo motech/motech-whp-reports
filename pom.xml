@@ -10,7 +10,6 @@
     <version>1.0</version>
     <modules>
         <module>whp-reports-domain</module>
-        <module>whp-reports-migration</module>
         <module>whp-reports-web</module>
     </modules>
 
@@ -153,6 +152,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.1</version>
+            </dependency>
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-all</artifactId>
@@ -334,16 +338,6 @@
                 <version>3.3.2.GA</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.transaction</groupId>
-                <artifactId>jta</artifactId>
-                <version>1.1</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-                <version>1.4</version>
-            </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
