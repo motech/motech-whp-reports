@@ -10,10 +10,6 @@ public class AllCallLogs {
     private DataAccessTemplate template;
 
     public void save(CallLog callLog) {
-        template.save(callLog);
-    }
-
-    public CallLog get(Long callLogId) {
-        return template.get(CallLog.class, callLogId);
+        template.saveOrUpdate(callLog);
     }
 }
