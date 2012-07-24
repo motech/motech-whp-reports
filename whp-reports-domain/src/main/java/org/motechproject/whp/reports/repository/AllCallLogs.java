@@ -9,8 +9,11 @@ public class AllCallLogs {
     @Autowired
     private DataAccessTemplate template;
 
-    public void update(CallLog callLog) {
-        template.update(callLog);
+    public void save(CallLog callLog) {
+        template.save(callLog);
     }
 
+    public CallLog get(Long callLogId) {
+        return template.get(CallLog.class, callLogId);
+    }
 }

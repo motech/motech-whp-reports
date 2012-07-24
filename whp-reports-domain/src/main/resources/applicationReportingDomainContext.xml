@@ -9,7 +9,7 @@
 
     <context:property-placeholder location="classpath*:whp-reports.properties"/>
 
-    <context:component-scan base-package="org.motechproject.whp.reporting.domain.dimension"/>
+    <context:component-scan base-package="org.motechproject.whp.reports"/>
 
     <context:annotation-config/>
 

@@ -1,9 +1,12 @@
 package org.motechproject.whp.reports.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
+import java.util.Date;
 
 //Encapsulates call details
 @Data
@@ -12,7 +15,7 @@ import javax.persistence.*;
 public class CallLog {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "call_log_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -20,10 +23,10 @@ public class CallLog {
     private String providerId;
 
     @Column(name = "start_time")
-    private LocalDateTime startTime;
+    private Date startTime;
 
     @Column(name = "end_time")
-    private LocalDateTime endTime;
+    private Date endTime;
 
     @Column(name = "called_by")
     private String calledBy;

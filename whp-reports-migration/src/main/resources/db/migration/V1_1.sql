@@ -1,5 +1,5 @@
 CREATE TABLE whp_reports.call_log (
-    id numeric NOT NULL,
+    call_log_id serial NOT NULL,
     provider_id varchar(20),
     start_time timestamp,
     end_time timestamp,
