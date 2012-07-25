@@ -15,6 +15,7 @@
 
     <properties>
         <jetty.port>9999</jetty.port>
+        <build.xml>${project.basedir}/../build/build.xml</build.xml>
     </properties>
 
     <dependencies>
@@ -189,7 +190,7 @@
 
     <profiles>
         <profile>
-            <id>clean.database</id>
+            <id>clean.data</id>
             <build>
                 <defaultGoal>antrun:run</defaultGoal>
                 <plugins>
@@ -200,17 +201,22 @@
                         <configuration>
                             <target name="clean">
                                 <property name="runtime-classpath" refid="maven.test.classpath"/>
-                                <echo message="Cleaning existing Database : START"/>
-                                <ant antfile="${project.basedir}/../build/build.xml" target="clean.existing.database"/>
-                                <echo message="Cleaning existing Database : FINISHED"/>
-                                <echo message="Setting up Database : START"/>
-                                <ant antfile="${project.basedir}/../build/build.xml" target="setup.database"/>
-                                <echo message="Setting up Database : FINISHED"/>
-                                <echo message="Initializing Database : START"/>
-                                <ant antfile="${project.basedir}/../build/build.xml" target="init.database"/>
-                                <echo message="Migrating existing Database : START"/>
-                                <ant antfile="${project.basedir}/../build/build.xml" target="migrate.db"/>
-                                <echo message="Migrating existing Database : FINISHED"/>
+
+                                <echo message="Cleaning existing schema : START"/>
+                                <ant antfile="${build.xml}" target="clean.existing.schema"/>
+                                <echo message="Cleaning existing schema : FINISHED"/>
+
+                                <echo message="Setting up schema : START"/>
+                                <ant antfile="${build.xml}" target="setup.schema"/>
+                                <echo message="Setting up schema : FINISHED"/>
+
+                                <echo message="Initializing schema : START"/>
+                                <ant antfile="${build.xml}" target="init.schema"/>
+                                <echo message="Initializing schema : FINISHED"/>
+
+                                <echo message="Migrating existing data : START "/>
+                                <ant antfile="${build.xml}" target="migrate.data"/>
+                                <echo message="Migrating existing data : FINISHED"/>
                             </target>
                         </configuration>
                         <goals>
@@ -232,6 +238,35 @@
                 </dependency>
             </dependencies>
 
+        </profile>
+        <profile>
+            <id>bootstrap</id>
+            <build>
+                <defaultGoal>antrun:run</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+
+                        <configuration>
+                            <target name="clean">
+                                <property name="runtime-classpath" refid="maven.test.classpath"/>
+
+                                <echo message="Dropping existing Database"/>
+                                <ant antfile="${build.xml}" target="drop.db"/>
+                                <echo message="Dropping existing FINISHED"/>
+
+                                <echo message="Creating Database : START"/>
+                                <ant antfile="${build.xml}" target="create.db"/>
+                                <echo message="Creating Database : FINISHED"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="whp-report" xmlns:flyway="antlib:com.googlecode.flyway.ant">
+
     <path id="flyway.lib.path">
         <fileset dir="../build/lib" includes="*.jar"/>
         <fileset dir="../whp-reports-web/target/whp-reports-web-1.0/WEB-INF/lib" includes="*.jar"/>
@@ -10,31 +11,43 @@
              resource="com/googlecode/flyway/ant/antlib.xml"
              classpathref="flyway.lib.path"/>
 
+    <condition property="project.dir" value="${parent.basedir}" else="${basedir}/../">
+        <isset property="${parent.basedir}"/>
+    </condition>
 
-    <target name="clean.existing.database">
-
-        <echo message="Cleaning all databases"/>
+    <target name="clean.existing.schema">
+        <echo message="Cleaning all schema"/>
         <flyway:clean driver="org.postgresql.Driver"
-        url="jdbc:postgresql://localhost/whp/"
-        user="postgres"
-        password="p@ssw0rd"
-        schemas="whp_reports"
-        classpathref="flyway.lib.path"/>
+                      url="jdbc:postgresql://localhost/whp/"
+                      user="postgres"
+                      password="p@ssw0rd"
+                      schemas="whp_reports"
+                      classpathref="flyway.lib.path"/>
     </target>
 
-    <target name="setup.database">
-    <echo message="Setting up database"/>
+    <target name="drop.db">
+        <exec executable="dropdb">
+            <arg line="-U postgres whp"/>
+        </exec>
+    </target>
 
+    <target name="create.db">
+        <exec executable="createdb">
+            <arg line="-U postgres whp"/>
+        </exec>
+    </target>
+
+    <target name="setup.schema">
+        <echo message="Setting up schema"/>
         <exec executable="psql">
             <arg line="-U postgres"/>
-            <arg line="-d whp"/>
-            <arg line="-f ../build/resources/db/setup/base_setup.sql"/>
+	    <arg line="-d whp"/>
+            <arg line="-f ${project.dir}/whp-reports-migration/src/main/resources/db/setup/base_setup.sql"/>
         </exec>
 
     </target>
 
-    <target name="init.database">
-
+    <target name="init.schema">
         <flyway:init driver="org.postgresql.Driver"
                      url="jdbc:postgresql://localhost/whp/"
                      user="postgres"
@@ -45,8 +58,8 @@
                      initialDescription="Base setup"/>
     </target>
 
-    <target name="migrate.db">
-        <echo message="Applying database migrations"/>
+    <target name="migrate.data">
+        <echo message="Applying schema migrations"/>
         <flyway:migrate driver="org.postgresql.Driver"
                         url="jdbc:postgresql://localhost/whp/"
                         user="postgres"
