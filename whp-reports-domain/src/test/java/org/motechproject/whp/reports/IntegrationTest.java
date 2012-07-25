@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.repository.DataAccessTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,20 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationReportingDomainContext.xml")
 @Transactional
-public abstract class SpringIntegrationTest {
+public abstract class IntegrationTest<T> {
 
     @Autowired
     protected DataAccessTemplate template;
 
     private List<Object> toDelete = new ArrayList<Object>();
 
-    protected void markForDeletion(Object entity) {
+    protected T purge(T entity) {
         toDelete.add(entity);
+        return entity;
     }
 
-    protected void tearDown() {
+    @After
+    public void tearDown() {
         template.deleteAll(toDelete);
     }
 }

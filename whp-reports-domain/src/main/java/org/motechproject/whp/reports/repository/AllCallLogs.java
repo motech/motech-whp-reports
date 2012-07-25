@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AllCallLogs {
+
     @Autowired
     private DataAccessTemplate template;
 

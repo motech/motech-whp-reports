@@ -1,9 +1,6 @@
 package org.motechproject.whp.reports.domain;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,4 +27,7 @@ public class CallLog {
 
     @Column(name = "called_by")
     private String calledBy;
+
+    @Column(name = "duration")
+    private long durationInSeconds;
 }

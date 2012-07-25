@@ -1,22 +1,17 @@
 package org.motechproject.whp.reports.repository;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.whp.reports.SpringIntegrationTest;
+import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.domain.CallLog;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.support.TransactionTemplate;
-
-import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-public class AllCallLogsIT extends SpringIntegrationTest {
+public class AllCallLogsIT extends IntegrationTest {
 
     @Autowired
     AllCallLogs allCallLogs;
