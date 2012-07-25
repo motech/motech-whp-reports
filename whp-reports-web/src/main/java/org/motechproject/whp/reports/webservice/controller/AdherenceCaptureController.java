@@ -2,7 +2,6 @@ package org.motechproject.whp.reports.webservice.controller;
 
 
 import org.motechproject.whp.reports.service.CallLogService;
-import org.motechproject.whp.reports.webservice.request.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.webservice.request.CallLogRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/adherence")
-public class AdherenceCaptureController {
+public class AdherenceCaptureController extends BaseController {
 
     CallLogService callLogService;
 
