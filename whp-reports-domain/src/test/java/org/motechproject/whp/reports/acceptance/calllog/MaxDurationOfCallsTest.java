@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
-import org.motechproject.whp.reports.domain.CallLog;
+import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.repository.AllCallLogs;
 import org.motechproject.whp.reports.repository.DataAccessTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

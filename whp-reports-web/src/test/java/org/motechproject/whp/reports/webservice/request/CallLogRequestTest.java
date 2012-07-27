@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.webservice.request;
 
 import org.junit.Test;
-import org.motechproject.whp.reports.domain.CallLog;
+import org.motechproject.whp.reports.domain.measure.CallLog;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.domain.CallLog;
+import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.repository.AllCallLogs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

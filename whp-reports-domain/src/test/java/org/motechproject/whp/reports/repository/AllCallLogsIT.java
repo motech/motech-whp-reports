@@ -3,41 +3,42 @@ package org.motechproject.whp.reports.repository;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
-import org.motechproject.whp.reports.domain.CallLog;
+import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
 
-public class AllCallLogsIT extends IntegrationTest {
+public class AllCallLogsIT extends IntegrationTest<CallLog> {
 
     @Autowired
     AllCallLogs allCallLogs;
 
     @Test
     public void shouldCreateCallLog() {
-        final CallLog callLog = new CallLog();
-        callLog.setCalledBy("provider");
-        callLog.setEndTime(new DateTime().plusMinutes(20).toDate());
-        callLog.setStartTime(new DateTime().toDate());
-        callLog.setProviderId("providerId");
+        CallLog callLog = newCallLog()
+                .forProvider("providerId")
+                .withNumber("provider")
+                .starting(new DateTime())
+                .forSeconds(20)
+                .build();
 
-        allCallLogs.save(callLog);
-
+        allCallLogs.save(purge(callLog));
         assertNotNull(callLog.getId());
     }
 
     @Test
     public void shouldUpdateCallLog() {
-        final CallLog callLog = new CallLog();
-        callLog.setCalledBy("provider");
-        callLog.setEndTime(new DateTime().plusMinutes(20).toDate());
-        callLog.setStartTime(new DateTime().toDate());
-        callLog.setProviderId("providerId");
+        CallLog callLog = newCallLog()
+                .forProvider("providerId")
+                .withNumber("provider")
+                .starting(new DateTime())
+                .forSeconds(20)
+                .build();
 
-        allCallLogs.save(callLog);
+        allCallLogs.save(purge(callLog));
 
         String cmfAdmin = "cmfAdmin";
         callLog.setCalledBy(cmfAdmin);

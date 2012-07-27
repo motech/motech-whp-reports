@@ -2,27 +2,28 @@ package org.motechproject.whp.reports.domain.dimension;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "provider")
+@Table(name = "provider", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class Provider {
 
     @Id
-    @Column(name = "providerId")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "provider_id")
     private String providerId;
 
-    @Column(name = "primaryMobile")
+    @Column(name = "primary_mobile")
     private String primaryMobile;
 
-    @Column(name = "secondaryMobile")
+    @Column(name = "secondary_mobile")
     private String secondaryMobile;
 
-    @Column(name = "tertiaryMobile")
+    @Column(name = "tertiary_mobile")
     private String tertiaryMobile;
 
     @Column(name = "district")

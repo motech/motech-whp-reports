@@ -4,7 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.domain.CallLog;
+import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.service.CallLogService;
 import org.motechproject.whp.reports.webservice.request.CallLogRequest;
 import org.springframework.http.MediaType;

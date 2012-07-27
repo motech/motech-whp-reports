@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.builder;
 
 import org.joda.time.DateTime;
-import org.motechproject.whp.reports.domain.CallLog;
+import org.motechproject.whp.reports.domain.measure.CallLog;
 
 public class CallLogBuilder {
 
@@ -45,4 +45,5 @@ public class CallLogBuilder {
         callLog.setDurationInSeconds(seconds);
         return callLog;
     }
+
 }

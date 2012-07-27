@@ -1,6 +1,8 @@
-package org.motechproject.whp.reports.domain;
+package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,4 +32,18 @@ public class CallLog {
 
     @Column(name = "duration")
     private long durationInSeconds;
+
+    @Column(name = "call_status")
+    private String callStatus;
+
+    @Column(name = "adherence_status")
+    private String adherenceStatus;
+
+    public void setEndTime(Date endDate) {
+        if (null != startTime) {
+            Period period = new Period(new DateTime(startTime), new DateTime(endDate));
+            durationInSeconds = period.getSeconds();
+        }
+        this.endTime = endDate;
+    }
 }
