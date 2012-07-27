@@ -12,6 +12,7 @@ public class CallLogService {
 
     private AllCallLogs allCallLogs;
 
+    /*Required for spring proxy*/
     CallLogService() {
     }
 

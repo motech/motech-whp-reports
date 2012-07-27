@@ -13,6 +13,7 @@
 
     <properties>
         <build.dir>../build</build.dir>
+        <build.xml>${project.basedir}/../build/build.xml</build.xml>
     </properties>
 
     <dependencies>
@@ -102,11 +103,82 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.googlecode.flyway</groupId>
+            <artifactId>flyway-ant</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>recreate-Db</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target>
+                                <property name="runtime-classpath" refid="maven.test.classpath"/>
+                                <echo message="Cleaning existing schema : START"/>
+                                <ant antfile="${build.xml}" target="clean.existing.schema"/>
+                                <echo message="Cleaning existing schema : FINISHED"/>
+
+                                <echo message="Setting up schema : START"/>
+                                <ant antfile="${build.xml}" target="setup.schema"/>
+                                <echo message="Setting up schema : FINISHED"/>
+
+                                <echo message="Initializing schema : START"/>
+                                <ant antfile="${build.xml}" target="init.schema"/>
+                                <echo message="Initializing schema : FINISHED"/>
+
+                                <echo message="Migrating existing data : START "/>
+                                <ant antfile="${build.xml}" target="migrate.data"/>
+                                <echo message="Migrating existing data : FINISHED"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>bootstrap</id>
+            <build>
+                <defaultGoal>antrun:run</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <configuration>
+                            <target name="clean">
+                                <property name="runtime-classpath" refid="maven.test.classpath"/>
+                                <echo message="Dropping existing Database"/>
+                                <ant antfile="${build.xml}" target="drop.db"/>
+                                <echo message="Dropping existing FINISHED"/>
+                                <echo message="Creating Database : START"/>
+                                <ant antfile="${build.xml}" target="create.db"/>
+                                <echo message="Creating Database : FINISHED"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -12,6 +12,7 @@ public class PatientAdherenceSubmissionService {
 
     private AllPatientAdherenceSubmissions adherenceSubmissions;
 
+    /*Required for spring proxy*/
     PatientAdherenceSubmissionService() {
     }
 

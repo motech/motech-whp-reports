@@ -15,7 +15,6 @@
 
     <properties>
         <jetty.port>9999</jetty.port>
-        <build.xml>${project.basedir}/../build/build.xml</build.xml>
     </properties>
 
     <dependencies>
@@ -187,88 +186,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>clean.data</id>
-            <build>
-                <defaultGoal>antrun:run</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-
-                        <configuration>
-                            <target name="clean">
-                                <property name="runtime-classpath" refid="maven.test.classpath"/>
-
-                                <echo message="Cleaning existing schema : START"/>
-                                <ant antfile="${build.xml}" target="clean.existing.schema"/>
-                                <echo message="Cleaning existing schema : FINISHED"/>
-
-                                <echo message="Setting up schema : START"/>
-                                <ant antfile="${build.xml}" target="setup.schema"/>
-                                <echo message="Setting up schema : FINISHED"/>
-
-                                <echo message="Initializing schema : START"/>
-                                <ant antfile="${build.xml}" target="init.schema"/>
-                                <echo message="Initializing schema : FINISHED"/>
-
-                                <echo message="Migrating existing data : START "/>
-                                <ant antfile="${build.xml}" target="migrate.data"/>
-                                <echo message="Migrating existing data : FINISHED"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>com.googlecode.flyway</groupId>
-                    <artifactId>flyway-ant</artifactId>
-                    <version>1.7</version>
-                </dependency>
-                <dependency>
-                    <groupId>ant-contrib</groupId>
-                    <artifactId>ant-contrib</artifactId>
-                    <version>1.0b2</version>
-                </dependency>
-            </dependencies>
-
-        </profile>
-        <profile>
-            <id>bootstrap</id>
-            <build>
-                <defaultGoal>antrun:run</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-
-                        <configuration>
-                            <target name="clean">
-                                <property name="runtime-classpath" refid="maven.test.classpath"/>
-
-                                <echo message="Dropping existing Database"/>
-                                <ant antfile="${build.xml}" target="drop.db"/>
-                                <echo message="Dropping existing FINISHED"/>
-
-                                <echo message="Creating Database : START"/>
-                                <ant antfile="${build.xml}" target="create.db"/>
-                                <echo message="Creating Database : FINISHED"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-
 </project>
