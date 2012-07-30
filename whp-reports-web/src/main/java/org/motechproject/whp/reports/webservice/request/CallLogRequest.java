@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.webservice.request;
 
 import lombok.Data;
+import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 
 import java.util.Date;
@@ -15,8 +16,8 @@ public class CallLogRequest {
     public CallLog createCallLog() {
         CallLog callLog = new CallLog();
         callLog.setCalledBy(calledBy);
-        callLog.setStartTime(startTime);
-        callLog.setEndTime(endTime);
+        callLog.setStartTime(new DateTimeDimension(startTime));
+        callLog.setEndTime(new DateTimeDimension(endTime));
         callLog.setProviderId(providerId);
         return callLog;
     }

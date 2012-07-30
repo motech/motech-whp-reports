@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationReportingDomainContext.xml")
 @Transactional
@@ -21,9 +23,16 @@ public abstract class IntegrationTest<T> {
 
     private List<Object> toDelete = new ArrayList<Object>();
 
-    protected T purge(T entity) {
+    public T purge(T entity) {
         toDelete.add(entity);
         return entity;
+    }
+
+    public List<T> purge(T... entities) {
+        for (T entity : entities) {
+            purge(entity);
+        }
+        return asList(entities);
     }
 
     @After

@@ -1,14 +1,14 @@
 package org.motechproject.whp.reports.builder;
 
-import org.joda.time.DateTime;
+import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 
 public class CallLogBuilder {
 
     private String provideId;
     private String calledBy;
-    private DateTime from;
-    private DateTime till;
+    private DateTimeDimension from;
+    private DateTimeDimension till;
     private int seconds;
 
     public static CallLogBuilder newCallLog() {
@@ -25,14 +25,14 @@ public class CallLogBuilder {
         return this;
     }
 
-    public CallLogBuilder starting(DateTime from) {
+    public CallLogBuilder starting(DateTimeDimension from) {
         this.from = from;
         return this;
     }
 
     public CallLogBuilder forSeconds(int seconds) {
         this.seconds = seconds;
-        this.till = from.plusSeconds(seconds);
+        this.till = new DateTimeDimension(from.toDateTime().plusSeconds(seconds).toDate());
         return this;
     }
 
@@ -40,8 +40,8 @@ public class CallLogBuilder {
         CallLog callLog = new CallLog();
         callLog.setProviderId(provideId);
         callLog.setCalledBy(calledBy);
-        callLog.setStartTime(from.toDate());
-        callLog.setEndTime(till.toDate());
+        callLog.setStartTime(from);
+        callLog.setEndTime(till);
         callLog.setDurationInSeconds(seconds);
         return callLog;
     }

@@ -19,6 +19,7 @@
             <list>
                 <value>org.motechproject.whp.reports.domain.measure.CallLog</value>
                 <value>org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission</value>
+                <value>org.motechproject.whp.reports.domain.dimension.DateTimeDimension</value>
             </list>
         </property>
 

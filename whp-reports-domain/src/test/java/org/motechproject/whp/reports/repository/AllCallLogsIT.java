@@ -1,8 +1,8 @@
 package org.motechproject.whp.reports.repository;
 
-import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
+import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,22 +10,26 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
+import static org.motechproject.whp.reports.builder.DateTimeDimensionBuilder.newDateTimeDimension;
 
-public class AllCallLogsIT extends IntegrationTest<CallLog> {
+public class AllCallLogsIT extends IntegrationTest<Object> {
 
     @Autowired
     AllCallLogs allCallLogs;
+
+    @Autowired
+    DataAccessTemplate template;
 
     @Test
     public void shouldCreateCallLog() {
         CallLog callLog = newCallLog()
                 .forProvider("providerId")
                 .withNumber("provider")
-                .starting(new DateTime())
+                .starting((DateTimeDimension) purge(newDateTimeDimension().create(template, null)))
                 .forSeconds(20)
                 .build();
 
-        allCallLogs.save(purge(callLog));
+        allCallLogs.save((CallLog) purge(callLog));
         assertNotNull(callLog.getId());
     }
 
@@ -34,11 +38,11 @@ public class AllCallLogsIT extends IntegrationTest<CallLog> {
         CallLog callLog = newCallLog()
                 .forProvider("providerId")
                 .withNumber("provider")
-                .starting(new DateTime())
+                .starting((DateTimeDimension) purge(newDateTimeDimension().create(template, null)))
                 .forSeconds(20)
                 .build();
 
-        allCallLogs.save(purge(callLog));
+        allCallLogs.save((CallLog) purge(callLog));
 
         String cmfAdmin = "cmfAdmin";
         callLog.setCalledBy(cmfAdmin);

@@ -1,11 +1,9 @@
 package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
-import org.joda.time.DateTime;
-import org.joda.time.Period;
+import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
 
 import javax.persistence.*;
-import java.util.Date;
 
 //Encapsulates call details
 @Data
@@ -21,11 +19,13 @@ public class CallLog {
     @Column(name = "provider_id")
     private String providerId;
 
-    @Column(name = "start_time")
-    private Date startTime;
+    @ManyToOne
+    @JoinColumn(name = "start_time")
+    private DateTimeDimension startTime;
 
-    @Column(name = "end_time")
-    private Date endTime;
+    @ManyToOne
+    @JoinColumn(name = "end_time")
+    private DateTimeDimension endTime;
 
     @Column(name = "called_by")
     private String calledBy;
@@ -39,11 +39,10 @@ public class CallLog {
     @Column(name = "adherence_status")
     private String adherenceStatus;
 
-    public void setEndTime(Date endDate) {
+    public void setEndTime(DateTimeDimension endTime) {
         if (null != startTime) {
-            Period period = new Period(new DateTime(startTime), new DateTime(endDate));
-            durationInSeconds = period.getSeconds();
+            durationInSeconds = endTime.differenceInSeconds(startTime);
         }
-        this.endTime = endDate;
+        this.endTime = endTime;
     }
 }

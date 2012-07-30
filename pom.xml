@@ -132,6 +132,7 @@
         </plugins>
     </build>
 
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -189,6 +190,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -347,5 +353,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>

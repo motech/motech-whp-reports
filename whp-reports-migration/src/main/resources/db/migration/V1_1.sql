@@ -1,8 +1,8 @@
 CREATE TABLE whp_reports.call_log (
     call_log_id serial NOT NULL,
     provider_id varchar(20),
-    start_time timestamp,
-    end_time timestamp,
+    start_time numeric,
+    end_time numeric,
     duration numeric,
     called_by varchar(20),
     call_status varchar(10),
@@ -29,4 +29,15 @@ CREATE TABLE whp_reports.patient_adherence_submission (
     submitted_by varchar(10),
     valid varchar(10),
     call_id varchar(20)
+);
+
+CREATE TABLE whp_reports.date_time (
+    id serial NOT NULL,
+    dt_year numeric,
+    dt_month numeric,
+    dt_week numeric,
+    dt_day numeric,
+    dt_hour numeric,
+    dt_minute numeric,
+    dt_second numeric
 );
