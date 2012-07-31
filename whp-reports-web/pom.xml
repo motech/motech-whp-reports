@@ -101,8 +101,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -157,6 +155,8 @@
                 <version>2.1.1</version>
                 <configuration>
                     <warName>whp-reports-${version}</warName>
+                    <attachClasses>true</attachClasses>
+                    <classesClassifier>classes</classesClassifier>
                 </configuration>
             </plugin>
             <plugin>
