@@ -2,6 +2,14 @@ package org.motechproject.whp.reports.builder;
 
 import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CallLogBuilder {
 
@@ -45,5 +53,4 @@ public class CallLogBuilder {
         callLog.setDurationInSeconds(seconds);
         return callLog;
     }
-
 }

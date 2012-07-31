@@ -52,6 +52,7 @@ public class DateTimeDimensionBuilder {
                 return dimension;
             }
         });
+
         return dimension;
     }
 

@@ -15,9 +15,6 @@ import static org.motechproject.whp.reports.builder.DateTimeDimensionBuilder.new
 public class AllCallLogsIT extends IntegrationTest<Object> {
 
     @Autowired
-    AllCallLogs allCallLogs;
-
-    @Autowired
     DataAccessTemplate template;
 
     @Test
@@ -29,7 +26,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .forSeconds(20)
                 .build();
 
-        allCallLogs.save((CallLog) purge(callLog));
+        saveOrUpdate(callLog);
         assertNotNull(callLog.getId());
     }
 
@@ -42,11 +39,11 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .forSeconds(20)
                 .build();
 
-        allCallLogs.save((CallLog) purge(callLog));
+        saveOrUpdate(callLog);
 
         String cmfAdmin = "cmfAdmin";
         callLog.setCalledBy(cmfAdmin);
-        allCallLogs.save(callLog);
+        saveOrUpdate(callLog);
 
         CallLog callLogFromDB = template.get(CallLog.class, callLog.getId());
 

@@ -5,7 +5,6 @@ import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
 
 import javax.persistence.*;
 
-//Encapsulates call details
 @Data
 @Entity
 @Table(name = "call_log", uniqueConstraints = {@UniqueConstraint(columnNames = {"call_log_id"})})
@@ -19,11 +18,11 @@ public class CallLog {
     @Column(name = "provider_id")
     private String providerId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "start_time")
     private DateTimeDimension startTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_time")
     private DateTimeDimension endTime;
 
