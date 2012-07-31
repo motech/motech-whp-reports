@@ -31,7 +31,7 @@ public class AllPatientAdherenceSubmissionsIT extends IntegrationTest<PatientAdh
     }
 
     @Test
-    public void shouldCreateCallLog() {
+    public void shouldCreateAdherenceSubmission() {
         adherenceSubmissions.save(purge(submission));
         assertNotNull(submission.getId());
     }
