@@ -1,8 +1,8 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 
-import org.motechproject.whp.reports.service.CallLogService;
-import org.motechproject.whp.reports.webservice.request.CallLogRequest;
+import org.motechproject.whp.reports.service.PatientAdherenceSubmissionService;
+import org.motechproject.whp.reports.webservice.request.AdherenceCaptureRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/adherence")
 public class AdherenceCaptureController extends BaseController {
 
-    CallLogService callLogService;
+    PatientAdherenceSubmissionService adherenceSubmissionService;
 
     @Autowired
-    public AdherenceCaptureController(CallLogService callLogService) {
-        this.callLogService = callLogService;
+    public AdherenceCaptureController(PatientAdherenceSubmissionService adherenceSubmissionService) {
+        this.adherenceSubmissionService = adherenceSubmissionService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "callLogs")
-    public void callLogs(@RequestBody CallLogRequest callLogRequest) {
-        callLogService.save(callLogRequest.createCallLog());
+    @RequestMapping(method = RequestMethod.POST, value = "measure")
+    public void callLogs(@RequestBody AdherenceCaptureRequest adherenceRequest) {
+        adherenceSubmissionService.save(adherenceRequest.buildAdherenceSubmission());
     }
 }

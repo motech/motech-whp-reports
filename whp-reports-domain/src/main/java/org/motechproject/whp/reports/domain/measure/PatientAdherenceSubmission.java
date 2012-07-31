@@ -28,7 +28,7 @@ public class PatientAdherenceSubmission {
     private String patientId;
 
     @Column(name = "submitted_value")
-    private Integer submitted_value;
+    private Integer submittedValue;
 
     @Column(name = "provider_id")
     private String providerId;

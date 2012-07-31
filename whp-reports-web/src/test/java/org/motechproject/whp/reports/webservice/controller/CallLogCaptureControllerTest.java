@@ -4,12 +4,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
-import org.motechproject.whp.reports.service.PatientAdherenceSubmissionService;
-import org.motechproject.whp.reports.webservice.request.AdherenceCaptureRequest;
+import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.service.CallLogService;
+import org.motechproject.whp.reports.webservice.request.CallLogRequest;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
+import java.util.Date;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -19,40 +20,42 @@ import static org.springframework.test.web.server.request.MockMvcRequestBuilders
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
-public class AdherenceCaptureControllerTest {
+public class CallLogCaptureControllerTest {
 
     @Mock
-    private PatientAdherenceSubmissionService adherenceSubmissionService;
+    private CallLogService callLogService;
 
-    private AdherenceCaptureController controller;
+    private CallLogCaptureController controller;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new AdherenceCaptureController(adherenceSubmissionService);
+        controller = new CallLogCaptureController(callLogService);
     }
 
     @Test
-    public void shouldCaptureAdherenceSubmission() throws Exception {
-        AdherenceCaptureRequest request = new AdherenceCaptureRequest();
-        request.setCallId("callId");
+    public void shouldHandleCallLogRequest() throws Exception {
+        CallLogRequest callLogRequest = new CallLogRequest();
+        callLogRequest.setCalledBy("caller");
+        callLogRequest.setProviderId("providerId");
+        callLogRequest.setStartTime(new Date());
+        callLogRequest.setEndTime(new Date());
 
-        String requestJson = getJSON(request);
+        String requestJson = getJSON(callLogRequest);
         standaloneSetup(controller).build()
-                .perform(post("/adherence/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/calllog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(adherenceSubmissionService).save(request.buildAdherenceSubmission());
+        verify(callLogService).save(callLogRequest.createCallLog());
     }
 
     @Test
     public void shouldRespondWithNotOkayIfServiceThrowsAnException() throws Exception {
-        AdherenceCaptureRequest request = new AdherenceCaptureRequest();
-        request.setCallId("callId");
-        String requestJson = getJSON(request);
+        CallLogRequest callLogRequest = new CallLogRequest();
+        String requestJson = getJSON(callLogRequest);
 
-        doThrow(new RuntimeException()).when(adherenceSubmissionService).save(any(PatientAdherenceSubmission.class));
+        doThrow(new RuntimeException()).when(callLogService).save(any(CallLog.class));
         standaloneSetup(controller).build()
-                .perform(post("/adherence/measure")
+                .perform(post("/calllog/measure")
                         .body(requestJson.getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
