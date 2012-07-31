@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.dataservice;
 
-import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
+import org.motechproject.whp.reports.domain.dimension.DateDimension;
 import org.motechproject.whp.reports.repository.DataAccessTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +30,8 @@ public class DateTimeDimensionService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public List<DateTimeDimension> save(final DateTimeDimension... dimensions) {
-        for (final DateTimeDimension entity : dimensions) {
+    public List<DateDimension> save(final DateDimension... dimensions) {
+        for (final DateDimension entity : dimensions) {
             template.saveOrUpdate(entity);
         }
         return asList(dimensions);

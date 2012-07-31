@@ -2,7 +2,7 @@ package org.motechproject.whp.reports.repository;
 
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
-import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
+import org.motechproject.whp.reports.domain.dimension.DateDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
-import static org.motechproject.whp.reports.builder.DateTimeDimensionBuilder.newDateTimeDimension;
+import static org.motechproject.whp.reports.builder.DateDimensionBuilder.newDateTimeDimension;
 
 public class AllCallLogsIT extends IntegrationTest<Object> {
 
@@ -22,8 +22,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
         CallLog callLog = newCallLog()
                 .forProvider("providerId")
                 .withNumber("provider")
-                .starting((DateTimeDimension) purge(newDateTimeDimension().create(template, null)))
-                .forSeconds(20)
+                .starting((DateDimension) purge(newDateTimeDimension().create(template, null)))
                 .build();
 
         saveOrUpdate(callLog);
@@ -35,8 +34,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
         CallLog callLog = newCallLog()
                 .forProvider("providerId")
                 .withNumber("provider")
-                .starting((DateTimeDimension) purge(newDateTimeDimension().create(template, null)))
-                .forSeconds(20)
+                .starting((DateDimension) purge(newDateTimeDimension().create(template, null)))
                 .build();
 
         saveOrUpdate(callLog);

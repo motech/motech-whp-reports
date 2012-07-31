@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
-import org.motechproject.whp.reports.domain.dimension.DateTimeDimension;
+import org.motechproject.whp.reports.domain.dimension.DateDimension;
 
 import javax.persistence.*;
 
@@ -20,17 +20,14 @@ public class CallLog {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "start_time")
-    private DateTimeDimension startTime;
+    private DateDimension startTime;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_time")
-    private DateTimeDimension endTime;
+    private DateDimension endTime;
 
     @Column(name = "called_by")
     private String calledBy;
-
-    @Column(name = "duration")
-    private long durationInSeconds;
 
     @Column(name = "call_status")
     private String callStatus;
@@ -38,10 +35,4 @@ public class CallLog {
     @Column(name = "adherence_status")
     private String adherenceStatus;
 
-    public void setEndTime(DateTimeDimension endTime) {
-        if (null != startTime) {
-            durationInSeconds = endTime.differenceInSeconds(startTime);
-        }
-        this.endTime = endTime;
-    }
 }

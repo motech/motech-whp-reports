@@ -3,7 +3,6 @@ CREATE TABLE whp_reports.call_log (
     provider_id varchar(20),
     start_time numeric,
     end_time numeric,
-    duration numeric,
     called_by varchar(20),
     call_status varchar(10),
     adherence_status varchar(10)
@@ -31,13 +30,10 @@ CREATE TABLE whp_reports.patient_adherence_submission (
     call_id varchar(20)
 );
 
-CREATE TABLE whp_reports.date_time (
+CREATE TABLE whp_reports.date_dimension (
     id serial NOT NULL,
     dt_year numeric,
     dt_month numeric,
     dt_week numeric,
     dt_day numeric,
-    dt_hour numeric,
-    dt_minute numeric,
-    dt_second numeric
 );
