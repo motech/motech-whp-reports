@@ -35,5 +35,5 @@ CREATE TABLE whp_reports.date_dimension (
     dt_year numeric,
     dt_month numeric,
     dt_week numeric,
-    dt_day numeric,
+    dt_day numeric
 );

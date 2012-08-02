@@ -96,15 +96,6 @@
     </pluginRepositories>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.googlecode.flyway</groupId>
-                    <artifactId>flyway-ant</artifactId>
-                    <version>1.7</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -170,11 +161,6 @@
             <dependency>
                 <groupId>com.googlecode.flyway</groupId>
                 <artifactId>flyway-core</artifactId>
-                <version>1.7</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.flyway</groupId>
-                <artifactId>flyway-ant</artifactId>
                 <version>1.7</version>
             </dependency>
             <dependency>

@@ -14,7 +14,7 @@ SET client_min_messages = warning;
 -- Name: report; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
-DROP SCHEMA whp_reports cascade;
+DROP SCHEMA IF EXISTS whp_reports cascade;
 
 CREATE SCHEMA whp_reports;
 

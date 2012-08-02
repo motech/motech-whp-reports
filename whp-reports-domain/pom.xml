@@ -13,13 +13,17 @@
 
     <properties>
         <build.dir>../build</build.dir>
-        <build.xml>${project.basedir}/../build/build.xml</build.xml>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>whp-reports-contract</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.motechproject.whp.reports</groupId>
+            <artifactId>whp-reports-migration</artifactId>
         </dependency>
 
         <dependency>
@@ -117,10 +121,6 @@
             <artifactId>commons-dbcp</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.flyway</groupId>
-            <artifactId>flyway-ant</artifactId>
-        </dependency>
-        <dependency>
             <groupId>ant-contrib</groupId>
             <artifactId>ant-contrib</artifactId>
         </dependency>
@@ -128,58 +128,62 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
+                <groupId>com.googlecode.flyway</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>1.6.1</version>
                 <executions>
                     <execution>
-                        <id>recreate-Db</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target>
-                                <property name="runtime-classpath" refid="maven.test.classpath"/>
-                                <echo message="Cleaning existing schema : START"/>
-                                <ant antfile="${build.xml}" target="clean.existing.schema"/>
-                                <echo message="Cleaning existing schema : FINISHED"/>
-
-                                <echo message="Setting up schema : START"/>
-                                <ant antfile="${build.xml}" target="setup.schema"/>
-                                <echo message="Setting up schema : FINISHED"/>
-
-                                <echo message="Initializing schema : START"/>
-                                <ant antfile="${build.xml}" target="init.schema"/>
-                                <echo message="Initializing schema : FINISHED"/>
-
-                                <echo message="Migrating existing data : START "/>
-                                <ant antfile="${build.xml}" target="migrate.data"/>
-                                <echo message="Migrating existing data : FINISHED"/>
-                            </target>
-                        </configuration>
+                        <id>process-resources2</id>
                         <goals>
-                            <goal>run</goal>
+                            <goal>migrate</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                     </execution>
                 </executions>
+                <configuration>
+                    <user>postgres</user>
+                    <password>p@ssw0rd</password>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost/whp/;shutdown=true</url>
+                    <schemas>whp_reports</schemas>
+                    <locations>
+                        <location>db/migration</location>
+                    </locations>
+                </configuration>
             </plugin>
         </plugins>
     </build>
     <profiles>
         <profile>
-            <id>bootstrap</id>
+            <id>create.db</id>
             <build>
                 <defaultGoal>antrun:run</defaultGoal>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                            </execution>
+                        </executions>
                         <configuration>
-                            <target name="clean">
-                                <property name="runtime-classpath" refid="maven.test.classpath"/>
-                                <echo message="Dropping existing Database"/>
-                                <ant antfile="${build.xml}" target="drop.db"/>
-                                <echo message="Dropping existing FINISHED"/>
-                                <echo message="Creating Database : START"/>
-                                <ant antfile="${build.xml}" target="create.db"/>
-                                <echo message="Creating Database : FINISHED"/>
+                            <target name = "init">
+                                <echo message="init db"/>
+                                <exec executable="dropdb">
+                                    <arg line="-U postgres whp"/>
+                                </exec>
+
+                                <exec executable="createdb">
+                                    <arg line="-U postgres whp"/>
+                                </exec>
+                                <echo message="Setting up schema"/>
+                                <exec executable="psql">
+                                    <arg line="-U postgres"/>
+                                    <arg line="-d whp"/>
+                                    <arg line="-f  ${project.basedir}/../whp-reports-migration/src/main/resources/db/setup/base_setup.sql"/>
+                                </exec>
                             </target>
                         </configuration>
                         <goals>
