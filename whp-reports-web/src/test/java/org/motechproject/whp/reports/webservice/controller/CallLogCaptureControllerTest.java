@@ -4,9 +4,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.contract.CallLogRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.service.CallLogService;
-import org.motechproject.whp.reports.webservice.request.CallLogRequest;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
@@ -43,9 +44,9 @@ public class CallLogCaptureControllerTest {
 
         String requestJson = getJSON(callLogRequest);
         standaloneSetup(controller).build()
-                .perform(post("/calllog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/callLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(callLogService).save(callLogRequest.createCallLog());
+        verify(callLogService).save(DomainBuilder.buildCallLog(callLogRequest));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class CallLogCaptureControllerTest {
 
         doThrow(new RuntimeException()).when(callLogService).save(any(CallLog.class));
         standaloneSetup(controller).build()
-                .perform(post("/calllog/measure")
+                .perform(post("/callLog/measure")
                         .body(requestJson.getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )

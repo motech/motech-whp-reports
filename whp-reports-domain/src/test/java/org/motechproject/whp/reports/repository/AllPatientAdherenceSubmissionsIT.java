@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.repository;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
+import org.motechproject.whp.reports.builder.PatientAdherenceSubmissionBuilder;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 import org.springframework.beans.factory.annotation.Autowired;
 

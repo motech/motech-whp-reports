@@ -1,8 +1,9 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 
+import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.service.PatientAdherenceSubmissionService;
-import org.motechproject.whp.reports.webservice.request.AdherenceCaptureRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,6 @@ public class AdherenceCaptureController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "measure")
     public void callLogs(@RequestBody AdherenceCaptureRequest adherenceRequest) {
-        adherenceSubmissionService.save(adherenceRequest.buildAdherenceSubmission());
+        adherenceSubmissionService.save(DomainBuilder.buildAdherenceSubmission(adherenceRequest));
     }
 }

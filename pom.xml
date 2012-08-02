@@ -12,6 +12,7 @@
         <module>whp-reports-migration</module>
         <module>whp-reports-domain</module>
         <module>whp-reports-web</module>
+        <module>whp-reports-contract</module>
     </modules>
 
     <properties>
@@ -135,6 +136,22 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>whp-reports-migration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>whp-reports-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>whp-reports-contract</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
             <dependency>
                 <groupId>javax.transaction</groupId>
                 <artifactId>jta</artifactId>

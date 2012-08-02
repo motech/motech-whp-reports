@@ -4,9 +4,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 import org.motechproject.whp.reports.service.PatientAdherenceSubmissionService;
-import org.motechproject.whp.reports.webservice.request.AdherenceCaptureRequest;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class AdherenceCaptureControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/adherence/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(adherenceSubmissionService).save(request.buildAdherenceSubmission());
+        verify(adherenceSubmissionService).save(DomainBuilder.buildAdherenceSubmission(request));
     }
 
     @Test

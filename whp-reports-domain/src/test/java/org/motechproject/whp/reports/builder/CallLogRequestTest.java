@@ -1,6 +1,7 @@
-package org.motechproject.whp.reports.webservice.request;
+package org.motechproject.whp.reports.builder;
 
 import org.junit.Test;
+import org.motechproject.whp.reports.contract.CallLogRequest;
 import org.motechproject.whp.reports.domain.dimension.DateDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 
@@ -19,7 +20,7 @@ public class CallLogRequestTest {
         callLogRequest.setStartTime(new Date());
         callLogRequest.setEndTime(new Date());
 
-        CallLog callLog = callLogRequest.createCallLog();
+        CallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
         assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
         assertThat(callLog.getEndTime(), is(new DateDimension(callLogRequest.getEndTime())));
         assertThat(callLog.getStartTime(), is(new DateDimension(callLogRequest.getEndTime())));

@@ -20,13 +20,15 @@
     <dependencies>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
+            <artifactId>whp-reports-contract</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>whp-reports-migration</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>whp-reports-domain</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.flyway</groupId>
