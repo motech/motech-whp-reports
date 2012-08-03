@@ -125,7 +125,7 @@
                         <goals>
                             <goal>migrate</goal>
                         </goals>
-                        <phase>generate-sources</phase>
+                        <phase>pre-integration-test</phase>
                     </execution>
                 </executions>
                 <configuration>

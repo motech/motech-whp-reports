@@ -1,13 +1,15 @@
 package org.motechproject.whp.reports.builder;
 
-import org.motechproject.whp.reports.domain.dimension.DateDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class CallLogBuilder {
 
     private String provideId;
     private String calledBy;
-    private DateDimension from;
+    private Date from;
 
     public static CallLogBuilder newCallLog() {
         return new CallLogBuilder();
@@ -23,7 +25,7 @@ public class CallLogBuilder {
         return this;
     }
 
-    public CallLogBuilder starting(DateDimension from) {
+    public CallLogBuilder starting(Date from) {
         this.from = from;
         return this;
     }
@@ -32,7 +34,8 @@ public class CallLogBuilder {
         CallLog callLog = new CallLog();
         callLog.setProviderId(provideId);
         callLog.setCalledBy(calledBy);
-        callLog.setStartTime(from);
+        callLog.setStartDateTime(new Timestamp(from.getTime()));
+        callLog.setStartDate(new java.sql.Date(from.getTime()));
         return callLog;
     }
 }

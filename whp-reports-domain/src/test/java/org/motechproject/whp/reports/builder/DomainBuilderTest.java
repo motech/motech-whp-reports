@@ -1,29 +1,36 @@
 package org.motechproject.whp.reports.builder;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.domain.dimension.DateDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class CallLogRequestTest {
+public class DomainBuilderTest {
 
     @Test
     public void shouldCreateCallLog() {
+        DateTime startTime = new DateTime().minusMinutes(10);
+        DateTime endTime = new DateTime();
         CallLogRequest callLogRequest = new CallLogRequest();
         callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
-        callLogRequest.setStartTime(new Date());
-        callLogRequest.setEndTime(new Date());
+        callLogRequest.setStartTime(startTime.toDate());
+        callLogRequest.setEndTime(endTime.toDate());
 
         CallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
+
         assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
-        assertThat(callLog.getEndTime(), is(new DateDimension(callLogRequest.getEndTime())));
-        assertThat(callLog.getStartTime(), is(new DateDimension(callLogRequest.getEndTime())));
+        assertThat(callLog.getStartDate(), is(new Date(callLogRequest.getStartTime().getTime())));
+        assertThat(callLog.getStartDateTime(), is(new Timestamp(callLogRequest.getStartTime().getTime())));
+        assertThat(callLog.getEndDate(), is(new Date(callLogRequest.getEndTime().getTime())));
+        assertThat(callLog.getEndDateTime(), is(new Timestamp(callLogRequest.getEndTime().getTime())));
         assertThat(callLog.getProviderId(), is(callLogRequest.getProviderId()));
     }
+
 }

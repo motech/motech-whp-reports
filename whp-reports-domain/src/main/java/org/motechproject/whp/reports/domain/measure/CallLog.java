@@ -1,9 +1,10 @@
 package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
-import org.motechproject.whp.reports.domain.dimension.DateDimension;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -18,13 +19,17 @@ public class CallLog {
     @Column(name = "provider_id")
     private String providerId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "start_time")
-    private DateDimension startTime;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "end_time")
-    private DateDimension endTime;
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "start_date_time")
+    private Timestamp startDateTime;
+
+    @Column(name = "end_date_time")
+    private Timestamp endDateTime;
 
     @Column(name = "called_by")
     private String calledBy;

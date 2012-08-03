@@ -6,6 +6,9 @@ import org.motechproject.whp.reports.domain.dimension.DateDimension;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 public class DomainBuilder {
@@ -19,9 +22,12 @@ public class DomainBuilder {
     public static CallLog buildCallLog(CallLogRequest callLogRequest){
             CallLog callLog = new CallLog();
             callLog.setCalledBy(callLogRequest.getCalledBy());
-            callLog.setStartTime(new DateDimension(callLogRequest.getStartTime()));
-            callLog.setEndTime(new DateDimension(callLogRequest.getEndTime()));
+            callLog.setStartDate(new Date(callLogRequest.getStartTime().getTime()));
+            callLog.setStartDateTime(new Timestamp(callLogRequest.getStartTime().getTime()));
+            callLog.setEndDate(new Date(callLogRequest.getEndTime().getTime()));
+            callLog.setEndDateTime(new Timestamp(callLogRequest.getEndTime().getTime()));
             callLog.setProviderId(callLogRequest.getProviderId());
+
             return callLog;
     }
 

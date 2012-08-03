@@ -4,7 +4,7 @@ import lombok.Data;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Data
@@ -15,6 +15,9 @@ public class DateDimension {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @Column(name = "dt_date")
+    private Date date;
 
     @Column(name = "dt_year")
     private Integer year;
@@ -31,8 +34,9 @@ public class DateDimension {
     public DateDimension() {
     }
 
-    public DateDimension(Date date) {
+    public DateDimension(java.util.Date date) {
         DateTime dateTime = new DateTime(date);
+        this.date = new java.sql.Date(date.getTime());
         year = dateTime.getYear();
         month = dateTime.getMonthOfYear();
         week = dateTime.getWeekOfWeekyear();
