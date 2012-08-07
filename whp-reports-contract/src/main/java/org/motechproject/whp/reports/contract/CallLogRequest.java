@@ -11,4 +11,7 @@ public class CallLogRequest  implements Serializable {
     private Date startTime;
     private Date endTime;
     private String calledBy;
+    private Integer totalPatients;
+    private Integer adherenceCaptured;
+    private Integer adherenceNotCaptured;
 }

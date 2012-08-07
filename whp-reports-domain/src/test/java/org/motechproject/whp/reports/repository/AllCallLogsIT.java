@@ -16,7 +16,7 @@ import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
 public class AllCallLogsIT extends IntegrationTest<Object> {
 
     @Autowired
-    DataAccessTemplate template;
+    AllCallLogs allCallLogs;
 
     @Test
     @Transactional
@@ -25,10 +25,16 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .forProvider("providerId")
                 .withNumber("provider")
                 .starting(new Date())
+                .withTotalPatients(10)
+                .withAdherenceCaptured(4)
+                .withAdherenceNotCaptured(6)
                 .build();
 
-        saveOrUpdate(callLog);
+        allCallLogs.save(callLog);
         assertNotNull(callLog.getId());
+
+        CallLog callLogFromDB = allCallLogs.get(callLog.getId());
+        assertThat(callLogFromDB, is(callLog));
     }
 
     @Test
@@ -40,13 +46,13 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .starting(new Date())
                 .build();
 
-        saveOrUpdate(callLog);
+        allCallLogs.save(callLog);
 
         String cmfAdmin = "cmfAdmin";
         callLog.setCalledBy(cmfAdmin);
-        saveOrUpdate(callLog);
+        allCallLogs.save(callLog);
 
-        CallLog callLogFromDB = template.get(CallLog.class, callLog.getId());
+        CallLog callLogFromDB = allCallLogs.get(callLog.getId());
 
         assertThat(callLogFromDB.getCalledBy(), is(cmfAdmin));
     }

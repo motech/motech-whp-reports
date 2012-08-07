@@ -37,7 +37,13 @@ public class CallLog {
     @Column(name = "call_status")
     private String callStatus;
 
-    @Column(name = "adherence_status")
-    private String adherenceStatus;
+    @Column(name = "patient_count")
+    private Integer totalPatients;
+
+    @Column(name = "adherence_captured_count")
+    private Integer adherenceCaptured;
+
+    @Column(name = "adherence_not_captured_count")
+    private Integer adherenceNotCaptured;
 
 }

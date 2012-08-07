@@ -27,6 +27,9 @@ public class DomainBuilder {
             callLog.setEndDate(new Date(callLogRequest.getEndTime().getTime()));
             callLog.setEndDateTime(new Timestamp(callLogRequest.getEndTime().getTime()));
             callLog.setProviderId(callLogRequest.getProviderId());
+            callLog.setTotalPatients(callLogRequest.getTotalPatients());
+            callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
+            callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
 
             return callLog;
     }

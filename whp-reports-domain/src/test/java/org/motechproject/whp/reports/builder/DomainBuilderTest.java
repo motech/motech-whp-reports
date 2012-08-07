@@ -22,6 +22,9 @@ public class DomainBuilderTest {
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(startTime.toDate());
         callLogRequest.setEndTime(endTime.toDate());
+        callLogRequest.setTotalPatients(12);
+        callLogRequest.setAdherenceCaptured(4);
+        callLogRequest.setAdherenceNotCaptured(8);
 
         CallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
 
@@ -31,6 +34,9 @@ public class DomainBuilderTest {
         assertThat(callLog.getEndDate(), is(new Date(callLogRequest.getEndTime().getTime())));
         assertThat(callLog.getEndDateTime(), is(new Timestamp(callLogRequest.getEndTime().getTime())));
         assertThat(callLog.getProviderId(), is(callLogRequest.getProviderId()));
+        assertThat(callLog.getTotalPatients(), is(callLogRequest.getTotalPatients()));
+        assertThat(callLog.getAdherenceCaptured(), is(callLogRequest.getAdherenceCaptured()));
+        assertThat(callLog.getAdherenceNotCaptured(), is(callLogRequest.getAdherenceNotCaptured()));
     }
 
 }

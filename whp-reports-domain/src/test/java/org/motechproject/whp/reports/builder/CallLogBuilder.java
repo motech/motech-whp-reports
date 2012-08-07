@@ -7,16 +7,19 @@ import java.util.Date;
 
 public class CallLogBuilder {
 
-    private String provideId;
+    private String providerId;
     private String calledBy;
     private Date from;
+    private int totalPatients;
+    private int adherenceCaptured;
+    private int adherenceNotCaptured;
 
     public static CallLogBuilder newCallLog() {
         return new CallLogBuilder();
     }
 
     public CallLogBuilder forProvider(String provideId) {
-        this.provideId = provideId;
+        this.providerId = provideId;
         return this;
     }
 
@@ -32,10 +35,25 @@ public class CallLogBuilder {
 
     public CallLog build() {
         CallLog callLog = new CallLog();
-        callLog.setProviderId(provideId);
+        callLog.setProviderId(providerId);
         callLog.setCalledBy(calledBy);
         callLog.setStartDateTime(new Timestamp(from.getTime()));
         callLog.setStartDate(new java.sql.Date(from.getTime()));
         return callLog;
+    }
+
+    public CallLogBuilder withTotalPatients(int totalPatients) {
+        this.totalPatients = totalPatients;
+        return this;
+    }
+
+    public CallLogBuilder withAdherenceCaptured(int adherenceCaptured) {
+        this.adherenceCaptured = adherenceCaptured;
+        return this;
+    }
+
+    public CallLogBuilder withAdherenceNotCaptured(int adherenceNotCaptured) {
+        this.adherenceNotCaptured = adherenceNotCaptured;
+        return this;
     }
 }

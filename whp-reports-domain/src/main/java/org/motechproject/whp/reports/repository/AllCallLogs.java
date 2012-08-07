@@ -13,4 +13,8 @@ public class AllCallLogs {
     public void save(CallLog callLog) {
         template.saveOrUpdate(callLog);
     }
+
+    public CallLog get(long callLogId) {
+        return template.get(CallLog.class, callLogId);
+    }
 }
