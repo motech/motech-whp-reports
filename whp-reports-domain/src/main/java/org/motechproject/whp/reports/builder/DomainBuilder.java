@@ -30,6 +30,7 @@ public class DomainBuilder {
             callLog.setTotalPatients(callLogRequest.getTotalPatients());
             callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
             callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
+            callLog.setCallId(callLogRequest.getCallId());
 
             return callLog;
     }

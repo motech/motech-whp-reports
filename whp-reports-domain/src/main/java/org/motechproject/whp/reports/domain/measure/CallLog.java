@@ -16,6 +16,9 @@ public class CallLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "call_id")
+    private  String callId;
+
     @Column(name = "provider_id")
     private String providerId;
 

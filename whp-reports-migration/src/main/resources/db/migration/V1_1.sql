@@ -1,5 +1,6 @@
 CREATE TABLE whp_reports.call_log (
     call_log_id serial NOT NULL,
+    call_id varchar(20),
     provider_id varchar(20),
     start_date date,
     end_date date,

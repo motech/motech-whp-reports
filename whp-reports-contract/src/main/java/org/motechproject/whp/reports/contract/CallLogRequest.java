@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 public class CallLogRequest  implements Serializable {
     private String providerId;
+    private String callId;
     private Date startTime;
     private Date endTime;
     private String calledBy;
