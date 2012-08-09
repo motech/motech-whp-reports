@@ -1,5 +1,7 @@
 package org.motechproject.whp.reports.builder;
 
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.CallLogRequest;
 import org.motechproject.whp.reports.domain.dimension.DateDimension;
@@ -32,6 +34,12 @@ public class DomainBuilder {
             callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
             callLog.setCallId(callLogRequest.getCallId());
 
+            Period period = new Period(
+                    callLogRequest.getStartTime().getTime(),
+                    callLogRequest.getEndTime().getTime(),
+                    PeriodType.seconds());
+
+            callLog.setDuration(period.getSeconds());
             return callLog;
     }
 

@@ -34,6 +34,9 @@ public class CallLog {
     @Column(name = "end_date_time")
     private Timestamp endDateTime;
 
+    @Column(name = "duration")
+    private long duration;
+
     @Column(name = "called_by")
     private String calledBy;
 

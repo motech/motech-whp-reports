@@ -14,6 +14,7 @@ public class CallLogBuilder {
     private int adherenceCaptured;
     private int adherenceNotCaptured;
     private String callId;
+    private int duration;
 
     public static CallLogBuilder newCallLog() {
         return new CallLogBuilder();
@@ -46,6 +47,7 @@ public class CallLogBuilder {
         callLog.setTotalPatients(totalPatients);
         callLog.setAdherenceCaptured(adherenceCaptured);
         callLog.setAdherenceNotCaptured(adherenceNotCaptured);
+        callLog.setDuration(duration);
         return callLog;
     }
 
@@ -66,6 +68,11 @@ public class CallLogBuilder {
 
     public CallLogBuilder withCallId(String callId) {
         this.callId = callId;
+        return this;
+    }
+
+    public CallLogBuilder withDuration(int duration) {
+        this.duration = duration;
         return this;
     }
 }

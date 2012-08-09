@@ -29,6 +29,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .withAdherenceCaptured(4)
                 .withAdherenceNotCaptured(6)
                 .withCallId("callId")
+                .withDuration(100)
                 .build();
 
         allCallLogs.save(callLog);

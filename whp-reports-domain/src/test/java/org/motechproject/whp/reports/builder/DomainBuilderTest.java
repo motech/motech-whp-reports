@@ -15,8 +15,9 @@ public class DomainBuilderTest {
 
     @Test
     public void shouldCreateCallLog() {
-        DateTime startTime = new DateTime().minusMinutes(10);
-        DateTime endTime = new DateTime();
+        DateTime now = new DateTime();
+        DateTime startTime = now.minusMinutes(10);
+        DateTime endTime = now;
         CallLogRequest callLogRequest = new CallLogRequest();
         callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
@@ -39,6 +40,7 @@ public class DomainBuilderTest {
         assertThat(callLog.getAdherenceCaptured(), is(callLogRequest.getAdherenceCaptured()));
         assertThat(callLog.getAdherenceNotCaptured(), is(callLogRequest.getAdherenceNotCaptured()));
         assertThat(callLog.getCallId(), is(callLogRequest.getCallId()));
+        assertThat(callLog.getDuration(), is(600L));
     }
 
 }

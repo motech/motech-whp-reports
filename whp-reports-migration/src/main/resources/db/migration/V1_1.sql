@@ -6,6 +6,7 @@ CREATE TABLE whp_reports.call_log (
     end_date date,
     start_date_time timestamp,
     end_date_time timestamp,
+    duration numeric,
     called_by varchar(20),
     call_status varchar(10),
     patient_count numeric,
