@@ -9,6 +9,7 @@ import java.util.Date;
 public class CallLogRequest  implements Serializable {
     private String providerId;
     private String callId;
+    private String callStatus;
     private Date startTime;
     private Date endTime;
     private String calledBy;

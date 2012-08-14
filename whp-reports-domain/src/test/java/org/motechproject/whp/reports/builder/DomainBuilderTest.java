@@ -27,6 +27,7 @@ public class DomainBuilderTest {
         callLogRequest.setAdherenceCaptured(4);
         callLogRequest.setAdherenceNotCaptured(8);
         callLogRequest.setCallId("callId");
+        callLogRequest.setCallStatus("callStatusValue");
 
         CallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
 
@@ -40,6 +41,7 @@ public class DomainBuilderTest {
         assertThat(callLog.getAdherenceCaptured(), is(callLogRequest.getAdherenceCaptured()));
         assertThat(callLog.getAdherenceNotCaptured(), is(callLogRequest.getAdherenceNotCaptured()));
         assertThat(callLog.getCallId(), is(callLogRequest.getCallId()));
+        assertThat(callLog.getCallStatus(), is(callLogRequest.getCallStatus()));
         assertThat(callLog.getDuration(), is(600L));
     }
 

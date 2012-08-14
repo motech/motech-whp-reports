@@ -33,6 +33,7 @@ public class DomainBuilder {
             callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
             callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
             callLog.setCallId(callLogRequest.getCallId());
+            callLog.setCallStatus(callLogRequest.getCallStatus());
 
             Period period = new Period(
                     callLogRequest.getStartTime().getTime(),
