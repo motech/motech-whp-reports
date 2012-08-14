@@ -8,7 +8,7 @@ CREATE TABLE whp_reports.call_log (
     end_date_time timestamp,
     duration numeric,
     called_by varchar(20),
-    call_status varchar(10),
+    call_status varchar(50),
     patient_count numeric,
     adherence_captured_count numeric,
     adherence_not_captured_count numeric
