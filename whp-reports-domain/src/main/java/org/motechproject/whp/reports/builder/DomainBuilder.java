@@ -4,8 +4,9 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.domain.dimension.DateDimension;
+import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 
 import java.sql.Date;
@@ -42,6 +43,14 @@ public class DomainBuilder {
 
             callLog.setDuration(period.getSeconds());
             return callLog;
+    }
+
+    public static FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
+        FlashingLog flashingLog = new FlashingLog();
+        flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
+        flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
+        flashingLog.setProviderId(flashingLogRequest.getProviderId());
+        return flashingLog;
     }
 
 }

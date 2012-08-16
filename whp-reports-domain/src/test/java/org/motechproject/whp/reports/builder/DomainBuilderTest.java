@@ -3,7 +3,9 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.CallLogRequest;
+import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.FlashingLog;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -43,6 +45,20 @@ public class DomainBuilderTest {
         assertThat(callLog.getCallId(), is(callLogRequest.getCallId()));
         assertThat(callLog.getCallStatus(), is(callLogRequest.getCallStatus()));
         assertThat(callLog.getDuration(), is(600L));
+    }
+
+    @Test
+    public void shouldCreateFlashingLog(){
+        FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
+        flashingLogRequest.setProviderId("ABC");
+        flashingLogRequest.setCallTime((new DateTime()).toDate());
+        flashingLogRequest.setMobileNumber("1234567890");
+
+        FlashingLog flashingLog = DomainBuilder.buildFlashingRequestLog(flashingLogRequest);
+
+        assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
+        assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));
+        assertThat(flashingLog.getProviderId(), is(flashingLogRequest.getProviderId()));
     }
 
 }

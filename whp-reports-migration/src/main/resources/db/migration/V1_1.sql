@@ -44,3 +44,11 @@ CREATE TABLE whp_reports.date_dimension (
     dt_week numeric,
     dt_day numeric
 );
+
+CREATE TABLE whp_reports.flashing_log (
+    flashing_log_id serial NOT NULL,
+    provider_id varchar(20),
+    mobile_number varchar(20),
+    call_time timestamp,
+    creation_time timestamp
+);
