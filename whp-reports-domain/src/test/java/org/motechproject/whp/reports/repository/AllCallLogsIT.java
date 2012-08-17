@@ -28,7 +28,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .withTotalPatients(10)
                 .withAdherenceCaptured(4)
                 .withAdherenceNotCaptured(6)
-                .withCallId("callId")
+                .withCallId("callIdlllllllllllllllllllllllllllllllllllllllllllllllllllllll")
                 .withDuration(100)
                 .build();
 
