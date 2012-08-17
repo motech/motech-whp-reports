@@ -11,7 +11,7 @@ public class AdherenceCaptureRequest implements Serializable {
     private String channelId;
     private String status;
     private String patientId;
-    private Integer submittedValue;
+    private String submittedValue;
     private String providerId;
     private String submittedBy;
     private boolean valid;

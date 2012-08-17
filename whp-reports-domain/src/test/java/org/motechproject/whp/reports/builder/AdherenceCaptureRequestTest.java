@@ -50,7 +50,7 @@ public class AdherenceCaptureRequestTest {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
         assertNull(buildAdherenceSubmission(request).getSubmittedValue());
-        request.setSubmittedValue(1);
+        request.setSubmittedValue("1");
         assertEquals(new Integer(1), buildAdherenceSubmission(request).getSubmittedValue());
     }
 
