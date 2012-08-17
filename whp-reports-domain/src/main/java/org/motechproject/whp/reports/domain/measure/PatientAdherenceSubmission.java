@@ -3,7 +3,6 @@ package org.motechproject.whp.reports.domain.measure;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Entity
@@ -28,7 +27,7 @@ public class PatientAdherenceSubmission {
     private String patientId;
 
     @Column(name = "submitted_value")
-    private Integer submittedValue;
+    private String submittedValue;
 
     @Column(name = "provider_id")
     private String providerId;
