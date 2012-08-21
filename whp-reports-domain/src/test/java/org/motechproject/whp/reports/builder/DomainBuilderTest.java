@@ -52,6 +52,7 @@ public class DomainBuilderTest {
         FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
         flashingLogRequest.setProviderId("ABC");
         flashingLogRequest.setCallTime((new DateTime()).toDate());
+        flashingLogRequest.setCreationTime((new DateTime()).toDate());
         flashingLogRequest.setMobileNumber("1234567890");
 
         FlashingLog flashingLog = DomainBuilder.buildFlashingRequestLog(flashingLogRequest);

@@ -40,6 +40,7 @@ public class FlashingLogCaptureControllerTest {
         flashingLogRequest.setMobileNumber("1234567890");
         flashingLogRequest.setProviderId("providerId");
         flashingLogRequest.setCallTime(new Date());
+        flashingLogRequest.setCreationTime(new Date());
 
         String requestJson = getJSON(flashingLogRequest);
         standaloneSetup(controller).build()

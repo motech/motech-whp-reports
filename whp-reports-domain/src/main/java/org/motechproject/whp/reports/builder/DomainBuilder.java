@@ -50,6 +50,7 @@ public class DomainBuilder {
         flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
         flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
         flashingLog.setProviderId(flashingLogRequest.getProviderId());
+        flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));
         return flashingLog;
     }
 
