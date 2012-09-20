@@ -27,6 +27,10 @@
             <artifactId>whp-reports-migration</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-web-utils</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>whp-reports-domain</artifactId>
         </dependency>
