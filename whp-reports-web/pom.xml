@@ -61,6 +61,10 @@
             <artifactId>spring-aspects</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-core-asl</artifactId>
         </dependency>
