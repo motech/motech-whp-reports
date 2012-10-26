@@ -21,6 +21,7 @@
                 <value>org.motechproject.whp.reports.domain.measure.FlashingLog</value>
                 <value>org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission</value>
                 <value>org.motechproject.whp.reports.domain.dimension.DateDimension</value>
+                <value>org.motechproject.whp.reports.domain.measure.SputumTracking</value>
             </list>
         </property>
 
