@@ -3,13 +3,12 @@ package org.motechproject.whp.reports.domain.measure;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "sputum_tracking", uniqueConstraints = {@UniqueConstraint(columnNames = {"sputum_tracking_id"})})
-public class SputumTracking {
+public class SputumTrackingRecord {
 
     @Id
     @Column(name = "sputum_tracking_id")

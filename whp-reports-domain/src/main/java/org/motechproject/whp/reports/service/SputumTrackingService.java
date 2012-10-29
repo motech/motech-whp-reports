@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.domain.measure.SputumTracking;
-import org.motechproject.whp.reports.repository.AllSputumTrackings;
+import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
+import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,17 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SputumTrackingService {
 
-    private AllSputumTrackings allSputumTrackings;
+    private AllSputumTrackingRecords allSputumTrackingRecords;
 
     /* Required for spring proxy */
     SputumTrackingService(){
     }
 
-    public SputumTrackingService(AllSputumTrackings allSputumTrackings) {
-        this.allSputumTrackings = allSputumTrackings;
+    public SputumTrackingService(AllSputumTrackingRecords allSputumTrackingRecords) {
+        this.allSputumTrackingRecords = allSputumTrackingRecords;
     }
 
-    public void save(SputumTracking sputumTracking) {
-        allSputumTrackings.save(sputumTracking);
+    public void save(SputumTrackingRecord sputumTrackingRecord) {
+        allSputumTrackingRecords.save(sputumTrackingRecord);
     }
 }

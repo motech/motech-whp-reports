@@ -4,8 +4,10 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.CallLogRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
+import org.motechproject.whp.reports.contract.SputumTrackingRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -60,6 +62,28 @@ public class DomainBuilderTest {
         assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
         assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));
         assertThat(flashingLog.getProviderId(), is(flashingLogRequest.getProviderId()));
+    }
+
+    @Test
+    public void shouldCreateSputumTrackingLog(){
+        java.util.Date now = new java.util.Date();
+
+        SputumTrackingRequest sputumTrackingRequest = new SputumTrackingRequest();
+        sputumTrackingRequest.setContainerId("containerId");
+        sputumTrackingRequest.setInstance("PreTreatment");
+        sputumTrackingRequest.setDateIssuedOn(now);
+        sputumTrackingRequest.setProviderId("raj");
+        sputumTrackingRequest.setSubmittedBy("CmfAdmin");
+        sputumTrackingRequest.setSubmitterId("submitterId");
+
+        SputumTrackingRecord sputumTrackingRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(sputumTrackingRequest);
+
+        assertThat(sputumTrackingRecord.getContainerId(), is(sputumTrackingRequest.getContainerId()));
+        assertThat(sputumTrackingRecord.getInstance(), is(sputumTrackingRequest.getInstance()));
+        assertThat(sputumTrackingRecord.getDateIssuedOn(), is(sputumTrackingRequest.getDateIssuedOn()));
+        assertThat(sputumTrackingRecord.getProviderId(), is(sputumTrackingRequest.getProviderId()));
+        assertThat(sputumTrackingRecord.getSubmittedBy(), is(sputumTrackingRequest.getSubmittedBy()));
+        assertThat(sputumTrackingRecord.getSubmitterId(), is(sputumTrackingRequest.getSubmitterId()));
     }
 
 }

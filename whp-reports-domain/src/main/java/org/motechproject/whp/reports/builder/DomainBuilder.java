@@ -5,9 +5,11 @@ import org.joda.time.PeriodType;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.CallLogRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
+import org.motechproject.whp.reports.contract.SputumTrackingRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
+import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -54,4 +56,14 @@ public class DomainBuilder {
         return flashingLog;
     }
 
+    public static SputumTrackingRecord buildSputumTrackingContainerRegistrationLog(SputumTrackingRequest sputumTrackingRequest) {
+        SputumTrackingRecord sputumTrackingRecord = new SputumTrackingRecord();
+        sputumTrackingRecord.setContainerId(sputumTrackingRequest.getContainerId());
+        sputumTrackingRecord.setDateIssuedOn(sputumTrackingRequest.getDateIssuedOn());
+        sputumTrackingRecord.setProviderId(sputumTrackingRequest.getProviderId());
+        sputumTrackingRecord.setSubmittedBy(sputumTrackingRequest.getSubmittedBy());
+        sputumTrackingRecord.setSubmitterId(sputumTrackingRequest.getSubmitterId());
+        sputumTrackingRecord.setInstance(sputumTrackingRequest.getInstance());
+        return sputumTrackingRecord;
+    }
 }

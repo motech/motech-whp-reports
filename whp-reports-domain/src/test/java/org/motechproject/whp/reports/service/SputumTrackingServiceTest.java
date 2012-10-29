@@ -3,9 +3,8 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.domain.measure.SputumTracking;
-import org.motechproject.whp.reports.repository.AllSputumTrackings;
-import org.springframework.transaction.annotation.Transactional;
+import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
+import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -13,22 +12,22 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class SputumTrackingServiceTest {
 
     @Mock
-    private AllSputumTrackings allSputumTrackings;
+    private AllSputumTrackingRecords allSputumTrackingRecords;
     private SputumTrackingService sputumTrackingService;
 
     @Before()
     public void setup(){
         initMocks(this);
-        sputumTrackingService = new SputumTrackingService(allSputumTrackings);
+        sputumTrackingService = new SputumTrackingService(allSputumTrackingRecords);
     }
 
     @Test
     public void shouldSaveSputumTrackingRecord(){
 
-        SputumTracking sputumTracking = new SputumTracking();
-        sputumTrackingService.save(sputumTracking);
+        SputumTrackingRecord sputumTrackingRecord = new SputumTrackingRecord();
+        sputumTrackingService.save(sputumTrackingRecord);
 
-        verify(allSputumTrackings).save(sputumTracking);
+        verify(allSputumTrackingRecords).save(sputumTrackingRecord);
     }
 
 }

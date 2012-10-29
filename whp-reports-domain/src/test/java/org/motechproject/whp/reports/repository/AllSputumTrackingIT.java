@@ -3,12 +3,10 @@ package org.motechproject.whp.reports.repository;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.SputumTrackingBuilder;
-import org.motechproject.whp.reports.domain.measure.CallLog;
-import org.motechproject.whp.reports.domain.measure.SputumTracking;
+import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import static org.hamcrest.core.Is.is;
@@ -18,13 +16,13 @@ import static org.junit.Assert.assertThat;
 public class AllSputumTrackingIT extends IntegrationTest {
 
     @Autowired
-    AllSputumTrackings allSputumTrackings;
+    AllSputumTrackingRecords allSputumTrackingRecords;
 
     @Test
     @Transactional
     public void shouldCreateSputumTrackingRecord() {
         Date submissionDate = new Date();
-        SputumTracking sputumTracking = new SputumTrackingBuilder()
+        SputumTrackingRecord sputumTrackingRecord = new SputumTrackingBuilder()
                 .withContainerId("containerId")
                 .issuedOn(submissionDate)
                 .assignedToProvider("providerId")
@@ -39,11 +37,11 @@ public class AllSputumTrackingIT extends IntegrationTest {
                 .withAlternateDiagnosisCode("666")
                 .build();
 
-        allSputumTrackings.save(sputumTracking);
-        assertNotNull(sputumTracking.getId());
+        allSputumTrackingRecords.save(sputumTrackingRecord);
+        assertNotNull(sputumTrackingRecord.getId());
 
-        SputumTracking sputumTrackingFromDB = allSputumTrackings.get(sputumTracking.getId());
-        assertThat(sputumTrackingFromDB, is(sputumTracking));
+        SputumTrackingRecord sputumTrackingRecordFromDB = allSputumTrackingRecords.get(sputumTrackingRecord.getId());
+        assertThat(sputumTrackingRecordFromDB, is(sputumTrackingRecord));
 
     }
 
@@ -51,7 +49,7 @@ public class AllSputumTrackingIT extends IntegrationTest {
     @Transactional
     public void shouldUpdateSputumTrackingRecord() {
         Date submissionDate = new Date();
-        SputumTracking sputumTracking = new SputumTrackingBuilder()
+        SputumTrackingRecord sputumTrackingRecord = new SputumTrackingBuilder()
                 .withContainerId("containerId")
                 .issuedOn(submissionDate)
                 .assignedToProvider("providerId")
@@ -66,12 +64,12 @@ public class AllSputumTrackingIT extends IntegrationTest {
                 .withAlternateDiagnosisCode("666")
                 .build();
 
-        allSputumTrackings.save(sputumTracking);
-        sputumTracking.setContainerStatus("Open");
+        allSputumTrackingRecords.save(sputumTrackingRecord);
+        sputumTrackingRecord.setContainerStatus("Open");
 
-        allSputumTrackings.save(sputumTracking);
+        allSputumTrackingRecords.save(sputumTrackingRecord);
 
-        SputumTracking sputumTrackingFromDB = allSputumTrackings.get(sputumTracking.getId());
-        assertThat(sputumTrackingFromDB, is(sputumTracking));
+        SputumTrackingRecord sputumTrackingRecordFromDB = allSputumTrackingRecords.get(sputumTrackingRecord.getId());
+        assertThat(sputumTrackingRecordFromDB, is(sputumTrackingRecord));
     }
 }
