@@ -61,7 +61,7 @@ public class DomainBuilder {
         sputumTrackingRecord.setContainerId(sputumTrackingRequest.getContainerId());
         sputumTrackingRecord.setDateIssuedOn(sputumTrackingRequest.getDateIssuedOn());
         sputumTrackingRecord.setProviderId(sputumTrackingRequest.getProviderId());
-        sputumTrackingRecord.setSubmittedBy(sputumTrackingRequest.getSubmittedBy());
+        sputumTrackingRecord.setSubmittedBy(sputumTrackingRequest.getSubmitterRole());
         sputumTrackingRecord.setSubmitterId(sputumTrackingRequest.getSubmitterId());
         sputumTrackingRecord.setInstance(sputumTrackingRequest.getInstance());
         return sputumTrackingRecord;

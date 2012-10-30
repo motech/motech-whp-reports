@@ -36,7 +36,7 @@ public class SputumTrackingControllerTest {
         sputumTrackingRequest.setInstance("PreTreatment");
         sputumTrackingRequest.setDateIssuedOn(new Date());
         sputumTrackingRequest.setProviderId("raj");
-        sputumTrackingRequest.setSubmittedBy("CmfAdmin");
+        sputumTrackingRequest.setSubmitterRole("CmfAdmin");
         sputumTrackingRequest.setSubmitterId("submitterId");
 
         String requestJSON = getJSON(sputumTrackingRequest);

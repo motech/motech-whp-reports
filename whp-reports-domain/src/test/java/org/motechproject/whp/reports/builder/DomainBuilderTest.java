@@ -73,7 +73,7 @@ public class DomainBuilderTest {
         sputumTrackingRequest.setInstance("PreTreatment");
         sputumTrackingRequest.setDateIssuedOn(now);
         sputumTrackingRequest.setProviderId("raj");
-        sputumTrackingRequest.setSubmittedBy("CmfAdmin");
+        sputumTrackingRequest.setSubmitterRole("CmfAdmin");
         sputumTrackingRequest.setSubmitterId("submitterId");
 
         SputumTrackingRecord sputumTrackingRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(sputumTrackingRequest);
@@ -82,7 +82,7 @@ public class DomainBuilderTest {
         assertThat(sputumTrackingRecord.getInstance(), is(sputumTrackingRequest.getInstance()));
         assertThat(sputumTrackingRecord.getDateIssuedOn(), is(sputumTrackingRequest.getDateIssuedOn()));
         assertThat(sputumTrackingRecord.getProviderId(), is(sputumTrackingRequest.getProviderId()));
-        assertThat(sputumTrackingRecord.getSubmittedBy(), is(sputumTrackingRequest.getSubmittedBy()));
+        assertThat(sputumTrackingRecord.getSubmittedBy(), is(sputumTrackingRequest.getSubmitterRole()));
         assertThat(sputumTrackingRecord.getSubmitterId(), is(sputumTrackingRequest.getSubmitterId()));
     }
 

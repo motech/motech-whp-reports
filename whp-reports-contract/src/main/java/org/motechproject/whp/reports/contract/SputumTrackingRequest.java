@@ -9,7 +9,7 @@ public class SputumTrackingRequest {
     private String containerId;
     private Date dateIssuedOn;
     private String providerId;
-    private String submittedBy;
+    private String submitterRole;
     private String submitterId;
     private String locationId;
     private String instance;
