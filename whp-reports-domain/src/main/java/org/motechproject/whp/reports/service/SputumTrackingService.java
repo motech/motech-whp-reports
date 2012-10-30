@@ -1,5 +1,8 @@
 package org.motechproject.whp.reports.service;
 
+import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
+import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,15 @@ public class SputumTrackingService {
         this.allSputumTrackingRecords = allSputumTrackingRecords;
     }
 
-    public void save(ContainerRecord containerRecord) {
+    public void recordContainerRegistration(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
+        ContainerRecord containerRecord = DomainBuilder.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
         allSputumTrackingRecords.save(containerRecord);
+    }
+
+    public void recordLabResults(SputumLabResultsCaptureReportingRequest request) {
+        ContainerRecord containerRecord = allSputumTrackingRecords.getByContainerId(request.getContainerId());
+        DomainBuilder.populateLabResults(request, containerRecord);
+        allSputumTrackingRecords.save(containerRecord);
+
     }
 }

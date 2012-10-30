@@ -10,6 +10,13 @@ CREATE TABLE whp_reports.sputum_tracking (
     channel_id varchar(3),
     patient_id varchar(20),
     container_status varchar(5),
+    smear_test_date1 date,
+    smear_test_result1 varchar(13),
+    smear_test_date2 date,
+    smear_test_result2 varchar(13),
+    cumulative_result varchar(13),
+    lab_name varchar(100),
+    lab_number varchar(20),
     reason_for_closure varchar(60),
     alternate_diagnosis_code varchar(4)
 );

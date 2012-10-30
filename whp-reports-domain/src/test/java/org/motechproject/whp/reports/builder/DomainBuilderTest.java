@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.motechproject.whp.reports.contract.CallLogRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
+import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 
 public class DomainBuilderTest {
 
@@ -76,7 +78,7 @@ public class DomainBuilderTest {
         containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
         containerRegistrationReportingRequest.setSubmitterId("submitterId");
 
-        ContainerRecord containerRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(containerRegistrationReportingRequest);
+        ContainerRecord containerRecord = DomainBuilder.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
 
         assertThat(containerRecord.getContainerId(), is(containerRegistrationReportingRequest.getContainerId()));
         assertThat(containerRecord.getInstance(), is(containerRegistrationReportingRequest.getInstance()));
@@ -86,4 +88,33 @@ public class DomainBuilderTest {
         assertThat(containerRecord.getSubmitterId(), is(containerRegistrationReportingRequest.getSubmitterId()));
     }
 
+    @Test
+    public void shouldPopulateLabResultsIntoContainerRecord() {
+
+        java.util.Date now = new java.util.Date();
+
+        SputumLabResultsCaptureReportingRequest sputumLabResultsCaptureReportingRequest = new SputumLabResultsCaptureReportingRequest();
+        sputumLabResultsCaptureReportingRequest.setContainerId("containerId");
+        sputumLabResultsCaptureReportingRequest.setLabName("labName");
+        sputumLabResultsCaptureReportingRequest.setLabNumber("labNumber");
+        sputumLabResultsCaptureReportingRequest.setCumulativeResult("cumulativeResult");
+        sputumLabResultsCaptureReportingRequest.setSmearTestDate1(now);
+        sputumLabResultsCaptureReportingRequest.setSmearTestDate2(now);
+        sputumLabResultsCaptureReportingRequest.setSmearTestResult1("result1");
+        sputumLabResultsCaptureReportingRequest.setSmearTestResult2("result2");
+
+        ContainerRecord containerRecord = new ContainerRecord();
+        containerRecord.setContainerId(sputumLabResultsCaptureReportingRequest.getContainerId());
+
+        DomainBuilder.populateLabResults(sputumLabResultsCaptureReportingRequest,containerRecord);
+
+        assertEquals(sputumLabResultsCaptureReportingRequest.getLabName(), containerRecord.getLabName());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getLabNumber(), containerRecord.getLabNumber());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getLabNumber(), containerRecord.getLabNumber());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestResult1(), containerRecord.getSmearTestResult1());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestResult2(), containerRecord.getSmearTestResult2());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestDate1(), containerRecord.getSmearTestDate1());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestDate2(), containerRecord.getSmearTestDate2());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getCumulativeResult(), containerRecord.getCumulativeResult());
+    }
 }

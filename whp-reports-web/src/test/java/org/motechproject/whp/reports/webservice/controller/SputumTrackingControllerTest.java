@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
+import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.service.SputumTrackingService;
 import org.springframework.http.MediaType;
 
@@ -32,12 +33,6 @@ public class SputumTrackingControllerTest {
     public void shouldRegisterContainer() throws Exception {
 
         ContainerRegistrationReportingRequest containerRegistrationReportingRequest = new ContainerRegistrationReportingRequest();
-        containerRegistrationReportingRequest.setContainerId("containerId");
-        containerRegistrationReportingRequest.setInstance("PreTreatment");
-        containerRegistrationReportingRequest.setDateIssuedOn(new Date());
-        containerRegistrationReportingRequest.setProviderId("raj");
-        containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
-        containerRegistrationReportingRequest.setSubmitterId("submitterId");
 
         String requestJSON = getJSON(containerRegistrationReportingRequest);
 
@@ -46,6 +41,16 @@ public class SputumTrackingControllerTest {
                         .andExpect(status().isOk());
     }
 
+    @Test
+    public void shouldCaptureLabResults() throws Exception {
+        SputumLabResultsCaptureReportingRequest request = new SputumLabResultsCaptureReportingRequest();
+
+        String requestJSON = getJSON(request);
+
+        standaloneSetup(sputumTrackingController).build()
+                .perform(post("/sputumTracking/sputumLabResultsMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     private String getJSON(Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

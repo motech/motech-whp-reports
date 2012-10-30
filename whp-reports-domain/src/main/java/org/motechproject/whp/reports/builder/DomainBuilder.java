@@ -2,10 +2,7 @@ package org.motechproject.whp.reports.builder;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
-import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
-import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.FlashingLogRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
@@ -56,7 +53,7 @@ public class DomainBuilder {
         return flashingLog;
     }
 
-    public static ContainerRecord buildSputumTrackingContainerRegistrationLog(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
+    public static ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
         containerRecord.setDateIssuedOn(containerRegistrationReportingRequest.getDateIssuedOn());
@@ -65,5 +62,16 @@ public class DomainBuilder {
         containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
         containerRecord.setInstance(containerRegistrationReportingRequest.getInstance());
         return containerRecord;
+    }
+
+    public static void populateLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {
+
+       containerRecord.setLabName(request.getLabName());
+       containerRecord.setLabNumber(request.getLabNumber());
+       containerRecord.setSmearTestDate1(request.getSmearTestDate1());
+       containerRecord.setSmearTestDate2(request.getSmearTestDate2());
+       containerRecord.setSmearTestResult1(request.getSmearTestResult1());
+       containerRecord.setSmearTestResult2(request.getSmearTestResult2());
+       containerRecord.setCumulativeResult(request.getCumulativeResult());
     }
 }

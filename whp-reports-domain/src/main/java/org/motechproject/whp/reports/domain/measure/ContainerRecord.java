@@ -45,6 +45,27 @@ public class ContainerRecord {
     @Column(name = "container_status")
     private String containerStatus;
 
+    @Column(name = "smear_test_date1")
+    private Date smearTestDate1;
+
+    @Column(name = "smear_test_result1")
+    private String smearTestResult1;
+
+    @Column(name = "smear_test_date2")
+    private Date smearTestDate2;
+
+    @Column(name = "smear_test_result2")
+    private String smearTestResult2;
+
+    @Column(name = "cumulative_result")
+    private String cumulativeResult;
+
+    @Column(name = "lab_name")
+    private String labName;
+
+    @Column(name = "lab_number")
+    private String labNumber;
+
     @Column(name = "reason_for_closure")
     private String reasonForClosure;
 

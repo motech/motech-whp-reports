@@ -3,10 +3,14 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
+import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class SputumTrackingServiceTest {
@@ -22,12 +26,27 @@ public class SputumTrackingServiceTest {
     }
 
     @Test
-    public void shouldSaveSputumTrackingRecord(){
+    public void shouldSaveContainerRegistrationReportingRequest(){
 
-        ContainerRecord containerRecord = new ContainerRecord();
-        sputumTrackingService.save(containerRecord);
+        ContainerRegistrationReportingRequest request = new ContainerRegistrationReportingRequest();
+        sputumTrackingService.recordContainerRegistration(request);
 
-        verify(allSputumTrackingRecords).save(containerRecord);
+        verify(allSputumTrackingRecords).save(any(ContainerRecord.class));
+    }
+
+    @Test
+    public void shouldCaptureLabResults_forExistingContainer() {
+        ContainerRecord existingContainer = new ContainerRecord();
+        String containerId = "container";
+        existingContainer.setContainerId(containerId);
+        when(allSputumTrackingRecords.getByContainerId(containerId)).thenReturn(existingContainer);
+
+        SputumLabResultsCaptureReportingRequest request = new SputumLabResultsCaptureReportingRequest();
+        request.setContainerId(containerId);
+        sputumTrackingService.recordLabResults(request);
+
+        verify(allSputumTrackingRecords).getByContainerId(containerId);
+        verify(allSputumTrackingRecords).save(existingContainer);
     }
 
 }
