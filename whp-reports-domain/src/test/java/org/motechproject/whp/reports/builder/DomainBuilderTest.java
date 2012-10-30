@@ -3,11 +3,11 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
-import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.FlashingLog;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -50,7 +50,7 @@ public class DomainBuilderTest {
     }
 
     @Test
-    public void shouldCreateFlashingLog(){
+    public void shouldCreateFlashingLog() {
         FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
         flashingLogRequest.setProviderId("ABC");
         flashingLogRequest.setCallTime((new DateTime()).toDate());
@@ -65,25 +65,25 @@ public class DomainBuilderTest {
     }
 
     @Test
-    public void shouldCreateSputumTrackingLog(){
+    public void shouldCreateSputumTrackingLog() {
         java.util.Date now = new java.util.Date();
 
-        ContainerRegistrationRequest containerRegistrationRequest = new ContainerRegistrationRequest();
-        containerRegistrationRequest.setContainerId("containerId");
-        containerRegistrationRequest.setInstance("PreTreatment");
-        containerRegistrationRequest.setDateIssuedOn(now);
-        containerRegistrationRequest.setProviderId("raj");
-        containerRegistrationRequest.setSubmitterRole("CmfAdmin");
-        containerRegistrationRequest.setSubmitterId("submitterId");
+        ContainerRegistrationReportingRequest containerRegistrationReportingRequest = new ContainerRegistrationReportingRequest();
+        containerRegistrationReportingRequest.setContainerId("containerId");
+        containerRegistrationReportingRequest.setInstance("PreTreatment");
+        containerRegistrationReportingRequest.setDateIssuedOn(now);
+        containerRegistrationReportingRequest.setProviderId("raj");
+        containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
+        containerRegistrationReportingRequest.setSubmitterId("submitterId");
 
-        ContainerRecord containerRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(containerRegistrationRequest);
+        ContainerRecord containerRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(containerRegistrationReportingRequest);
 
-        assertThat(containerRecord.getContainerId(), is(containerRegistrationRequest.getContainerId()));
-        assertThat(containerRecord.getInstance(), is(containerRegistrationRequest.getInstance()));
-        assertThat(containerRecord.getDateIssuedOn(), is(containerRegistrationRequest.getDateIssuedOn()));
-        assertThat(containerRecord.getProviderId(), is(containerRegistrationRequest.getProviderId()));
-        assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationRequest.getSubmitterRole()));
-        assertThat(containerRecord.getSubmitterId(), is(containerRegistrationRequest.getSubmitterId()));
+        assertThat(containerRecord.getContainerId(), is(containerRegistrationReportingRequest.getContainerId()));
+        assertThat(containerRecord.getInstance(), is(containerRegistrationReportingRequest.getInstance()));
+        assertThat(containerRecord.getDateIssuedOn(), is(containerRegistrationReportingRequest.getDateIssuedOn()));
+        assertThat(containerRecord.getProviderId(), is(containerRegistrationReportingRequest.getProviderId()));
+        assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationReportingRequest.getSubmitterRole()));
+        assertThat(containerRecord.getSubmitterId(), is(containerRegistrationReportingRequest.getSubmitterId()));
     }
 
 }

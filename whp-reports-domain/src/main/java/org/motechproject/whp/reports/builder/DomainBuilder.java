@@ -4,7 +4,7 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
@@ -56,14 +56,14 @@ public class DomainBuilder {
         return flashingLog;
     }
 
-    public static ContainerRecord buildSputumTrackingContainerRegistrationLog(ContainerRegistrationRequest containerRegistrationRequest) {
+    public static ContainerRecord buildSputumTrackingContainerRegistrationLog(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
-        containerRecord.setContainerId(containerRegistrationRequest.getContainerId());
-        containerRecord.setDateIssuedOn(containerRegistrationRequest.getDateIssuedOn());
-        containerRecord.setProviderId(containerRegistrationRequest.getProviderId());
-        containerRecord.setSubmitterRole(containerRegistrationRequest.getSubmitterRole());
-        containerRecord.setSubmitterId(containerRegistrationRequest.getSubmitterId());
-        containerRecord.setInstance(containerRegistrationRequest.getInstance());
+        containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
+        containerRecord.setDateIssuedOn(containerRegistrationReportingRequest.getDateIssuedOn());
+        containerRecord.setProviderId(containerRegistrationReportingRequest.getProviderId());
+        containerRecord.setSubmitterRole(containerRegistrationReportingRequest.getSubmitterRole());
+        containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
+        containerRecord.setInstance(containerRegistrationReportingRequest.getInstance());
         return containerRecord;
     }
 }

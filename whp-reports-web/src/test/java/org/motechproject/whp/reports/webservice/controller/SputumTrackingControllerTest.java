@@ -4,7 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.contract.ContainerRegistrationRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.service.SputumTrackingService;
 import org.springframework.http.MediaType;
 
@@ -31,15 +31,15 @@ public class SputumTrackingControllerTest {
     @Test
     public void shouldRegisterContainer() throws Exception {
 
-        ContainerRegistrationRequest containerRegistrationRequest = new ContainerRegistrationRequest();
-        containerRegistrationRequest.setContainerId("containerId");
-        containerRegistrationRequest.setInstance("PreTreatment");
-        containerRegistrationRequest.setDateIssuedOn(new Date());
-        containerRegistrationRequest.setProviderId("raj");
-        containerRegistrationRequest.setSubmitterRole("CmfAdmin");
-        containerRegistrationRequest.setSubmitterId("submitterId");
+        ContainerRegistrationReportingRequest containerRegistrationReportingRequest = new ContainerRegistrationReportingRequest();
+        containerRegistrationReportingRequest.setContainerId("containerId");
+        containerRegistrationReportingRequest.setInstance("PreTreatment");
+        containerRegistrationReportingRequest.setDateIssuedOn(new Date());
+        containerRegistrationReportingRequest.setProviderId("raj");
+        containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
+        containerRegistrationReportingRequest.setSubmitterId("submitterId");
 
-        String requestJSON = getJSON(containerRegistrationRequest);
+        String requestJSON = getJSON(containerRegistrationReportingRequest);
 
         standaloneSetup(sputumTrackingController).build()
                         .perform(post("/sputumTracking/containerRegistrationMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
