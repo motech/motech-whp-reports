@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class SputumTrackingRequest {
+public class ContainerRegistrationRequest {
     private String containerId;
     private Date dateIssuedOn;
     private String providerId;
@@ -16,6 +16,4 @@ public class SputumTrackingRequest {
     private String channelId;
     private String patientId;
     private String containerStatus;
-    private String reasonForClosure;
-    private String alternateDiagnosisCode;
 }

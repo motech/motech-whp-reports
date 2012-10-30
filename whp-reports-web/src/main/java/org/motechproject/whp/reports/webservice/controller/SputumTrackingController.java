@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 import org.motechproject.whp.reports.builder.DomainBuilder;
-import org.motechproject.whp.reports.contract.SputumTrackingRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationRequest;
 import org.motechproject.whp.reports.service.SputumTrackingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class SputumTrackingController {
 
     @RequestMapping(value = "/containerRegistrationMeasure")
     @ResponseStatus(value = HttpStatus.OK)
-    public void register(@RequestBody SputumTrackingRequest sputumTrackingRequest) {
-        sputumTrackingService.save(DomainBuilder.buildSputumTrackingContainerRegistrationLog(sputumTrackingRequest));
+    public void register(@RequestBody ContainerRegistrationRequest containerRegistrationRequest) {
+        sputumTrackingService.save(DomainBuilder.buildSputumTrackingContainerRegistrationLog(containerRegistrationRequest));
     }
 }

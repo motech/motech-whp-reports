@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "sputum_tracking", uniqueConstraints = {@UniqueConstraint(columnNames = {"sputum_tracking_id"})})
-public class SputumTrackingRecord {
+public class ContainerRecord {
 
     @Id
     @Column(name = "sputum_tracking_id")
@@ -24,8 +24,8 @@ public class SputumTrackingRecord {
     @Column(name = "provider_id")
     private String providerId;
 
-    @Column(name = "submitted_by")
-    private String submittedBy;
+    @Column(name = "submitter_role")
+    private String submitterRole;
 
     @Column(name = "submitter_id")
     private String submitterId;

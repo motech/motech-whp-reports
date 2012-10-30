@@ -1,78 +1,78 @@
 package org.motechproject.whp.reports.builder;
 
-import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
+import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
 import java.util.Date;
 
 public class SputumTrackingBuilder {
 
-    private SputumTrackingRecord sputumTrackingRecord;
+    private ContainerRecord containerRecord;
 
     public SputumTrackingBuilder() {
-        sputumTrackingRecord = new SputumTrackingRecord();
+        containerRecord = new ContainerRecord();
     }
 
-    public SputumTrackingRecord build() {
-        return sputumTrackingRecord;
+    public ContainerRecord build() {
+        return containerRecord;
     }
 
     public SputumTrackingBuilder withContainerId(String containerId) {
-        sputumTrackingRecord.setContainerId(containerId);
+        containerRecord.setContainerId(containerId);
         return this;
     }
 
     public SputumTrackingBuilder issuedOn(Date dateIssuedOn) {
-        sputumTrackingRecord.setDateIssuedOn(dateIssuedOn);
+        containerRecord.setDateIssuedOn(dateIssuedOn);
         return this;
     }
 
     public SputumTrackingBuilder assignedToProvider(String providerId) {
-        sputumTrackingRecord.setProviderId(providerId);
+        containerRecord.setProviderId(providerId);
         return this;
     }
 
     public SputumTrackingBuilder submittedBy(String submittedBy) {
-        sputumTrackingRecord.setSubmittedBy(submittedBy);
+        containerRecord.setSubmitterRole(submittedBy);
         return this;
     }
 
     public SputumTrackingBuilder havingSubmitterId(String submitterId) {
-        sputumTrackingRecord.setSubmitterId(submitterId);
+        containerRecord.setSubmitterId(submitterId);
         return this;
     }
 
     public SputumTrackingBuilder onLocationId(String location) {
-        sputumTrackingRecord.setLocationId(location);
+        containerRecord.setLocationId(location);
         return this;
     }
 
     public SputumTrackingBuilder havingInstance(String instance) {
-        sputumTrackingRecord.setInstance(instance);
+        containerRecord.setInstance(instance);
         return this;
     }
 
     public SputumTrackingBuilder submittedThroughChannel(String channel) {
-        sputumTrackingRecord.setChannelId(channel);
+        containerRecord.setChannelId(channel);
         return this;
     }
 
     public SputumTrackingBuilder forPatientId(String patientId) {
-        sputumTrackingRecord.setPatientId(patientId);
+        containerRecord.setPatientId(patientId);
         return this;
     }
 
     public SputumTrackingBuilder havingStatus(String status) {
-        sputumTrackingRecord.setContainerStatus(status);
+        containerRecord.setContainerStatus(status);
         return this;
     }
 
     public SputumTrackingBuilder withReasonForClosure(String reasonForClosure) {
-        sputumTrackingRecord.setReasonForClosure(reasonForClosure);
+        containerRecord.setReasonForClosure(reasonForClosure);
         return this;
     }
 
     public SputumTrackingBuilder withAlternateDiagnosisCode(String alternateDiagnosisCode) {
-        sputumTrackingRecord.setAlternateDiagnosisCode(alternateDiagnosisCode);
+        containerRecord.setAlternateDiagnosisCode(alternateDiagnosisCode);
         return this;
     }
 }

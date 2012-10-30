@@ -3,7 +3,7 @@ CREATE TABLE whp_reports.sputum_tracking (
     container_id varchar(20),
     date_issued_on date,
     provider_id varchar(20),
-    submitted_by varchar(10),
+    submitter_role varchar(10),
     submitter_id varchar(20),
     location_id varchar(20),
     instance varchar(20),

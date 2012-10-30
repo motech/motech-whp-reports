@@ -3,11 +3,11 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.CallLogRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
-import org.motechproject.whp.reports.contract.SputumTrackingRequest;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
-import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
+import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -68,22 +68,22 @@ public class DomainBuilderTest {
     public void shouldCreateSputumTrackingLog(){
         java.util.Date now = new java.util.Date();
 
-        SputumTrackingRequest sputumTrackingRequest = new SputumTrackingRequest();
-        sputumTrackingRequest.setContainerId("containerId");
-        sputumTrackingRequest.setInstance("PreTreatment");
-        sputumTrackingRequest.setDateIssuedOn(now);
-        sputumTrackingRequest.setProviderId("raj");
-        sputumTrackingRequest.setSubmitterRole("CmfAdmin");
-        sputumTrackingRequest.setSubmitterId("submitterId");
+        ContainerRegistrationRequest containerRegistrationRequest = new ContainerRegistrationRequest();
+        containerRegistrationRequest.setContainerId("containerId");
+        containerRegistrationRequest.setInstance("PreTreatment");
+        containerRegistrationRequest.setDateIssuedOn(now);
+        containerRegistrationRequest.setProviderId("raj");
+        containerRegistrationRequest.setSubmitterRole("CmfAdmin");
+        containerRegistrationRequest.setSubmitterId("submitterId");
 
-        SputumTrackingRecord sputumTrackingRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(sputumTrackingRequest);
+        ContainerRecord containerRecord = DomainBuilder.buildSputumTrackingContainerRegistrationLog(containerRegistrationRequest);
 
-        assertThat(sputumTrackingRecord.getContainerId(), is(sputumTrackingRequest.getContainerId()));
-        assertThat(sputumTrackingRecord.getInstance(), is(sputumTrackingRequest.getInstance()));
-        assertThat(sputumTrackingRecord.getDateIssuedOn(), is(sputumTrackingRequest.getDateIssuedOn()));
-        assertThat(sputumTrackingRecord.getProviderId(), is(sputumTrackingRequest.getProviderId()));
-        assertThat(sputumTrackingRecord.getSubmittedBy(), is(sputumTrackingRequest.getSubmitterRole()));
-        assertThat(sputumTrackingRecord.getSubmitterId(), is(sputumTrackingRequest.getSubmitterId()));
+        assertThat(containerRecord.getContainerId(), is(containerRegistrationRequest.getContainerId()));
+        assertThat(containerRecord.getInstance(), is(containerRegistrationRequest.getInstance()));
+        assertThat(containerRecord.getDateIssuedOn(), is(containerRegistrationRequest.getDateIssuedOn()));
+        assertThat(containerRecord.getProviderId(), is(containerRegistrationRequest.getProviderId()));
+        assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationRequest.getSubmitterRole()));
+        assertThat(containerRecord.getSubmitterId(), is(containerRegistrationRequest.getSubmitterId()));
     }
 
 }

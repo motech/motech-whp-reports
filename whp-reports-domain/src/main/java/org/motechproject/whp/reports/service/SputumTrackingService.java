@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
+import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class SputumTrackingService {
         this.allSputumTrackingRecords = allSputumTrackingRecords;
     }
 
-    public void save(SputumTrackingRecord sputumTrackingRecord) {
-        allSputumTrackingRecords.save(sputumTrackingRecord);
+    public void save(ContainerRecord containerRecord) {
+        allSputumTrackingRecords.save(containerRecord);
     }
 }

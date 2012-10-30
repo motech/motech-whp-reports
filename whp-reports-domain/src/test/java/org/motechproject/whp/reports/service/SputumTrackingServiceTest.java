@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.domain.measure.SputumTrackingRecord;
+import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
 
 import static org.mockito.Mockito.verify;
@@ -24,10 +24,10 @@ public class SputumTrackingServiceTest {
     @Test
     public void shouldSaveSputumTrackingRecord(){
 
-        SputumTrackingRecord sputumTrackingRecord = new SputumTrackingRecord();
-        sputumTrackingService.save(sputumTrackingRecord);
+        ContainerRecord containerRecord = new ContainerRecord();
+        sputumTrackingService.save(containerRecord);
 
-        verify(allSputumTrackingRecords).save(sputumTrackingRecord);
+        verify(allSputumTrackingRecords).save(containerRecord);
     }
 
 }
