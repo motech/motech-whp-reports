@@ -60,6 +60,9 @@ public class ContainerRecord {
     @Column(name = "lab_number")
     private String labNumber;
 
+    @Column(name = "lab_results_captured_on")
+    private Date labResultsCapturedOn;
+
     @Column(name = "container_status")
     private String status;
 

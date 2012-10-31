@@ -15,6 +15,7 @@ CREATE TABLE whp_reports.sputum_tracking (
     cumulative_result varchar(13),
     lab_name varchar(100),
     lab_number varchar(20),
+    lab_results_captured_on date,
     container_status varchar(5),
     reason_for_closure varchar(60),
     diagnosis varchar(13),

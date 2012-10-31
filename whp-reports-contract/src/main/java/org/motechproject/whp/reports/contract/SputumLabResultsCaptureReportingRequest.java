@@ -15,4 +15,5 @@ public class SputumLabResultsCaptureReportingRequest implements Serializable {
     private String cumulativeResult;
     private String labName;
     private String labNumber;
+    private Date labResultsCapturedOn;
 }
