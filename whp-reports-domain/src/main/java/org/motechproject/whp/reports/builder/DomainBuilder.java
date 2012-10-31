@@ -74,4 +74,12 @@ public class DomainBuilder {
        containerRecord.setSmearTestResult2(request.getSmearTestResult2());
        containerRecord.setCumulativeResult(request.getCumulativeResult());
     }
+
+    public static void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
+        containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
+        containerRecord.setClosureDate(containerStatusReportingRequest.getClosureDate());
+        containerRecord.setConsultationDate(containerStatusReportingRequest.getConsultationDate());
+        containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
+        containerRecord.setContainerStatus(containerStatusReportingRequest.getContainerStatus());
+    }
 }

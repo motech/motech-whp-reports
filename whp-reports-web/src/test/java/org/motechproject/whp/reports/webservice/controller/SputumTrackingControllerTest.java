@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
+import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.service.SputumTrackingService;
 import org.springframework.http.MediaType;
@@ -49,6 +50,17 @@ public class SputumTrackingControllerTest {
 
         standaloneSetup(sputumTrackingController).build()
                 .perform(post("/sputumTracking/sputumLabResultsMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldUpdateContainerStatus() throws Exception {
+        ContainerStatusReportingRequest request = new ContainerStatusReportingRequest();
+
+        String requestJSON = getJSON(request);
+
+        standaloneSetup(sputumTrackingController).build()
+                .perform(post("/sputumTracking/containerStatusMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

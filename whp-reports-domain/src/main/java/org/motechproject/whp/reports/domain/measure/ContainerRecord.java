@@ -42,9 +42,6 @@ public class ContainerRecord {
     @Column(name = "patient_id")
     private String patientId;
 
-    @Column(name = "container_status")
-    private String containerStatus;
-
     @Column(name = "smear_test_date1")
     private Date smearTestDate1;
 
@@ -66,9 +63,21 @@ public class ContainerRecord {
     @Column(name = "lab_number")
     private String labNumber;
 
+    @Column(name = "container_status")
+    private String containerStatus;
+
     @Column(name = "reason_for_closure")
     private String reasonForClosure;
 
+    @Column(name = "diagnosis")
+    private String diagnosis;
+
     @Column(name = "alternate_diagnosis_code")
     private String alternateDiagnosisCode;
+
+    @Column(name = "consultation_date")
+    private Date consultationDate;
+
+    @Column(name = "closure_date")
+    private Date closureDate;
 }

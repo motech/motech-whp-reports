@@ -16,4 +16,5 @@ public class ContainerRegistrationReportingRequest {
     private String channelId;
     private String patientId;
     private String containerStatus;
+    private String diagnosis;
 }

@@ -1,11 +1,9 @@
 package org.motechproject.whp.reports.builder;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Test;
-import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.FlashingLogRequest;
-import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.domain.measure.CallLog;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
@@ -116,5 +114,29 @@ public class DomainBuilderTest {
         assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestDate1(), containerRecord.getSmearTestDate1());
         assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestDate2(), containerRecord.getSmearTestDate2());
         assertEquals(sputumLabResultsCaptureReportingRequest.getCumulativeResult(), containerRecord.getCumulativeResult());
+    }
+
+    @Test
+    public void shouldUpdateContainerStatus() {
+        java.util.Date now = new java.util.Date();
+
+        ContainerStatusReportingRequest containerStatusReportingRequest = new ContainerStatusReportingRequest();
+        containerStatusReportingRequest.setContainerId("containerId");
+        containerStatusReportingRequest.setAlternateDiagnosisCode("alternate");
+        containerStatusReportingRequest.setClosureDate(now);
+        containerStatusReportingRequest.setConsultationDate(now);
+        containerStatusReportingRequest.setReasonForClosure("reason");
+        containerStatusReportingRequest.setContainerStatus("status");
+
+        ContainerRecord containerRecord = new ContainerRecord();
+        containerRecord.setContainerId(containerStatusReportingRequest.getContainerId());
+
+        DomainBuilder.updateContainerStatus(containerStatusReportingRequest, containerRecord);
+
+        assertEquals(containerStatusReportingRequest.getAlternateDiagnosisCode(), containerRecord.getAlternateDiagnosisCode());
+        assertEquals(containerStatusReportingRequest.getClosureDate(), containerRecord.getClosureDate());
+        assertEquals(containerStatusReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
+        assertEquals(containerStatusReportingRequest.getContainerStatus(), containerRecord.getContainerStatus());
+        assertEquals(containerStatusReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
     }
 }
