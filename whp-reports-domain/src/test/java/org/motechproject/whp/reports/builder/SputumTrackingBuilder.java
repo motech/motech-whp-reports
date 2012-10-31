@@ -22,7 +22,7 @@ public class SputumTrackingBuilder {
     }
 
     public SputumTrackingBuilder issuedOn(Date dateIssuedOn) {
-        containerRecord.setDateIssuedOn(dateIssuedOn);
+        containerRecord.setIssuedOn(dateIssuedOn);
         return this;
     }
 
@@ -62,7 +62,7 @@ public class SputumTrackingBuilder {
     }
 
     public SputumTrackingBuilder havingStatus(String status) {
-        containerRecord.setContainerStatus(status);
+        containerRecord.setStatus(status);
         return this;
     }
 

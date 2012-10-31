@@ -19,7 +19,7 @@ public class ContainerRecord {
     private String containerId;
 
     @Column(name = "date_issued_on")
-    private Date dateIssuedOn;
+    private Date issuedOn;
 
     @Column(name = "provider_id")
     private String providerId;
@@ -38,9 +38,6 @@ public class ContainerRecord {
 
     @Column(name = "channel_id")
     private String channelId;
-
-    @Column(name = "patient_id")
-    private String patientId;
 
     @Column(name = "smear_test_date1")
     private Date smearTestDate1;
@@ -64,7 +61,7 @@ public class ContainerRecord {
     private String labNumber;
 
     @Column(name = "container_status")
-    private String containerStatus;
+    private String status;
 
     @Column(name = "reason_for_closure")
     private String reasonForClosure;
@@ -80,4 +77,13 @@ public class ContainerRecord {
 
     @Column(name = "closure_date")
     private Date closureDate;
+
+    @Column(name = "patient_id")
+    private String patientId;
+
+    private String tbId;
+
+    private Date tbRegistrationDate;
+
+    private String mappingInstance;
 }

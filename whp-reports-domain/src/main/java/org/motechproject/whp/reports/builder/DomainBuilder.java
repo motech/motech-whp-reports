@@ -56,7 +56,7 @@ public class DomainBuilder {
     public static ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
-        containerRecord.setDateIssuedOn(containerRegistrationReportingRequest.getDateIssuedOn());
+        containerRecord.setIssuedOn(containerRegistrationReportingRequest.getIssuedOn());
         containerRecord.setProviderId(containerRegistrationReportingRequest.getProviderId());
         containerRecord.setSubmitterRole(containerRegistrationReportingRequest.getSubmitterRole());
         containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
@@ -80,6 +80,6 @@ public class DomainBuilder {
         containerRecord.setClosureDate(containerStatusReportingRequest.getClosureDate());
         containerRecord.setConsultationDate(containerStatusReportingRequest.getConsultationDate());
         containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
-        containerRecord.setContainerStatus(containerStatusReportingRequest.getContainerStatus());
+        containerRecord.setStatus(containerStatusReportingRequest.getStatus());
     }
 }

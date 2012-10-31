@@ -71,7 +71,7 @@ public class DomainBuilderTest {
         ContainerRegistrationReportingRequest containerRegistrationReportingRequest = new ContainerRegistrationReportingRequest();
         containerRegistrationReportingRequest.setContainerId("containerId");
         containerRegistrationReportingRequest.setInstance("PreTreatment");
-        containerRegistrationReportingRequest.setDateIssuedOn(now);
+        containerRegistrationReportingRequest.setIssuedOn(now);
         containerRegistrationReportingRequest.setProviderId("raj");
         containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
         containerRegistrationReportingRequest.setSubmitterId("submitterId");
@@ -80,7 +80,7 @@ public class DomainBuilderTest {
 
         assertThat(containerRecord.getContainerId(), is(containerRegistrationReportingRequest.getContainerId()));
         assertThat(containerRecord.getInstance(), is(containerRegistrationReportingRequest.getInstance()));
-        assertThat(containerRecord.getDateIssuedOn(), is(containerRegistrationReportingRequest.getDateIssuedOn()));
+        assertThat(containerRecord.getIssuedOn(), is(containerRegistrationReportingRequest.getIssuedOn()));
         assertThat(containerRecord.getProviderId(), is(containerRegistrationReportingRequest.getProviderId()));
         assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationReportingRequest.getSubmitterRole()));
         assertThat(containerRecord.getSubmitterId(), is(containerRegistrationReportingRequest.getSubmitterId()));
@@ -126,7 +126,7 @@ public class DomainBuilderTest {
         containerStatusReportingRequest.setClosureDate(now);
         containerStatusReportingRequest.setConsultationDate(now);
         containerStatusReportingRequest.setReasonForClosure("reason");
-        containerStatusReportingRequest.setContainerStatus("status");
+        containerStatusReportingRequest.setStatus("status");
 
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerStatusReportingRequest.getContainerId());
@@ -136,7 +136,7 @@ public class DomainBuilderTest {
         assertEquals(containerStatusReportingRequest.getAlternateDiagnosisCode(), containerRecord.getAlternateDiagnosisCode());
         assertEquals(containerStatusReportingRequest.getClosureDate(), containerRecord.getClosureDate());
         assertEquals(containerStatusReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
-        assertEquals(containerStatusReportingRequest.getContainerStatus(), containerRecord.getContainerStatus());
+        assertEquals(containerStatusReportingRequest.getStatus(), containerRecord.getStatus());
         assertEquals(containerStatusReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
     }
 }

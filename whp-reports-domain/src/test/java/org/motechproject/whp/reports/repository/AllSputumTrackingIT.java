@@ -65,7 +65,7 @@ public class AllSputumTrackingIT extends IntegrationTest {
                 .build();
 
         allSputumTrackingRecords.save(containerRecord);
-        containerRecord.setContainerStatus("Open");
+        containerRecord.setStatus("Open");
 
         allSputumTrackingRecords.save(containerRecord);
 
