@@ -2,10 +2,11 @@ package org.motechproject.whp.reports.contract;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class SputumLabResultsCaptureReportingRequest {
+public class SputumLabResultsCaptureReportingRequest implements Serializable {
     private String containerId;
     private Date smearTestDate1;
     private String smearTestResult1;

@@ -80,10 +80,4 @@ public class ContainerRecord {
 
     @Column(name = "patient_id")
     private String patientId;
-
-    private String tbId;
-
-    private Date tbRegistrationDate;
-
-    private String mappingInstance;
 }

@@ -2,12 +2,13 @@ package org.motechproject.whp.reports.contract;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class ContainerRegistrationReportingRequest {
+public class ContainerRegistrationReportingRequest implements Serializable {
     private String containerId;
-    private Date dateIssuedOn;
+    private Date issuedOn;
     private String providerId;
     private String submitterRole;
     private String submitterId;
@@ -15,6 +16,6 @@ public class ContainerRegistrationReportingRequest {
     private String instance;
     private String channelId;
     private String patientId;
-    private String containerStatus;
+    private String status;
     private String diagnosis;
 }
