@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.domain.measure;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -72,12 +72,18 @@ public class ContainerRecord {
     @Column(name = "alternate_diagnosis_code")
     private String alternateDiagnosisCode;
 
-    @Column(name = "consultation_date")
-    private Date consultationDate;
-
     @Column(name = "closure_date")
     private Date closureDate;
 
     @Column(name = "patient_id")
     private String patientId;
+
+    @Column(name = "tb_id")
+    private String tbId;
+
+    @Column(name = "consultation_date")
+    private Date consultationDate;
+
+    @Column(name = "mapping_instance")
+    private String mappingInstance;
 }

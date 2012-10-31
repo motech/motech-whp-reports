@@ -8,7 +8,6 @@ CREATE TABLE whp_reports.sputum_tracking (
     location_id varchar(20),
     instance varchar(20),
     channel_id varchar(3),
-    patient_id varchar(20),
     smear_test_date1 date,
     smear_test_result1 varchar(13),
     smear_test_date2 date,
@@ -20,6 +19,9 @@ CREATE TABLE whp_reports.sputum_tracking (
     reason_for_closure varchar(60),
     diagnosis varchar(13),
     alternate_diagnosis_code varchar(4),
+    closure_date date,
+    patient_id varchar(20),
+    tb_id varchar(20),
     consultation_date date,
-    closure_date date
+    mapping_instance varchar(20)
 );

@@ -22,7 +22,7 @@ public class SputumTrackingBuilder {
     }
 
     public SputumTrackingBuilder issuedOn(Date dateIssuedOn) {
-        containerRecord.setIssuedOn(dateIssuedOn);
+        containerRecord.setIssuedOn(new java.sql.Date(dateIssuedOn.getTime()));
         return this;
     }
 

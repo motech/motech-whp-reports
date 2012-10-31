@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.webservice.controller;
 
+import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
@@ -19,7 +20,7 @@ public class SputumTrackingController {
 
     @Autowired
     public SputumTrackingController(SputumTrackingService sputumTrackingService) {
-        this.sputumTrackingService= sputumTrackingService;
+        this.sputumTrackingService = sputumTrackingService;
     }
 
     @RequestMapping(value = "/containerRegistrationMeasure")
@@ -38,5 +39,11 @@ public class SputumTrackingController {
     @ResponseStatus(value = HttpStatus.OK)
     public void updateContainerStatus(@RequestBody ContainerStatusReportingRequest containerStatusReportingRequest) {
         sputumTrackingService.updateContainerStatus(containerStatusReportingRequest);
+    }
+
+    @RequestMapping(value = "/containerPatientMappingMeasure")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void updateContainerPatientMapping(@RequestBody ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest) {
+        sputumTrackingService.updateContainerPatientMapping(containerPatientMappingReportingRequest);
     }
 }

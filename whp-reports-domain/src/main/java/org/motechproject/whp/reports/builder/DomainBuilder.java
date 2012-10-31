@@ -52,34 +52,4 @@ public class DomainBuilder {
         flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));
         return flashingLog;
     }
-
-    public static ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
-        ContainerRecord containerRecord = new ContainerRecord();
-        containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
-        containerRecord.setIssuedOn(containerRegistrationReportingRequest.getIssuedOn());
-        containerRecord.setProviderId(containerRegistrationReportingRequest.getProviderId());
-        containerRecord.setSubmitterRole(containerRegistrationReportingRequest.getSubmitterRole());
-        containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
-        containerRecord.setInstance(containerRegistrationReportingRequest.getInstance());
-        return containerRecord;
-    }
-
-    public static void populateLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {
-
-       containerRecord.setLabName(request.getLabName());
-       containerRecord.setLabNumber(request.getLabNumber());
-       containerRecord.setSmearTestDate1(request.getSmearTestDate1());
-       containerRecord.setSmearTestDate2(request.getSmearTestDate2());
-       containerRecord.setSmearTestResult1(request.getSmearTestResult1());
-       containerRecord.setSmearTestResult2(request.getSmearTestResult2());
-       containerRecord.setCumulativeResult(request.getCumulativeResult());
-    }
-
-    public static void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
-        containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
-        containerRecord.setClosureDate(containerStatusReportingRequest.getClosureDate());
-        containerRecord.setConsultationDate(containerStatusReportingRequest.getConsultationDate());
-        containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
-        containerRecord.setStatus(containerStatusReportingRequest.getStatus());
-    }
 }
