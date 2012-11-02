@@ -13,7 +13,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-public class AllSputumTrackingIT extends IntegrationTest {
+public class AllSputumTrackingRecordsIT extends IntegrationTest {
 
     @Autowired
     AllSputumTrackingRecords allSputumTrackingRecords;
@@ -71,5 +71,34 @@ public class AllSputumTrackingIT extends IntegrationTest {
 
         ContainerRecord containerRecordFromDB = allSputumTrackingRecords.get(containerRecord.getId());
         assertThat(containerRecordFromDB, is(containerRecord));
+    }
+
+    @Test
+    @Transactional
+    public void shouldGetByContainerId(){
+        Date submissionDate = new Date();
+        String containerId = "containerId";
+        ContainerRecord containerRecord = new SputumTrackingBuilder()
+                .withContainerId(containerId)
+                .issuedOn(submissionDate)
+                .assignedToProvider("providerId")
+                .submittedBy("CmfAdmin")
+                .havingSubmitterId("admin")
+                .onLocationId("Patna")
+                .havingInstance("Instance")
+                .submittedThroughChannel("IVR")
+                .forPatientId("patient1")
+                .havingStatus("Close")
+                .withReasonForClosure("For Fun")
+                .withAlternateDiagnosisCode("666")
+                .build();
+
+        allSputumTrackingRecords.save(containerRecord);
+        containerRecord.setStatus("Open");
+
+        allSputumTrackingRecords.save(containerRecord);
+
+        ContainerRecord containerRecordFromDB = allSputumTrackingRecords.getByContainerId(containerRecord.getContainerId());
+        assertThat(containerRecordFromDB,is(containerRecord));
     }
 }
