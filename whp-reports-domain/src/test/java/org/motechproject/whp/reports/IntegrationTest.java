@@ -1,15 +1,13 @@
 package org.motechproject.whp.reports;
 
 import org.hibernate.Query;
-import org.hibernate.classic.Session;
-import org.junit.After;
+import org.hibernate.Session;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.repository.DataAccessTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
