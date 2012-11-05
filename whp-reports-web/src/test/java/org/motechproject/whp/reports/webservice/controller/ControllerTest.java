@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class ControllerTest {
+public abstract class ControllerTest {
 
     protected String getJSON(Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
