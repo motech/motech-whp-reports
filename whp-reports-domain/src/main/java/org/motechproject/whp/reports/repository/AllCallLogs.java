@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.repository;
 
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,11 +10,11 @@ public class AllCallLogs {
     @Autowired
     private DataAccessTemplate template;
 
-    public void save(CallLog callLog) {
+    public void save(AdherenceCallLog callLog) {
         template.saveOrUpdate(callLog);
     }
 
-    public CallLog get(long callLogId) {
-        return template.get(CallLog.class, callLogId);
+    public AdherenceCallLog get(long callLogId) {
+        return template.get(AdherenceCallLog.class, callLogId);
     }
 }

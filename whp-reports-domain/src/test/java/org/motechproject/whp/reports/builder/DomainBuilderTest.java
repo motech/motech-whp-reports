@@ -1,11 +1,9 @@
 package org.motechproject.whp.reports.builder;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.*;
-import org.motechproject.whp.reports.domain.measure.CallLog;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 
 import java.sql.Date;
@@ -33,7 +31,7 @@ public class DomainBuilderTest {
         callLogRequest.setCallId("callId");
         callLogRequest.setCallStatus("callStatusValue");
 
-        CallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
+        AdherenceCallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
 
         assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
         assertThat(callLog.getStartDate(), is(new Date(callLogRequest.getStartTime().getTime())));

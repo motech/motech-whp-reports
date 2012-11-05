@@ -1,10 +1,9 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.repository.AllCallLogs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -22,7 +21,7 @@ public class CallLogService {
         this.allCallLogs = allCallLogs;
     }
 
-    public void save(CallLog log) {
+    public void save(AdherenceCallLog log) {
         allCallLogs.save(log);
     }
 }

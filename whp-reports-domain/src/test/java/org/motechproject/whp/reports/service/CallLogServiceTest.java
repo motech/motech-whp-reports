@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.repository.AllCallLogs;
 
 import static org.mockito.Mockito.verify;
@@ -23,7 +23,7 @@ public class CallLogServiceTest {
 
     @Test
     public void shouldSaveCallLog() {
-        CallLog log = new CallLog();
+        AdherenceCallLog log = new AdherenceCallLog();
         callLogService.save(log);
         verify(allCallLogs).save(log);
     }

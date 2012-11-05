@@ -2,7 +2,7 @@ package org.motechproject.whp.reports.repository;
 
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
     @Test
     @Transactional
     public void shouldCreateCallLog() {
-        CallLog callLog = newCallLog()
+        AdherenceCallLog callLog = newCallLog()
                 .forProvider("providerId")
                 .withNumber("provider")
                 .starting(new Date())
@@ -35,14 +35,14 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
         allCallLogs.save(callLog);
         assertNotNull(callLog.getId());
 
-        CallLog callLogFromDB = allCallLogs.get(callLog.getId());
+        AdherenceCallLog callLogFromDB = allCallLogs.get(callLog.getId());
         assertThat(callLogFromDB, is(callLog));
     }
 
     @Test
     @Transactional
     public void shouldUpdateCallLog() {
-        CallLog callLog = newCallLog()
+        AdherenceCallLog callLog = newCallLog()
                 .forProvider("providerId")
                 .withNumber("provider")
                 .starting(new Date())
@@ -54,7 +54,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
         callLog.setCalledBy(cmfAdmin);
         allCallLogs.save(callLog);
 
-        CallLog callLogFromDB = allCallLogs.get(callLog.getId());
+        AdherenceCallLog callLogFromDB = allCallLogs.get(callLog.getId());
 
         assertThat(callLogFromDB.getCalledBy(), is(cmfAdmin));
     }

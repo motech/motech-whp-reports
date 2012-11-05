@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.builder.DomainBuilder;
 import org.motechproject.whp.reports.contract.CallLogRequest;
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.service.CallLogService;
 import org.springframework.http.MediaType;
 
@@ -54,7 +54,7 @@ public class CallLogCaptureControllerTest {
         CallLogRequest callLogRequest = new CallLogRequest();
         String requestJson = getJSON(callLogRequest);
 
-        doThrow(new RuntimeException()).when(callLogService).save(any(CallLog.class));
+        doThrow(new RuntimeException()).when(callLogService).save(any(AdherenceCallLog.class));
         standaloneSetup(controller).build()
                 .perform(post("/callLog/measure")
                         .body(requestJson.getBytes())

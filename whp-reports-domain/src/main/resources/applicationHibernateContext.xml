@@ -17,7 +17,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>org.motechproject.whp.reports.domain.measure.CallLog</value>
+                <value>org.motechproject.whp.reports.domain.measure.AdherenceCallLog</value>
                 <value>org.motechproject.whp.reports.domain.measure.FlashingLog</value>
                 <value>org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission</value>
                 <value>org.motechproject.whp.reports.domain.dimension.DateDimension</value>

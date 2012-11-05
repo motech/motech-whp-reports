@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.builder;
 
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -35,8 +35,8 @@ public class CallLogBuilder {
         return this;
     }
 
-    public CallLog build() {
-        CallLog callLog = new CallLog();
+    public AdherenceCallLog build() {
+        AdherenceCallLog callLog = new AdherenceCallLog();
         callLog.setProviderId(providerId);
         callLog.setCalledBy(calledBy);
         if(from != null){

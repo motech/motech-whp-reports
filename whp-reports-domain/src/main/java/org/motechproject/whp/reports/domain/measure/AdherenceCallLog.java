@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "call_log", uniqueConstraints = {@UniqueConstraint(columnNames = {"call_log_id"})})
-public class CallLog {
+@Table(name = "adherence_call_log", uniqueConstraints = {@UniqueConstraint(columnNames = {"call_log_id"})})
+public class AdherenceCallLog {
 
     @Id
     @Column(name = "call_log_id")

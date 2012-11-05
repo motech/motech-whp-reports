@@ -3,10 +3,9 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.motechproject.whp.reports.contract.*;
-import org.motechproject.whp.reports.domain.measure.CallLog;
+import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -21,8 +20,8 @@ public class DomainBuilder {
         return submission;
     }
 
-    public static CallLog buildCallLog(CallLogRequest callLogRequest){
-            CallLog callLog = new CallLog();
+    public static AdherenceCallLog buildCallLog(CallLogRequest callLogRequest){
+            AdherenceCallLog callLog = new AdherenceCallLog();
             callLog.setCalledBy(callLogRequest.getCalledBy());
             callLog.setStartDate(new Date(callLogRequest.getStartTime().getTime()));
             callLog.setStartDateTime(new Timestamp(callLogRequest.getStartTime().getTime()));
