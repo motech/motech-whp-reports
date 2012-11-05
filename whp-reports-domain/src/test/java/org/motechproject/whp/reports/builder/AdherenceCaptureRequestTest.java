@@ -10,77 +10,77 @@ import static junit.framework.Assert.assertNull;
 
 public class AdherenceCaptureRequestTest {
 
-    private DomainBuilder domainBuilder = new DomainBuilder();
+    private DomainMapper domainMapper = new DomainMapper();
 
     @Test
     public void shouldCopyTimeTaken() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getTimeTaken());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getTimeTaken());
         request.setTimeTaken(1000l);
-        assertEquals(new Long(1000l), domainBuilder.buildAdherenceSubmission(request).getTimeTaken());
+        assertEquals(new Long(1000l), domainMapper.mapAdherenceSubmission(request).getTimeTaken());
     }
 
     @Test
     public void shouldCopyCallId() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getCallId());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getCallId());
         request.setCallId("callId");
-        assertEquals("callId", domainBuilder.buildAdherenceSubmission(request).getCallId());
+        assertEquals("callId", domainMapper.mapAdherenceSubmission(request).getCallId());
     }
 
     @Test
     public void shouldCopyStatus() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getStatus());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getStatus());
         request.setStatus("status");
-        assertEquals("status", domainBuilder.buildAdherenceSubmission(request).getStatus());
+        assertEquals("status", domainMapper.mapAdherenceSubmission(request).getStatus());
     }
 
     @Test
     public void shouldCopyPatientId() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getPatientId());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getPatientId());
         request.setPatientId("patientId");
-        assertEquals("patientId", domainBuilder.buildAdherenceSubmission(request).getPatientId());
+        assertEquals("patientId", domainMapper.mapAdherenceSubmission(request).getPatientId());
     }
 
     @Test
     public void shouldCopySubmittedValue() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getSubmittedValue());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getSubmittedValue());
         request.setSubmittedValue("1");
-        assertEquals("1", domainBuilder.buildAdherenceSubmission(request).getSubmittedValue());
+        assertEquals("1", domainMapper.mapAdherenceSubmission(request).getSubmittedValue());
     }
 
     @Test
     public void shouldCopyProviderId() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getProviderId());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getProviderId());
         request.setProviderId("providerId");
-        assertEquals("providerId", domainBuilder.buildAdherenceSubmission(request).getProviderId());
+        assertEquals("providerId", domainMapper.mapAdherenceSubmission(request).getProviderId());
     }
 
     @Test
     public void shouldCopySubmittedBy() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertNull(domainBuilder.buildAdherenceSubmission(request).getSubmittedBy());
+        assertNull(domainMapper.mapAdherenceSubmission(request).getSubmittedBy());
         request.setProviderId("submittedBy");
-        assertEquals("submittedBy", domainBuilder.buildAdherenceSubmission(request).getProviderId());
+        assertEquals("submittedBy", domainMapper.mapAdherenceSubmission(request).getProviderId());
     }
 
     @Test
     public void shouldCopyValidStatus() {
         AdherenceCaptureRequest request = new AdherenceCaptureRequest();
 
-        assertFalse(domainBuilder.buildAdherenceSubmission(request).isValid());
+        assertFalse(domainMapper.mapAdherenceSubmission(request).isValid());
         request.setValid(true);
-        assertEquals(true, domainBuilder.buildAdherenceSubmission(request).isValid());
+        assertEquals(true, domainMapper.mapAdherenceSubmission(request).isValid());
     }
 }

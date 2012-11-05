@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class DomainBuilderTest {
+public class DomainMapperTest {
 
     @Test
     public void shouldCreateCallLog() {
@@ -33,7 +33,7 @@ public class DomainBuilderTest {
         callLogRequest.setCallId("callId");
         callLogRequest.setCallStatus("callStatusValue");
 
-        AdherenceCallLog callLog = new DomainBuilder().buildAdherenceCallLog(callLogRequest);
+        AdherenceCallLog callLog = new DomainMapper().mapAdherenceCallLog(callLogRequest);
 
         assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
         assertThat(callLog.getStartDate(), is(new Date(callLogRequest.getStartTime().getTime())));
@@ -64,7 +64,7 @@ public class DomainBuilderTest {
         request.setMobileNumber("1234567890");
 
 
-        ContainerRegistrationCallLog callLog = new DomainBuilder().buildContainerRegistrationCallLog(request);
+        ContainerRegistrationCallLog callLog = new DomainMapper().mapContainerRegistrationCallLog(request);
 
         assertThat(callLog.getCallId(), is(request.getCallId()));
         assertThat(callLog.getDisconnectionType(), is(request.getDisconnectionType()));
@@ -83,7 +83,7 @@ public class DomainBuilderTest {
         flashingLogRequest.setCreationTime((new DateTime()).toDate());
         flashingLogRequest.setMobileNumber("1234567890");
 
-        FlashingLog flashingLog = new DomainBuilder().buildFlashingRequestLog(flashingLogRequest);
+        FlashingLog flashingLog = new DomainMapper().buildFlashingRequestLog(flashingLogRequest);
 
         assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
         assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));

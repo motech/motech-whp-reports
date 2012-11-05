@@ -4,7 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 import org.motechproject.whp.reports.service.PatientAdherenceSubmissionService;
@@ -26,11 +26,13 @@ public class AdherenceCaptureControllerTest {
     private PatientAdherenceSubmissionService adherenceSubmissionService;
 
     private AdherenceCaptureController controller;
+    private DomainMapper domainMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new AdherenceCaptureController(adherenceSubmissionService);
+        domainMapper = new DomainMapper();
+        controller = new AdherenceCaptureController(adherenceSubmissionService, domainMapper);
     }
 
     @Test
@@ -42,7 +44,7 @@ public class AdherenceCaptureControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/adherence/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(adherenceSubmissionService).save(new DomainBuilder().buildAdherenceSubmission(request));
+        verify(adherenceSubmissionService).save(domainMapper.mapAdherenceSubmission(request));
     }
 
     @Test

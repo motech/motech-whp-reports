@@ -10,21 +10,23 @@ import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
-public class DomainBuilder {
+@Component
+public class DomainMapper {
 
-    public PatientAdherenceSubmission buildAdherenceSubmission(AdherenceCaptureRequest adherenceCaptureRequest) {
+    public PatientAdherenceSubmission mapAdherenceSubmission(AdherenceCaptureRequest adherenceCaptureRequest) {
         PatientAdherenceSubmission submission = new PatientAdherenceSubmission();
         copyProperties(adherenceCaptureRequest, submission);
         return submission;
     }
 
-    public AdherenceCallLog buildAdherenceCallLog(AdherenceCallLogRequest callLogRequest) {
+    public AdherenceCallLog mapAdherenceCallLog(AdherenceCallLogRequest callLogRequest) {
         AdherenceCallLog callLog = new AdherenceCallLog();
         java.util.Date startTime = callLogRequest.getStartTime();
         java.util.Date endTime = callLogRequest.getEndTime();
@@ -45,7 +47,16 @@ public class DomainBuilder {
         return callLog;
     }
 
-    public ContainerRegistrationCallLog buildContainerRegistrationCallLog(ContainerRegistrationCallLogRequest request) {
+    public FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
+        FlashingLog flashingLog = new FlashingLog();
+        flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
+        flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
+        flashingLog.setProviderId(flashingLogRequest.getProviderId());
+        flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));
+        return flashingLog;
+    }
+
+    public ContainerRegistrationCallLog mapContainerRegistrationCallLog(ContainerRegistrationCallLogRequest request) {
         ContainerRegistrationCallLog containerRegistrationCallLog = new ContainerRegistrationCallLog();
         java.util.Date startDateTime = request.getStartDateTime();
         java.util.Date endDateTime = request.getEndDateTime();
@@ -58,15 +69,6 @@ public class DomainBuilder {
         containerRegistrationCallLog.setEndDateTime(new Timestamp(endDateTime.getTime()));
         containerRegistrationCallLog.setDuration(getDuration(startDateTime, endDateTime));
         return containerRegistrationCallLog;
-    }
-
-    public FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
-        FlashingLog flashingLog = new FlashingLog();
-        flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
-        flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
-        flashingLog.setProviderId(flashingLogRequest.getProviderId());
-        flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));
-        return flashingLog;
     }
 
     private int getDuration(java.util.Date startTime, java.util.Date endTime) {

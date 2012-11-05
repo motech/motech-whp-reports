@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.webservice.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
 import org.springframework.http.MediaType;
@@ -21,11 +21,13 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
     private ContainerRegistrationCallLogController controller;
     @Mock
     private ContainerRegistrationCallLogService containerRegistrationCallLogService;
+    private DomainMapper domainMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService);
+        domainMapper = new DomainMapper();
+        controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService, domainMapper);
     }
 
     @Test
@@ -48,6 +50,6 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
                 )
                 .andExpect(status().isOk());
 
-        verify(containerRegistrationCallLogService).save(new DomainBuilder().buildContainerRegistrationCallLog(request));
+        verify(containerRegistrationCallLogService).save(domainMapper.mapContainerRegistrationCallLog(request));
     }
 }

@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 
-import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.service.FlashingLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +16,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping("/flashingLog")
 public class FlashingLogCaptureController extends BaseController {
 
-    FlashingLogService flashingLogService;
+    private FlashingLogService flashingLogService;
+    private DomainMapper domainMapper;
 
     @Autowired
-    public FlashingLogCaptureController(FlashingLogService flashingLogService) {
+    public FlashingLogCaptureController(FlashingLogService flashingLogService, DomainMapper domainMapper) {
         this.flashingLogService = flashingLogService;
+        this.domainMapper = domainMapper;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "measure")
     @ResponseStatus(value = HttpStatus.OK)
     public void callLogs(@RequestBody FlashingLogRequest flashingLogRequest) {
-        flashingLogService.save(new DomainBuilder().buildFlashingRequestLog(flashingLogRequest));
+        flashingLogService.save(domainMapper.buildFlashingRequestLog(flashingLogRequest));
     }
 }

@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 
-import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.service.AdherenceCallLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class AdherenceCallLogCaptureController extends BaseController {
 
     AdherenceCallLogService callLogService;
+    DomainMapper domainMapper;
 
     @Autowired
-    public AdherenceCallLogCaptureController(AdherenceCallLogService callLogService) {
+    public AdherenceCallLogCaptureController(AdherenceCallLogService callLogService, DomainMapper domainMapper) {
         this.callLogService = callLogService;
+        this.domainMapper = domainMapper;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "measure")
     @ResponseStatus(value = HttpStatus.OK)
     public void callLogs(@RequestBody AdherenceCallLogRequest callLogRequest) {
-        callLogService.save(new DomainBuilder().buildAdherenceCallLog(callLogRequest));
+        callLogService.save(domainMapper.mapAdherenceCallLog(callLogRequest));
     }
 }

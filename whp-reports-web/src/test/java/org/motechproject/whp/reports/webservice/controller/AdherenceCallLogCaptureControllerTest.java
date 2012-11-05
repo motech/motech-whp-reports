@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.webservice.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.service.AdherenceCallLogService;
@@ -25,11 +25,13 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
     private AdherenceCallLogService callLogService;
 
     private AdherenceCallLogCaptureController controller;
+    private DomainMapper domainMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new AdherenceCallLogCaptureController(callLogService);
+        domainMapper = new DomainMapper();
+        controller = new AdherenceCallLogCaptureController(callLogService, domainMapper);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/adherenceCallLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(callLogService).save(new DomainBuilder().buildAdherenceCallLog(callLogRequest));
+        verify(callLogService).save(domainMapper.mapAdherenceCallLog(callLogRequest));
     }
 
     @Test

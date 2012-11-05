@@ -4,7 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.builder.DomainBuilder;
+import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.service.FlashingLogService;
@@ -27,11 +27,13 @@ public class FlashingLogCaptureControllerTest {
     private FlashingLogService flashingLogService;
 
     private FlashingLogCaptureController controller;
+    private DomainMapper domainMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new FlashingLogCaptureController(flashingLogService);
+        domainMapper = new DomainMapper();
+        controller = new FlashingLogCaptureController(flashingLogService, domainMapper);
     }
 
     @Test
@@ -46,7 +48,7 @@ public class FlashingLogCaptureControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/flashingLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(flashingLogService).save(new DomainBuilder().buildFlashingRequestLog(flashingLogRequest));
+        verify(flashingLogService).save(domainMapper.buildFlashingRequestLog(flashingLogRequest));
     }
 
     @Test
