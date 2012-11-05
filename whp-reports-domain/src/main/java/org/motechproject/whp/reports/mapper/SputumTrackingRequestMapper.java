@@ -13,7 +13,7 @@ public class SputumTrackingRequestMapper {
     public static ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
-        containerRecord.setIssuedOn(new Date(containerRegistrationReportingRequest.getIssuedOn().getTime()));
+        containerRecord.setIssuedOn(getDateIfNotNull(containerRegistrationReportingRequest.getIssuedOn()));
         containerRecord.setProviderId(containerRegistrationReportingRequest.getProviderId());
         containerRecord.setSubmitterRole(containerRegistrationReportingRequest.getSubmitterRole());
         containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
@@ -25,8 +25,8 @@ public class SputumTrackingRequestMapper {
 
         containerRecord.setLabName(request.getLabName());
         containerRecord.setLabNumber(request.getLabNumber());
-        containerRecord.setSmearTestDate1(new Date(request.getSmearTestDate1().getTime()));
-        containerRecord.setSmearTestDate2(new Date(request.getSmearTestDate2().getTime()));
+        containerRecord.setSmearTestDate1(getDateIfNotNull(request.getSmearTestDate1()));
+        containerRecord.setSmearTestDate2(getDateIfNotNull(request.getSmearTestDate2()));
         containerRecord.setSmearTestResult1(request.getSmearTestResult1());
         containerRecord.setSmearTestResult2(request.getSmearTestResult2());
         containerRecord.setCumulativeResult(request.getCumulativeResult());
@@ -34,8 +34,8 @@ public class SputumTrackingRequestMapper {
 
     public static void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
         containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
-        containerRecord.setClosureDate(new Date(containerStatusReportingRequest.getClosureDate().getTime()));
-        containerRecord.setConsultationDate(new Date(containerStatusReportingRequest.getConsultationDate().getTime()));
+        containerRecord.setClosureDate(getDateIfNotNull(containerStatusReportingRequest.getClosureDate()));
+        containerRecord.setConsultationDate(getDateIfNotNull(containerStatusReportingRequest.getConsultationDate()));
         containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerStatusReportingRequest.getStatus());
     }
@@ -46,7 +46,13 @@ public class SputumTrackingRequestMapper {
         containerRecord.setMappingInstance(containerPatientMappingReportingRequest.getMappingInstance());
         containerRecord.setReasonForClosure(containerPatientMappingReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerPatientMappingReportingRequest.getStatus());
-        containerRecord.setClosureDate(new Date(containerPatientMappingReportingRequest.getClosureDate().getTime()));
-        containerRecord.setConsultationDate(new Date(containerPatientMappingReportingRequest.getConsultationDate().getTime()));
+        containerRecord.setClosureDate(getDateIfNotNull(containerPatientMappingReportingRequest.getClosureDate()));
+        containerRecord.setConsultationDate(getDateIfNotNull(containerPatientMappingReportingRequest.getConsultationDate()));
+    }
+
+    private static Date getDateIfNotNull(java.util.Date date) {
+        if(date != null)
+            return new Date(date.getTime());
+        return null;
     }
 }
