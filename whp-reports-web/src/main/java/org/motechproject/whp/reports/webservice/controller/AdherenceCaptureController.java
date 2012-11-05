@@ -26,6 +26,6 @@ public class AdherenceCaptureController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, value = "measure")
     @ResponseStatus(value = HttpStatus.OK)
     public void callLogs(@RequestBody AdherenceCaptureRequest adherenceRequest) {
-        adherenceSubmissionService.save(DomainBuilder.buildAdherenceSubmission(adherenceRequest));
+        adherenceSubmissionService.save(new DomainBuilder().buildAdherenceSubmission(adherenceRequest));
     }
 }

@@ -2,8 +2,11 @@ package org.motechproject.whp.reports.builder;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.whp.reports.contract.*;
+import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
+import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 
 import java.sql.Date;
@@ -11,7 +14,6 @@ import java.sql.Timestamp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 
 public class DomainBuilderTest {
 
@@ -31,7 +33,7 @@ public class DomainBuilderTest {
         callLogRequest.setCallId("callId");
         callLogRequest.setCallStatus("callStatusValue");
 
-        AdherenceCallLog callLog = DomainBuilder.buildCallLog(callLogRequest);
+        AdherenceCallLog callLog = new DomainBuilder().buildAdherenceCallLog(callLogRequest);
 
         assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
         assertThat(callLog.getStartDate(), is(new Date(callLogRequest.getStartTime().getTime())));
@@ -48,6 +50,32 @@ public class DomainBuilderTest {
     }
 
     @Test
+    public void shouldCreateContainerRegistrationCallLog() {
+        ContainerRegistrationCallLogRequest request = new ContainerRegistrationCallLogRequest();
+        DateTime now = new DateTime();
+        DateTime startTime = now.minusMinutes(10);
+        DateTime endTime = now;
+
+        request.setCallId("callId");
+        request.setDisconnectionType("disconnectionType");
+        request.setEndDateTime(endTime.toDate());
+        request.setStartDateTime(startTime.toDate());
+        request.setProviderId("providerid");
+        request.setMobileNumber("1234567890");
+
+
+        ContainerRegistrationCallLog callLog = new DomainBuilder().buildContainerRegistrationCallLog(request);
+
+        assertThat(callLog.getCallId(), is(request.getCallId()));
+        assertThat(callLog.getDisconnectionType(), is(request.getDisconnectionType()));
+        assertThat(callLog.getStartDateTime(), is(request.getStartDateTime()));
+        assertThat(callLog.getEndDateTime(), is(request.getEndDateTime()));
+        assertThat(callLog.getDuration(), is(600L));
+        assertThat(callLog.getProviderId(), is(request.getProviderId()));
+        assertThat(callLog.getMobileNumber(), is(request.getMobileNumber()));
+    }
+
+    @Test
     public void shouldCreateFlashingLog() {
         FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
         flashingLogRequest.setProviderId("ABC");
@@ -55,7 +83,7 @@ public class DomainBuilderTest {
         flashingLogRequest.setCreationTime((new DateTime()).toDate());
         flashingLogRequest.setMobileNumber("1234567890");
 
-        FlashingLog flashingLog = DomainBuilder.buildFlashingRequestLog(flashingLogRequest);
+        FlashingLog flashingLog = new DomainBuilder().buildFlashingRequestLog(flashingLogRequest);
 
         assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
         assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));

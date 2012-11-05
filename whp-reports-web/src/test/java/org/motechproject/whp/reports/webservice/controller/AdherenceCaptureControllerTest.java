@@ -42,7 +42,7 @@ public class AdherenceCaptureControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/adherence/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(adherenceSubmissionService).save(DomainBuilder.buildAdherenceSubmission(request));
+        verify(adherenceSubmissionService).save(new DomainBuilder().buildAdherenceSubmission(request));
     }
 
     @Test

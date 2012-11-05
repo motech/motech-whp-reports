@@ -2,8 +2,12 @@ package org.motechproject.whp.reports.builder;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
-import org.motechproject.whp.reports.contract.*;
+import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
+import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
+import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 
@@ -14,41 +18,61 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 
 public class DomainBuilder {
 
-    public static PatientAdherenceSubmission buildAdherenceSubmission(AdherenceCaptureRequest adherenceCaptureRequest) {
+    public PatientAdherenceSubmission buildAdherenceSubmission(AdherenceCaptureRequest adherenceCaptureRequest) {
         PatientAdherenceSubmission submission = new PatientAdherenceSubmission();
         copyProperties(adherenceCaptureRequest, submission);
         return submission;
     }
 
-    public static AdherenceCallLog buildCallLog(AdherenceCallLogRequest callLogRequest){
-            AdherenceCallLog callLog = new AdherenceCallLog();
-            callLog.setCalledBy(callLogRequest.getCalledBy());
-            callLog.setStartDate(new Date(callLogRequest.getStartTime().getTime()));
-            callLog.setStartDateTime(new Timestamp(callLogRequest.getStartTime().getTime()));
-            callLog.setEndDate(new Date(callLogRequest.getEndTime().getTime()));
-            callLog.setEndDateTime(new Timestamp(callLogRequest.getEndTime().getTime()));
-            callLog.setProviderId(callLogRequest.getProviderId());
-            callLog.setTotalPatients(callLogRequest.getTotalPatients());
-            callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
-            callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
-            callLog.setCallId(callLogRequest.getCallId());
-            callLog.setCallStatus(callLogRequest.getCallStatus());
+    public AdherenceCallLog buildAdherenceCallLog(AdherenceCallLogRequest callLogRequest) {
+        AdherenceCallLog callLog = new AdherenceCallLog();
+        java.util.Date startTime = callLogRequest.getStartTime();
+        java.util.Date endTime = callLogRequest.getEndTime();
 
-            Period period = new Period(
-                    callLogRequest.getStartTime().getTime(),
-                    callLogRequest.getEndTime().getTime(),
-                    PeriodType.seconds());
+        callLog.setCalledBy(callLogRequest.getCalledBy());
+        callLog.setStartDate(new Date(startTime.getTime()));
+        callLog.setStartDateTime(new Timestamp(startTime.getTime()));
+        callLog.setEndDate(new Date(endTime.getTime()));
+        callLog.setEndDateTime(new Timestamp(endTime.getTime()));
+        callLog.setProviderId(callLogRequest.getProviderId());
+        callLog.setTotalPatients(callLogRequest.getTotalPatients());
+        callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
+        callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
+        callLog.setCallId(callLogRequest.getCallId());
+        callLog.setCallStatus(callLogRequest.getCallStatus());
 
-            callLog.setDuration(period.getSeconds());
-            return callLog;
+        callLog.setDuration(getDuration(startTime, endTime));
+        return callLog;
     }
 
-    public static FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
+    public ContainerRegistrationCallLog buildContainerRegistrationCallLog(ContainerRegistrationCallLogRequest request) {
+        ContainerRegistrationCallLog containerRegistrationCallLog = new ContainerRegistrationCallLog();
+        java.util.Date startDateTime = request.getStartDateTime();
+        java.util.Date endDateTime = request.getEndDateTime();
+
+        containerRegistrationCallLog.setCallId(request.getCallId());
+        containerRegistrationCallLog.setDisconnectionType(request.getDisconnectionType());
+        containerRegistrationCallLog.setMobileNumber(request.getMobileNumber());
+        containerRegistrationCallLog.setProviderId(request.getProviderId());
+        containerRegistrationCallLog.setStartDateTime(new Timestamp(startDateTime.getTime()));
+        containerRegistrationCallLog.setEndDateTime(new Timestamp(endDateTime.getTime()));
+        containerRegistrationCallLog.setDuration(getDuration(startDateTime, endDateTime));
+        return containerRegistrationCallLog;
+    }
+
+    public FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
         FlashingLog flashingLog = new FlashingLog();
         flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
         flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
         flashingLog.setProviderId(flashingLogRequest.getProviderId());
         flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));
         return flashingLog;
+    }
+
+    private int getDuration(java.util.Date startTime, java.util.Date endTime) {
+        return new Period(
+                startTime.getTime(),
+                endTime.getTime(),
+                PeriodType.seconds()).getSeconds();
     }
 }

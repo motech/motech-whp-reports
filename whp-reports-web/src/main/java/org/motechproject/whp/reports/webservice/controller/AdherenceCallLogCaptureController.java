@@ -26,6 +26,6 @@ public class AdherenceCallLogCaptureController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, value = "measure")
     @ResponseStatus(value = HttpStatus.OK)
     public void callLogs(@RequestBody AdherenceCallLogRequest callLogRequest) {
-        callLogService.save(DomainBuilder.buildCallLog(callLogRequest));
+        callLogService.save(new DomainBuilder().buildAdherenceCallLog(callLogRequest));
     }
 }

@@ -23,10 +23,7 @@ public abstract class IntegrationTest<T> {
     @Autowired
     protected DataAccessTemplate template;
 
-    @Autowired
-    protected PlatformTransactionManager manager;
-
-    private List<Object> toDelete = new ArrayList<Object>();
+    private List<Object> toDelete = new ArrayList<>();
 
     public T purge(T entity) {
         toDelete.add(entity);
@@ -45,22 +42,5 @@ public abstract class IntegrationTest<T> {
             purge(entity);
         }
         return asList(entities);
-    }
-
-    protected List<T> saveOrUpdate(T... entities) {
-        for (final T entity : entities) {
-            template.saveOrUpdate(entity);
-            purge(entity);
-        }
-        return asList(entities);
-    }
-
-    protected List<T> fetch(final String queryString) {
-        final List<T> result = new ArrayList<>();
-        Session session = template.getSessionFactory().getCurrentSession();
-        Query query = session.createQuery(queryString);
-        List entities = query.list();
-        result.addAll(entities);
-        return result;
     }
 }

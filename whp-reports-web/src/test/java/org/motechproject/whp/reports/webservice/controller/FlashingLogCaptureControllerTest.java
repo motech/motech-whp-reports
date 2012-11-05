@@ -46,7 +46,7 @@ public class FlashingLogCaptureControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/flashingLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(flashingLogService).save(DomainBuilder.buildFlashingRequestLog(flashingLogRequest));
+        verify(flashingLogService).save(new DomainBuilder().buildFlashingRequestLog(flashingLogRequest));
     }
 
     @Test

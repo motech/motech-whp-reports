@@ -1,6 +1,5 @@
 package org.motechproject.whp.reports.webservice.controller;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,7 +9,6 @@ import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.service.AdherenceCallLogService;
 import org.springframework.http.MediaType;
 
-import java.io.IOException;
 import java.util.Date;
 
 import static org.mockito.Matchers.any;
@@ -21,7 +19,7 @@ import static org.springframework.test.web.server.request.MockMvcRequestBuilders
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
-public class AdherenceCallLogCaptureControllerTest {
+public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
 
     @Mock
     private AdherenceCallLogService callLogService;
@@ -46,7 +44,7 @@ public class AdherenceCallLogCaptureControllerTest {
         standaloneSetup(controller).build()
                 .perform(post("/adherenceCallLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(callLogService).save(DomainBuilder.buildCallLog(callLogRequest));
+        verify(callLogService).save(new DomainBuilder().buildAdherenceCallLog(callLogRequest));
     }
 
     @Test
@@ -61,10 +59,5 @@ public class AdherenceCallLogCaptureControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
-    }
-
-    private String getJSON(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writer().writeValueAsString(object);
     }
 }
