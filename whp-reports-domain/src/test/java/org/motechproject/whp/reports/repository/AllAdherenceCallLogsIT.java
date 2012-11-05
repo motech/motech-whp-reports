@@ -13,10 +13,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
 
-public class AllCallLogsIT extends IntegrationTest<Object> {
+public class AllAdherenceCallLogsIT extends IntegrationTest<Object> {
 
     @Autowired
-    AllCallLogs allCallLogs;
+    AllAdherenceCallLogs allCallLogs;
 
     @Test
     @Transactional
@@ -28,7 +28,7 @@ public class AllCallLogsIT extends IntegrationTest<Object> {
                 .withTotalPatients(10)
                 .withAdherenceCaptured(4)
                 .withAdherenceNotCaptured(6)
-                .withCallId("callIdlllllllllllllllllllllllllllllllllllllllllllllllllllllll")
+                .withCallId("callId")
                 .withDuration(100)
                 .build();
 

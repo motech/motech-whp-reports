@@ -20,7 +20,7 @@ public class DomainBuilderTest {
         DateTime now = new DateTime();
         DateTime startTime = now.minusMinutes(10);
         DateTime endTime = now;
-        CallLogRequest callLogRequest = new CallLogRequest();
+        AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
         callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(startTime.toDate());

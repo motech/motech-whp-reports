@@ -5,9 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.builder.DomainBuilder;
-import org.motechproject.whp.reports.contract.CallLogRequest;
+import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
-import org.motechproject.whp.reports.service.CallLogService;
+import org.motechproject.whp.reports.service.AdherenceCallLogService;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
@@ -21,22 +21,22 @@ import static org.springframework.test.web.server.request.MockMvcRequestBuilders
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
-public class CallLogCaptureControllerTest {
+public class AdherenceCallLogCaptureControllerTest {
 
     @Mock
-    private CallLogService callLogService;
+    private AdherenceCallLogService callLogService;
 
-    private CallLogCaptureController controller;
+    private AdherenceCallLogCaptureController controller;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new CallLogCaptureController(callLogService);
+        controller = new AdherenceCallLogCaptureController(callLogService);
     }
 
     @Test
     public void shouldHandleCallLogRequest() throws Exception {
-        CallLogRequest callLogRequest = new CallLogRequest();
+        AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
         callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(new Date());
@@ -44,19 +44,19 @@ public class CallLogCaptureControllerTest {
 
         String requestJson = getJSON(callLogRequest);
         standaloneSetup(controller).build()
-                .perform(post("/callLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/adherenceCallLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(callLogService).save(DomainBuilder.buildCallLog(callLogRequest));
     }
 
     @Test
     public void shouldRespondWithNotOkayIfServiceThrowsAnException() throws Exception {
-        CallLogRequest callLogRequest = new CallLogRequest();
+        AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
         String requestJson = getJSON(callLogRequest);
 
         doThrow(new RuntimeException()).when(callLogService).save(any(AdherenceCallLog.class));
         standaloneSetup(controller).build()
-                .perform(post("/callLog/measure")
+                .perform(post("/adherenceCallLog/measure")
                         .body(requestJson.getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )

@@ -1,23 +1,23 @@
 package org.motechproject.whp.reports.service;
 
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
-import org.motechproject.whp.reports.repository.AllCallLogs;
+import org.motechproject.whp.reports.repository.AllAdherenceCallLogs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CallLogService {
+public class AdherenceCallLogService {
 
-    private AllCallLogs allCallLogs;
+    private AllAdherenceCallLogs allCallLogs;
 
     /*Required for spring proxy*/
-    CallLogService() {
+    AdherenceCallLogService() {
     }
 
     @Autowired
-    public CallLogService(AllCallLogs allCallLogs) {
+    public AdherenceCallLogService(AllAdherenceCallLogs allCallLogs) {
         this.allCallLogs = allCallLogs;
     }
 

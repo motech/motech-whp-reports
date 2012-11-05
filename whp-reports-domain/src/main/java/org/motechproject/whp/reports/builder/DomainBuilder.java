@@ -20,7 +20,7 @@ public class DomainBuilder {
         return submission;
     }
 
-    public static AdherenceCallLog buildCallLog(CallLogRequest callLogRequest){
+    public static AdherenceCallLog buildCallLog(AdherenceCallLogRequest callLogRequest){
             AdherenceCallLog callLog = new AdherenceCallLog();
             callLog.setCalledBy(callLogRequest.getCalledBy());
             callLog.setStartDate(new Date(callLogRequest.getStartTime().getTime()));

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class CallLogRequest  implements Serializable {
+public class AdherenceCallLogRequest implements Serializable {
     private String providerId;
     private String callId;
     private String callStatus;
