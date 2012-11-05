@@ -8,6 +8,8 @@ import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
+import java.sql.Timestamp;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -85,7 +87,7 @@ public class SputumTrackingRequestMapperTest {
         SputumTrackingRequestMapper.updateContainerStatus(containerStatusReportingRequest, containerRecord);
 
         assertEquals(containerStatusReportingRequest.getAlternateDiagnosisCode(), containerRecord.getAlternateDiagnosisCode());
-        assertEquals(containerStatusReportingRequest.getClosureDate(), containerRecord.getClosureDate());
+        assertEquals(new Timestamp(containerStatusReportingRequest.getClosureDate().getMillis()), containerRecord.getClosureDate());
         assertEquals(containerStatusReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
         assertEquals(containerStatusReportingRequest.getStatus(), containerRecord.getStatus());
         assertEquals(containerStatusReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
@@ -109,7 +111,7 @@ public class SputumTrackingRequestMapperTest {
 
         SputumTrackingRequestMapper.updateContainerPatientMapping(containerPatientMappingReportingRequest, containerRecord);
 
-        assertEquals(containerPatientMappingReportingRequest.getClosureDate(), containerRecord.getClosureDate());
+        assertEquals(new Timestamp(containerPatientMappingReportingRequest.getClosureDate().getMillis()), containerRecord.getClosureDate());
         assertEquals(containerPatientMappingReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
         assertEquals(containerPatientMappingReportingRequest.getMappingInstance(), containerRecord.getMappingInstance());
         assertEquals(containerPatientMappingReportingRequest.getPatientId(), containerRecord.getPatientId());

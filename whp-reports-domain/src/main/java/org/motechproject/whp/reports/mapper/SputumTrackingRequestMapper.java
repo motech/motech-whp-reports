@@ -8,6 +8,7 @@ import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRe
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class SputumTrackingRequestMapper {
 
@@ -62,9 +63,9 @@ public class SputumTrackingRequestMapper {
         return null;
     }
 
-    private static DateTime getDateTimeIfNotNull(DateTime dateTime) {
+    private static Timestamp getDateTimeIfNotNull(DateTime dateTime) {
         if(dateTime != null)
-            return dateTime;
+            return new Timestamp(dateTime.getMillis());
         return null;
     }
 }
