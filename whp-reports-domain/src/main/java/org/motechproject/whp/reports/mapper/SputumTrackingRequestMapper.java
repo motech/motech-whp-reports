@@ -18,6 +18,10 @@ public class SputumTrackingRequestMapper {
         containerRecord.setSubmitterRole(containerRegistrationReportingRequest.getSubmitterRole());
         containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
         containerRecord.setInstance(containerRegistrationReportingRequest.getInstance());
+        containerRecord.setChannelId(containerRegistrationReportingRequest.getChannelId());
+        containerRecord.setDiagnosis(containerRegistrationReportingRequest.getDiagnosis());
+        containerRecord.setLocationId(containerRegistrationReportingRequest.getLocationId());
+        containerRecord.setStatus(containerRegistrationReportingRequest.getStatus());
         return containerRecord;
     }
 
@@ -30,6 +34,7 @@ public class SputumTrackingRequestMapper {
         containerRecord.setSmearTestResult1(request.getSmearTestResult1());
         containerRecord.setSmearTestResult2(request.getSmearTestResult2());
         containerRecord.setCumulativeResult(request.getCumulativeResult());
+        containerRecord.setLabResultsCapturedOn(getDateIfNotNull(request.getLabResultsCapturedOn()));
     }
 
     public static void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
