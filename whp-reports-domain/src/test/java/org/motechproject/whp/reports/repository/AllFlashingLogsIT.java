@@ -16,7 +16,7 @@ import static org.motechproject.whp.reports.builder.FlashingLogBuilder.newFlashi
 public class AllFlashingLogsIT extends IntegrationTest<Object> {
 
     @Autowired
-    AllFlashingLogs allFlashingLogs;
+    FlashingLogRepository flashingLogRepository;
 
     @Test
     @Transactional
@@ -27,10 +27,10 @@ public class AllFlashingLogsIT extends IntegrationTest<Object> {
                 .withCallTime(new Date())
                 .build();
 
-        allFlashingLogs.save(flashingLog);
+        flashingLog = flashingLogRepository.save(flashingLog);
         assertNotNull(flashingLog.getId());
 
-        FlashingLog fetchedFlashingLog = allFlashingLogs.get(flashingLog.getId());
+        FlashingLog fetchedFlashingLog = flashingLogRepository.findOne(flashingLog.getId());
         assertThat(fetchedFlashingLog, is(flashingLog));
     }
 
@@ -42,13 +42,13 @@ public class AllFlashingLogsIT extends IntegrationTest<Object> {
                 .withCallTime(new Date())
                 .build();
 
-        allFlashingLogs.save(flashingLog);
+        flashingLogRepository.save(flashingLog);
 
         String mobileNumber = "1234567890";
         flashingLog.setMobileNumber(mobileNumber);
-        allFlashingLogs.save(flashingLog);
+        flashingLogRepository.save(flashingLog);
 
-        FlashingLog fetchedFlashingLog = allFlashingLogs.get(flashingLog.getId());
+        FlashingLog fetchedFlashingLog = flashingLogRepository.findOne(flashingLog.getId());
 
         assertThat(fetchedFlashingLog.getMobileNumber(), is(mobileNumber));
     }

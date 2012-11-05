@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "flashing_log", uniqueConstraints = {@UniqueConstraint(columnNames = {"flashing_log_id"})})
+@Table(name = "flashing_log", schema = "whp_reports", uniqueConstraints = {@UniqueConstraint(columnNames = {"flashing_log_id"})})
 public class FlashingLog implements Serializable {
 
     @Id
