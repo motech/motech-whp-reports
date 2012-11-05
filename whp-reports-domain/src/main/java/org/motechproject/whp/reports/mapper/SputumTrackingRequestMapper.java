@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.mapper;
 
+import org.joda.time.DateTime;
 import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
@@ -34,12 +35,12 @@ public class SputumTrackingRequestMapper {
         containerRecord.setSmearTestResult1(request.getSmearTestResult1());
         containerRecord.setSmearTestResult2(request.getSmearTestResult2());
         containerRecord.setCumulativeResult(request.getCumulativeResult());
-        containerRecord.setLabResultsCapturedOn(getDateIfNotNull(request.getLabResultsCapturedOn()));
+        containerRecord.setLabResultsCapturedOn(getDateTimeIfNotNull(request.getLabResultsCapturedOn()));
     }
 
     public static void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
         containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
-        containerRecord.setClosureDate(getDateIfNotNull(containerStatusReportingRequest.getClosureDate()));
+        containerRecord.setClosureDate(getDateTimeIfNotNull(containerStatusReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerStatusReportingRequest.getConsultationDate()));
         containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerStatusReportingRequest.getStatus());
@@ -51,13 +52,19 @@ public class SputumTrackingRequestMapper {
         containerRecord.setMappingInstance(containerPatientMappingReportingRequest.getMappingInstance());
         containerRecord.setReasonForClosure(containerPatientMappingReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerPatientMappingReportingRequest.getStatus());
-        containerRecord.setClosureDate(getDateIfNotNull(containerPatientMappingReportingRequest.getClosureDate()));
+        containerRecord.setClosureDate(getDateTimeIfNotNull(containerPatientMappingReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerPatientMappingReportingRequest.getConsultationDate()));
     }
 
     private static Date getDateIfNotNull(java.util.Date date) {
         if(date != null)
             return new Date(date.getTime());
+        return null;
+    }
+
+    private static DateTime getDateTimeIfNotNull(DateTime dateTime) {
+        if(dateTime != null)
+            return dateTime;
         return null;
     }
 }

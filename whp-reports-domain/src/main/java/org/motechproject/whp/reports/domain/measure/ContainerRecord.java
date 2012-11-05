@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -61,7 +62,7 @@ public class ContainerRecord {
     private String labNumber;
 
     @Column(name = "lab_results_captured_on")
-    private Date labResultsCapturedOn;
+    private DateTime labResultsCapturedOn;
 
     @Column(name = "container_status")
     private String status;
@@ -76,7 +77,7 @@ public class ContainerRecord {
     private String alternateDiagnosisCode;
 
     @Column(name = "closure_date")
-    private Date closureDate;
+    private DateTime closureDate;
 
     @Column(name = "patient_id")
     private String patientId;

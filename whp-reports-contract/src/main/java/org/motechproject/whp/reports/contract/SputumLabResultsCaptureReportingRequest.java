@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.contract;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,5 +16,5 @@ public class SputumLabResultsCaptureReportingRequest implements Serializable {
     private String cumulativeResult;
     private String labName;
     private String labNumber;
-    private Date labResultsCapturedOn;
+    private DateTime labResultsCapturedOn;
 }

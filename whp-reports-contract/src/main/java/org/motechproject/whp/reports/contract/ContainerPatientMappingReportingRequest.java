@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.contract;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,5 +15,5 @@ public class ContainerPatientMappingReportingRequest implements Serializable {
     private Date consultationDate;
     private String status;
     private String reasonForClosure;
-    private Date closureDate;
+    private DateTime closureDate;
 }

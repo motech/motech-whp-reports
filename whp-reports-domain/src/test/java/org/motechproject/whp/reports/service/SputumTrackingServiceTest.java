@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.service;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -65,7 +66,7 @@ public class SputumTrackingServiceTest {
 
         ContainerStatusReportingRequest request = new ContainerStatusReportingRequest();
         request.setContainerId(containerId);
-        request.setClosureDate(new Date());
+        request.setClosureDate(DateTime.now());
         request.setConsultationDate(new Date());
         sputumTrackingService.updateContainerStatus(request);
 
@@ -82,7 +83,7 @@ public class SputumTrackingServiceTest {
         when(allSputumTrackingRecords.getByContainerId(containerId)).thenReturn(existingContainer);
 
         ContainerPatientMappingReportingRequest request = new ContainerPatientMappingReportingRequest();
-        request.setClosureDate(new Date());
+        request.setClosureDate(DateTime.now());
         request.setConsultationDate(new Date());
         request.setContainerId(containerId);
         sputumTrackingService.updateContainerPatientMapping(request);

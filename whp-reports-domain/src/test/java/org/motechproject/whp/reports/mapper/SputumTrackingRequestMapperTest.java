@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.mapper;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
@@ -24,10 +25,6 @@ public class SputumTrackingRequestMapperTest {
         containerRegistrationReportingRequest.setProviderId("raj");
         containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
         containerRegistrationReportingRequest.setSubmitterId("submitterId");
-        containerRegistrationReportingRequest.setChannelId("WEB");
-        containerRegistrationReportingRequest.setDiagnosis("Pending");
-        containerRegistrationReportingRequest.setLocationId("Location");
-        containerRegistrationReportingRequest.setStatus("Open");
 
         ContainerRecord containerRecord = SputumTrackingRequestMapper.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
 
@@ -37,10 +34,6 @@ public class SputumTrackingRequestMapperTest {
         assertThat(containerRecord.getProviderId(), is(containerRegistrationReportingRequest.getProviderId()));
         assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationReportingRequest.getSubmitterRole()));
         assertThat(containerRecord.getSubmitterId(), is(containerRegistrationReportingRequest.getSubmitterId()));
-        assertThat(containerRecord.getChannelId(),is(containerRegistrationReportingRequest.getChannelId()));
-        assertThat(containerRecord.getLocationId(), is(containerRegistrationReportingRequest.getLocationId()));
-        assertThat(containerRecord.getDiagnosis(),is(containerRegistrationReportingRequest.getDiagnosis()));
-        assertThat(containerRecord.getStatus(),is(containerRegistrationReportingRequest.getStatus()));
     }
 
     @Test
@@ -57,7 +50,6 @@ public class SputumTrackingRequestMapperTest {
         sputumLabResultsCaptureReportingRequest.setSmearTestDate2(now);
         sputumLabResultsCaptureReportingRequest.setSmearTestResult1("result1");
         sputumLabResultsCaptureReportingRequest.setSmearTestResult2("result2");
-        sputumLabResultsCaptureReportingRequest.setLabResultsCapturedOn(now);
 
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(sputumLabResultsCaptureReportingRequest.getContainerId());
@@ -72,7 +64,7 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestDate1(), containerRecord.getSmearTestDate1());
         assertEquals(sputumLabResultsCaptureReportingRequest.getSmearTestDate2(), containerRecord.getSmearTestDate2());
         assertEquals(sputumLabResultsCaptureReportingRequest.getCumulativeResult(), containerRecord.getCumulativeResult());
-        assertEquals(sputumLabResultsCaptureReportingRequest.getLabResultsCapturedOn(),containerRecord.getLabResultsCapturedOn());
+        assertEquals(sputumLabResultsCaptureReportingRequest.getLabResultsCapturedOn(), containerRecord.getLabResultsCapturedOn());
     }
 
     @Test
@@ -82,7 +74,7 @@ public class SputumTrackingRequestMapperTest {
         ContainerStatusReportingRequest containerStatusReportingRequest = new ContainerStatusReportingRequest();
         containerStatusReportingRequest.setContainerId("containerId");
         containerStatusReportingRequest.setAlternateDiagnosisCode("alternate");
-        containerStatusReportingRequest.setClosureDate(now);
+        containerStatusReportingRequest.setClosureDate(DateTime.now());
         containerStatusReportingRequest.setConsultationDate(now);
         containerStatusReportingRequest.setReasonForClosure("reason");
         containerStatusReportingRequest.setStatus("status");
@@ -104,14 +96,13 @@ public class SputumTrackingRequestMapperTest {
         java.util.Date now = new java.util.Date();
         ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest = new ContainerPatientMappingReportingRequest();
         containerPatientMappingReportingRequest.setContainerId("container");
-        containerPatientMappingReportingRequest.setClosureDate(now);
+        containerPatientMappingReportingRequest.setClosureDate(DateTime.now());
         containerPatientMappingReportingRequest.setConsultationDate(now);
         containerPatientMappingReportingRequest.setMappingInstance("instance");
         containerPatientMappingReportingRequest.setPatientId("patient");
         containerPatientMappingReportingRequest.setReasonForClosure("reason");
         containerPatientMappingReportingRequest.setStatus("status");
         containerPatientMappingReportingRequest.setTbId("tbid");
-        containerPatientMappingReportingRequest.setConsultationDate(now);
 
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerPatientMappingReportingRequest.getContainerId());
@@ -125,6 +116,5 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(containerPatientMappingReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
         assertEquals(containerPatientMappingReportingRequest.getStatus(), containerRecord.getStatus());
         assertEquals(containerPatientMappingReportingRequest.getTbId(), containerRecord.getTbId());
-        assertEquals(containerPatientMappingReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
     }
 }
