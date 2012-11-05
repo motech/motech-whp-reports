@@ -13,10 +13,10 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-public class AllSputumTrackingRecordsIT extends IntegrationTest {
+public class ContainerRecordRepositoryIT extends IntegrationTest {
 
     @Autowired
-    AllSputumTrackingRecords allSputumTrackingRecords;
+    ContainerRecordRepository containerRecordRepository;
 
     @Test
     @Transactional
@@ -37,10 +37,10 @@ public class AllSputumTrackingRecordsIT extends IntegrationTest {
                 .withAlternateDiagnosisCode("666")
                 .build();
 
-        allSputumTrackingRecords.save(containerRecord);
+        containerRecordRepository.save(containerRecord);
         assertNotNull(containerRecord.getId());
 
-        ContainerRecord containerRecordFromDB = allSputumTrackingRecords.get(containerRecord.getId());
+        ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
         assertThat(containerRecordFromDB, is(containerRecord));
 
     }
@@ -64,12 +64,12 @@ public class AllSputumTrackingRecordsIT extends IntegrationTest {
                 .withAlternateDiagnosisCode("666")
                 .build();
 
-        allSputumTrackingRecords.save(containerRecord);
+        containerRecordRepository.save(containerRecord);
         containerRecord.setStatus("Open");
 
-        allSputumTrackingRecords.save(containerRecord);
+        containerRecordRepository.save(containerRecord);
 
-        ContainerRecord containerRecordFromDB = allSputumTrackingRecords.get(containerRecord.getId());
+        ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
         assertThat(containerRecordFromDB, is(containerRecord));
     }
 
@@ -93,12 +93,12 @@ public class AllSputumTrackingRecordsIT extends IntegrationTest {
                 .withAlternateDiagnosisCode("666")
                 .build();
 
-        allSputumTrackingRecords.save(containerRecord);
+        containerRecordRepository.save(containerRecord);
         containerRecord.setStatus("Open");
 
-        allSputumTrackingRecords.save(containerRecord);
+        containerRecordRepository.save(containerRecord);
 
-        ContainerRecord containerRecordFromDB = allSputumTrackingRecords.getByContainerId(containerRecord.getContainerId());
+        ContainerRecord containerRecordFromDB = containerRecordRepository.findByContainerId(containerRecord.getContainerId());
         assertThat(containerRecordFromDB,is(containerRecord));
     }
 }

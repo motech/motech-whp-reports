@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.service;
 
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
-import org.motechproject.whp.reports.repository.AllPatientAdherenceSubmissions;
+import org.motechproject.whp.reports.repository.PatientAdherenceSubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,18 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PatientAdherenceSubmissionService {
 
-    private AllPatientAdherenceSubmissions adherenceSubmissions;
+    private PatientAdherenceSubmissionRepository patientAdherenceSubmissionRepository;
 
     /*Required for spring proxy*/
     PatientAdherenceSubmissionService() {
     }
 
     @Autowired
-    public PatientAdherenceSubmissionService(AllPatientAdherenceSubmissions adherenceSubmissions) {
-        this.adherenceSubmissions = adherenceSubmissions;
+    public PatientAdherenceSubmissionService(PatientAdherenceSubmissionRepository patientAdherenceSubmissionRepository) {
+        this.patientAdherenceSubmissionRepository = patientAdherenceSubmissionRepository;
     }
 
     public void save(PatientAdherenceSubmission adherenceSubmission) {
-        adherenceSubmissions.save(adherenceSubmission);
+        patientAdherenceSubmissionRepository.save(adherenceSubmission);
     }
 }

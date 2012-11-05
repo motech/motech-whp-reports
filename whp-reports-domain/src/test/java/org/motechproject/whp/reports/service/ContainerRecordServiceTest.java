@@ -9,7 +9,7 @@ import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequ
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
-import org.motechproject.whp.reports.repository.AllSputumTrackingRecords;
+import org.motechproject.whp.reports.repository.ContainerRecordRepository;
 
 import java.util.Date;
 
@@ -18,16 +18,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class SputumTrackingServiceTest {
+public class ContainerRecordServiceTest {
 
     @Mock
-    private AllSputumTrackingRecords allSputumTrackingRecords;
-    private SputumTrackingService sputumTrackingService;
+    private ContainerRecordRepository containerRecordRepository;
+    private ContainerRecordService containerRecordService;
 
     @Before()
     public void setup(){
         initMocks(this);
-        sputumTrackingService = new SputumTrackingService(allSputumTrackingRecords);
+        containerRecordService = new ContainerRecordService(containerRecordRepository);
     }
 
     @Test
@@ -35,9 +35,9 @@ public class SputumTrackingServiceTest {
 
         ContainerRegistrationReportingRequest request = new ContainerRegistrationReportingRequest();
         request.setIssuedOn(new Date());
-        sputumTrackingService.recordContainerRegistration(request);
+        containerRecordService.recordContainerRegistration(request);
 
-        verify(allSputumTrackingRecords).save(any(ContainerRecord.class));
+        verify(containerRecordRepository).save(any(ContainerRecord.class));
     }
 
     @Test
@@ -45,16 +45,16 @@ public class SputumTrackingServiceTest {
         ContainerRecord existingContainer = new ContainerRecord();
         String containerId = "container";
         existingContainer.setContainerId(containerId);
-        when(allSputumTrackingRecords.getByContainerId(containerId)).thenReturn(existingContainer);
+        when(containerRecordRepository.findByContainerId(containerId)).thenReturn(existingContainer);
 
         SputumLabResultsCaptureReportingRequest request = new SputumLabResultsCaptureReportingRequest();
         request.setSmearTestDate1(new Date());
         request.setSmearTestDate2(new Date());
         request.setContainerId(containerId);
-        sputumTrackingService.recordLabResults(request);
+        containerRecordService.recordLabResults(request);
 
-        verify(allSputumTrackingRecords).getByContainerId(containerId);
-        verify(allSputumTrackingRecords).save(existingContainer);
+        verify(containerRecordRepository).findByContainerId(containerId);
+        verify(containerRecordRepository).save(existingContainer);
     }
 
     @Test
@@ -62,16 +62,16 @@ public class SputumTrackingServiceTest {
         ContainerRecord existingContainer = new ContainerRecord();
         String containerId = "container";
         existingContainer.setContainerId(containerId);
-        when(allSputumTrackingRecords.getByContainerId(containerId)).thenReturn(existingContainer);
+        when(containerRecordRepository.findByContainerId(containerId)).thenReturn(existingContainer);
 
         ContainerStatusReportingRequest request = new ContainerStatusReportingRequest();
         request.setContainerId(containerId);
         request.setClosureDate(DateTime.now());
         request.setConsultationDate(new Date());
-        sputumTrackingService.updateContainerStatus(request);
+        containerRecordService.updateContainerStatus(request);
 
-        verify(allSputumTrackingRecords).getByContainerId(containerId);
-        verify(allSputumTrackingRecords).save(existingContainer);
+        verify(containerRecordRepository).findByContainerId(containerId);
+        verify(containerRecordRepository).save(existingContainer);
 
     }
 
@@ -80,16 +80,16 @@ public class SputumTrackingServiceTest {
         ContainerRecord existingContainer = new ContainerRecord();
         String containerId = "container";
         existingContainer.setContainerId(containerId);
-        when(allSputumTrackingRecords.getByContainerId(containerId)).thenReturn(existingContainer);
+        when(containerRecordRepository.findByContainerId(containerId)).thenReturn(existingContainer);
 
         ContainerPatientMappingReportingRequest request = new ContainerPatientMappingReportingRequest();
         request.setClosureDate(DateTime.now());
         request.setConsultationDate(new Date());
         request.setContainerId(containerId);
-        sputumTrackingService.updateContainerPatientMapping(request);
+        containerRecordService.updateContainerPatientMapping(request);
 
-        verify(allSputumTrackingRecords).getByContainerId(containerId);
-        verify(allSputumTrackingRecords).save(existingContainer);
+        verify(containerRecordRepository).findByContainerId(containerId);
+        verify(containerRecordRepository).save(existingContainer);
     }
 
 }

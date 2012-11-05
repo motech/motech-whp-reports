@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.service;
 
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
-import org.motechproject.whp.reports.repository.AllAdherenceCallLogs;
+import org.motechproject.whp.reports.repository.AdherenceCallLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,18 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AdherenceCallLogService {
 
-    private AllAdherenceCallLogs allCallLogs;
+    private AdherenceCallLogRepository adherenceCallLogRepository;
 
     /*Required for spring proxy*/
     AdherenceCallLogService() {
     }
 
     @Autowired
-    public AdherenceCallLogService(AllAdherenceCallLogs allCallLogs) {
-        this.allCallLogs = allCallLogs;
+    public AdherenceCallLogService(AdherenceCallLogRepository adherenceCallLogRepository) {
+        this.adherenceCallLogRepository = adherenceCallLogRepository;
     }
 
     public void save(AdherenceCallLog log) {
-        allCallLogs.save(log);
+        adherenceCallLogRepository.save(log);
     }
 }

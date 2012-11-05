@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.builder.FlashingLogBuilder.newFlashingLog;
 
-public class AllFlashingLogsIT extends IntegrationTest<Object> {
+public class FlashingLogRepositoryIT extends IntegrationTest<Object> {
 
     @Autowired
     FlashingLogRepository flashingLogRepository;

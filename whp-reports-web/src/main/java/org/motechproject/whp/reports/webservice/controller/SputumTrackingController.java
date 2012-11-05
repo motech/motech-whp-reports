@@ -4,7 +4,7 @@ import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRe
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
-import org.motechproject.whp.reports.service.SputumTrackingService;
+import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,34 +16,34 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(value = "/sputumTracking")
 public class SputumTrackingController {
 
-    private SputumTrackingService sputumTrackingService;
+    private ContainerRecordService containerRecordService;
 
     @Autowired
-    public SputumTrackingController(SputumTrackingService sputumTrackingService) {
-        this.sputumTrackingService = sputumTrackingService;
+    public SputumTrackingController(ContainerRecordService containerRecordService) {
+        this.containerRecordService = containerRecordService;
     }
 
     @RequestMapping(value = "/containerRegistrationMeasure")
     @ResponseStatus(value = HttpStatus.OK)
     public void registerContainer(@RequestBody ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
-        sputumTrackingService.recordContainerRegistration(containerRegistrationReportingRequest);
+        containerRecordService.recordContainerRegistration(containerRegistrationReportingRequest);
     }
 
     @RequestMapping(value = "/sputumLabResultsMeasure")
     @ResponseStatus(value = HttpStatus.OK)
     public void captureLabResults(@RequestBody SputumLabResultsCaptureReportingRequest sputumLabResultsCaptureReportingRequest) {
-        sputumTrackingService.recordLabResults(sputumLabResultsCaptureReportingRequest);
+        containerRecordService.recordLabResults(sputumLabResultsCaptureReportingRequest);
     }
 
     @RequestMapping(value = "/containerStatusMeasure")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateContainerStatus(@RequestBody ContainerStatusReportingRequest containerStatusReportingRequest) {
-        sputumTrackingService.updateContainerStatus(containerStatusReportingRequest);
+        containerRecordService.updateContainerStatus(containerStatusReportingRequest);
     }
 
     @RequestMapping(value = "/containerPatientMappingMeasure")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateContainerPatientMapping(@RequestBody ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest) {
-        sputumTrackingService.updateContainerPatientMapping(containerPatientMappingReportingRequest);
+        containerRecordService.updateContainerPatientMapping(containerPatientMappingReportingRequest);
     }
 }

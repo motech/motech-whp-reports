@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "sputum_tracking", uniqueConstraints = {@UniqueConstraint(columnNames = {"sputum_tracking_id"})})
+@Table(name = "sputum_tracking", schema = "whp_reports", uniqueConstraints = {@UniqueConstraint(columnNames = {"sputum_tracking_id"})})
 public class ContainerRecord {
 
     @Id

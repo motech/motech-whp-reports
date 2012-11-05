@@ -11,10 +11,10 @@ import java.sql.Timestamp;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.junit.Assert.*;
 
-public class AllContainerRegistrationCallLogsIT extends IntegrationTest<ContainerRegistrationCallLog> {
+public class ContainerRegistrationCallLogRepositoryIT extends IntegrationTest<ContainerRegistrationCallLog> {
 
     @Autowired
-    private AllContainerRegistrationCallLogs allContainerRegistrationCallLogs;
+    private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;
 
     @Test
     @Transactional
@@ -30,8 +30,8 @@ public class AllContainerRegistrationCallLogsIT extends IntegrationTest<Containe
         containerRegistrationCallLog.setMobileNumber("1234567890");
 
         assertNull(containerRegistrationCallLog.getId());
-        allContainerRegistrationCallLogs.save(containerRegistrationCallLog);
+        containerRegistrationCallLogRepository.save(containerRegistrationCallLog);
         assertTrue(isNotBlank(containerRegistrationCallLog.getId().toString()));
-        assertEquals(containerRegistrationCallLog, allContainerRegistrationCallLogs.get(containerRegistrationCallLog.getId()));
+        assertEquals(containerRegistrationCallLog, containerRegistrationCallLogRepository.findOne(containerRegistrationCallLog.getId()));
     }
 }

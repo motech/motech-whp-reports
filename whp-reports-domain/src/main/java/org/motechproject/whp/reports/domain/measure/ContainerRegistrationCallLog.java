@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "container_call_log", uniqueConstraints = {@UniqueConstraint(columnNames = {"call_log_id"})})
+@Table(name = "container_call_log", schema = "whp_reports", uniqueConstraints = {@UniqueConstraint(columnNames = {"call_log_id"})})
 public class ContainerRegistrationCallLog {
 
     @Id

@@ -3,17 +3,16 @@ package org.motechproject.whp.reports.repository;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
-import org.motechproject.whp.reports.builder.PatientAdherenceSubmissionBuilder;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertNotNull;
 import static org.motechproject.whp.reports.builder.PatientAdherenceSubmissionBuilder.newSubmission;
 
-public class AllPatientAdherenceSubmissionsIT extends IntegrationTest<PatientAdherenceSubmission> {
+public class PatientAdherenceSubmissionRepositoryIT extends IntegrationTest<PatientAdherenceSubmission> {
 
     @Autowired
-    AllPatientAdherenceSubmissions adherenceSubmissions;
+    PatientAdherenceSubmissionRepository patientAdherenceSubmissionRepository;
 
     PatientAdherenceSubmission submission;
 
@@ -33,7 +32,7 @@ public class AllPatientAdherenceSubmissionsIT extends IntegrationTest<PatientAdh
 
     @Test
     public void shouldCreateAdherenceSubmission() {
-        adherenceSubmissions.save(purge(submission));
+        patientAdherenceSubmissionRepository.save(submission);
         assertNotNull(submission.getId());
     }
 }

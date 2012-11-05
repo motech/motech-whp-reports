@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
-import org.motechproject.whp.reports.repository.AllFlashingLogs;
 import org.motechproject.whp.reports.repository.FlashingLogRepository;
 
 import static org.mockito.Mockito.verify;

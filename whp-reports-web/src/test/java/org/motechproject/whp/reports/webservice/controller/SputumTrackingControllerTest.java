@@ -8,11 +8,10 @@ import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRe
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
-import org.motechproject.whp.reports.service.SputumTrackingService;
+import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
-import java.util.Date;
 
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
@@ -22,13 +21,13 @@ import static org.springframework.test.web.server.setup.MockMvcBuilders.standalo
 public class SputumTrackingControllerTest {
 
     @Mock
-    private SputumTrackingService sputumTrackingService;
+    private ContainerRecordService containerRecordService;
     private SputumTrackingController sputumTrackingController;
 
     @Before
     public void setUp(){
         initMocks(this);
-        sputumTrackingController = new SputumTrackingController(sputumTrackingService);
+        sputumTrackingController = new SputumTrackingController(containerRecordService);
     }
 
     @Test

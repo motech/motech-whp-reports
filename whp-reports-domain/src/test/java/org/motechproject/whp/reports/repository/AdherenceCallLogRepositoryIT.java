@@ -13,10 +13,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
 
-public class AllAdherenceCallLogsIT extends IntegrationTest<Object> {
+public class AdherenceCallLogRepositoryIT extends IntegrationTest<Object> {
 
     @Autowired
-    AllAdherenceCallLogs allCallLogs;
+    AdherenceCallLogRepository adherenceCallLogRepository;
 
     @Test
     @Transactional
@@ -28,14 +28,14 @@ public class AllAdherenceCallLogsIT extends IntegrationTest<Object> {
                 .withTotalPatients(10)
                 .withAdherenceCaptured(4)
                 .withAdherenceNotCaptured(6)
-                .withCallId("callId")
+                .withCallId("callIdlllllllllllllllllllllllllllllllllllllllllllllllllllllll")
                 .withDuration(100)
                 .build();
 
-        allCallLogs.save(callLog);
+        adherenceCallLogRepository.save(callLog);
         assertNotNull(callLog.getId());
 
-        AdherenceCallLog callLogFromDB = allCallLogs.get(callLog.getId());
+        AdherenceCallLog callLogFromDB = adherenceCallLogRepository.findOne(callLog.getId());
         assertThat(callLogFromDB, is(callLog));
     }
 
@@ -48,13 +48,13 @@ public class AllAdherenceCallLogsIT extends IntegrationTest<Object> {
                 .starting(new Date())
                 .build();
 
-        allCallLogs.save(callLog);
+        adherenceCallLogRepository.save(callLog);
 
         String cmfAdmin = "cmfAdmin";
         callLog.setCalledBy(cmfAdmin);
-        allCallLogs.save(callLog);
+        adherenceCallLogRepository.save(callLog);
 
-        AdherenceCallLog callLogFromDB = allCallLogs.get(callLog.getId());
+        AdherenceCallLog callLogFromDB = adherenceCallLogRepository.findOne(callLog.getId());
 
         assertThat(callLogFromDB.getCalledBy(), is(cmfAdmin));
     }
