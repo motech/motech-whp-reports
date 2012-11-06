@@ -124,6 +124,7 @@
                     <execution>
                         <id>process-resources2</id>
                         <goals>
+                            <goal>clean</goal>
                             <goal>migrate</goal>
                         </goals>
                         <phase>pre-integration-test</phase>
