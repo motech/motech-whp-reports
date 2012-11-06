@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.junit.Assert.*;
@@ -21,7 +22,7 @@ public class ContainerRegistrationCallLogRepositoryIT extends IntegrationTest<Co
     public void shouldCreateCallLog() {
         ContainerRegistrationCallLog containerRegistrationCallLog = new ContainerRegistrationCallLog();
 
-        containerRegistrationCallLog.setCallId("callId");
+        containerRegistrationCallLog.setCallId(String.valueOf(System.currentTimeMillis()));
         containerRegistrationCallLog.setDisconnectionType("disconnectionType");
         containerRegistrationCallLog.setDuration(1000);
         containerRegistrationCallLog.setEndDateTime(new Timestamp(1000));
