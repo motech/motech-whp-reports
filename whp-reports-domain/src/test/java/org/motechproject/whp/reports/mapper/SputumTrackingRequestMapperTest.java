@@ -16,6 +16,8 @@ import static org.junit.Assert.assertEquals;
 
 public class SputumTrackingRequestMapperTest {
 
+    private ContainerTrackingReportingRequestMapper requestMapper = new ContainerTrackingReportingRequestMapper();
+
     @Test
     public void shouldCreateContainerRecordOnRegistration() {
         java.util.Date now = new java.util.Date();
@@ -28,7 +30,7 @@ public class SputumTrackingRequestMapperTest {
         containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
         containerRegistrationReportingRequest.setSubmitterId("submitterId");
 
-        ContainerRecord containerRecord = SputumTrackingRequestMapper.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
+        ContainerRecord containerRecord = requestMapper.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
 
         assertThat(containerRecord.getContainerId(), is(containerRegistrationReportingRequest.getContainerId()));
         assertThat(containerRecord.getInstance(), is(containerRegistrationReportingRequest.getInstance()));
@@ -56,7 +58,7 @@ public class SputumTrackingRequestMapperTest {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(sputumLabResultsCaptureReportingRequest.getContainerId());
 
-        SputumTrackingRequestMapper.populateSputumLabResults(sputumLabResultsCaptureReportingRequest, containerRecord);
+        requestMapper.populateSputumLabResults(sputumLabResultsCaptureReportingRequest, containerRecord);
 
         assertEquals(sputumLabResultsCaptureReportingRequest.getLabName(), containerRecord.getLabName());
         assertEquals(sputumLabResultsCaptureReportingRequest.getLabNumber(), containerRecord.getLabNumber());
@@ -85,7 +87,7 @@ public class SputumTrackingRequestMapperTest {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerStatusReportingRequest.getContainerId());
 
-        SputumTrackingRequestMapper.updateContainerStatus(containerStatusReportingRequest, containerRecord);
+        requestMapper.updateContainerStatus(containerStatusReportingRequest, containerRecord);
 
         assertEquals(containerStatusReportingRequest.getAlternateDiagnosisCode(), containerRecord.getAlternateDiagnosisCode());
         assertEquals(new Timestamp(containerStatusReportingRequest.getClosureDate().getMillis()), containerRecord.getClosureDate());
@@ -112,7 +114,7 @@ public class SputumTrackingRequestMapperTest {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerPatientMappingReportingRequest.getContainerId());
 
-        SputumTrackingRequestMapper.updateContainerPatientMapping(containerPatientMappingReportingRequest, containerRecord);
+        requestMapper.updateContainerPatientMapping(containerPatientMappingReportingRequest, containerRecord);
 
         assertEquals(new Timestamp(containerPatientMappingReportingRequest.getClosureDate().getMillis()), containerRecord.getClosureDate());
         assertEquals(containerPatientMappingReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());

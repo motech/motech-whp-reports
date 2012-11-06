@@ -9,6 +9,7 @@ import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequ
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.mapper.ContainerTrackingReportingRequestMapper;
 import org.motechproject.whp.reports.repository.ContainerRecordRepository;
 
 import java.util.Date;
@@ -22,12 +23,14 @@ public class ContainerRecordServiceTest {
 
     @Mock
     private ContainerRecordRepository containerRecordRepository;
+    @Mock
+    private ContainerTrackingReportingRequestMapper requestMapper;
     private ContainerRecordService containerRecordService;
 
     @Before()
     public void setup(){
         initMocks(this);
-        containerRecordService = new ContainerRecordService(containerRecordRepository);
+        containerRecordService = new ContainerRecordService(containerRecordRepository, requestMapper);
     }
 
     @Test

@@ -6,13 +6,15 @@ import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequ
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class SputumTrackingRequestMapper {
+@Component
+public class ContainerTrackingReportingRequestMapper {
 
-    public static ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
+    public  ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
         containerRecord.setIssuedOn(getDateIfNotNull(containerRegistrationReportingRequest.getIssuedOn()));
@@ -27,7 +29,7 @@ public class SputumTrackingRequestMapper {
         return containerRecord;
     }
 
-    public static void populateSputumLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {
+    public  void populateSputumLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {
 
         containerRecord.setLabName(request.getLabName());
         containerRecord.setLabNumber(request.getLabNumber());
@@ -39,7 +41,7 @@ public class SputumTrackingRequestMapper {
         containerRecord.setLabResultsCapturedOn(getDateTimeIfNotNull(request.getLabResultsCapturedOn()));
     }
 
-    public static void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
+    public  void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
         containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
         containerRecord.setClosureDate(getDateTimeIfNotNull(containerStatusReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerStatusReportingRequest.getConsultationDate()));
@@ -48,7 +50,7 @@ public class SputumTrackingRequestMapper {
         containerRecord.setDiagnosis(containerStatusReportingRequest.getDiagnosis());
     }
 
-    public static void updateContainerPatientMapping(ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest, ContainerRecord containerRecord) {
+    public  void updateContainerPatientMapping(ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest, ContainerRecord containerRecord) {
         containerRecord.setPatientId(containerPatientMappingReportingRequest.getPatientId());
         containerRecord.setTbId(containerPatientMappingReportingRequest.getTbId());
         containerRecord.setMappingInstance(containerPatientMappingReportingRequest.getMappingInstance());
@@ -59,13 +61,13 @@ public class SputumTrackingRequestMapper {
         containerRecord.setDiagnosis(containerPatientMappingReportingRequest.getDiagnosis());
     }
 
-    private static Date getDateIfNotNull(java.util.Date date) {
+    private  Date getDateIfNotNull(java.util.Date date) {
         if(date != null)
             return new Date(date.getTime());
         return null;
     }
 
-    private static Timestamp getDateTimeIfNotNull(DateTime dateTime) {
+    private  Timestamp getDateTimeIfNotNull(DateTime dateTime) {
         if(dateTime != null)
             return new Timestamp(dateTime.getMillis());
         return null;
