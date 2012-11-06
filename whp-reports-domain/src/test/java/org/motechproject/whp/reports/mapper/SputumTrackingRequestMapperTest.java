@@ -33,7 +33,7 @@ public class SputumTrackingRequestMapperTest {
         ContainerRecord containerRecord = requestMapper.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
 
         assertThat(containerRecord.getContainerId(), is(containerRegistrationReportingRequest.getContainerId()));
-        assertThat(containerRecord.getInstance(), is(containerRegistrationReportingRequest.getInstance()));
+        assertThat(containerRecord.getRegistrationInstance(), is(containerRegistrationReportingRequest.getInstance()));
         assertThat(containerRecord.getIssuedOn(), is(containerRegistrationReportingRequest.getIssuedOn()));
         assertThat(containerRecord.getProviderId(), is(containerRegistrationReportingRequest.getProviderId()));
         assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationReportingRequest.getSubmitterRole()));

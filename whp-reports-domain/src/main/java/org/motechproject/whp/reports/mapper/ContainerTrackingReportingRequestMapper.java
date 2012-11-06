@@ -21,7 +21,7 @@ public class ContainerTrackingReportingRequestMapper {
         containerRecord.setProviderId(containerRegistrationReportingRequest.getProviderId());
         containerRecord.setSubmitterRole(containerRegistrationReportingRequest.getSubmitterRole());
         containerRecord.setSubmitterId(containerRegistrationReportingRequest.getSubmitterId());
-        containerRecord.setInstance(containerRegistrationReportingRequest.getInstance());
+        containerRecord.setRegistrationInstance(containerRegistrationReportingRequest.getInstance());
         containerRecord.setChannelId(containerRegistrationReportingRequest.getChannelId());
         containerRecord.setDiagnosis(containerRegistrationReportingRequest.getDiagnosis());
         containerRecord.setLocationId(containerRegistrationReportingRequest.getLocationId());

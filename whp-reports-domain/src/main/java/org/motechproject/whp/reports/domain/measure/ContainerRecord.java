@@ -34,8 +34,8 @@ public class ContainerRecord {
     @Column(name = "location_id")
     private String locationId;
 
-    @Column(name = "instance")
-    private String instance;
+    @Column(name = "registration_instance")
+    private String registrationInstance;
 
     @Column(name = "channel_id")
     private String channelId;

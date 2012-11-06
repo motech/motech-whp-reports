@@ -46,8 +46,8 @@ public class SputumTrackingBuilder {
         return this;
     }
 
-    public SputumTrackingBuilder havingInstance(String instance) {
-        containerRecord.setInstance(instance);
+    public SputumTrackingBuilder havingRegistrationInstance(String instance) {
+        containerRecord.setRegistrationInstance(instance);
         return this;
     }
 
