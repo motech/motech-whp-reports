@@ -20,14 +20,6 @@
         </property>
     </bean>
 
-    <!--
-      If you need to add Converters to the REST exporter to handle the property types you're using
-      in your entities, then just configure a ConversionServiceFactoryBean here, add the Converters
-      you need, and they will, in turn, be added to the FormattingConversionService the REST exporter
-      uses internally.
-
-      Uncomment this block to add the included UUID <-> String converters, which are not included by default.
-    -->
     <bean class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <set>
@@ -36,23 +28,5 @@
             </set>
         </property>
     </bean>
-
-    <!--
-      The manual configuration (which doesn't look at the bean name) can be done by declaring the
-      event listener instance yourself. It's significantly more XML, but if you need more control:
-    -->
-    <!--
-    <bean class="org.springframework.data.rest.repository.context.ValidatingRepositoryEventListener">
-      <property name="validators">
-        <map>
-          <entry key="beforeSave">
-            <list>
-              <bean class="org.springframework.data.rest.test.webmvc.PersonValidator"/>
-            </list>
-          </entry>
-        </map>
-      </property>
-    </bean>
-    -->
 
 </beans>
