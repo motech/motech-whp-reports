@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class BaseController {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)

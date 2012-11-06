@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.webservice.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.validation.validator.BeanValidator;
 import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
@@ -21,13 +22,15 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
     private ContainerRegistrationCallLogController controller;
     @Mock
     private ContainerRegistrationCallLogService containerRegistrationCallLogService;
+    @Mock
+    private BeanValidator beanValidator;
     private DomainMapper domainMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
         domainMapper = new DomainMapper();
-        controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService, domainMapper);
+        controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService, domainMapper, beanValidator);
     }
 
     @Test

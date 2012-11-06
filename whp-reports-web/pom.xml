@@ -99,6 +99,10 @@
             <artifactId>joda-time</artifactId>
             <version>2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-validation</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

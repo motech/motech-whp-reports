@@ -7,7 +7,7 @@
                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-
+    <import resource="classpath*:applicationValidationContext.xml"/>
     <import resource="classpath*:applicationReportingDomainContext.xml" />
 
     <context:annotation-config/>
