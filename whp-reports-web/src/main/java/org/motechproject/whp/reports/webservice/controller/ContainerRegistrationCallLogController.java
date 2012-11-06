@@ -29,7 +29,6 @@ public class ContainerRegistrationCallLogController extends BaseController {
         this.beanValidator = beanValidator;
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "create", method = RequestMethod.POST)
     @ResponseBody
     public List<ObjectError> create(@RequestBody ContainerRegistrationCallLogRequest request, HttpServletResponse response) {
@@ -37,8 +36,7 @@ public class ContainerRegistrationCallLogController extends BaseController {
         beanValidator.validate(request, "", result);
 
         if(result.hasErrors()){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            logger.error(String.format("Could not create containerRegistrationCallLog due to validation errors: %s", result.getAllErrors()));
+            response.setStatus(500);
             return result.getAllErrors();
         }
 

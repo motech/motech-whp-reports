@@ -39,7 +39,7 @@ public class ContainerRegistrationCallLogControllerIT extends ControllerTest {
                         .body(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andExpect(status().isOk()).andExpect(content().string(allOf(
+                .andExpect(status().isInternalServerError()).andExpect(content().string(allOf(
                 containsString("format-error.ContainerRegistrationCallLogRequest.callId"),
                 containsString("format-error.ContainerRegistrationCallLogRequest.providerId"),
                 containsString("format-error.ContainerRegistrationCallLogRequest.mobileNumber"),

@@ -26,7 +26,6 @@ public class FlashingLogCaptureController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "measure")
-    @ResponseStatus(value = HttpStatus.OK)
     public void callLogs(@RequestBody FlashingLogRequest flashingLogRequest) {
         flashingLogService.save(domainMapper.buildFlashingRequestLog(flashingLogRequest));
     }

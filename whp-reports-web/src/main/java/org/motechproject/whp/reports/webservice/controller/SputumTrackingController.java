@@ -30,7 +30,6 @@ public class SputumTrackingController {
     }
 
     @RequestMapping(value = "/sputumLabResultsMeasure")
-    @ResponseStatus(value = HttpStatus.OK)
     public void captureLabResults(@RequestBody SputumLabResultsCaptureReportingRequest sputumLabResultsCaptureReportingRequest) {
         containerRecordService.recordLabResults(sputumLabResultsCaptureReportingRequest);
     }
