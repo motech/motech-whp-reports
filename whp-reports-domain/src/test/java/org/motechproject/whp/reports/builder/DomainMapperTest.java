@@ -1,6 +1,8 @@
 package org.motechproject.whp.reports.builder;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
@@ -58,8 +60,8 @@ public class DomainMapperTest {
 
         request.setCallId("callId");
         request.setDisconnectionType("disconnectionType");
-        request.setEndDateTime(endTime.toDate());
-        request.setStartDateTime(startTime.toDate());
+        request.setEndDateTime("10/12/2012 12:33:35");
+        request.setStartDateTime("10/12/2012 12:32:35");
         request.setProviderId("providerid");
         request.setMobileNumber("1234567890");
 
@@ -68,9 +70,9 @@ public class DomainMapperTest {
 
         assertThat(callLog.getCallId(), is(request.getCallId()));
         assertThat(callLog.getDisconnectionType(), is(request.getDisconnectionType()));
-        assertThat(callLog.getStartDateTime(), is(request.getStartDateTime()));
-        assertThat(callLog.getEndDateTime(), is(request.getEndDateTime()));
-        assertThat(callLog.getDuration(), is(600L));
+        assertThat(callLog.getStartDateTime(), is(toDate(request.getStartDateTime())));
+        assertThat(callLog.getEndDateTime(), is(toDate(request.getEndDateTime())));
+        assertThat(callLog.getDuration(), is(60L));
         assertThat(callLog.getProviderId(), is(request.getProviderId()));
         assertThat(callLog.getMobileNumber(), is(request.getMobileNumber()));
     }
@@ -88,5 +90,10 @@ public class DomainMapperTest {
         assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
         assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));
         assertThat(flashingLog.getProviderId(), is(flashingLogRequest.getProviderId()));
+    }
+
+    private java.util.Date toDate(String date) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/YYYY HH:mm:ss");
+        return dateTimeFormatter.parseDateTime(date).toDate();
     }
 }

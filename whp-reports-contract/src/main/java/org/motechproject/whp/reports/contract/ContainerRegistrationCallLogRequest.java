@@ -21,10 +21,10 @@ public class ContainerRegistrationCallLogRequest implements Serializable {
     private String providerId;
     @NotNullOrEmpty
     @DateTimeFormat(pattern = DATE_TIME_FORMAT)
-    private Date startDateTime;
+    private String startDateTime;
     @NotNullOrEmpty
     @DateTimeFormat(pattern = DATE_TIME_FORMAT)
-    private Date endDateTime;
+    private String endDateTime;
     @NotNullOrEmpty
     @Enumeration(type = DisconnectionType.class)
     private String disconnectionType;

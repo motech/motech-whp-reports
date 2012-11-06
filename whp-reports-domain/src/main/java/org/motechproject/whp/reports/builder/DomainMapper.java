@@ -2,6 +2,8 @@ package org.motechproject.whp.reports.builder;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
@@ -19,6 +21,8 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Component
 public class DomainMapper {
+    private final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(DATE_TIME_FORMAT);
 
     public PatientAdherenceSubmission mapAdherenceSubmission(AdherenceCaptureRequest adherenceCaptureRequest) {
         PatientAdherenceSubmission submission = new PatientAdherenceSubmission();
@@ -58,8 +62,8 @@ public class DomainMapper {
 
     public ContainerRegistrationCallLog mapContainerRegistrationCallLog(ContainerRegistrationCallLogRequest request) {
         ContainerRegistrationCallLog containerRegistrationCallLog = new ContainerRegistrationCallLog();
-        java.util.Date startDateTime = request.getStartDateTime();
-        java.util.Date endDateTime = request.getEndDateTime();
+        java.util.Date startDateTime = toDate(request.getStartDateTime());
+        java.util.Date endDateTime = toDate(request.getEndDateTime());
 
         containerRegistrationCallLog.setCallId(request.getCallId());
         containerRegistrationCallLog.setDisconnectionType(request.getDisconnectionType());
@@ -76,5 +80,9 @@ public class DomainMapper {
                 startTime.getTime(),
                 endTime.getTime(),
                 PeriodType.seconds()).getSeconds();
+    }
+
+    private java.util.Date toDate(String date) {
+        return dateTimeFormatter.parseDateTime(date).toDate();
     }
 }

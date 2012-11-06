@@ -39,8 +39,8 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
         request = new ContainerRegistrationCallLogRequest();
         request.setCallId("callId");
         request.setDisconnectionType("disconnectionType");
-        request.setStartDateTime(new Date());
-        request.setEndDateTime(new Date());
+        request.setStartDateTime("10/12/2012 12:32:35");
+        request.setEndDateTime("10/12/2012 12:33:35");
         request.setMobileNumber("mobileNumber");
         request.setProviderId("providerId");
 
