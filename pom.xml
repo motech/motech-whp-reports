@@ -416,6 +416,12 @@
                 <groupId>org.motechproject.whp-contrib</groupId>
                 <artifactId>motech-validation</artifactId>
                 <version>${motech.contrib.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jcl-over-slf4j</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
