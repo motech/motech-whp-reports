@@ -45,6 +45,7 @@ public class SputumTrackingRequestMapper {
         containerRecord.setConsultationDate(getDateIfNotNull(containerStatusReportingRequest.getConsultationDate()));
         containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerStatusReportingRequest.getStatus());
+        containerRecord.setDiagnosis(containerStatusReportingRequest.getDiagnosis());
     }
 
     public static void updateContainerPatientMapping(ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest, ContainerRecord containerRecord) {
@@ -55,6 +56,7 @@ public class SputumTrackingRequestMapper {
         containerRecord.setStatus(containerPatientMappingReportingRequest.getStatus());
         containerRecord.setClosureDate(getDateTimeIfNotNull(containerPatientMappingReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerPatientMappingReportingRequest.getConsultationDate()));
+        containerRecord.setDiagnosis(containerPatientMappingReportingRequest.getDiagnosis());
     }
 
     private static Date getDateIfNotNull(java.util.Date date) {

@@ -16,4 +16,5 @@ public class ContainerPatientMappingReportingRequest implements Serializable {
     private String status;
     private String reasonForClosure;
     private DateTime closureDate;
+    private String diagnosis;
 }

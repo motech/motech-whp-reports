@@ -80,6 +80,7 @@ public class SputumTrackingRequestMapperTest {
         containerStatusReportingRequest.setConsultationDate(now);
         containerStatusReportingRequest.setReasonForClosure("reason");
         containerStatusReportingRequest.setStatus("status");
+        containerStatusReportingRequest.setDiagnosis("negative");
 
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerStatusReportingRequest.getContainerId());
@@ -91,6 +92,7 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(containerStatusReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
         assertEquals(containerStatusReportingRequest.getStatus(), containerRecord.getStatus());
         assertEquals(containerStatusReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
+        assertEquals(containerStatusReportingRequest.getDiagnosis(), containerRecord.getDiagnosis());
     }
 
     @Test
@@ -105,6 +107,7 @@ public class SputumTrackingRequestMapperTest {
         containerPatientMappingReportingRequest.setReasonForClosure("reason");
         containerPatientMappingReportingRequest.setStatus("status");
         containerPatientMappingReportingRequest.setTbId("tbid");
+        containerPatientMappingReportingRequest.setDiagnosis("positive");
 
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerPatientMappingReportingRequest.getContainerId());
@@ -118,5 +121,6 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(containerPatientMappingReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
         assertEquals(containerPatientMappingReportingRequest.getStatus(), containerRecord.getStatus());
         assertEquals(containerPatientMappingReportingRequest.getTbId(), containerRecord.getTbId());
+        assertEquals(containerPatientMappingReportingRequest.getDiagnosis(), containerRecord.getDiagnosis());
     }
 }
