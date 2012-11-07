@@ -1,9 +1,11 @@
 package org.motechproject.whp.reports.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.rest.repository.annotation.RestResource;
 
 //Prevents repositories from exporting update/delete operations as REST APIs
+@NoRepositoryBean
 public interface MotechJpaRepository<T>  extends JpaRepository<T, Long> {
 
     @Override
