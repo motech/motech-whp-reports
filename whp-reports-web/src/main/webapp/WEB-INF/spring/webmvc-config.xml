@@ -28,7 +28,7 @@
         </bean>
     </mvc:interceptors>
 
-    <bean class="org.springframework.data.rest.webmvc.RepositoryRestMvcConfiguration"/>
+    <!--<bean class="org.springframework.data.rest.webmvc.RepositoryRestMvcConfiguration"/>-->
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <qualifier value="messageBundleSource"/>
