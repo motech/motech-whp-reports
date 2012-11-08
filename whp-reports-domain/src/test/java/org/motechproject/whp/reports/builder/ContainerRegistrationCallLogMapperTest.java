@@ -102,6 +102,27 @@ public class ContainerRegistrationCallLogMapperTest {
     }
 
     @Test
+    public void shouldCreateContainerRegistrationCallLogFromProviderVerificationRequestWithoutProviderId() {
+        ProviderVerificationLogRequest request = new ProviderVerificationLogRequest();
+
+        request.setCallId("callId");
+        request.setTime(DateTime.now());
+        request.setMobileNumber("1234567890");
+        request.setProviderId(null);
+
+        ContainerRegistrationCallLog expectedLog = new ContainerRegistrationCallLog();
+        expectedLog.setProviderId("oldProviderId");
+        when(containerRegistrationCallLogRepository.findByCallId("callId")).thenReturn(expectedLog);
+
+        ContainerRegistrationCallLog actualCallLog = containerRegistrationCallLogMapper.mapFromProviderVerificationDetails(request);
+
+        assertThat(expectedLog.getProviderVerificationTime(), is(new Timestamp(request.getTime().getMillis())));
+        assertThat(expectedLog.getProviderId(), is("oldProviderId"));
+        assertThat(expectedLog.getMobileNumber(), is(request.getMobileNumber()));
+        assertEquals(expectedLog, actualCallLog);
+    }
+
+    @Test
     public void shouldUpdateExistingContainerRegistrationCallLogFromProviderVerificationRequest() {
         ProviderVerificationLogRequest request = new ProviderVerificationLogRequest();
 

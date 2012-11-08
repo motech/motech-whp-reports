@@ -47,7 +47,8 @@ public class ContainerRegistrationCallLogMapper {
         containerRegistrationCallLog.setCallId(request.getCallId());
         containerRegistrationCallLog.setMobileNumber(request.getMobileNumber());
         containerRegistrationCallLog.setProviderVerificationTime(getDateTimeIfNotNull(request.getTime()));
-        containerRegistrationCallLog.setProviderId(request.getProviderId());
+        if(request.getProviderId() != null)
+            containerRegistrationCallLog.setProviderId(request.getProviderId());
 
         return containerRegistrationCallLog;
     }
