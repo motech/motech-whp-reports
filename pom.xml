@@ -6,6 +6,7 @@
 
     <groupId>org.motechproject.whp.reports</groupId>
     <artifactId>motech-whp-reports</artifactId>
+    <name>WHP Reports</name>
     <packaging>pom</packaging>
     <version>0.4-SNAPSHOT</version>
     <modules>
