@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.validation.validator.BeanValidator;
-import org.motechproject.whp.reports.builder.DomainMapper;
+import org.motechproject.whp.reports.builder.ContainerRegistrationCallLogMapper;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
 import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
@@ -25,13 +25,13 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
     private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;
     @Mock
     private BeanValidator beanValidator;
-    private DomainMapper domainMapper;
+    private ContainerRegistrationCallLogMapper containerRegistrationCallLogMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
-        domainMapper = new DomainMapper(containerRegistrationCallLogRepository);
-        controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService, domainMapper, beanValidator);
+        containerRegistrationCallLogMapper = new ContainerRegistrationCallLogMapper(containerRegistrationCallLogRepository);
+        controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService, containerRegistrationCallLogMapper, beanValidator);
     }
 
     @Test
@@ -48,12 +48,12 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
 
         standaloneSetup(controller)
                 .build()
-                .perform(post("/containerRegistrationCallLog/create")
+                .perform(post("/containerRegistrationCallLog/updateCallDetails")
                         .body(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
 
-        verify(containerRegistrationCallLogService).save(domainMapper.mapContainerRegistrationCallLog(request));
+        verify(containerRegistrationCallLogService).save(containerRegistrationCallLogMapper.mapContainerRegistrationCallLog(request));
     }
 }

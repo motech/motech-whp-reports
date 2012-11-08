@@ -35,7 +35,7 @@ public class ContainerRegistrationCallLogControllerIT extends ControllerTest {
 
         standaloneSetup(containerRegistrationCallLogController)
                 .build()
-                .perform(post("/containerRegistrationCallLog/create")
+                .perform(post("/containerRegistrationCallLog/updateCallDetails")
                         .body(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )

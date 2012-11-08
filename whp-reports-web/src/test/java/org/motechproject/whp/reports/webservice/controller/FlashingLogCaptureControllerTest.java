@@ -32,7 +32,7 @@ public class FlashingLogCaptureControllerTest {
     @Before
     public void setUp() {
         initMocks(this);
-        domainMapper = new DomainMapper(null);
+        domainMapper = new DomainMapper();
         controller = new FlashingLogCaptureController(flashingLogService, domainMapper);
     }
 

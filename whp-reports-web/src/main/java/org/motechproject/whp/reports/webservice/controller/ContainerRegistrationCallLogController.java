@@ -1,15 +1,17 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 import org.motechproject.validation.validator.BeanValidator;
-import org.motechproject.whp.reports.builder.DomainMapper;
+import org.motechproject.whp.reports.builder.ContainerRegistrationCallLogMapper;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -19,17 +21,17 @@ import java.util.List;
 public class ContainerRegistrationCallLogController extends BaseController {
 
     private ContainerRegistrationCallLogService containerRegistrationCallLogService;
-    private DomainMapper domainMapper;
+    private ContainerRegistrationCallLogMapper containerRegistrationCallLogMapper;
     private BeanValidator beanValidator;
 
     @Autowired
-    public ContainerRegistrationCallLogController(ContainerRegistrationCallLogService containerRegistrationCallLogService, DomainMapper domainMapper, BeanValidator beanValidator) {
+    public ContainerRegistrationCallLogController(ContainerRegistrationCallLogService containerRegistrationCallLogService, ContainerRegistrationCallLogMapper containerRegistrationCallLogMapper, BeanValidator beanValidator) {
         this.containerRegistrationCallLogService = containerRegistrationCallLogService;
-        this.domainMapper = domainMapper;
+        this.containerRegistrationCallLogMapper = containerRegistrationCallLogMapper;
         this.beanValidator = beanValidator;
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @RequestMapping(value = "updateCallDetails", method = RequestMethod.POST)
     @ResponseBody
     public List<ObjectError> create(@RequestBody ContainerRegistrationCallLogRequest request, HttpServletResponse response) {
         BeanPropertyBindingResult result = new BeanPropertyBindingResult(request, request.getClass().getSimpleName());
@@ -40,7 +42,7 @@ public class ContainerRegistrationCallLogController extends BaseController {
             return result.getAllErrors();
         }
 
-        containerRegistrationCallLogService.save(domainMapper.mapContainerRegistrationCallLog(request));
+        containerRegistrationCallLogService.save(containerRegistrationCallLogMapper.mapContainerRegistrationCallLog(request));
         return null;
     }
 }
