@@ -10,7 +10,7 @@ import static junit.framework.Assert.assertNull;
 
 public class AdherenceCaptureRequestTest {
 
-    private DomainMapper domainMapper = new DomainMapper();
+    private DomainMapper domainMapper = new DomainMapper(null);
 
     @Test
     public void shouldCopyTimeTaken() {

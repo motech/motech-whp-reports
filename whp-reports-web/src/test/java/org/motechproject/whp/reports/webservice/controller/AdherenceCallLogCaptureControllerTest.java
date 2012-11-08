@@ -30,7 +30,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
     @Before
     public void setUp() {
         initMocks(this);
-        domainMapper = new DomainMapper();
+        domainMapper = new DomainMapper(null);
         controller = new AdherenceCallLogCaptureController(callLogService, domainMapper);
     }
 

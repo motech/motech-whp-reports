@@ -31,7 +31,7 @@ public class AdherenceCaptureControllerTest {
     @Before
     public void setUp() {
         initMocks(this);
-        domainMapper = new DomainMapper();
+        domainMapper = new DomainMapper(null);
         controller = new AdherenceCaptureController(adherenceSubmissionService, domainMapper);
     }
 

@@ -12,6 +12,8 @@ import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
+import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -23,6 +25,12 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 public class DomainMapper {
     private final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
     private DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(DATE_TIME_FORMAT);
+    private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;
+
+    @Autowired
+    public DomainMapper(ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository) {
+        this.containerRegistrationCallLogRepository = containerRegistrationCallLogRepository;
+    }
 
     public PatientAdherenceSubmission mapAdherenceSubmission(AdherenceCaptureRequest adherenceCaptureRequest) {
         PatientAdherenceSubmission submission = new PatientAdherenceSubmission();
@@ -61,7 +69,10 @@ public class DomainMapper {
     }
 
     public ContainerRegistrationCallLog mapContainerRegistrationCallLog(ContainerRegistrationCallLogRequest request) {
-        ContainerRegistrationCallLog containerRegistrationCallLog = new ContainerRegistrationCallLog();
+        ContainerRegistrationCallLog containerRegistrationCallLog = containerRegistrationCallLogRepository.findByCallId(request.getCallId());
+        if(containerRegistrationCallLog == null)
+            containerRegistrationCallLog = new ContainerRegistrationCallLog();
+
         java.util.Date startDateTime = toDate(request.getStartDateTime());
         java.util.Date endDateTime = toDate(request.getEndDateTime());
 

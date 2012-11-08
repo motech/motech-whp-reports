@@ -3,21 +3,37 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class DomainMapperTest {
+
+    @Mock
+    private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;
+
+    private DomainMapper domainMapper;
+
+    @Before
+    public void setUp() {
+        initMocks(this);
+        domainMapper = new DomainMapper(containerRegistrationCallLogRepository);
+    }
 
     @Test
     public void shouldCreateCallLog() {
@@ -35,7 +51,7 @@ public class DomainMapperTest {
         callLogRequest.setCallId("callId");
         callLogRequest.setCallStatus("callStatusValue");
 
-        AdherenceCallLog callLog = new DomainMapper().mapAdherenceCallLog(callLogRequest);
+        AdherenceCallLog callLog = domainMapper.mapAdherenceCallLog(callLogRequest);
 
         assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
         assertThat(callLog.getStartDate(), is(new Date(callLogRequest.getStartTime().getTime())));
@@ -66,7 +82,7 @@ public class DomainMapperTest {
         request.setMobileNumber("1234567890");
 
 
-        ContainerRegistrationCallLog callLog = new DomainMapper().mapContainerRegistrationCallLog(request);
+        ContainerRegistrationCallLog callLog = domainMapper.mapContainerRegistrationCallLog(request);
 
         assertThat(callLog.getCallId(), is(request.getCallId()));
         assertThat(callLog.getDisconnectionType(), is(request.getDisconnectionType()));
@@ -78,6 +94,37 @@ public class DomainMapperTest {
     }
 
     @Test
+    public void shouldUpdateExistingContainerRegistrationCallLog() {
+        ContainerRegistrationCallLogRequest request = new ContainerRegistrationCallLogRequest();
+        DateTime now = new DateTime();
+        DateTime startTime = now.minusMinutes(10);
+        DateTime endTime = now;
+
+        request.setCallId("callId");
+        request.setDisconnectionType("disconnectionType");
+        request.setEndDateTime("10/12/2012 12:33:35");
+        request.setStartDateTime("10/12/2012 12:32:35");
+        request.setProviderId("providerid");
+        request.setMobileNumber("1234567890");
+
+        ContainerRegistrationCallLog expectedCallLog = new ContainerRegistrationCallLog();
+        expectedCallLog.setCallId("callId");
+        expectedCallLog.setId(1234L);
+        when(containerRegistrationCallLogRepository.findByCallId("callId")).thenReturn(expectedCallLog);
+
+        ContainerRegistrationCallLog actualCallLog = domainMapper.mapContainerRegistrationCallLog(request);
+
+        assertThat(actualCallLog.getId(), is(1234L));
+        assertThat(actualCallLog.getCallId(), is(request.getCallId()));
+        assertThat(actualCallLog.getDisconnectionType(), is(request.getDisconnectionType()));
+        assertThat(actualCallLog.getStartDateTime(), is(toDate(request.getStartDateTime())));
+        assertThat(actualCallLog.getEndDateTime(), is(toDate(request.getEndDateTime())));
+        assertThat(actualCallLog.getDuration(), is(60L));
+        assertThat(actualCallLog.getProviderId(), is(request.getProviderId()));
+        assertThat(actualCallLog.getMobileNumber(), is(request.getMobileNumber()));
+    }
+
+    @Test
     public void shouldCreateFlashingLog() {
         FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
         flashingLogRequest.setProviderId("ABC");
@@ -85,7 +132,7 @@ public class DomainMapperTest {
         flashingLogRequest.setCreationTime((new DateTime()).toDate());
         flashingLogRequest.setMobileNumber("1234567890");
 
-        FlashingLog flashingLog = new DomainMapper().buildFlashingRequestLog(flashingLogRequest);
+        FlashingLog flashingLog = domainMapper.buildFlashingRequestLog(flashingLogRequest);
 
         assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
         assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));

@@ -6,10 +6,9 @@ import org.mockito.Mock;
 import org.motechproject.validation.validator.BeanValidator;
 import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
+import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
 import org.springframework.http.MediaType;
-
-import java.util.Date;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -23,13 +22,15 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
     @Mock
     private ContainerRegistrationCallLogService containerRegistrationCallLogService;
     @Mock
+    private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;
+    @Mock
     private BeanValidator beanValidator;
     private DomainMapper domainMapper;
 
     @Before
     public void setUp() {
         initMocks(this);
-        domainMapper = new DomainMapper();
+        domainMapper = new DomainMapper(containerRegistrationCallLogRepository);
         controller = new ContainerRegistrationCallLogController(containerRegistrationCallLogService, domainMapper, beanValidator);
     }
 
