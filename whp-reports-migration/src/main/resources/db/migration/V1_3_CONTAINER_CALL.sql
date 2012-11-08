@@ -6,7 +6,10 @@ CREATE TABLE whp_reports.container_call_log (
     end_date_time timestamp,
     duration numeric,
     disconnection_type varchar(30),
-    mobile_number varchar(15)
+    mobile_number varchar(15),
+    provider_verification_time timestamp,
+    valid_container_verification_attempts numeric,
+    invalid_container_verification_attempts numeric
     );
 
 

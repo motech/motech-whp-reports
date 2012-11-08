@@ -4,7 +4,6 @@ package org.motechproject.whp.reports.domain.measure;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -39,5 +38,12 @@ public class ContainerRegistrationCallLog {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
+    @Column(name = "provider_verification_time")
+    private Timestamp providerVerificationTime;
 
+    @Column(name = "valid_container_verification_attempts")
+    private int validContainerVerificationAttempts;
+
+    @Column(name = "invalid_container_verification_attempts")
+    private int inValidContainerVerificationAttempts;
 }

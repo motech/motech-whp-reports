@@ -7,12 +7,10 @@ import org.motechproject.validation.constraints.Enumeration;
 import org.motechproject.validation.constraints.NotNullOrEmpty;
 
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
-public class ContainerRegistrationCallLogRequest implements Serializable {
+public class ContainerRegistrationCallDetailsLogRequest implements Serializable {
     private static final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
 
     @NotBlank

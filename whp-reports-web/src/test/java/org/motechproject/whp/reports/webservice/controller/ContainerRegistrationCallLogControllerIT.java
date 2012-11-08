@@ -2,7 +2,7 @@ package org.motechproject.whp.reports.webservice.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationCallDetailsLogRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,8 +24,7 @@ public class ContainerRegistrationCallLogControllerIT extends ControllerTest {
 
     @Test
     public void shouldValidateContainerRegistrationCallLogRequest() throws Exception {
-        ContainerRegistrationCallLogRequest request;
-        request = new ContainerRegistrationCallLogRequest();
+        ContainerRegistrationCallDetailsLogRequest request = new ContainerRegistrationCallDetailsLogRequest();
         request.setCallId(null);
         request.setDisconnectionType(null);
         request.setStartDateTime(null);
@@ -40,12 +39,12 @@ public class ContainerRegistrationCallLogControllerIT extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError()).andExpect(content().string(allOf(
-                containsString("format-error.ContainerRegistrationCallLogRequest.callId"),
-                containsString("format-error.ContainerRegistrationCallLogRequest.providerId"),
-                containsString("format-error.ContainerRegistrationCallLogRequest.mobileNumber"),
-                containsString("invalid-data.ContainerRegistrationCallLogRequest.disconnectionType"),
-                containsString("invalid-data.ContainerRegistrationCallLogRequest.startDateTime"),
-                containsString("invalid-data.ContainerRegistrationCallLogRequest.endDateTime")
+                containsString("format-error.ContainerRegistrationCallDetailsLogRequest.callId"),
+                containsString("format-error.ContainerRegistrationCallDetailsLogRequest.providerId"),
+                containsString("format-error.ContainerRegistrationCallDetailsLogRequest.mobileNumber"),
+                containsString("invalid-data.ContainerRegistrationCallDetailsLogRequest.disconnectionType"),
+                containsString("invalid-data.ContainerRegistrationCallDetailsLogRequest.startDateTime"),
+                containsString("invalid-data.ContainerRegistrationCallDetailsLogRequest.endDateTime")
         )));
     }
 }

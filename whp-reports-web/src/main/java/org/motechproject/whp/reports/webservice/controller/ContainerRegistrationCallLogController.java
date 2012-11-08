@@ -2,7 +2,9 @@ package org.motechproject.whp.reports.webservice.controller;
 
 import org.motechproject.validation.validator.BeanValidator;
 import org.motechproject.whp.reports.builder.ContainerRegistrationCallLogMapper;
-import org.motechproject.whp.reports.contract.ContainerRegistrationCallLogRequest;
+import org.motechproject.whp.reports.contract.ContainerRegistrationCallDetailsLogRequest;
+import org.motechproject.whp.reports.contract.ContainerVerificationLogRequest;
+import org.motechproject.whp.reports.contract.ProviderVerificationLogRequest;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,7 @@ public class ContainerRegistrationCallLogController extends BaseController {
 
     @RequestMapping(value = "updateCallDetails", method = RequestMethod.POST)
     @ResponseBody
-    public List<ObjectError> create(@RequestBody ContainerRegistrationCallLogRequest request, HttpServletResponse response) {
+    public List<ObjectError> create(@RequestBody ContainerRegistrationCallDetailsLogRequest request, HttpServletResponse response) {
         BeanPropertyBindingResult result = new BeanPropertyBindingResult(request, request.getClass().getSimpleName());
         beanValidator.validate(request, "", result);
 
@@ -42,7 +44,19 @@ public class ContainerRegistrationCallLogController extends BaseController {
             return result.getAllErrors();
         }
 
-        containerRegistrationCallLogService.save(containerRegistrationCallLogMapper.mapContainerRegistrationCallLog(request));
+        containerRegistrationCallLogService.save(containerRegistrationCallLogMapper.mapFromCallDetails(request));
         return null;
+    }
+
+    @RequestMapping(value = "providerVerification", method = RequestMethod.POST)
+    @ResponseBody
+    public void create(@RequestBody ProviderVerificationLogRequest request) {
+        containerRegistrationCallLogService.save(containerRegistrationCallLogMapper.mapFromProviderVerificationDetails(request));
+    }
+
+    @RequestMapping(value = "containerVerification", method = RequestMethod.POST)
+    @ResponseBody
+    public void create(@RequestBody ContainerVerificationLogRequest request) {
+        containerRegistrationCallLogService.save(containerRegistrationCallLogMapper.mapFromContainerVerificationDetails(request));
     }
 }
