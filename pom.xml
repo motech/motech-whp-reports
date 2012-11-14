@@ -18,7 +18,7 @@
 
     <properties>
         <spring.version>3.1.2.RELEASE</spring.version>
-        <motech-platform.version>0.11-SNAPSHOT</motech-platform.version>
+        <motech-platform.version>0.14.1-SNAPSHOT</motech-platform.version>
         <motech.contrib.version>0.13-SNAPSHOT</motech.contrib.version>
         <slf4j.version>1.6.1</slf4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
