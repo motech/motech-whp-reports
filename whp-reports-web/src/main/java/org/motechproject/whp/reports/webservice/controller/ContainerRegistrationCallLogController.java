@@ -41,6 +41,7 @@ public class ContainerRegistrationCallLogController extends BaseController {
 
         if(result.hasErrors()){
             response.setStatus(500);
+            logger.error(String.format("Validation errors on updateCallDetails: %s", result.getAllErrors()));
             return result.getAllErrors();
         }
 
