@@ -15,6 +15,7 @@ public class ContainerRegistrationReportingRequest implements Serializable {
     private String locationId;
     private String instance;
     private String channelId;
+    private String callId;
     private String patientId;
     private String status;
     private String diagnosis;

@@ -26,6 +26,7 @@ public class ContainerTrackingReportingRequestMapper {
         containerRecord.setDiagnosis(containerRegistrationReportingRequest.getDiagnosis());
         containerRecord.setLocationId(containerRegistrationReportingRequest.getLocationId());
         containerRecord.setStatus(containerRegistrationReportingRequest.getStatus());
+        containerRecord.setCallId(containerRegistrationReportingRequest.getCallId());
         return containerRecord;
     }
 

@@ -8,6 +8,7 @@ CREATE TABLE whp_reports.sputum_tracking (
     location_id varchar(100),
     registration_instance varchar(100),
     channel_id varchar(100),
+    call_id varchar(100),
     smear_test_date1 date,
     smear_test_result1 varchar(100),
     smear_test_date2 date,

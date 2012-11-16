@@ -40,6 +40,9 @@ public class ContainerRecord {
     @Column(name = "channel_id")
     private String channelId;
 
+    @Column(name = "call_id")
+    private String callId;
+
     @Column(name = "smear_test_date1")
     private Date smearTestDate1;
 
