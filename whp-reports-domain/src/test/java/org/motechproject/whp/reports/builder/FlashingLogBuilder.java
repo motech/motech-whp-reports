@@ -10,6 +10,7 @@ public class FlashingLogBuilder {
     private String providerId;
     private Date callTime;
     private String mobileNumber;
+    private String flashingCallId;
 
     public static FlashingLogBuilder newFlashingLog() {
         return new FlashingLogBuilder();
@@ -35,6 +36,12 @@ public class FlashingLogBuilder {
         flashingLog.setCallTime(new Timestamp(callTime.getTime()));
         flashingLog.setMobileNumber(this.mobileNumber);
         flashingLog.setProviderId(this.providerId);
+        flashingLog.setFlashingCallId(this.flashingCallId);
         return flashingLog;
+    }
+
+    public FlashingLogBuilder withFlashingCallId(String flashingCallId) {
+        this.flashingCallId = flashingCallId;
+        return this;
     }
 }

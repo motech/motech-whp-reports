@@ -60,6 +60,7 @@ public class DomainMapperTest {
         FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
         flashingLogRequest.setProviderId("ABC");
         flashingLogRequest.setCallTime((new DateTime()).toDate());
+        flashingLogRequest.setFlashingCallId("abcd1234");
         flashingLogRequest.setCreationTime((new DateTime()).toDate());
         flashingLogRequest.setMobileNumber("1234567890");
 
@@ -68,6 +69,6 @@ public class DomainMapperTest {
         assertThat(flashingLog.getCallTime(), is(flashingLogRequest.getCallTime()));
         assertThat(flashingLog.getMobileNumber(), is(flashingLogRequest.getMobileNumber()));
         assertThat(flashingLog.getProviderId(), is(flashingLogRequest.getProviderId()));
+        assertThat(flashingLog.getFlashingCallId(), is(flashingLogRequest.getFlashingCallId()));
     }
-
 }

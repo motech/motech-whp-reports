@@ -48,6 +48,7 @@ public class DomainMapper {
     public FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
         FlashingLog flashingLog = new FlashingLog();
         flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
+        flashingLog.setFlashingCallId(flashingLogRequest.getFlashingCallId());
         flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
         flashingLog.setProviderId(flashingLogRequest.getProviderId());
         flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));

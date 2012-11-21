@@ -25,6 +25,7 @@ public class FlashingLogRepositoryIT extends IntegrationTest<Object> {
                 .forProvider("providerId")
                 .withMobileNumber("1234567890")
                 .withCallTime(new Date())
+                .withFlashingCallId("flashingCallId")
                 .build();
 
         flashingLog = flashingLogRepository.save(flashingLog);
@@ -40,6 +41,7 @@ public class FlashingLogRepositoryIT extends IntegrationTest<Object> {
         FlashingLog flashingLog = newFlashingLog()
                 .forProvider("providerId")
                 .withCallTime(new Date())
+                .withFlashingCallId("flashingCallId")
                 .build();
 
         flashingLogRepository.save(flashingLog);

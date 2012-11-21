@@ -27,4 +27,7 @@ public class FlashingLog implements Serializable {
 
     @Column(name = "provider_id")
     private String providerId;
+
+    @Column(name = "flashing_call_id")
+    private String flashingCallId;
 }
