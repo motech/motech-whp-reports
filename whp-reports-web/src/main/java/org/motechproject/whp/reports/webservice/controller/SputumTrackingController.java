@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
@@ -24,24 +25,25 @@ public class SputumTrackingController {
     }
 
     @RequestMapping(value = "/containerRegistrationMeasure")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public void registerContainer(@RequestBody ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         containerRecordService.recordContainerRegistration(containerRegistrationReportingRequest);
     }
 
     @RequestMapping(value = "/sputumLabResultsMeasure")
+    @ResponseBody
     public void captureLabResults(@RequestBody SputumLabResultsCaptureReportingRequest sputumLabResultsCaptureReportingRequest) {
         containerRecordService.recordLabResults(sputumLabResultsCaptureReportingRequest);
     }
 
     @RequestMapping(value = "/containerStatusMeasure")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public void updateContainerStatus(@RequestBody ContainerStatusReportingRequest containerStatusReportingRequest) {
         containerRecordService.updateContainerStatus(containerStatusReportingRequest);
     }
 
     @RequestMapping(value = "/containerPatientMappingMeasure")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public void updateContainerPatientMapping(@RequestBody ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest) {
         containerRecordService.updateContainerPatientMapping(containerPatientMappingReportingRequest);
     }
