@@ -41,6 +41,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(new Date());
         callLogRequest.setEndTime(new Date());
+        callLogRequest.setFlashingCallId("flashingCallId");
 
         String requestJson = getJSON(callLogRequest);
         standaloneSetup(controller).build()

@@ -40,6 +40,7 @@ public class DomainMapper {
         callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
         callLog.setCallId(callLogRequest.getCallId());
         callLog.setCallStatus(callLogRequest.getCallStatus());
+        callLog.setFlashingCallId(callLogRequest.getFlashingCallId());
 
         callLog.setDuration(getDuration(startTime, endTime));
         return callLog;

@@ -9,6 +9,7 @@ import java.util.Date;
 public class AdherenceCallLogRequest implements Serializable {
     private String providerId;
     private String callId;
+    private String flashingCallId;
     private String callStatus;
     private Date startTime;
     private Date endTime;

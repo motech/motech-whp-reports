@@ -38,6 +38,7 @@ public class DomainMapperTest {
         callLogRequest.setAdherenceNotCaptured(8);
         callLogRequest.setCallId("callId");
         callLogRequest.setCallStatus("callStatusValue");
+        callLogRequest.setFlashingCallId("abcd1234");
 
         AdherenceCallLog callLog = domainMapper.mapAdherenceCallLog(callLogRequest);
 
@@ -51,6 +52,7 @@ public class DomainMapperTest {
         assertThat(callLog.getAdherenceCaptured(), is(callLogRequest.getAdherenceCaptured()));
         assertThat(callLog.getAdherenceNotCaptured(), is(callLogRequest.getAdherenceNotCaptured()));
         assertThat(callLog.getCallId(), is(callLogRequest.getCallId()));
+        assertThat(callLog.getFlashingCallId(), is(callLogRequest.getFlashingCallId()));
         assertThat(callLog.getCallStatus(), is(callLogRequest.getCallStatus()));
         assertThat(callLog.getDuration(), is(600L));
     }

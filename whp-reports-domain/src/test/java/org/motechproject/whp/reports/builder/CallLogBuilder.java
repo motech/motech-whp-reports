@@ -15,6 +15,7 @@ public class CallLogBuilder {
     private int adherenceNotCaptured;
     private String callId;
     private int duration;
+    private String flashingCallId;
 
     public static CallLogBuilder newCallLog() {
         return new CallLogBuilder();
@@ -48,6 +49,7 @@ public class CallLogBuilder {
         callLog.setAdherenceCaptured(adherenceCaptured);
         callLog.setAdherenceNotCaptured(adherenceNotCaptured);
         callLog.setDuration(duration);
+        callLog.setFlashingCallId(flashingCallId);
         return callLog;
     }
 
@@ -73,6 +75,11 @@ public class CallLogBuilder {
 
     public CallLogBuilder withDuration(int duration) {
         this.duration = duration;
+        return this;
+    }
+
+    public CallLogBuilder withFlashingCallId(String flashingCallId) {
+        this.flashingCallId = flashingCallId;
         return this;
     }
 }

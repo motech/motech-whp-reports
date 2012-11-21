@@ -18,6 +18,9 @@ public class AdherenceCallLog {
     @Column(name = "call_id")
     private  String callId;
 
+    @Column(name = "flashing_call_id")
+    private  String flashingCallId;
+
     @Column(name = "provider_id")
     private String providerId;
 

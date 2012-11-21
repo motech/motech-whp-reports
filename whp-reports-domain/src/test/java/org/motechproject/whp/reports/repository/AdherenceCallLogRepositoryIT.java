@@ -28,7 +28,8 @@ public class AdherenceCallLogRepositoryIT extends IntegrationTest<Object> {
                 .withTotalPatients(10)
                 .withAdherenceCaptured(4)
                 .withAdherenceNotCaptured(6)
-                .withCallId("callIdlllllllllllllllllllllllllllllllllllllllllllllllllllllll")
+                .withCallId("callId")
+                .withFlashingCallId("flashingCallId")
                 .withDuration(100)
                 .build();
 
@@ -46,6 +47,7 @@ public class AdherenceCallLogRepositoryIT extends IntegrationTest<Object> {
                 .forProvider("providerId")
                 .withNumber("provider")
                 .starting(new Date())
+                .withFlashingCallId("flashingCallId")
                 .build();
 
         adherenceCallLogRepository.save(callLog);
