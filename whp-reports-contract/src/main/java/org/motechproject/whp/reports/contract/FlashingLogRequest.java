@@ -11,4 +11,5 @@ public class FlashingLogRequest implements Serializable {
     private String mobileNumber;
     private Date callTime;
     private String providerId;
+    private String flashingCallId;
 }
