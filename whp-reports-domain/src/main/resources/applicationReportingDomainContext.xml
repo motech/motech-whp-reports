@@ -8,7 +8,7 @@
 
     <import resource="classpath*:applicationHibernateContext.xml" />
 
-    <context:property-placeholder location="classpath*:whp-reports.properties"/>
+    <context:property-placeholder location="classpath:whp-reports.properties"/>
 
     <context:component-scan base-package="org.motechproject.whp.reports"/>
 

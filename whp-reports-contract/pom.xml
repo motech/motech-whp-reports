@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.motechproject.whp.reports</groupId>
+            <artifactId>whp-reports-config</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
