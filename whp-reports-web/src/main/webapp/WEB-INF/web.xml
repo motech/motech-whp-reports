@@ -63,6 +63,19 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>exporter</servlet-name>
+        <servlet-class>org.springframework.data.rest.webmvc.RepositoryRestExporterServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>exporter</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+
     <session-config>
         <session-timeout>120</session-timeout>
     </session-config>
