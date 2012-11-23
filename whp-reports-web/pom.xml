@@ -40,6 +40,11 @@
             <artifactId>whp-reports-domain</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-web-security</artifactId>
+            <version>${motech.contrib.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.flyway</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
@@ -107,6 +112,22 @@
         <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
             <artifactId>motech-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
         </dependency>
     </dependencies>
 
