@@ -15,6 +15,7 @@
         <module>whp-reports-web</module>
         <module>whp-reports-contract</module>
         <module>whp-reports-config</module>
+        <module>whp-reports-bigquery</module>
     </modules>
 
     <properties>
@@ -193,6 +194,11 @@
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>whp-reports-bigquery</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
                 <artifactId>whp-reports-contract</artifactId>
                 <version>${project.version}</version>
                 <type>jar</type>
@@ -311,6 +317,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>

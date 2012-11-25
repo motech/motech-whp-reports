@@ -40,6 +40,10 @@
             <artifactId>whp-reports-domain</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.motechproject.whp.reports</groupId>
+            <artifactId>whp-reports-bigquery</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
             <artifactId>motech-web-security</artifactId>
             <version>${motech.contrib.version}</version>
