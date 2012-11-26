@@ -10,12 +10,31 @@
     <import resource="classpath*:applicationValidationContext.xml"/>
     <import resource="classpath*:applicationReportingDomainContext.xml" />
     <import resource="classpath*:applicationReportingBigQueryContext.xml" />
+    <import resource="classpath*:applicationContext-DiagnosticsWeb.xml"/>
 
     <context:annotation-config/>
     <context:spring-configured/>
     <context:component-scan base-package="org.motechproject.whp.reports"/>
 
     <util:properties id="whpReportsProperties" location="classpath:/whp-reports.properties"/>
-
-
+    <util:properties id="postgresProperties" location="classpath:/whp-reports.properties"/>
+    <util:properties id="diagnosticProperties" location="classpath:diagnostics.properties"/>
+    <bean id="configurationDiagnostic" class="org.motechproject.diagnostics.diagnostics.ConfigurationDiagnostic">
+        <constructor-arg>
+            <map>
+                <entry key="couchdb">
+                    <util:properties location="classpath:couchdb.properties"/>
+                </entry>
+                <entry key="bigquery">
+                    <util:properties location="classpath:bigquery.properties"/>
+                </entry>
+                <entry key="diagnostics">
+                    <util:properties location="classpath:diagnostics.properties"/>
+                </entry>
+                <entry key="reports-config">
+                    <util:properties location="classpath:whp-reports.properties"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
 </beans>

@@ -7,9 +7,19 @@
     <context:component-scan base-package="org.motechproject.whp.reports" use-default-filters="false">
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
+    <context:component-scan base-package="org.motechproject.diagnostics.controller">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+    <context:component-scan base-package="org.motechproject.diagnosticsweb.controller">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+
+    <context:annotation-config/>
+
 
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources-#{whpReportsProperties['application.version']}/**" location="/"/>
+    <mvc:resources mapping="/diagnostics-web/**" location="classpath:/diagnostics-web/" />
     <mvc:default-servlet-handler/>
 
     <!-- Configures Handler Interceptors -->

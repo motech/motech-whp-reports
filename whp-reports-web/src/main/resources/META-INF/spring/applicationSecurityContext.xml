@@ -17,6 +17,7 @@
         <!--Only IT Admin-->
         <intercept-url pattern="/rest/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/bigquery/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
+        <intercept-url pattern="/diagnostics/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
 
         <intercept-url pattern="/adherenceCallLog/**" access="permitAll and hasIpAddress('127.0.0.1')"  requires-channel="any"/>
         <intercept-url pattern="/adherence/**" access="permitAll and hasIpAddress('127.0.0.1')" requires-channel="any"/>
