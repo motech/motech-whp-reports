@@ -58,21 +58,22 @@ var createExplorer = function(dataset, state) {
             view: new recline.View.Graph({
                 model: dataset
             })
-        },
-        {
-            id: 'map',
-            label: 'Map',
-            view: new recline.View.Map({
-                model: dataset
-            })
-        },
-        {
-            id: 'transform',
-            label: 'Transform',
-            view: new recline.View.Transform({
-                model: dataset
-            })
         }
+//        ,
+//        {
+//            id: 'map',
+//            label: 'Map',
+//            view: new recline.View.Map({
+//                model: dataset
+//            })
+//        },
+//        {
+//            id: 'transform',
+//            label: 'Transform',
+//            view: new recline.View.Transform({
+//                model: dataset
+//            })
+//        }
     ];
 
     window.dataExplorer = new recline.View.MultiView({
