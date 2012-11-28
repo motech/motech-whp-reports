@@ -19,11 +19,11 @@
         <intercept-url pattern="/bigquery/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/diagnostics/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
 
-        <intercept-url pattern="/adherenceCallLog/**" access="permitAll and hasIpAddress('127.0.0.1')"  requires-channel="any"/>
-        <intercept-url pattern="/adherence/**" access="permitAll and hasIpAddress('127.0.0.1')" requires-channel="any"/>
-        <intercept-url pattern="/containerRegistrationCallLog/**" access="permitAll and hasIpAddress('127.0.0.1')" requires-channel="any"/>
-        <intercept-url pattern="/flashingLog/**" access="permitAll and hasIpAddress('127.0.0.1')" requires-channel="any"/>
-        <intercept-url pattern="/sputumTracking/**" access="permitAll and hasIpAddress('127.0.0.1')" requires-channel="any"/>
+        <intercept-url pattern="/adherenceCallLog/**" access="permitAll"  requires-channel="any"/>
+        <intercept-url pattern="/adherence/**" access="permitAll" requires-channel="any"/>
+        <intercept-url pattern="/containerRegistrationCallLog/**" access="permitAll" requires-channel="any"/>
+        <intercept-url pattern="/flashingLog/**" access="permitAll" requires-channel="any"/>
+        <intercept-url pattern="/sputumTracking/**" access="permitAll" requires-channel="any"/>
 
     </http>
 
