@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 public class QueryResult {
-    List<Map<String,Object>> rows;
+    List<Map<String,Object>> content;
 
-    public QueryResult(List<Map<String, Object>> rows) {
-        this.rows = rows;
+    public QueryResult(List<Map<String, Object>> content) {
+        this.content = content;
     }
 
-    public List<Map<String, Object>> getRows() {
-        return rows;
+    public List<Map<String, Object>> getContent() {
+        return content;
     }
 }

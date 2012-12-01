@@ -59,8 +59,7 @@ var createExplorer = function(dataset, state) {
                 model: dataset
             })
         }
-//        ,
-//        {
+//      ,{
 //            id: 'map',
 //            label: 'Map',
 //            view: new recline.View.Map({

@@ -6,7 +6,7 @@ this.recline.Backend.SpringDataRest = this.recline.Backend.SpringDataRest || {};
 (function($, my) {
     my.__type__ = 'springdatarest';
 
-    my.springDataRestOptions = {};
+    my.bigQueryRestOptions = {};
 
     my.Wrapper = function(endpoint, options) {
         var self = this;
@@ -47,7 +47,7 @@ this.recline.Backend.SpringDataRest = this.recline.Backend.SpringDataRest || {};
 
             var field = new recline.Model.Field({
                 id : fieldName,
-                type:  isTimeField(fieldName) ? 'datetime' : 'string'
+                type:  fieldType(fieldName)
             });
 
             if(isTimeField(fieldName)){
@@ -60,7 +60,7 @@ this.recline.Backend.SpringDataRest = this.recline.Backend.SpringDataRest || {};
     };
 
     my.fetch = function(dataset) {
-        var es = new my.Wrapper(dataset.url, my.springDataRestOptions);
+        var es = new my.Wrapper(dataset.url, my.bigQueryRestOptions);
         var dfd = $.Deferred();
         es.mapping().done(function(result) {
             var data = result.content;
@@ -87,6 +87,16 @@ this.recline.Backend.SpringDataRest = this.recline.Backend.SpringDataRest || {};
 
     var isTimeField = function(fieldName) {
         return fieldName.match(/Time$/);
+    }
+
+    var isDateField = function(fieldName) {
+        return fieldName.match(/date$/);
+    }
+
+    var fieldType = function (fieldName){
+        if(isTimeField(fieldName)) return 'datetime';
+        if(isDateField(fieldName)) return 'date';
+        return 'string'
     }
 
     var makeRequest = function(data, headers) {
