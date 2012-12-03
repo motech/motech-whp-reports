@@ -5,11 +5,16 @@ import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequ
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.paging.ContainerRecordPageable;
 import org.motechproject.whp.reports.mapper.ContainerTrackingReportingRequestMapper;
 import org.motechproject.whp.reports.repository.ContainerRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -49,5 +54,10 @@ public class ContainerRecordService {
         ContainerRecord containerRecord = containerRecordRepository.findByContainerId(containerPatientMappingReportingRequest.getContainerId());
         requestMapper.updateContainerPatientMapping(containerPatientMappingReportingRequest, containerRecord);
         containerRecordRepository.save(containerRecord);
+    }
+
+    public List<ContainerRecord> getAll(int pageNo, int pageSize) {
+        ContainerRecordPageable pageable = new ContainerRecordPageable(pageNo, pageSize);
+        return containerRecordRepository.findAll(pageable).getContent();
     }
 }
