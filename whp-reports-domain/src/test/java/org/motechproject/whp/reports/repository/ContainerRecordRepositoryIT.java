@@ -4,7 +4,7 @@ import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
-import org.motechproject.whp.reports.builder.SputumTrackingBuilder;
+import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,18 +70,18 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
     }
 
     private ContainerRecord createContainerRecord(Date submissionDate, String containerId) {
-        return new SputumTrackingBuilder()
+        return new ContainerRecordBuilder()
                     .withContainerId(containerId)
-                    .issuedOn(submissionDate)
-                    .assignedToProvider("providerId")
-                    .submittedBy("CmfAdmin")
-                    .havingSubmitterId("admin")
-                    .onLocationId("Patna")
-                    .havingRegistrationInstance("Instance")
-                    .submittedThroughChannel("IVR")
-                    .forPatientId("patient1")
-                    .havingStatus("Close")
-                    .withReasonForClosure("For Fun")
+                    .withIssuedOnDate(submissionDate)
+                    .withProviderId("providerId")
+                    .withSubmittedBy("CmfAdmin")
+                    .withSubmitterId("admin")
+                    .withLocationId("Patna")
+                    .withRegistrationInstance("Instance")
+                    .withChannel("IVR")
+                    .withPatientId("patient1")
+                    .withStatus("Close")
+                    .withReasonForClosure("reasonForClosure")
                     .withAlternateDiagnosisCode("666")
                     .build();
     }

@@ -204,6 +204,13 @@
                 <type>jar</type>
             </dependency>
             <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>whp-reports-domain</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>
                 <artifactId>motech-web-security</artifactId>
                 <version>${motech.contrib.version}</version>
@@ -213,6 +220,11 @@
                         <artifactId>hibernate</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp-contrib</groupId>
+                <artifactId>motech-bulk-export-import</artifactId>
+                <version>${motech.contrib.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>
