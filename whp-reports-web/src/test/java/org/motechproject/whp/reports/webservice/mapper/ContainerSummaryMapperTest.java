@@ -7,9 +7,12 @@ import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.webservice.model.ContainerSummary;
 import org.motechproject.whp.reports.webservice.util.WHPDate;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 public class ContainerSummaryMapperTest {
 
@@ -17,6 +20,7 @@ public class ContainerSummaryMapperTest {
 
     @Test
     public void shouldMapContainerRecordToContainerSummary() {
+
         ContainerRecord containerRecord = new ContainerRecordBuilder()
                 .withContainerId("containerId")
                 .withIssuedOnDate(new Date())
@@ -41,7 +45,11 @@ public class ContainerSummaryMapperTest {
                 .withMappingInstance("mappingInstance")
                 .build();
 
-        ContainerSummary containerSummary = containerSummaryMapper.map(containerRecord);
+        List<ContainerRecord> containerRecords = Arrays.asList(containerRecord);
+
+        List<ContainerSummary> containerSummaryList = containerSummaryMapper.map(containerRecords);
+
+        ContainerSummary containerSummary = containerSummaryList.get(0);
 
         assertEquals(containerRecord.getContainerId(), containerSummary.getContainerId());
         assertEquals(WHPDate.date(containerRecord.getIssuedOn()).value(), containerSummary.getIssuedOn());
@@ -61,5 +69,36 @@ public class ContainerSummaryMapperTest {
         assertEquals(containerRecord.getAlternateDiagnosisCode(), containerSummary.getAlternateDiagnosisCode());
         assertEquals(WHPDate.date(containerRecord.getClosureDate()).value(), containerSummary.getClosureDate());
         assertEquals(WHPDate.date(containerRecord.getConsultationDate()).value(), containerSummary.getConsultationDate());
+    }
+
+    @Test
+    public void shouldMapContainerRecordsWithNullValues() {
+
+        ContainerRecord containerRecord = new ContainerRecordBuilder().build();
+
+        List<ContainerRecord> containerRecords = Arrays.asList(containerRecord);
+
+        List<ContainerSummary> containerSummaryList = containerSummaryMapper.map(containerRecords);
+
+        ContainerSummary containerSummary = containerSummaryList.get(0);
+
+        assertNull(containerSummary.getContainerId());
+        assertNull(containerSummary.getIssuedOn());
+        assertNull(containerSummary.getProviderId());
+        assertNull(containerSummary.getRegisteredBy());
+        assertNull(containerSummary.getRegistrationInstance());
+        assertNull(containerSummary.getChannelId());
+        assertNull(containerSummary.getSmearTestDate1());
+        assertNull(containerSummary.getSmearTestResult1());
+        assertNull(containerSummary.getSmearTestDate2());
+        assertNull(containerSummary.getSmearTestResult2());
+        assertNull(containerSummary.getLabName());
+        assertNull(containerSummary.getLabNumber());
+        assertNull(containerSummary.getLabResultsCapturedOn());
+        assertNull(containerSummary.getPatientId());
+        assertNull(containerSummary.getReasonForClosure());
+        assertNull(containerSummary.getAlternateDiagnosisCode());
+        assertNull(containerSummary.getClosureDate());
+        assertNull(containerSummary.getConsultationDate());
     }
 }

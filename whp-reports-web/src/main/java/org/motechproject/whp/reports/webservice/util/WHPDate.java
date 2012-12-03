@@ -1,7 +1,6 @@
 package org.motechproject.whp.reports.webservice.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.hamcrest.Matcher;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -55,5 +54,20 @@ public class WHPDate {
 
     public static WHPDate date(Timestamp timestamp) {
         return new WHPDate(new LocalDate(timestamp.getTime()));
+    }
+
+    public static String nullSafeDate(Date date) {
+        if(date == null){
+            return null;
+        }
+
+        return WHPDate.date(date).value();
+    }
+
+    public static String nullSafeTimestamp(Timestamp timestamp) {
+        if(timestamp == null)
+        return null;
+
+        return WHPDate.date(timestamp).value();
     }
 }

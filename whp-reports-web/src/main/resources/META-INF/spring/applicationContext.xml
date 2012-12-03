@@ -11,6 +11,7 @@
     <import resource="classpath*:applicationReportingDomainContext.xml" />
     <import resource="classpath*:applicationReportingBigQueryContext.xml" />
     <import resource="classpath*:applicationContext-DiagnosticsWeb.xml"/>
+    <import resource="classpath*:applicationBulkExportContext.xml"/>
 
     <context:annotation-config/>
     <context:spring-configured/>
