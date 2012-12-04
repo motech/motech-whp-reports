@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
+import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -78,6 +79,10 @@ public class ContainerRecord {
 
     @Column(name = "alternate_diagnosis_code")
     private String alternateDiagnosisCode;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="alternate_diagnosis_code",nullable=false, insertable=false, updatable=false)
+    private AlternateDiagnosis alternateDiagnosis;
 
     @Column(name = "closure_date")
     private Timestamp closureDate;

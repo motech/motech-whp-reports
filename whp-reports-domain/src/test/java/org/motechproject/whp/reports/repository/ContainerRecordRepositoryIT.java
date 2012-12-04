@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
+import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,10 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
     @Autowired
     ContainerRecordRepository containerRecordRepository;
 
+    @Autowired
+    AlternateDiagnosisRepository alternateDiagnosisRepository;
+
     @Test
-    @Transactional
     public void shouldCreateSputumTrackingRecord() {
         Date submissionDate = new Date();
         ContainerRecord containerRecord = createContainerRecord(submissionDate, "containerId");
@@ -34,12 +37,22 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         assertNotNull(containerRecord.getId());
 
         ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
-        assertThat(containerRecordFromDB, is(containerRecord));
-
+        assertThat(containerRecordFromDB.getContainerId(), is(containerRecord.getContainerId()));
     }
 
     @Test
-    @Transactional
+    public void shouldFetchAlternateDiagnosisInsideSputumTrackingRecord() {
+        Date submissionDate = new Date();
+        ContainerRecord containerRecord = createContainerRecord(submissionDate, "containerId");
+        containerRecord.setAlternateDiagnosisCode("1027");
+
+        containerRecordRepository.save(containerRecord);
+
+        ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
+        assertNotNull(containerRecordFromDB.getAlternateDiagnosis());
+    }
+
+    @Test
     public void shouldUpdateSputumTrackingRecord() {
         Date submissionDate = new Date();
         ContainerRecord containerRecord = createContainerRecord(submissionDate, "containerId");
@@ -50,26 +63,25 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         containerRecordRepository.save(containerRecord);
 
         ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
-        assertThat(containerRecordFromDB, is(containerRecord));
+        assertThat(containerRecordFromDB.getStatus(), is("Open"));
     }
 
     @Test
-    @Transactional
     public void shouldGetByContainerId(){
         Date submissionDate = new Date();
         String containerId = "containerId";
         ContainerRecord containerRecord = createContainerRecord(submissionDate, containerId);
 
         containerRecordRepository.save(containerRecord);
-        containerRecord.setStatus("Open");
-
-        containerRecordRepository.save(containerRecord);
 
         ContainerRecord containerRecordFromDB = containerRecordRepository.findByContainerId(containerRecord.getContainerId());
-        assertThat(containerRecordFromDB,is(containerRecord));
+        assertThat(containerRecordFromDB.getContainerId(), is(containerRecord.getContainerId()));
     }
 
     private ContainerRecord createContainerRecord(Date submissionDate, String containerId) {
+
+        AlternateDiagnosis alternateDiagnosis = alternateDiagnosisRepository.findOne("1027");
+
         return new ContainerRecordBuilder()
                     .withContainerId(containerId)
                     .withIssuedOnDate(submissionDate)
@@ -82,13 +94,12 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
                     .withPatientId("patient1")
                     .withStatus("Close")
                     .withReasonForClosure("reasonForClosure")
-                    .withAlternateDiagnosisCode("666")
+                    .withAlternateDiagnosisCode("1027")
                     .build();
     }
 
     @Test
     public void shouldPageThroughContainerRecords() {
-
         ContainerRecord container1 = createContainerRecord(new LocalDate(2012, 9, 19).toDate(), "containerId1");
         ContainerRecord container2 = createContainerRecord(new LocalDate(2012, 9, 21).toDate(), "containerId2");
         ContainerRecord container3 = createContainerRecord(new LocalDate(2012, 9, 22).toDate(), "containerId3");
@@ -108,9 +119,9 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         assertEquals(pageSize, page1.getSize());
         Iterator<ContainerRecord> iterator = page1.iterator();
 
-        assertEquals(container1, iterator.next());
-        assertEquals(container2, iterator.next());
-        assertEquals(container3, iterator.next());
+        assertEquals(container1.getId(), iterator.next().getId());
+        assertEquals(container2.getId(), iterator.next().getId());
+        assertEquals(container3.getId(), iterator.next().getId());
         assertEquals(2, page1.getTotalPages());
         assertEquals(3, page1.getNumberOfElements());
 
@@ -118,8 +129,8 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         Page<ContainerRecord> page2 = containerRecordRepository.findAll(new ContainerRecordPageable(2, pageSize));
         iterator = page2.iterator();
 
-        assertEquals(container4, iterator.next());
-        assertEquals(container5, iterator.next());
+        assertEquals(container4.getId(), iterator.next().getId());
+        assertEquals(container5.getId(), iterator.next().getId());
         assertEquals(2, page2.getNumberOfElements());
     }
 
