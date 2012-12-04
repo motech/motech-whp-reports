@@ -19,6 +19,9 @@
         <intercept-url pattern="/bigquery/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/diagnostics/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
 
+        <!--Only CMF Admin-->
+        <intercept-url pattern="/reports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
+
         <intercept-url pattern="/adherenceCallLog/**" access="permitAll"  requires-channel="any"/>
         <intercept-url pattern="/adherence/**" access="permitAll" requires-channel="any"/>
         <intercept-url pattern="/containerRegistrationCallLog/**" access="permitAll" requires-channel="any"/>
