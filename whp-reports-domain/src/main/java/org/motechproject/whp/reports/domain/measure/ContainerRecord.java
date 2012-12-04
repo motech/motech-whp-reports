@@ -75,7 +75,7 @@ public class ContainerRecord {
     @Column(name = "reason_for_closure")
     private String reasonForClosureCode;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="reason_for_closure",nullable=false, insertable=false, updatable=false)
     private ReasonForClosure reasonForClosure;
 
@@ -85,7 +85,7 @@ public class ContainerRecord {
     @Column(name = "alternate_diagnosis_code")
     private String alternateDiagnosisCode;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="alternate_diagnosis_code",nullable=false, insertable=false, updatable=false)
     private AlternateDiagnosis alternateDiagnosis;
 
