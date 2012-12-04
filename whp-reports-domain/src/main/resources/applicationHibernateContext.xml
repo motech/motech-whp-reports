@@ -21,6 +21,11 @@
                 <property name="databasePlatform" value="${hibernate.dialect}"/>
             </bean>
         </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+            </props>
+        </property>
     </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

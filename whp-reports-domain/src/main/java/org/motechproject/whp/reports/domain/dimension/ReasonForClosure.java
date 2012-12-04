@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "reasons_for_closure", schema = "whp_reports", uniqueConstraints = {@UniqueConstraint(columnNames = {"code", "text"})})
+@Table(name = "reasons_for_closure", uniqueConstraints = {@UniqueConstraint(columnNames = {"code", "text"})})
 public class ReasonForClosure {
 
     @Column(name = "text")
