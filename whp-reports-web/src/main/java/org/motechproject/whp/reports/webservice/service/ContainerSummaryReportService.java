@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@ExcelDataSource(name = "containerTrackingReport")
+@ExcelDataSource(name = "container")
 public class ContainerSummaryReportService {
 
     public static final int PAGE_SIZE = 10000;
@@ -27,8 +27,8 @@ public class ContainerSummaryReportService {
     }
 
     @DataProvider
-    public List<ContainerSummary> getContainerSummary(int pageNumber) {
+    public List<ContainerSummary> containerSummary(int pageNumber) {
        List<ContainerRecord> containerRecords= containerRecordService.getAll(pageNumber, PAGE_SIZE);
-        return  containerSummaryMapper.map(containerRecords);
+       return  containerSummaryMapper.map(containerRecords);
     }
 }

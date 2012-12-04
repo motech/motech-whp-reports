@@ -41,7 +41,7 @@ public class ContainerSummaryReportServiceTest {
         when(containerRecordService.getAll(1, pageSize)).thenReturn(containerRecords);
         when(containerSummaryMapper.map(containerRecords)).thenReturn(expectedContainerSummaries);
 
-        List<ContainerSummary> containerSummaries = containerSummaryReportService.getContainerSummary(pageNumber);
+        List<ContainerSummary> containerSummaries = containerSummaryReportService.containerSummary(pageNumber);
 
         assertEquals(expectedContainerSummaries, containerSummaries);
 

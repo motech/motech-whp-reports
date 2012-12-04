@@ -2,7 +2,6 @@ package org.motechproject.whp.reports.webservice.mapper;
 
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.webservice.model.ContainerSummary;
-import org.motechproject.whp.reports.webservice.util.WHPDate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,6 +12,14 @@ import static org.motechproject.whp.reports.webservice.util.WHPDate.nullSafeTime
 
 @Component
 public class ContainerSummaryMapper {
+
+    public List<ContainerSummary> map(List<ContainerRecord> containerRecords) {
+        List<ContainerSummary> containerSummaryList = new ArrayList<>();
+        for(ContainerRecord containerRecord : containerRecords){
+            containerSummaryList.add(map(containerRecord));
+        }
+        return containerSummaryList;
+    }
 
     private ContainerSummary map(ContainerRecord containerRecord) {
         ContainerSummary containerSummary = new ContainerSummary();
@@ -37,13 +44,5 @@ public class ContainerSummaryMapper {
         containerSummary.setConsultationDate(nullSafeDate(containerRecord.getConsultationDate()));
 
         return containerSummary;
-    }
-
-    public List<ContainerSummary> map(List<ContainerRecord> containerRecords) {
-        List<ContainerSummary> containerSummaryList = new ArrayList<>();
-        for(ContainerRecord containerRecord : containerRecords){
-            containerSummaryList.add(map(containerRecord));
-        }
-        return containerSummaryList;
     }
 }

@@ -8,12 +8,10 @@ import org.springframework.data.domain.Sort;
 public class ContainerRecordPageable implements Pageable {
     private int pageNumber;
     private  int pageSize;
-    private int offset;
 
     public ContainerRecordPageable(int pageNumber, int pageSize) {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
-        this.offset = offset;
     }
 
     @Override
