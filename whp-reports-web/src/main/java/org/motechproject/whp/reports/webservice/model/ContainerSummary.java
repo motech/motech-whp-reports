@@ -9,6 +9,7 @@ public class ContainerSummary {
     private String containerId;
     private String issuedOn;
     private String providerId;
+    private String providerDistrict;
     private String submitterId;
     private String registrationInstance;
     private String channelId;
@@ -45,97 +46,103 @@ public class ContainerSummary {
     }
 
     @ExportValue(index = 4)
+    public String getProviderDistrict() {
+        return providerDistrict;
+    }
+
+
+    @ExportValue(index = 5)
     public String getRegisteredBy() {
         return submitterId;
     }
 
-    @ExportValue(index = 5, column = "District Registration Instance (as registered by provider)")
+    @ExportValue(index = 6)
     public String getRegistrationInstance() {
         return registrationInstance;
     }
 
-    @ExportValue(index = 6, column = "Channel (IVR/WEB)")
+    @ExportValue(index = 7, column = "Channel")
     public String getChannelId() {
         return channelId;
     }
 
-    @ExportValue(index = 7)
+    @ExportValue(index = 8)
     public String getPatientId() {
         return patientId;
     }
 
 
-    @ExportValue(index = 8)
+    @ExportValue(index = 9)
     public String getTbId() {
         return tbId;
     }
 
-    @ExportValue(index = 9, column = "Instance (mapped by CMF Admin)")
+    @ExportValue(index = 10)
     public String getMappingInstance() {
         return mappingInstance;
     }
 
-    @ExportValue(index = 10)
+    @ExportValue(index = 11)
     public String getSmearTestDate1() {
         return smearTestDate1;
     }
 
-    @ExportValue(index = 11)
+    @ExportValue(index = 12)
     public String getSmearTestResult1() {
         return smearTestResult1;
     }
 
-    @ExportValue(index = 12)
+    @ExportValue(index = 13)
     public String getSmearTestDate2() {
         return smearTestDate2;
     }
 
-    @ExportValue(index = 13)
+    @ExportValue(index = 14)
     public String getSmearTestResult2() {
         return smearTestResult2;
     }
 
-    @ExportValue(index = 14)
+    @ExportValue(index = 15)
     public String getLabName() {
         return labName;
     }
 
-    @ExportValue(index = 15)
+    @ExportValue(index = 16)
     public String getLabNumber() {
         return labNumber;
     }
 
-    @ExportValue(index = 16)
+    @ExportValue(index = 17)
     public String getLabResultsCapturedOn() {
         return labResultsCapturedOn;
     }
 
-    @ExportValue(index = 17)
+    @ExportValue(index = 18)
     public String getStatus() {
         return status;
     }
 
-    @ExportValue(index = 18)
+    @ExportValue(index = 19)
     public String getReasonForClosure() {
         return reasonForClosure;
     }
 
-    @ExportValue(index = 19)
+    @ExportValue(index = 20)
     public String getClosureDate() {
         return closureDate;
     }
 
-    @ExportValue(index = 20)
+    @ExportValue(index = 21)
     public String getConsultationDate() {
         return consultationDate;
     }
 
-    @ExportValue(index = 21)
+    @ExportValue(index = 22)
     public String getDiagnosis() {
         return diagnosis;
     }
 
-    @ExportValue(index = 22)
+    @ExportValue(index = 23)
     public String getAlternateDiagnosisCode() {
         return alternateDiagnosisCode;
     }

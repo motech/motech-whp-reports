@@ -26,6 +26,7 @@ public class ContainerSummaryMapper {
 
         containerSummary.setContainerId(containerRecord.getContainerId());
         containerSummary.setProviderId(containerRecord.getProviderId());
+        containerSummary.setProviderDistrict(containerRecord.getProviderDistrict());
         containerSummary.setIssuedOn(nullSafeDate(containerRecord.getIssuedOn()));
         containerSummary.setSubmitterId(containerRecord.getSubmitterId());
         containerSummary.setRegistrationInstance(containerRecord.getRegistrationInstance());

@@ -54,6 +54,7 @@ public class ContainerSummaryMapperTest {
         assertEquals(containerRecord.getContainerId(), containerSummary.getContainerId());
         assertEquals(WHPDate.date(containerRecord.getIssuedOn()).value(), containerSummary.getIssuedOn());
         assertEquals(containerRecord.getProviderId(), containerSummary.getProviderId());
+        assertEquals(containerRecord.getProviderDistrict(), containerSummary.getProviderDistrict());
         assertEquals(containerRecord.getSubmitterId(), containerSummary.getRegisteredBy());
         assertEquals(containerRecord.getRegistrationInstance(), containerSummary.getRegistrationInstance());
         assertEquals(containerRecord.getChannelId(), containerSummary.getChannelId());
