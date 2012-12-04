@@ -5,7 +5,7 @@ CREATE TABLE whp_reports.sputum_tracking (
     provider_id varchar(100),
     submitter_role varchar(100),
     submitter_id varchar(100),
-    location_id varchar(100),
+    provider_district varchar(100),
     registration_instance varchar(100),
     channel_id varchar(100),
     call_id varchar(100),

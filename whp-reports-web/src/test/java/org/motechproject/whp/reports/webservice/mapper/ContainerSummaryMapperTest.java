@@ -27,7 +27,7 @@ public class ContainerSummaryMapperTest {
                 .withProviderId("providerId")
                 .withSubmittedBy("CmfAdmin")
                 .withSubmitterId("admin")
-                .withLocationId("Patna")
+                .withProviderDistrict("Patna")
                 .withRegistrationInstance("Instance")
                 .withChannel("IVR")
                 .withSmearTestResults(new Date(),"result1", new Date(), "result2")

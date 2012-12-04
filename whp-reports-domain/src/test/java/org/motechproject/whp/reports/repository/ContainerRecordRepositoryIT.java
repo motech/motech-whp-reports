@@ -76,7 +76,7 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
                     .withProviderId("providerId")
                     .withSubmittedBy("CmfAdmin")
                     .withSubmitterId("admin")
-                    .withLocationId("Patna")
+                    .withProviderDistrict("Patna")
                     .withRegistrationInstance("Instance")
                     .withChannel("IVR")
                     .withPatientId("patient1")

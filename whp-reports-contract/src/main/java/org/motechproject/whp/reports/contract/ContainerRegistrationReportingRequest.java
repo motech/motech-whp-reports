@@ -12,7 +12,7 @@ public class ContainerRegistrationReportingRequest implements Serializable {
     private String providerId;
     private String submitterRole;
     private String submitterId;
-    private String locationId;
+    private String providerDistrict;
     private String instance;
     private String channelId;
     private String callId;

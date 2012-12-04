@@ -42,8 +42,8 @@ public class ContainerRecordBuilder {
         return this;
     }
 
-    public ContainerRecordBuilder withLocationId(String location) {
-        containerRecord.setLocationId(location);
+    public ContainerRecordBuilder withProviderDistrict(String location) {
+        containerRecord.setProviderDistrict(location);
         return this;
     }
 
