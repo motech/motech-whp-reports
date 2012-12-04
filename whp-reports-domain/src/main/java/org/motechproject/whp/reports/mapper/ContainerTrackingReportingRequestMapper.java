@@ -46,7 +46,7 @@ public class ContainerTrackingReportingRequestMapper {
         containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
         containerRecord.setClosureDate(getDateTimeIfNotNull(containerStatusReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerStatusReportingRequest.getConsultationDate()));
-        containerRecord.setReasonForClosure(containerStatusReportingRequest.getReasonForClosure());
+        containerRecord.setReasonForClosureCode(containerStatusReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerStatusReportingRequest.getStatus());
         containerRecord.setDiagnosis(containerStatusReportingRequest.getDiagnosis());
     }
@@ -55,7 +55,7 @@ public class ContainerTrackingReportingRequestMapper {
         containerRecord.setPatientId(containerPatientMappingReportingRequest.getPatientId());
         containerRecord.setTbId(containerPatientMappingReportingRequest.getTbId());
         containerRecord.setMappingInstance(containerPatientMappingReportingRequest.getMappingInstance());
-        containerRecord.setReasonForClosure(containerPatientMappingReportingRequest.getReasonForClosure());
+        containerRecord.setReasonForClosureCode(containerPatientMappingReportingRequest.getReasonForClosure());
         containerRecord.setStatus(containerPatientMappingReportingRequest.getStatus());
         containerRecord.setClosureDate(getDateTimeIfNotNull(containerPatientMappingReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerPatientMappingReportingRequest.getConsultationDate()));

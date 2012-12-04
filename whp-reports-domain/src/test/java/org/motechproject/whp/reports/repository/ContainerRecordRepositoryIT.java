@@ -5,12 +5,10 @@ import org.junit.After;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
-import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -38,6 +36,18 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
 
         ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
         assertThat(containerRecordFromDB.getContainerId(), is(containerRecord.getContainerId()));
+    }
+
+    @Test
+    public void shouldFetchReasonForClosureInsideSputumTrackingRecord() {
+        Date submissionDate = new Date();
+        ContainerRecord containerRecord = createContainerRecord(submissionDate, "containerId");
+        containerRecord.setReasonForClosureCode("1");
+
+        containerRecordRepository.save(containerRecord);
+
+        ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
+        assertNotNull(containerRecordFromDB.getReasonForClosure());
     }
 
     @Test
@@ -90,7 +100,7 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
                     .withChannel("IVR")
                     .withPatientId("patient1")
                     .withStatus("Close")
-                    .withReasonForClosure("reasonForClosure")
+                    .withReasonForClosureCode("0")
                     .withAlternateDiagnosisCode("1027")
                     .build();
     }

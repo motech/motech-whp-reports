@@ -15,7 +15,7 @@ public class ContainerSummaryMapper {
 
     public List<ContainerSummary> map(List<ContainerRecord> containerRecords) {
         List<ContainerSummary> containerSummaryList = new ArrayList<>();
-        for(ContainerRecord containerRecord : containerRecords){
+        for (ContainerRecord containerRecord : containerRecords) {
             containerSummaryList.add(map(containerRecord));
         }
         return containerSummaryList;
@@ -39,13 +39,13 @@ public class ContainerSummaryMapper {
         containerSummary.setLabNumber(containerRecord.getLabNumber());
         containerSummary.setLabResultsCapturedOn(nullSafeTimestamp(containerRecord.getLabResultsCapturedOn()));
         containerSummary.setPatientId(containerRecord.getPatientId());
-        containerSummary.setReasonForClosure(containerRecord.getReasonForClosure());
         containerSummary.setAlternateDiagnosisCode(containerRecord.getAlternateDiagnosisCode());
         containerSummary.setClosureDate(nullSafeTimestamp(containerRecord.getClosureDate()));
         containerSummary.setConsultationDate(nullSafeDate(containerRecord.getConsultationDate()));
 
-        if(containerRecord.getAlternateDiagnosis() != null) {
+        if (containerRecord.getAlternateDiagnosis() != null) {
             containerSummary.setAlternateDiagnosisName(containerRecord.getAlternateDiagnosis().getText());
+            containerSummary.setReasonForClosure(containerRecord.getReasonForClosure().getText());
         }
 
         return containerSummary;

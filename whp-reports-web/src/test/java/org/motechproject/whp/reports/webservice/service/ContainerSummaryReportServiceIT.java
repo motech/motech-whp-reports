@@ -26,9 +26,10 @@ public class ContainerSummaryReportServiceIT {
     ContainerRecordRepository containerRecordRepository;
 
     @Test
-    public void shouldReturnContainerSummaryReportWithAlternateDiagnosisName() {
+    public void shouldReturnContainerSummaryReportWithAlternateDiagnosisAndReasonForClosureNames() {
         String alternateDiagnosisForOtherBacterialDiseases = "1027";
         ContainerRecord container1 = createContainerRecord("containerId1", alternateDiagnosisForOtherBacterialDiseases);
+        container1.setReasonForClosureCode("0");
 
         containerRecordRepository.save(container1);
 
@@ -36,6 +37,7 @@ public class ContainerSummaryReportServiceIT {
 
         assertThat(containerSummaries.size(), is(1));
         assertThat(containerSummaries.get(0).getAlternateDiagnosisName(), is("Other bacterial diseases,not elsewhere classified"));
+        assertThat(containerSummaries.get(0).getReasonForClosure(), is("Sputum container mapped to patient"));
     }
 
     @After

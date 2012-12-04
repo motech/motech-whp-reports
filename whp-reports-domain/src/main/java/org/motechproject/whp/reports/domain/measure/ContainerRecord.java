@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.domain.measure;
 
 import lombok.Data;
 import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
+import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -72,7 +73,11 @@ public class ContainerRecord {
     private String status;
 
     @Column(name = "reason_for_closure")
-    private String reasonForClosure;
+    private String reasonForClosureCode;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="reason_for_closure",nullable=false, insertable=false, updatable=false)
+    private ReasonForClosure reasonForClosure;
 
     @Column(name = "diagnosis")
     private String diagnosis;

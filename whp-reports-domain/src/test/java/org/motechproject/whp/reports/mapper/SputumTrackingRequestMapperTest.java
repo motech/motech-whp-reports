@@ -93,7 +93,7 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(new Timestamp(containerStatusReportingRequest.getClosureDate().getMillis()), containerRecord.getClosureDate());
         assertEquals(containerStatusReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
         assertEquals(containerStatusReportingRequest.getStatus(), containerRecord.getStatus());
-        assertEquals(containerStatusReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
+        assertEquals(containerStatusReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosureCode());
         assertEquals(containerStatusReportingRequest.getDiagnosis(), containerRecord.getDiagnosis());
     }
 
@@ -120,7 +120,7 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(containerPatientMappingReportingRequest.getConsultationDate(), containerRecord.getConsultationDate());
         assertEquals(containerPatientMappingReportingRequest.getMappingInstance(), containerRecord.getMappingInstance());
         assertEquals(containerPatientMappingReportingRequest.getPatientId(), containerRecord.getPatientId());
-        assertEquals(containerPatientMappingReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosure());
+        assertEquals(containerPatientMappingReportingRequest.getReasonForClosure(), containerRecord.getReasonForClosureCode());
         assertEquals(containerPatientMappingReportingRequest.getStatus(), containerRecord.getStatus());
         assertEquals(containerPatientMappingReportingRequest.getTbId(), containerRecord.getTbId());
         assertEquals(containerPatientMappingReportingRequest.getDiagnosis(), containerRecord.getDiagnosis());

@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.builder;
 
 import org.joda.time.LocalDate;
 import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
+import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
 import java.sql.Timestamp;
@@ -69,7 +70,16 @@ public class ContainerRecordBuilder {
         return this;
     }
 
-    public ContainerRecordBuilder withReasonForClosure(String reasonForClosure) {
+    public ContainerRecordBuilder withReasonForClosureCode(String reasonForClosure) {
+        containerRecord.setReasonForClosureCode(reasonForClosure);
+        return this;
+    }
+
+    public ContainerRecordBuilder withReasonForClosure(String reasonForClosureCode, String reasonForClosureText) {
+        containerRecord.setReasonForClosureCode(reasonForClosureCode);
+        ReasonForClosure reasonForClosure = new ReasonForClosure();
+        reasonForClosure.setCode(reasonForClosureCode);
+        reasonForClosure.setText(reasonForClosureText);
         containerRecord.setReasonForClosure(reasonForClosure);
         return this;
     }
@@ -146,7 +156,7 @@ public class ContainerRecordBuilder {
                 .withChannel("IVR")
                 .withPatientId("patient1")
                 .withStatus("Close")
-                .withReasonForClosure("reasonForClosure");
+                .withReasonForClosureCode("0");
         return this;
     }
 }
