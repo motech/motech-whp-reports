@@ -3,17 +3,22 @@ package org.motechproject.whp.reports.webservice.service;
 
 import org.motechproject.export.annotation.DataProvider;
 import org.motechproject.export.annotation.ExcelDataSource;
+import org.motechproject.export.annotation.Header;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.motechproject.whp.reports.webservice.mapper.ContainerSummaryMapper;
 import org.motechproject.whp.reports.webservice.model.ContainerSummary;
+import org.motechproject.whp.reports.webservice.util.WHPDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
+import static org.motechproject.util.DateUtil.today;
+
 @Service
-@ExcelDataSource(name = "container")
+@ExcelDataSource(name = "containerTrackingReport")
 public class ContainerSummaryReportService {
 
     public static final int PAGE_SIZE = 10000;
@@ -24,6 +29,11 @@ public class ContainerSummaryReportService {
     public ContainerSummaryReportService(ContainerRecordService containerRecordService, ContainerSummaryMapper containerSummaryMapper) {
         this.containerRecordService = containerRecordService;
         this.containerSummaryMapper = containerSummaryMapper;
+    }
+
+    @Header(span = 3)
+    public List<String> containerSummaryHeader() {
+        return asList("Generated as on " + new WHPDate(today()).value());
     }
 
     @DataProvider
