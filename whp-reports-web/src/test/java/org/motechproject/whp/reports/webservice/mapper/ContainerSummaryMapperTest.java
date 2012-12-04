@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.webservice.mapper;
 
 import org.junit.Test;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
+import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.webservice.model.ContainerSummary;
 import org.motechproject.whp.reports.webservice.util.WHPDate;
@@ -37,7 +38,7 @@ public class ContainerSummaryMapperTest {
                 .withPatientId("patient1")
                 .withStatus("Close")
                 .withReasonForClosure("reasonForClosure")
-                .withAlternateDiagnosisCode("666")
+                .withAlternateDiagnosis("1027", "Other bacterial diseases,not elsewhere classified")
                 .withDiagnosis("Positive")
                 .withClosureDate(new Date())
                 .withTbId("tbID")
@@ -70,6 +71,7 @@ public class ContainerSummaryMapperTest {
         assertEquals(containerRecord.getAlternateDiagnosisCode(), containerSummary.getAlternateDiagnosisCode());
         assertEquals(WHPDate.date(containerRecord.getClosureDate()).value(), containerSummary.getClosureDate());
         assertEquals(WHPDate.date(containerRecord.getConsultationDate()).value(), containerSummary.getConsultationDate());
+        assertEquals(containerRecord.getAlternateDiagnosis().getText(), containerSummary.getAlternateDiagnosisName());
     }
 
     @Test

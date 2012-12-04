@@ -29,6 +29,7 @@ public class ContainerSummary {
     private String tbId;
     private String consultationDate;
     private String mappingInstance;
+    private String alternateDiagnosisName;
 
     @ExportValue(index = 1)
     public String getContainerId() {
@@ -145,5 +146,10 @@ public class ContainerSummary {
     @ExportValue(index = 23)
     public String getAlternateDiagnosisCode() {
         return alternateDiagnosisCode;
+    }
+
+    @ExportValue(index = 24)
+    public String getAlternateDiagnosisName() {
+        return alternateDiagnosisName;
     }
 }

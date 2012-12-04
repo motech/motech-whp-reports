@@ -79,9 +79,6 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
     }
 
     private ContainerRecord createContainerRecord(Date submissionDate, String containerId) {
-
-        AlternateDiagnosis alternateDiagnosis = alternateDiagnosisRepository.findOne("1027");
-
         return new ContainerRecordBuilder()
                     .withContainerId(containerId)
                     .withIssuedOnDate(submissionDate)

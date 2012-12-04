@@ -1,5 +1,7 @@
 package org.motechproject.whp.reports.builder;
 
+import org.joda.time.LocalDate;
+import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 
 import java.sql.Timestamp;
@@ -77,6 +79,15 @@ public class ContainerRecordBuilder {
         return this;
     }
 
+    public ContainerRecordBuilder withAlternateDiagnosis(String code, String name) {
+        containerRecord.setAlternateDiagnosisCode(code);
+        AlternateDiagnosis alternateDiagnosis = new AlternateDiagnosis();
+        alternateDiagnosis.setCode(code);
+        alternateDiagnosis.setText(name);
+        containerRecord.setAlternateDiagnosis(alternateDiagnosis);
+        return this;
+    }
+
     public ContainerRecordBuilder withSmearTestResults(Date resultsDate1, String result1, Date resultsDate2, String result2) {
         containerRecord.setSmearTestDate1(new java.sql.Date(resultsDate1.getTime()));
         containerRecord.setSmearTestResult1(result1);
@@ -122,6 +133,20 @@ public class ContainerRecordBuilder {
 
     public ContainerRecordBuilder withMappingInstance(String mappingInstance) {
         containerRecord.setMappingInstance(mappingInstance);
+        return this;
+    }
+
+    public ContainerRecordBuilder withDefaults() {
+        this.withProviderId("providerId")
+                .withSubmittedBy("CmfAdmin")
+                .withIssuedOnDate(new LocalDate(2012, 9, 21).toDate())
+                .withSubmitterId("admin")
+                .withProviderDistrict("Patna")
+                .withRegistrationInstance("Instance")
+                .withChannel("IVR")
+                .withPatientId("patient1")
+                .withStatus("Close")
+                .withReasonForClosure("reasonForClosure");
         return this;
     }
 }
