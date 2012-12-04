@@ -15,7 +15,4 @@ public class AlternateDiagnosis {
     @Id
     @Column(name = "code")
     private String code;
-
-    public AlternateDiagnosis() {
-    }
 }

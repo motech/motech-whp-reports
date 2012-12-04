@@ -15,8 +15,5 @@ public class ReasonForClosure {
     @Id
     @Column(name = "code")
     private String code;
-
-    public ReasonForClosure() {
-    }
 }
 
