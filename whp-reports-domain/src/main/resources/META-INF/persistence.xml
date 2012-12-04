@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-
     <persistence-unit name="default"  transaction-type="RESOURCE_LOCAL">
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/jpa_course"/>
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="p@ssw0rd"/>
-
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>
-
             <property name="hibernate.cache.use_second_level_cache" value="true"/>
             <property name="hibernate.cache.use_query_cache" value="false"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
