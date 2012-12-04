@@ -41,8 +41,8 @@ public class SputumTrackingBuilder {
         return this;
     }
 
-    public SputumTrackingBuilder onLocationId(String location) {
-        containerRecord.setLocationId(location);
+    public SputumTrackingBuilder withProviderDistrict(String district) {
+        containerRecord.setProviderDistrict(district);
         return this;
     }
 
