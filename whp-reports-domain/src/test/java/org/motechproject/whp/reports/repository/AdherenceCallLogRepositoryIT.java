@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
 
-public class AdherenceCallLogRepositoryIT extends IntegrationTest<Object> {
+public class AdherenceCallLogRepositoryIT extends IntegrationTest {
 
     @Autowired
     AdherenceCallLogRepository adherenceCallLogRepository;

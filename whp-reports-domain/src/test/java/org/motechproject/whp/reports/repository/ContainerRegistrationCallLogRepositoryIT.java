@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.junit.Assert.*;
 
-public class ContainerRegistrationCallLogRepositoryIT extends IntegrationTest<ContainerRegistrationCallLog> {
+public class ContainerRegistrationCallLogRepositoryIT extends IntegrationTest {
 
     @Autowired
     private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;

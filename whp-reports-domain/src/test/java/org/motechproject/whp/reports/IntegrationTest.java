@@ -6,6 +6,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationReportingDomainContext.xml")
-public abstract class IntegrationTest<T> {
+public abstract class IntegrationTest {
 
 }

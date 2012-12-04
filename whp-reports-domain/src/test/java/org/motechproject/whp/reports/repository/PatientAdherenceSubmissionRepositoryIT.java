@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertNotNull;
 import static org.motechproject.whp.reports.builder.PatientAdherenceSubmissionBuilder.newSubmission;
 
-public class PatientAdherenceSubmissionRepositoryIT extends IntegrationTest<PatientAdherenceSubmission> {
+public class PatientAdherenceSubmissionRepositoryIT extends IntegrationTest {
 
     @Autowired
     PatientAdherenceSubmissionRepository patientAdherenceSubmissionRepository;
