@@ -71,6 +71,7 @@ public class ContainerSummaryMapperTest {
         assertEquals(WHPDate.date(containerRecord.getConsultationDate()).value(), containerSummary.getConsultationDate());
         assertEquals(containerRecord.getAlternateDiagnosis().getText(), containerSummary.getAlternateDiagnosisName());
         assertEquals(containerRecord.getReasonForClosure().getText(), containerSummary.getReasonForClosure());
+        assertEquals(containerRecord.getStatus(), containerSummary.getStatus());
     }
 
     @Test
@@ -102,5 +103,6 @@ public class ContainerSummaryMapperTest {
         assertNull(containerSummary.getAlternateDiagnosisCode());
         assertNull(containerSummary.getClosureDate());
         assertNull(containerSummary.getConsultationDate());
+        assertNull(containerSummary.getStatus());
     }
 }

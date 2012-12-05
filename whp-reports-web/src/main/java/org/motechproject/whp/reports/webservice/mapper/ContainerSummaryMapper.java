@@ -42,6 +42,7 @@ public class ContainerSummaryMapper {
         containerSummary.setAlternateDiagnosisCode(containerRecord.getAlternateDiagnosisCode());
         containerSummary.setClosureDate(nullSafeTimestamp(containerRecord.getClosureDate()));
         containerSummary.setConsultationDate(nullSafeDate(containerRecord.getConsultationDate()));
+        containerSummary.setStatus(containerRecord.getStatus());
 
         if (containerRecord.getAlternateDiagnosis() != null) {
             containerSummary.setAlternateDiagnosisName(containerRecord.getAlternateDiagnosis().getText());
