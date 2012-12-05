@@ -45,8 +45,12 @@ public class ContainerSummaryMapper {
 
         if (containerRecord.getAlternateDiagnosis() != null) {
             containerSummary.setAlternateDiagnosisName(containerRecord.getAlternateDiagnosis().getText());
+        }
+
+        if (containerRecord.getReasonForClosure() != null) {
             containerSummary.setReasonForClosure(containerRecord.getReasonForClosure().getText());
         }
+
 
         return containerSummary;
     }
