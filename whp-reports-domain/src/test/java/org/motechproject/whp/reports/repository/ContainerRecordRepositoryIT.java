@@ -14,9 +14,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class ContainerRecordRepositoryIT extends IntegrationTest {
 
@@ -140,6 +138,7 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         assertEquals(container5.getId(), iterator.next().getId());
         assertEquals(2, page2.getNumberOfElements());
     }
+
 
     @After
     public void tearDown() {
