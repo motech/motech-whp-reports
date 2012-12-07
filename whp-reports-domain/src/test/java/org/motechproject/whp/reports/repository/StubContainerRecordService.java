@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class TestContainerRecordService {
+public class StubContainerRecordService {
 
     @Autowired
     private ContainerRecordRepository containerRecordRepository;
