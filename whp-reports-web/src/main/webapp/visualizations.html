@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<head>
+<title>WHP Visualizations</title>
 <meta charset="utf-8">
 <style>
 
@@ -29,16 +31,30 @@
     }
 
 </style>
+</head>
 <body>
+<h4>Flashing Calls</h4>
 <div class = "visualization" id="flashingCallsPerDay"></div>
-<div class = "visualization" id="dayOfWeekCalls"></div>
+<h4>Flashing Calls Per Day Of Week</h4>
+<div class = "visualization" id="flashingDayOfWeekCalls"></div>
+<h4>Adherence Calls Per Week</h4>
+<div class = "visualization" id="adherenceCallsPerWeek"></div>
+<h4>Adherence Captured Per Week</h4>
+<div class = "visualization" id="adherenceCapturedPerWeek"></div>
+<h4>Adherence Input Type</h4>
+<div class = "visualization" id="adherenceCountInputTypes"></div>
+<h4>Adherence Call Status</h4>
+<div class = "visualization" id="adherenceCallStatus"></div>
+<h4>Flashing Calls By Provider</h4>
+<div class = "visualization" id="flashingCallsByProvider"></div>
+
 <script src="js/d3.v3.js"></script>
 <script>
 
     d3.json("/whp-reports/bigquery/execute?queryName=flashing.calls.per.day", function(error, response) {
         var margin = {top: 20, right: 20, bottom: 30, left: 50},
-                width = 500 - margin.left - margin.right,
-                height = 200 - margin.top - margin.bottom;
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
 
         var parseDate = d3.time.format("%Y-%m-%d").parse;
 
@@ -96,10 +112,10 @@
                 .attr("d", line);
     });
 
-    d3.json("/whp-reports/bigquery/execute?queryName=calls.per.dayofweek", function(error, response) {
+    d3.json("/whp-reports/bigquery/execute?queryName=flashing.calls.per.dayofweek", function(error, response) {
         var margin = {top: 20, right: 20, bottom: 30, left: 50},
-                width = 500 - margin.left - margin.right,
-                height = 200 - margin.top - margin.bottom;
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
 
         var x = d3.scale.ordinal()
                 .rangeRoundBands([0, width], .1);
@@ -115,23 +131,237 @@
                 .scale(y)
                 .orient("left");
 
-        var svg = d3.select("#dayOfWeekCalls").append("svg")
+        var svg = d3.select("#flashingDayOfWeekCalls").append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         var data = response.content;
-//        data.forEach(function(d) {
-//            d.day_of_week = +d.day_of_week;
-//            d.no_of_calls = +d.no_of_calls;
-//        });
 
         x.domain(data.map(function(d) { return d.day_of_week; }));
         y.domain([0, d3.max(data, function(d) { return d.no_of_calls; })]);
 
-//        x.domain(d3.extent(data, function(d) { return d.day_of_week; }));
-//        y.domain(d3.extent(data, function(d) { return d.no_of_calls; }));
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Number of Flashing Calls");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.day_of_week); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_calls); })
+                .attr("height", function(d) { return height - y(d.no_of_calls); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=adherence.calls.per.week", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#adherenceCallsPerWeek").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.week_of_year; }));
+        y.domain([0, d3.max(data, function(d) { return d.no_of_calls; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Number of Adherence Calls");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.week_of_year); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_calls); })
+                .attr("height", function(d) { return height - y(d.no_of_calls); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=adherence.captured.per.week", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#adherenceCapturedPerWeek").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.week_of_year; }));
+        y.domain([0, d3.max(data, function(d) { return d.total_adherence; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Adherence Captured");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.week_of_year); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.total_adherence); })
+                .attr("height", function(d) { return height - y(d.total_adherence); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=adherence.count.input.types", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#adherenceCountInputTypes").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.status; }));
+        y.domain([0, d3.max(data, function(d) { return d.input_count; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Number of Inputs");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.status); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.input_count); })
+                .attr("height", function(d) { return height - y(d.input_count); });
+    });
+
+
+    d3.json("/whp-reports/bigquery/execute?queryName=adherence.call.status", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#adherenceCallStatus").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.call_status; }));
+        y.domain([0, d3.max(data, function(d) { return d.status_count; })]);
 
         svg.append("g")
                 .attr("class", "x axis")
@@ -152,15 +382,65 @@
                 .data(data)
                 .enter().append("rect")
                 .attr("class", "bar")
-                .attr("x", function(d) { return x(d.day_of_week); })
+                .attr("x", function(d) { return x(d.call_status); })
                 .attr("width", x.rangeBand())
-                .attr("y", function(d) { return y(d.no_of_calls); })
-                .attr("height", function(d) { return height - y(d.no_of_calls); });
+                .attr("y", function(d) { return y(d.status_count); })
+                .attr("height", function(d) { return height - y(d.status_count); });
+    });
 
-//        svg.append("path")
-//                .datum(data)
-//                .attr("class", "line")
-//                .attr("d", line);
+    d3.json("/whp-reports/bigquery/execute?queryName=flashing.calls.by.provider", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 1200 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#flashingCallsByProvider").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.provider_id; }));
+        y.domain([0, d3.max(data, function(d) { return d.num_of_calls; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Number of Calls");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.provider_id); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.num_of_calls); })
+                .attr("height", function(d) { return height - y(d.num_of_calls); });
     });
 
 </script>
