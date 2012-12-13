@@ -45,6 +45,7 @@ public class ContainerSummaryMapper {
         containerSummary.setStatus(containerRecord.getStatus());
         containerSummary.setDiagnosis(containerRecord.getDiagnosis());
         containerSummary.setMappingInstance(containerRecord.getMappingInstance());
+        containerSummary.setTbId(containerRecord.getTbId());
 
         if (containerRecord.getAlternateDiagnosis() != null) {
             containerSummary.setAlternateDiagnosisName(containerRecord.getAlternateDiagnosis().getText());

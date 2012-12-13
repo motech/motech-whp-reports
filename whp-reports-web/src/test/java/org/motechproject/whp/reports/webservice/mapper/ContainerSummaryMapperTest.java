@@ -74,6 +74,7 @@ public class ContainerSummaryMapperTest {
         assertEquals(containerRecord.getStatus(), containerSummary.getStatus());
         assertEquals(containerRecord.getDiagnosis(), containerSummary.getDiagnosis());
         assertEquals(containerRecord.getMappingInstance(), containerSummary.getMappingInstance());
+        assertEquals(containerRecord.getTbId(), containerSummary.getTbId());
     }
 
     @Test
@@ -108,5 +109,6 @@ public class ContainerSummaryMapperTest {
         assertNull(containerSummary.getStatus());
         assertNull(containerSummary.getDiagnosis());
         assertNull(containerSummary.getMappingInstance());
+        assertNull(containerSummary.getTbId());
     }
 }
