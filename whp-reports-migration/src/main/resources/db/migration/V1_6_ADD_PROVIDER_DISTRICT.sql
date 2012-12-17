@@ -1,0 +1,1 @@
+ALTER TABLE whp_reports.sputum_tracking add column provider_district varchar(100);
