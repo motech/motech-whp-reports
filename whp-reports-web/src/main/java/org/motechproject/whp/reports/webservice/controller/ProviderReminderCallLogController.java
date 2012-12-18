@@ -11,8 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @Controller
-@RequestMapping("/providerReminderCallLog")
+@RequestMapping(value = "/providerReminderCallLog",
+        produces = APPLICATION_JSON_VALUE,
+        consumes = APPLICATION_JSON_VALUE)
 public class ProviderReminderCallLogController extends BaseController {
 
     private final ProviderReminderCallLogService providerReminderCallLogService;
@@ -26,8 +32,9 @@ public class ProviderReminderCallLogController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "measure")
     @ResponseBody
-    public void callLogs(@RequestBody ProviderReminderCallLogRequest request) {
+    public void callLogs(@RequestBody @Valid ProviderReminderCallLogRequest request) {
         ProviderReminderCallLog callLog = providerReminderCallLogMapper.map(request);
         providerReminderCallLogService.save(callLog);
     }
+
 }
