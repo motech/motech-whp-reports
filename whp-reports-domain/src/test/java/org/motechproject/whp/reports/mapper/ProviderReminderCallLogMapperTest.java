@@ -23,7 +23,7 @@ public class ProviderReminderCallLogMapperTest {
         request.setStartTime("10/12/2012 12:32:35");
         request.setEndTime("10/12/2012 12:33:35");
         request.setAttemptTime("10/12/2012 12:34:35");
-        request.setMsisdn("1234567890");
+        request.setMsisdn("+911234567890");
         request.setReminderType(ReminderType.ADHERENCE_NOT_REPORTED.name());
         request.setDisconnectionType(ReminderDisconnectionType.CALL_COMPLETE.name());
         request.setProviderId("providerId");
@@ -36,7 +36,7 @@ public class ProviderReminderCallLogMapperTest {
         assertEquals(request.getCallId(), callLog.getCallId());
         assertEquals(request.getCallStatus(), callLog.getCallStatus());
         assertEquals(request.getDisconnectionType(), callLog.getDisconnectionType());
-        assertEquals(request.getMsisdn(), callLog.getMobileNumber());
+        assertEquals("1234567890", callLog.getMobileNumber());
         assertEquals(datetime(request.getAttemptTime()).time(), callLog.getAttemptTime());
         assertEquals(datetime(request.getEndTime()).time(), callLog.getEndTime());
         assertEquals(datetime(request.getStartTime()).time(), callLog.getStartTime());

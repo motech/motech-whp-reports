@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.mapper;
 
+import org.apache.commons.lang.StringUtils;
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class ProviderReminderCallLogMapper {
         callLog.setCallStatus(request.getCallStatus());
         callLog.setDisconnectionType(request.getDisconnectionType());
         callLog.setReminderType(request.getReminderType());
-        callLog.setMobileNumber(request.getMsisdn());
+        callLog.setMobileNumber(StringUtils.right(request.getMsisdn(), 10));
         callLog.setRequestId(request.getRequestId());
         callLog.setProviderId(request.getProviderId());
         return callLog;

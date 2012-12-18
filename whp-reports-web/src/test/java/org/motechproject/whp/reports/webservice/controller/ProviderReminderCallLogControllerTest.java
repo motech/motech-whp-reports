@@ -83,8 +83,6 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
                 .andExpect(content().string(containsString("providerId")))
                 .andExpect(content().string(containsString("callStatus")))
                 .andExpect(content().string(containsString("disconnectionType")))
-                .andExpect(content().string(containsString("startTime")))
-                .andExpect(content().string(containsString("endTime")))
                 .andExpect(content().string(containsString("attempt")))
                 .andExpect(content().string(containsString("attemptTime")));
     }

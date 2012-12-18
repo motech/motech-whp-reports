@@ -3,7 +3,6 @@ package org.motechproject.whp.reports.contract;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.motechproject.validation.constraints.DateTimeFormat;
 import org.motechproject.validation.constraints.Enumeration;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
@@ -14,7 +13,6 @@ import java.io.Serializable;
 
 @Data
 public class ProviderReminderCallLogRequest implements Serializable {
-    private static final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
 
     @NotBlank
     private String requestId;
@@ -40,19 +38,14 @@ public class ProviderReminderCallLogRequest implements Serializable {
     @Enumeration(type = ReminderDisconnectionType.class)
     private String disconnectionType;
 
-    @NotBlank
-    @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     private String startTime;
 
-    @NotBlank
-    @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     private String endTime;
 
     @NotNull
     private Integer attempt;
 
     @NotBlank
-    @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     private String attemptTime;
 
 }
