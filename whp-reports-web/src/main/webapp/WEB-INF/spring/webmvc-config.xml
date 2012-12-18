@@ -20,11 +20,12 @@
     <context:annotation-config/>
 
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
     <mvc:resources mapping="/resources-#{whpReportsProperties['application.version']}/**" location="/"/>
     <mvc:resources mapping="/diagnostics-web/**" location="classpath:/diagnostics-web/" />
     <mvc:default-servlet-handler/>
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     <!-- Configures Handler Interceptors -->
     <mvc:interceptors>
 
