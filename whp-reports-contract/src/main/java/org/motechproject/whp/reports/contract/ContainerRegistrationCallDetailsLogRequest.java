@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.motechproject.validation.constraints.DateTimeFormat;
 import org.motechproject.validation.constraints.Enumeration;
 import org.motechproject.validation.constraints.NotNullOrEmpty;
+import org.motechproject.whp.reports.contract.enums.DisconnectionType;
 
 import javax.validation.constraints.Digits;
 import java.io.Serializable;

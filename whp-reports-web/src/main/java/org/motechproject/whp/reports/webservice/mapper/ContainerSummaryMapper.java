@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.motechproject.whp.reports.webservice.util.WHPDate.nullSafeDate;
-import static org.motechproject.whp.reports.webservice.util.WHPDate.nullSafeTimestamp;
+import static org.motechproject.whp.reports.date.WHPDate.nullSafeDate;
+import static org.motechproject.whp.reports.date.WHPDate.nullSafeTimestamp;
 
 @Component
 public class ContainerSummaryMapper {

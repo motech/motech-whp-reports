@@ -1,4 +1,4 @@
-package org.motechproject.whp.reports.webservice.util;
+package org.motechproject.whp.reports.date;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 public class WHPDate {
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
-    public static final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
 
     private DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
 

@@ -8,7 +8,7 @@ import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.motechproject.whp.reports.webservice.mapper.ContainerSummaryMapper;
 import org.motechproject.whp.reports.webservice.model.ContainerSummary;
-import org.motechproject.whp.reports.webservice.util.WHPDate;
+import org.motechproject.whp.reports.date.WHPDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

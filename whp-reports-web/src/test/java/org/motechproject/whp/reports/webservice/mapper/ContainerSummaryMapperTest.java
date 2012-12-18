@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.webservice.model.ContainerSummary;
-import org.motechproject.whp.reports.webservice.util.WHPDate;
+import org.motechproject.whp.reports.date.WHPDate;
 
 import java.util.Arrays;
 import java.util.Date;
