@@ -8,6 +8,8 @@ import java.util.Date;
 
 @Data
 public class SputumLabResultsCaptureReportingRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String containerId;
     private Date smearTestDate1;
     private String smearTestResult1;

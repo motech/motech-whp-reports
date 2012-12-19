@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class AdherenceCaptureRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long timeTaken;
     private String channelId;
     private String status;

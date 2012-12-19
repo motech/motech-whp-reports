@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 public class ContainerStatusReportingRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String containerId;
     private String status;
     private String reasonForClosure;

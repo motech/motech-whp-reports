@@ -13,6 +13,8 @@ import java.io.Serializable;
 public class ContainerRegistrationCallDetailsLogRequest implements Serializable {
     private static final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
 
+    private static final long serialVersionUID = 1L;
+
     @NotBlank
     private String callId;
     @NotBlank
