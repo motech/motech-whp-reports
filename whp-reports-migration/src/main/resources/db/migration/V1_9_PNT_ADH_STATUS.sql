@@ -1,0 +1,1 @@
+ALTER TABLE whp_reports.patient_adherence_submission ALTER COLUMN status TYPE VARCHAR(100);
