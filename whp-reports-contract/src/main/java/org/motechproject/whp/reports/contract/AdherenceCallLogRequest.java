@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Data
 public class AdherenceCallLogRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String providerId;
     private String callId;
     private String flashingCallId;

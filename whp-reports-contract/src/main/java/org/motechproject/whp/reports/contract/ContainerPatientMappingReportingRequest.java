@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 public class ContainerPatientMappingReportingRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String containerId;
     private String patientId;
     private String tbId;

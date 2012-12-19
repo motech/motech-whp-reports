@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 @Data
 public class ContainerRegistrationCallDetailsLogRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
     private static final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
 
     @NotBlank

@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Data
 public class ProviderReminderCallLogRequest implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @NotBlank
     private String requestId;
 
