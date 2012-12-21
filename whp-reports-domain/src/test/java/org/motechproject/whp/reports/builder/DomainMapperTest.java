@@ -28,12 +28,14 @@ public class DomainMapperTest {
         DateTime now = new DateTime();
         DateTime startTime = now.minusMinutes(10);
         DateTime endTime = now;
+        DateTime attemptTime = now.minusDays(2);
         AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
         callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(startTime.toDate());
         callLogRequest.setEndTime(endTime.toDate());
         callLogRequest.setTotalPatients(12);
+        callLogRequest.setAttemptTime(attemptTime.toDate());
         callLogRequest.setAdherenceCaptured(4);
         callLogRequest.setAdherenceNotCaptured(8);
         callLogRequest.setCallId("callId");
@@ -48,6 +50,7 @@ public class DomainMapperTest {
         assertThat(callLog.getEndDate(), is(new Date(callLogRequest.getEndTime().getTime())));
         assertThat(callLog.getEndDateTime(), is(new Timestamp(callLogRequest.getEndTime().getTime())));
         assertThat(callLog.getProviderId(), is(callLogRequest.getProviderId()));
+        assertThat(callLog.getAttemptTime(), is(callLogRequest.getAttemptTime()));
         assertThat(callLog.getTotalPatients(), is(callLogRequest.getTotalPatients()));
         assertThat(callLog.getAdherenceCaptured(), is(callLogRequest.getAdherenceCaptured()));
         assertThat(callLog.getAdherenceNotCaptured(), is(callLogRequest.getAdherenceNotCaptured()));

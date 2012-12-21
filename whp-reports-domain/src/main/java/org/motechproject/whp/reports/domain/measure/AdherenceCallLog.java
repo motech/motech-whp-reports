@@ -33,6 +33,9 @@ public class AdherenceCallLog {
     @Column(name = "start_date_time")
     private Timestamp startDateTime;
 
+    @Column(name = "attempt_time")
+    private Timestamp attemptTime;
+
     @Column(name = "end_date_time")
     private Timestamp endDateTime;
 

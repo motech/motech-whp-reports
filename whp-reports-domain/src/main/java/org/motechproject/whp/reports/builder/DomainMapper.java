@@ -27,6 +27,7 @@ public class DomainMapper {
     public AdherenceCallLog mapAdherenceCallLog(AdherenceCallLogRequest callLogRequest) {
         AdherenceCallLog callLog = new AdherenceCallLog();
         java.util.Date startTime = callLogRequest.getStartTime();
+        java.util.Date attemptTime = callLogRequest.getAttemptTime();
         java.util.Date endTime = callLogRequest.getEndTime();
 
         callLog.setCalledBy(callLogRequest.getCalledBy());
@@ -34,6 +35,7 @@ public class DomainMapper {
         callLog.setStartDateTime(new Timestamp(startTime.getTime()));
         callLog.setEndDate(new Date(endTime.getTime()));
         callLog.setEndDateTime(new Timestamp(endTime.getTime()));
+        callLog.setAttemptTime(new Timestamp(attemptTime.getTime()));
         callLog.setProviderId(callLogRequest.getProviderId());
         callLog.setTotalPatients(callLogRequest.getTotalPatients());
         callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
