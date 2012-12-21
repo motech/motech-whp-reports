@@ -45,6 +45,9 @@ public class AdherenceCallLog {
     @Column(name = "called_by")
     private String calledBy;
 
+    @Column(name = "call_answered")
+    private String callAnswered;
+
     @Column(name = "call_status")
     private String callStatus;
 

@@ -39,6 +39,7 @@ public class DomainMapper {
         callLog.setProviderId(callLogRequest.getProviderId());
         callLog.setTotalPatients(callLogRequest.getTotalPatients());
         callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
+        callLog.setCallAnswered(callLogRequest.getCallAnswered());
         callLog.setAdherenceNotCaptured(callLogRequest.getAdherenceNotCaptured());
         callLog.setCallId(callLogRequest.getCallId());
         callLog.setCallStatus(callLogRequest.getCallStatus());

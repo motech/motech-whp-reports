@@ -18,5 +18,6 @@ public class AdherenceCallLogRequest implements Serializable {
     private Date attemptTime;
     private Integer totalPatients;
     private Integer adherenceCaptured;
+    private String callAnswered;
     private Integer adherenceNotCaptured;
 }
