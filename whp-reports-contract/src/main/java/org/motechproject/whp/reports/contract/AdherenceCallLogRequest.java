@@ -20,4 +20,5 @@ public class AdherenceCallLogRequest implements Serializable {
     private Integer adherenceCaptured;
     private String callAnswered;
     private Integer adherenceNotCaptured;
+    private String disconnectionType;
 }

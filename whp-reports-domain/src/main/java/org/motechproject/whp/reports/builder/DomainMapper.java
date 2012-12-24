@@ -30,6 +30,7 @@ public class DomainMapper {
         java.util.Date attemptTime = callLogRequest.getAttemptTime();
         java.util.Date endTime = callLogRequest.getEndTime();
 
+        callLog.setDisconnectionType(callLogRequest.getDisconnectionType());
         callLog.setCalledBy(callLogRequest.getCalledBy());
         callLog.setStartDate(new Date(startTime.getTime()));
         callLog.setStartDateTime(new Timestamp(startTime.getTime()));

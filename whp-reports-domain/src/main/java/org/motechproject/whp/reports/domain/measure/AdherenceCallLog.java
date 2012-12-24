@@ -10,16 +10,20 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "adherence_call_log", uniqueConstraints = {@UniqueConstraint(columnNames = {"call_log_id"})})
 public class AdherenceCallLog {
+
     @Id
     @Column(name = "call_log_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "call_id")
-    private  String callId;
+    private String callId;
 
     @Column(name = "flashing_call_id")
-    private  String flashingCallId;
+    private String flashingCallId;
+
+    @Column(name = "disconnection_type")
+    private String disconnectionType;
 
     @Column(name = "provider_id")
     private String providerId;

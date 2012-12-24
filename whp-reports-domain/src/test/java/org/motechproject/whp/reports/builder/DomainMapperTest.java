@@ -37,6 +37,7 @@ public class DomainMapperTest {
         callLogRequest.setTotalPatients(12);
         callLogRequest.setAttemptTime(attemptTime.toDate());
         callLogRequest.setCallAnswered("callAnswered");
+        callLogRequest.setDisconnectionType("disconnectionType");
         callLogRequest.setAdherenceCaptured(4);
         callLogRequest.setAdherenceNotCaptured(8);
         callLogRequest.setCallId("callId");
@@ -52,6 +53,7 @@ public class DomainMapperTest {
         assertThat(callLog.getEndDateTime(), is(new Timestamp(callLogRequest.getEndTime().getTime())));
         assertThat(callLog.getProviderId(), is(callLogRequest.getProviderId()));
         assertThat(callLog.getAttemptTime(), is(callLogRequest.getAttemptTime()));
+        assertThat(callLogRequest.getDisconnectionType(), is(callLogRequest.getDisconnectionType()));
         assertThat(callLog.getTotalPatients(), is(callLogRequest.getTotalPatients()));
         assertThat(callLog.getAdherenceCaptured(), is(callLogRequest.getAdherenceCaptured()));
         assertThat(callLog.getAdherenceNotCaptured(), is(callLogRequest.getAdherenceNotCaptured()));
