@@ -3,31 +3,35 @@ package org.motechproject.whp.reports.webservice.model;
 import lombok.Setter;
 import org.motechproject.export.annotation.ExportValue;
 
+import java.util.Date;
+
+import static org.motechproject.whp.reports.date.WHPDate.DATE_FORMAT;
+
 @Setter
 public class ContainerSummary {
 
     private String containerId;
-    private String issuedOn;
+    private Date issuedOn;
     private String providerId;
     private String providerDistrict;
     private String submitterId;
     private String registrationInstance;
     private String channelId;
-    private String smearTestDate1;
+    private Date smearTestDate1;
     private String smearTestResult1;
-    private String smearTestDate2;
+    private Date smearTestDate2;
     private String smearTestResult2;
     private String labName;
     private String labNumber;
-    private String labResultsCapturedOn;
+    private Date labResultsCapturedOn;
     private String status;
     private String reasonForClosure;
     private String diagnosis;
     private String alternateDiagnosisCode;
-    private String closureDate;
+    private Date closureDate;
     private String patientId;
     private String tbId;
-    private String consultationDate;
+    private Date consultationDate;
     private String mappingInstance;
     private String alternateDiagnosisName;
 
@@ -36,8 +40,8 @@ public class ContainerSummary {
         return containerId;
     }
 
-    @ExportValue(index = 2)
-    public String getIssuedOn() {
+    @ExportValue(index = 2, format = DATE_FORMAT)
+    public Date getIssuedOn() {
         return issuedOn;
     }
 
@@ -83,8 +87,8 @@ public class ContainerSummary {
         return mappingInstance;
     }
 
-    @ExportValue(index = 11)
-    public String getSmearTestDate1() {
+    @ExportValue(index = 11, format = DATE_FORMAT)
+    public Date getSmearTestDate1() {
         return smearTestDate1;
     }
 
@@ -93,8 +97,8 @@ public class ContainerSummary {
         return smearTestResult1;
     }
 
-    @ExportValue(index = 13)
-    public String getSmearTestDate2() {
+    @ExportValue(index = 13, format = DATE_FORMAT)
+    public Date getSmearTestDate2() {
         return smearTestDate2;
     }
 
@@ -113,8 +117,8 @@ public class ContainerSummary {
         return labNumber;
     }
 
-    @ExportValue(index = 17)
-    public String getLabResultsCapturedOn() {
+    @ExportValue(index = 17, format = DATE_FORMAT)
+    public Date getLabResultsCapturedOn() {
         return labResultsCapturedOn;
     }
 
@@ -128,13 +132,13 @@ public class ContainerSummary {
         return reasonForClosure;
     }
 
-    @ExportValue(index = 20)
-    public String getClosureDate() {
+    @ExportValue(index = 20,format = DATE_FORMAT)
+    public Date getClosureDate() {
         return closureDate;
     }
 
-    @ExportValue(index = 21)
-    public String getConsultationDate() {
+    @ExportValue(index = 21, format = DATE_FORMAT)
+    public Date getConsultationDate() {
         return consultationDate;
     }
 
