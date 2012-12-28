@@ -44,7 +44,7 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
         request.setEndTime("10/12/2012 12:33:35");
         request.setMsisdn("mobileNumber");
         request.setProviderId("providerId");
-        request.setAttempt(1);
+        request.setAttempt("1");
         request.setAttemptTime("10/12/2012 12:34:35");
         request.setDisconnectionType(ReminderDisconnectionType.DID_NOT_ANSWER.name());
         request.setReminderType(ReminderType.ADHERENCE_NOT_REPORTED.name());

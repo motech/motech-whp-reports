@@ -19,7 +19,7 @@ public class ProviderReminderCallLogMapperTest {
         request.setCallId(UUID.randomUUID().toString().substring(0, 32));
         request.setRequestId(UUID.randomUUID().toString().substring(0, 32));
         request.setDisconnectionType("disconnectionType");
-        request.setAttempt(2);
+        request.setAttempt("2");
         request.setStartTime("10/12/2012 12:32:35");
         request.setEndTime("10/12/2012 12:33:35");
         request.setAttemptTime("10/12/2012 12:34:35");
@@ -32,7 +32,7 @@ public class ProviderReminderCallLogMapperTest {
         ProviderReminderCallLog callLog = mapper.map(request);
 
 
-        assertEquals(request.getAttempt(), callLog.getAttempt());
+        assertEquals(request.getAttempt(), String.valueOf(callLog.getAttempt()));
         assertEquals(request.getCallId(), callLog.getCallId());
         assertEquals(request.getCallStatus(), callLog.getCallStatus());
         assertEquals(request.getDisconnectionType(), callLog.getDisconnectionType());

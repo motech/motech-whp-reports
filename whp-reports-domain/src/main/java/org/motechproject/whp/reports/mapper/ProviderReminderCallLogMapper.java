@@ -12,7 +12,7 @@ public class ProviderReminderCallLogMapper {
 
     public ProviderReminderCallLog map(ProviderReminderCallLogRequest request) {
         ProviderReminderCallLog callLog = new ProviderReminderCallLog();
-        callLog.setAttempt(request.getAttempt());
+        callLog.setAttempt(Integer.parseInt(request.getAttempt()));
         callLog.setAttemptTime(datetime(request.getAttemptTime()).time());
         callLog.setStartTime(datetime(request.getStartTime()).time());
         callLog.setEndTime(datetime(request.getEndTime()).time());
