@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class AdherenceCaptureRequest implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long timeTaken;
+    private Long ivrFileLength;
     private String channelId;
     private String status;
     private String patientId;

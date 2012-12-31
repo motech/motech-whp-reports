@@ -39,6 +39,9 @@ public class PatientAdherenceSubmission {
     private boolean valid;
 
     @Column(name = "call_id")
-    private  String callId;
+    private String callId;
+
+    @Column(name = "ivr_file_length")
+    private Long ivrFileLength;
 
 }

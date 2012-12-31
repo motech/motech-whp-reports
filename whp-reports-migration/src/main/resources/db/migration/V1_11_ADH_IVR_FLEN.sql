@@ -1,0 +1,1 @@
+ALTER TABLE whp_reports.patient_adherence_submission add column ivr_file_length numeric;
