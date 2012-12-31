@@ -31,8 +31,8 @@ public class ProviderReminderCallLog {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-    @Column(name = "status")
-    private String callStatus;
+    @Column(name = "call_answered")
+    private String callAnswered;
 
     @Column(name = "disconnection_type")
     private String disconnectionType;

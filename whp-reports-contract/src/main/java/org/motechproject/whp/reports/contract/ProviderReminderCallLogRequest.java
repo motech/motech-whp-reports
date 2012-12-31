@@ -5,9 +5,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.motechproject.validation.constraints.Enumeration;
+import org.motechproject.whp.reports.contract.enums.AnswerStatus;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
-import org.motechproject.whp.reports.contract.enums.Status;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -34,8 +34,8 @@ public class ProviderReminderCallLogRequest implements Serializable {
     private String providerId;
 
     @NotBlank
-    @Enumeration(type = Status.class)
-    private String callStatus;
+    @Enumeration(type = AnswerStatus.class)
+    private String callAnswered;
 
     @NotBlank
     @Enumeration(type = ReminderDisconnectionType.class)

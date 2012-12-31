@@ -17,7 +17,7 @@ public class ProviderReminderCallLogMapper {
         callLog.setStartTime(datetime(request.getStartTime()).time());
         callLog.setEndTime(datetime(request.getEndTime()).time());
         callLog.setCallId(request.getCallId());
-        callLog.setCallStatus(request.getCallStatus());
+        callLog.setCallAnswered(request.getCallAnswered());
         callLog.setDisconnectionType(request.getDisconnectionType());
         callLog.setReminderType(request.getReminderType());
         callLog.setMobileNumber(StringUtils.right(request.getMsisdn(), 10));

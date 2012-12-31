@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.mapper;
 
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
+import org.motechproject.whp.reports.contract.enums.AnswerStatus;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
@@ -27,6 +28,7 @@ public class ProviderReminderCallLogMapperTest {
         request.setReminderType(ReminderType.ADHERENCE_NOT_REPORTED.name());
         request.setDisconnectionType(ReminderDisconnectionType.CALL_COMPLETE.name());
         request.setProviderId("providerId");
+        request.setCallAnswered(AnswerStatus.YES.name());
 
         ProviderReminderCallLogMapper mapper = new ProviderReminderCallLogMapper();
         ProviderReminderCallLog callLog = mapper.map(request);
@@ -34,7 +36,7 @@ public class ProviderReminderCallLogMapperTest {
 
         assertEquals(request.getAttempt(), String.valueOf(callLog.getAttempt()));
         assertEquals(request.getCallId(), callLog.getCallId());
-        assertEquals(request.getCallStatus(), callLog.getCallStatus());
+        assertEquals(request.getCallAnswered(), callLog.getCallAnswered());
         assertEquals(request.getDisconnectionType(), callLog.getDisconnectionType());
         assertEquals("1234567890", callLog.getMobileNumber());
         assertEquals(datetime(request.getAttemptTime()).time(), callLog.getAttemptTime());
