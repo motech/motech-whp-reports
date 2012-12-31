@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
+import org.motechproject.whp.reports.contract.enums.AnswerStatus;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
-import org.motechproject.whp.reports.contract.enums.Status;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.mapper.ProviderReminderCallLogMapper;
 import org.motechproject.whp.reports.service.ProviderReminderCallLogService;
@@ -49,7 +49,7 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
         request.setDisconnectionType(ReminderDisconnectionType.DID_NOT_ANSWER.name());
         request.setReminderType(ReminderType.ADHERENCE_NOT_REPORTED.name());
         request.setRequestId("requestId");
-        request.setCallStatus(Status.SUCCESS.name());
+        request.setCallAnswered(AnswerStatus.YES.name());
 
         ProviderReminderCallLog expectedCallLog = new ProviderReminderCallLog();
         when(providerReminderCallLogMapper.map(request)).thenReturn(expectedCallLog);
@@ -81,7 +81,7 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
                 .andExpect(content().string(containsString("reminderType")))
                 .andExpect(content().string(containsString("msisdn")))
                 .andExpect(content().string(containsString("providerId")))
-                .andExpect(content().string(containsString("callStatus")))
+                .andExpect(content().string(containsString("callAnswered")))
                 .andExpect(content().string(containsString("disconnectionType")))
                 .andExpect(content().string(containsString("attempt")))
                 .andExpect(content().string(containsString("attemptTime")));
