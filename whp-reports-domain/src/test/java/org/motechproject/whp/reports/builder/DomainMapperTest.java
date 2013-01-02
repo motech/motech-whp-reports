@@ -65,6 +65,17 @@ public class DomainMapperTest {
     }
 
     @Test
+    public void shouldCreateCallLogWithDurationZeroWhenStartTimeAndEndTimeAreEmpty() {
+        AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
+        callLogRequest.setStartTime(null);
+        callLogRequest.setEndTime(null);
+        callLogRequest.setAttemptTime(null);
+
+        AdherenceCallLog callLog = domainMapper.mapAdherenceCallLog(callLogRequest);
+        assertThat(callLog.getDuration(), is(0l));
+    }
+
+    @Test
     public void shouldCreateFlashingLog() {
         FlashingLogRequest flashingLogRequest = new FlashingLogRequest();
         flashingLogRequest.setProviderId("ABC");

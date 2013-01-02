@@ -1,7 +1,6 @@
 package org.motechproject.whp.reports.builder;
 
 import org.joda.time.Period;
-import org.joda.time.PeriodType;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import static org.joda.time.PeriodType.seconds;
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Component
@@ -32,11 +32,11 @@ public class DomainMapper {
 
         callLog.setDisconnectionType(callLogRequest.getDisconnectionType());
         callLog.setCalledBy(callLogRequest.getCalledBy());
-        callLog.setStartDate(new Date(startTime.getTime()));
-        callLog.setStartDateTime(new Timestamp(startTime.getTime()));
-        callLog.setEndDate(new Date(endTime.getTime()));
-        callLog.setEndDateTime(new Timestamp(endTime.getTime()));
-        callLog.setAttemptTime(new Timestamp(attemptTime.getTime()));
+        callLog.setStartDate(date(startTime));
+        callLog.setStartDateTime(timeStamp(startTime));
+        callLog.setEndDate(date(endTime));
+        callLog.setEndDateTime(timeStamp(endTime));
+        callLog.setAttemptTime(timeStamp(attemptTime));
         callLog.setProviderId(callLogRequest.getProviderId());
         callLog.setTotalPatients(callLogRequest.getTotalPatients());
         callLog.setAdherenceCaptured(callLogRequest.getAdherenceCaptured());
@@ -45,25 +45,33 @@ public class DomainMapper {
         callLog.setCallId(callLogRequest.getCallId());
         callLog.setCallStatus(callLogRequest.getCallStatus());
         callLog.setFlashingCallId(callLogRequest.getFlashingCallId());
-
         callLog.setDuration(getDuration(startTime, endTime));
         return callLog;
     }
 
     public FlashingLog buildFlashingRequestLog(FlashingLogRequest flashingLogRequest) {
         FlashingLog flashingLog = new FlashingLog();
-        flashingLog.setCallTime(new Timestamp(flashingLogRequest.getCallTime().getTime()));
+        flashingLog.setCallTime(timeStamp(flashingLogRequest.getCallTime()));
         flashingLog.setFlashingCallId(flashingLogRequest.getFlashingCallId());
         flashingLog.setMobileNumber(flashingLogRequest.getMobileNumber());
         flashingLog.setProviderId(flashingLogRequest.getProviderId());
-        flashingLog.setCreationTime(new Timestamp(flashingLogRequest.getCreationTime().getTime()));
+        flashingLog.setCreationTime(timeStamp(flashingLogRequest.getCreationTime()));
         return flashingLog;
     }
 
+    private Timestamp timeStamp(java.util.Date time) {
+        return (null == time) ? null : new Timestamp(time.getTime());
+    }
+
+    private Date date(java.util.Date date) {
+        return (null == date) ? null : new Date(date.getTime());
+    }
+
     private int getDuration(java.util.Date startTime, java.util.Date endTime) {
-        return new Period(
-                startTime.getTime(),
-                endTime.getTime(),
-                PeriodType.seconds()).getSeconds();
+        if (null == startTime || null == endTime) {
+            return 0;
+        } else {
+            return new Period(startTime.getTime(), endTime.getTime(), seconds()).getSeconds();
+        }
     }
 }
