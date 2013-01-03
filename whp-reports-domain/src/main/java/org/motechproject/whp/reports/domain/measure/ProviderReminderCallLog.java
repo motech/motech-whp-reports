@@ -48,4 +48,8 @@ public class ProviderReminderCallLog {
 
     @Column(name = "attempt_date_time")
     private Timestamp attemptTime;
+
+    @Column(name = "adherence_reported")
+    private Boolean adherenceReported;
+
 }

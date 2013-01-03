@@ -7,9 +7,8 @@ import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.paging.MostRecentProviderReminderCallLog;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -71,7 +70,7 @@ public class ProviderReminderCallLogRepositoryIT extends IntegrationTest {
         providerReminderCallLogRepository.save(newerCallLog);
         providerReminderCallLogRepository.save(callLogForAnotherProvider);
 
-        List<ProviderReminderCallLog> actualCallLogs = providerReminderCallLogRepository.findByProviderIdAndAttemptTimeLessThan(providerId, new Timestamp(new DateTime().toDate().getTime()), new LastReminderForProvider());
+        List<ProviderReminderCallLog> actualCallLogs = providerReminderCallLogRepository.findByProviderIdAndAttemptTimeLessThan(providerId, new Timestamp(new DateTime().toDate().getTime()), new MostRecentProviderReminderCallLog());
 
         assertEquals(newerCallLog, actualCallLogs.get(0));
         assertEquals(1, actualCallLogs.size());
@@ -80,28 +79,5 @@ public class ProviderReminderCallLogRepositoryIT extends IntegrationTest {
     @After
     public void tearDown() {
         providerReminderCallLogRepository.deleteAll();
-    }
-}
-
-class LastReminderForProvider implements Pageable {
-
-    @Override
-    public int getPageNumber() {
-        return 1;
-    }
-
-    @Override
-    public int getPageSize() {
-        return 1;
-    }
-
-    @Override
-    public int getOffset() {
-        return 0;
-    }
-
-    @Override
-    public Sort getSort() {
-        return new Sort(new Sort.Order(Sort.Direction.DESC, "attemptTime"));
     }
 }
