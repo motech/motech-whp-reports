@@ -5,11 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @EqualsAndHashCode
-public class ContainerRecordPageable implements Pageable {
+public class PageRequest implements Pageable {
     private int pageNumber;
     private  int pageSize;
 
-    public ContainerRecordPageable(int pageNumber, int pageSize) {
+    public PageRequest(int pageNumber, int pageSize) {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
     }
@@ -31,7 +31,6 @@ public class ContainerRecordPageable implements Pageable {
 
     @Override
     public Sort getSort() {
-        return new Sort(new Sort.Order(Sort.Direction.ASC, "issuedOn"));
+        return null;
     }
-
 }

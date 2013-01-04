@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.service;
 
 
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -8,16 +9,17 @@ import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.AdherenceSubmissionRequest;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.paging.MostRecentProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.paging.ProviderReminderCallLogPageRequest;
 import org.motechproject.whp.reports.repository.ProviderReminderCallLogRepository;
+import org.springframework.data.domain.Page;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -114,5 +116,32 @@ public class ProviderReminderCallLogServiceTest {
         verify(providerReminderCallLogRepository).findByProviderIdAndAttemptTimeLessThan(providerId, new Timestamp(submissionDate.getTime()), new MostRecentProviderReminderCallLog());
         verifyNoMoreInteractions(providerReminderCallLogRepository);
     }
+
+    @Test
+    public void shouldPageReminderCallLogs() {
+        List<ProviderReminderCallLog> callLogList1 = mock(List.class);
+        List<ProviderReminderCallLog> callLogList2 = mock(List.class);
+
+        Page<ProviderReminderCallLog> page1 = mock(Page.class);
+        when(page1.getContent()).thenReturn(callLogList1);
+
+        Page<ProviderReminderCallLog> page2 = mock(Page.class);
+        when(page2.getContent()).thenReturn(callLogList2);
+
+        ProviderReminderCallLogPageRequest pageRequest1 = new ProviderReminderCallLogPageRequest(1, 3);
+        ProviderReminderCallLogPageRequest pageRequest2 = new ProviderReminderCallLogPageRequest(2, 3);
+
+        when(providerReminderCallLogRepository.findAll(pageRequest1)).thenReturn(page1);
+        when(providerReminderCallLogRepository.findAll(pageRequest2)).thenReturn(page2);
+
+        Assert.assertEquals(callLogList1, providerReminderCallLogService.getAll(1, 3));
+        Assert.assertEquals(callLogList2, providerReminderCallLogService.getAll(2, 3));
+
+        verify(providerReminderCallLogRepository).findAll(pageRequest1);
+        verify(providerReminderCallLogRepository).findAll(pageRequest2);
+        verify(page1).getContent();
+        verify(page2).getContent();
+    }
+
 
 }

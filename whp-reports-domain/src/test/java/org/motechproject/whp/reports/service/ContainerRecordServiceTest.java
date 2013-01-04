@@ -10,12 +10,11 @@ import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequ
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
-import org.motechproject.whp.reports.domain.paging.ContainerRecordPageable;
+import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
 import org.motechproject.whp.reports.mapper.ContainerTrackingReportingRequestMapper;
 import org.motechproject.whp.reports.repository.ContainerRecordRepository;
 import org.springframework.data.domain.Page;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -111,8 +110,8 @@ public class ContainerRecordServiceTest {
         Page<ContainerRecord> page2 = mock(Page.class);
         when(page2.getContent()).thenReturn(containerRecordList2);
 
-        ContainerRecordPageable pageRequest1 = new ContainerRecordPageable(1, 3);
-        ContainerRecordPageable pageRequest2 = new ContainerRecordPageable(2, 3);
+        ContainerRecordPageRequest pageRequest1 = new ContainerRecordPageRequest(1, 3);
+        ContainerRecordPageRequest pageRequest2 = new ContainerRecordPageRequest(2, 3);
 
         when(containerRecordRepository.findAll(pageRequest1)).thenReturn(page1);
         when(containerRecordRepository.findAll(pageRequest2)).thenReturn(page2);

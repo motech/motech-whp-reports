@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
-import org.motechproject.whp.reports.contract.enums.AnswerStatus;
+import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
@@ -49,7 +49,7 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
         request.setDisconnectionType(ReminderDisconnectionType.DID_NOT_ANSWER.name());
         request.setReminderType(ReminderType.ADHERENCE_NOT_REPORTED.name());
         request.setRequestId("requestId");
-        request.setCallAnswered(AnswerStatus.YES.name());
+        request.setCallAnswered(YesNo.Yes.name());
 
         ProviderReminderCallLog expectedCallLog = new ProviderReminderCallLog();
         when(providerReminderCallLogMapper.map(request)).thenReturn(expectedCallLog);

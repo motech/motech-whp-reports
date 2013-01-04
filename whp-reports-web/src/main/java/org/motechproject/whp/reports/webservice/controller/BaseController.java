@@ -26,6 +26,7 @@ public abstract class BaseController {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public List<FieldError> handleError(MethodArgumentNotValidException e, HttpServletResponse response) {
+        logger.error("Bad Request \n" + e.getBindingResult().toString());
         return e.getBindingResult().getFieldErrors();
     }
 }

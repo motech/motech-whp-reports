@@ -2,7 +2,7 @@ package org.motechproject.whp.reports.mapper;
 
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
-import org.motechproject.whp.reports.contract.enums.AnswerStatus;
+import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
@@ -28,7 +28,7 @@ public class ProviderReminderCallLogMapperTest {
         request.setReminderType(ReminderType.ADHERENCE_NOT_REPORTED.name());
         request.setDisconnectionType(ReminderDisconnectionType.CALL_COMPLETE.name());
         request.setProviderId("providerId");
-        request.setCallAnswered(AnswerStatus.YES.name());
+        request.setCallAnswered(YesNo.Yes.name());
 
         ProviderReminderCallLogMapper mapper = new ProviderReminderCallLogMapper();
         ProviderReminderCallLog callLog = mapper.map(request);

@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.motechproject.model.DayOfWeek;
 
 import java.sql.Timestamp;
 
@@ -48,5 +49,9 @@ public class WHPDateTime {
 
     public Timestamp time() {
         return new Timestamp(date.toDate().getTime());
+    }
+
+    public static DayOfWeek dayOfWeek(DateTime dateTime) {
+        return DayOfWeek.getDayOfWeek(dateTime.toLocalDate());
     }
 }

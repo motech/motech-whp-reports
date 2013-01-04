@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
-import org.motechproject.whp.reports.domain.paging.ContainerRecordPageable;
+import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
@@ -120,7 +120,7 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         int pageSize = 3;
 
         //page1
-        Page<ContainerRecord> page1 = containerRecordRepository.findAll(new ContainerRecordPageable(1, pageSize));
+        Page<ContainerRecord> page1 = containerRecordRepository.findAll(new ContainerRecordPageRequest(1, pageSize));
         assertEquals(pageSize, page1.getSize());
         Iterator<ContainerRecord> iterator = page1.iterator();
 
@@ -131,7 +131,7 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         assertEquals(3, page1.getNumberOfElements());
 
         //page 2
-        Page<ContainerRecord> page2 = containerRecordRepository.findAll(new ContainerRecordPageable(2, pageSize));
+        Page<ContainerRecord> page2 = containerRecordRepository.findAll(new ContainerRecordPageRequest(2, pageSize));
         iterator = page2.iterator();
 
         assertEquals(container4.getId(), iterator.next().getId());
