@@ -30,7 +30,6 @@ public class DomainMapperTest {
         DateTime endTime = now;
         DateTime attemptTime = now.minusDays(2);
         AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
-        callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(startTime.toDate());
         callLogRequest.setEndTime(endTime.toDate());
@@ -46,7 +45,6 @@ public class DomainMapperTest {
 
         AdherenceCallLog callLog = domainMapper.mapAdherenceCallLog(callLogRequest);
 
-        assertThat(callLog.getCalledBy(), is(callLogRequest.getCalledBy()));
         assertThat(callLog.getStartDate(), is(new Date(callLogRequest.getStartTime().getTime())));
         assertThat(callLog.getStartDateTime(), is(new Timestamp(callLogRequest.getStartTime().getTime())));
         assertThat(callLog.getEndDate(), is(new Date(callLogRequest.getEndTime().getTime())));

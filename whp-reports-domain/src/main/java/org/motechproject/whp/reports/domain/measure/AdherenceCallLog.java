@@ -46,9 +46,6 @@ public class AdherenceCallLog {
     @Column(name = "duration")
     private long duration;
 
-    @Column(name = "called_by")
-    private String calledBy;
-
     @Column(name = "call_answered")
     private String callAnswered;
 

@@ -37,7 +37,6 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
     @Test
     public void shouldHandleCallLogRequest() throws Exception {
         AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
-        callLogRequest.setCalledBy("caller");
         callLogRequest.setProviderId("providerId");
         callLogRequest.setStartTime(new Date());
         callLogRequest.setEndTime(new Date());

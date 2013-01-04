@@ -23,7 +23,6 @@ public class AdherenceCallLogRepositoryIT extends IntegrationTest {
     public void shouldCreateCallLog() {
         AdherenceCallLog callLog = newCallLog()
                 .forProvider("providerId")
-                .withNumber("provider")
                 .starting(new Date())
                 .withTotalPatients(10)
                 .withAdherenceCaptured(4)
@@ -45,7 +44,6 @@ public class AdherenceCallLogRepositoryIT extends IntegrationTest {
     public void shouldUpdateCallLog() {
         AdherenceCallLog callLog = newCallLog()
                 .forProvider("providerId")
-                .withNumber("provider")
                 .starting(new Date())
                 .withFlashingCallId("flashingCallId")
                 .build();
@@ -53,11 +51,11 @@ public class AdherenceCallLogRepositoryIT extends IntegrationTest {
         adherenceCallLogRepository.save(callLog);
 
         String cmfAdmin = "cmfAdmin";
-        callLog.setCalledBy(cmfAdmin);
+        callLog.setProviderId(cmfAdmin);
         adherenceCallLogRepository.save(callLog);
 
         AdherenceCallLog callLogFromDB = adherenceCallLogRepository.findOne(callLog.getId());
 
-        assertThat(callLogFromDB.getCalledBy(), is(cmfAdmin));
+        assertThat(callLogFromDB.getProviderId(), is(cmfAdmin));
     }
 }

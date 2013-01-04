@@ -8,7 +8,6 @@ import java.util.Date;
 public class CallLogBuilder {
 
     private String providerId;
-    private String calledBy;
     private Date from;
     private int totalPatients;
     private int adherenceCaptured;
@@ -26,8 +25,7 @@ public class CallLogBuilder {
         return this;
     }
 
-    public CallLogBuilder withNumber(String calledBy) {
-        this.calledBy = calledBy;
+    public CallLogBuilder withNumber() {
         return this;
     }
 
@@ -39,7 +37,6 @@ public class CallLogBuilder {
     public AdherenceCallLog build() {
         AdherenceCallLog callLog = new AdherenceCallLog();
         callLog.setProviderId(providerId);
-        callLog.setCalledBy(calledBy);
         if(from != null){
             callLog.setStartDateTime(new Timestamp(from.getTime()));
             callLog.setStartDate(new java.sql.Date(from.getTime()));
