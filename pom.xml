@@ -176,6 +176,27 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Hibernate -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>4.1.6.Final</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>1.0.1.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-c3p0</artifactId>
+                <version>3.3.2.GA</version>
+            </dependency>
+
             <dependency>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <groupId>org.slf4j</groupId>
@@ -283,6 +304,12 @@
                 <groupId>org.motechproject</groupId>
                 <artifactId>motech-platform-common-api</artifactId>
                 <version>${motech.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.openmrs.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>
@@ -422,26 +449,6 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>2.5</version>
-            </dependency>
-            <!-- Hibernate -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>4.1.6.Final</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate.javax.persistence</groupId>
-                <artifactId>hibernate-jpa-2.0-api</artifactId>
-                <version>1.0.1.Final</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-c3p0</artifactId>
-                <version>3.3.2.GA</version>
             </dependency>
 
             <dependency>
