@@ -56,7 +56,7 @@ public class WHPDateTime {
     }
 
     public static Timestamp timestamp(String time) {
-        if(time == null){
+        if(StringUtils.isBlank(time)){
             return null;
         }
         return datetime(time).time();

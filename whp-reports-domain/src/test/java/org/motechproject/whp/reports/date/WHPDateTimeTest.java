@@ -18,5 +18,7 @@ public class WHPDateTimeTest {
     public void shouldConvertStringToTimeStamp() {
         assertEquals(WHPDateTime.datetime("08/01/2013 10:32:35").time(), WHPDateTime.timestamp("08/01/2013 10:32:35"));
         assertNull(WHPDateTime.timestamp(null));
+        assertNull(WHPDateTime.timestamp(""));
+        assertNull(WHPDateTime.timestamp(" "));
     }
 }
