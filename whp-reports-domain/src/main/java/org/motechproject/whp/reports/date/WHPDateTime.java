@@ -54,4 +54,11 @@ public class WHPDateTime {
     public static DayOfWeek dayOfWeek(DateTime dateTime) {
         return DayOfWeek.getDayOfWeek(dateTime.toLocalDate());
     }
+
+    public static Timestamp timestamp(String time) {
+        if(time == null){
+            return null;
+        }
+        return datetime(time).time();
+    }
 }
