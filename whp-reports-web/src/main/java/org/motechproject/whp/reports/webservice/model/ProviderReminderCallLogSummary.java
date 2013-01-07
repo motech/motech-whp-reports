@@ -56,7 +56,7 @@ public class ProviderReminderCallLogSummary {
         return callAnswered;
     }
 
-    @ExportValue(index = 8, column = "Duration Of Call")
+    @ExportValue(index = 8, column = "Duration Of Call (seconds)")
     public Integer getDuration() {
         return duration;
     }
