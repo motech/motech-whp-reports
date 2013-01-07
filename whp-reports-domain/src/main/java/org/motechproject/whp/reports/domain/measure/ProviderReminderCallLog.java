@@ -50,6 +50,5 @@ public class ProviderReminderCallLog {
     private Timestamp attemptTime;
 
     @Column(name = "adherence_reported")
-    private Boolean adherenceReported;
-
+    private Boolean adherenceReported = false;
 }
