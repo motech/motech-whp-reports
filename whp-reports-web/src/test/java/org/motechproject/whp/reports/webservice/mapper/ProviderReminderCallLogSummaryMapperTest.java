@@ -78,7 +78,7 @@ public class ProviderReminderCallLogSummaryMapperTest {
         assertNull(summary.getProviderId());
         assertNull(summary.getDisconnectionType());
         assertNull(summary.getCallAnswered());
-        assertNull(summary.getAdherenceReported());
+        assertEquals("No", summary.getAdherenceReported());
         assertNull(summary.getReminderDay());
         assertNull(summary.getReminderType());
         assertNull(summary.getAttempt());
