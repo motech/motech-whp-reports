@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
+import org.motechproject.whp.reports.contract.AdherenceCallStatusRequest;
 import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
 import org.motechproject.whp.reports.service.AdherenceCallLogService;
 import org.springframework.http.MediaType;
@@ -51,6 +52,29 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
     }
 
     @Test
+    public void shouldHandleCallStatusRequest() throws Exception {
+        AdherenceCallStatusRequest request = new AdherenceCallStatusRequest();
+        request.setAdherenceCaptured("1");
+        request.setAdherenceNotCaptured("1");
+        request.setAttemptTime("22/12/2012 10:10:10");
+        request.setCallAnswered("YES");
+        request.setCallId("callid");
+        request.setCallStatus("Answered");
+        request.setDisconnectionType("");
+        request.setEndTime("22/12/2012 10:10:10");
+        request.setFlashingCallId("flashingId");
+        request.setProviderId("providerid");
+        request.setStartTime("22/12/2012 10:10:10");
+        request.setTotalPatients("2");
+
+        String requestJson = getJSON(request);
+        standaloneSetup(controller).build()
+                .perform(post("/adherenceCallLog/status/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(callLogService).save(domainMapper.mapAdherenceCallLog(request.toCallLogRequest()));
+    }
+
+    @Test
     public void shouldRespondWithNotOkayIfServiceThrowsAnException() throws Exception {
         AdherenceCallLogRequest callLogRequest = new AdherenceCallLogRequest();
         String requestJson = getJSON(callLogRequest);
@@ -62,5 +86,15 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void shouldRespondWithNotOkayWhenAdherenceCallStatusValidationFails() throws Exception {
+        AdherenceCallStatusRequest invalidRequest = new AdherenceCallStatusRequest();
+
+        String requestJson = getJSON(invalidRequest);
+        standaloneSetup(controller).build()
+                .perform(post("/adherenceCallLog/status/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }
