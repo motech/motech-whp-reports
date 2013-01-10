@@ -1,0 +1,1 @@
+ALTER TABLE whp_reports.provider_reminder_call_log ALTER column request_id TYPE varchar(100);
