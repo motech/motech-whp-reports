@@ -2,7 +2,6 @@ package org.motechproject.whp.reports.contract;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
-import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.whp.reports.contract.validation.DateTimeFormat;
 
 import javax.validation.constraints.Digits;
@@ -80,8 +79,7 @@ public class AdherenceCallStatusRequest implements Serializable {
         return callLogRequest;
     }
 
-    private Date asDate(String startTime) {
-        DateTimeFormatter formatter = forPattern("dd/MM/YYYY HH:mm:ss");
-        return formatter.parseDateTime(startTime).toDate();
+    private Date asDate(String dateTime) {
+        return dateTime.isEmpty() ? null : forPattern("dd/MM/YYYY HH:mm:ss").parseDateTime(dateTime).toDate();
     }
 }

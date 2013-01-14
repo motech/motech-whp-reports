@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.contract;
 
 import org.hibernate.validator.HibernateValidator;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -10,12 +11,16 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.on;
 import static javax.xml.bind.JAXBContext.newInstance;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
+import static org.joda.time.format.DateTimeFormat.forPattern;
 
 public class AdherenceCallStatusRequestTest {
 
@@ -226,6 +231,46 @@ public class AdherenceCallStatusRequestTest {
         assertTrue(constraintViolations.isEmpty());
     }
 
+    @Test
+    public void shouldConvertAdherenceCallStatusRequestToAdherenceCallLogRequest() {
+        AdherenceCallStatusRequest adherenceCallStatusRequest = validRequest();
+
+        AdherenceCallLogRequest adherenceCallLogRequest = adherenceCallStatusRequest.toCallLogRequest();
+
+        assertEquals(adherenceCallStatusRequest.getAdherenceCaptured(),adherenceCallLogRequest.getAdherenceCaptured().toString());
+        assertEquals(adherenceCallStatusRequest.getAdherenceNotCaptured(),adherenceCallLogRequest.getAdherenceNotCaptured().toString());
+        assertEquals(adherenceCallStatusRequest.getTotalPatients(),adherenceCallLogRequest.getTotalPatients().toString());
+        assertEquals(asDate(adherenceCallStatusRequest.getAttemptTime()),adherenceCallLogRequest.getAttemptTime());
+        assertEquals(asDate(adherenceCallStatusRequest.getStartTime()),adherenceCallLogRequest.getStartTime());
+        assertEquals(asDate(adherenceCallStatusRequest.getEndTime()),adherenceCallLogRequest.getEndTime());
+        assertEquals(adherenceCallStatusRequest.getCallAnswered(),adherenceCallLogRequest.getCallAnswered());
+        assertEquals(adherenceCallStatusRequest.getCallId(),adherenceCallLogRequest.getCallId());
+        assertEquals(adherenceCallStatusRequest.getCallStatus(),adherenceCallLogRequest.getCallStatus());
+        assertEquals(adherenceCallStatusRequest.getDisconnectionType(),adherenceCallLogRequest.getDisconnectionType());
+        assertEquals(adherenceCallStatusRequest.getFlashingCallId(),adherenceCallLogRequest.getFlashingCallId());
+        assertEquals(adherenceCallStatusRequest.getProviderId(),adherenceCallLogRequest.getProviderId());
+    }
+
+    @Test
+    public void shouldConvertAdherenceCallStatusRequestToAdherenceCallLogRequestForBlankStartAndEndTime() {
+        AdherenceCallStatusRequest adherenceCallStatusRequest = requestWithBlankStartAndEndTime();
+
+        AdherenceCallLogRequest adherenceCallLogRequest = adherenceCallStatusRequest.toCallLogRequest();
+
+        assertEquals(adherenceCallStatusRequest.getAdherenceCaptured(), adherenceCallLogRequest.getAdherenceCaptured().toString());
+        assertEquals(adherenceCallStatusRequest.getAdherenceNotCaptured(),adherenceCallLogRequest.getAdherenceNotCaptured().toString());
+        assertEquals(adherenceCallStatusRequest.getTotalPatients(),adherenceCallLogRequest.getTotalPatients().toString());
+        assertEquals(asDate(adherenceCallStatusRequest.getAttemptTime()),adherenceCallLogRequest.getAttemptTime());
+        assertNull(adherenceCallLogRequest.getStartTime());
+        assertNull(adherenceCallLogRequest.getEndTime());
+        assertEquals(adherenceCallStatusRequest.getCallAnswered(),adherenceCallLogRequest.getCallAnswered());
+        assertEquals(adherenceCallStatusRequest.getCallId(),adherenceCallLogRequest.getCallId());
+        assertEquals(adherenceCallStatusRequest.getCallStatus(),adherenceCallLogRequest.getCallStatus());
+        assertEquals(adherenceCallStatusRequest.getDisconnectionType(),adherenceCallLogRequest.getDisconnectionType());
+        assertEquals(adherenceCallStatusRequest.getFlashingCallId(),adherenceCallLogRequest.getFlashingCallId());
+        assertEquals(adherenceCallStatusRequest.getProviderId(),adherenceCallLogRequest.getProviderId());
+    }
+
     private AdherenceCallStatusRequest validRequest() {
         AdherenceCallStatusRequest request = new AdherenceCallStatusRequest();
         request.setCallId("callId");
@@ -241,5 +286,17 @@ public class AdherenceCallStatusRequestTest {
         request.setTotalPatients("1");
         request.setProviderId("providerId");
         return request;
+    }
+
+    private AdherenceCallStatusRequest requestWithBlankStartAndEndTime() {
+        AdherenceCallStatusRequest request = validRequest();
+        request.setStartTime("");
+        request.setEndTime("");
+        return request;
+    }
+
+    private Date asDate(String startTime) {
+        DateTimeFormatter formatter = forPattern("dd/MM/YYYY HH:mm:ss");
+        return formatter.parseDateTime(startTime).toDate();
     }
 }
