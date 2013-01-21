@@ -1,1 +1,2 @@
 ALTER TABLE whp_reports.call_log RENAME TO adherence_call_log;
+ALTER table whp_reports.call_log_call_log_id_seq rename to adherence_call_log_call_log_id_seq;
