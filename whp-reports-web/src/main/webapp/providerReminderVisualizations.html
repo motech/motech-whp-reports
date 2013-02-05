@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<head>
+<title>WHP - Provider Reminder Visualizations</title>
+<meta charset="utf-8">
+<style>
+
+    body {
+        font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    /*.x.axis path {*/
+        /*display: none;*/
+    /*}*/
+
+    .bar {
+        fill: steelblue;
+    }
+
+    .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+    }
+
+</style>
+</head>
+<body>
+<h4>Adherence Given After Reminder</h4>
+<div class = "visualization" id="adherenceGiven"></div>
+<h4>Reminder Call Status: Call Complete</h4>
+<div class = "visualization" id="callCompleteStatus"></div>
+<h4>Reminder Call Status: Provider Hung Up</h4>
+<div class = "visualization" id="providerHungUpStatus"></div>
+<h4>Reminder Call Status: Network Error</h4>
+<div class = "visualization" id="networkErrorStatus"></div>
+<h4>Reminder Call Status: Did Not Answer</h4>
+<div class = "visualization" id="didNotAnswerStatus"></div>
+
+<script src="js/d3.v3.js"></script>
+<script>
+
+
+
+    d3.json("/whp-reports/bigquery/execute?queryName=providerReminders.adherenceGivenAfterReminder", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#adherenceGiven").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.call_date; }));
+        y.domain([0, d3.max(data, function(d) { return d.no_of_providers; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Providers who gave adherence");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.call_date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_providers); })
+                .attr("height", function(d) { return height - y(d.no_of_providers); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=providerReminders.status.callComplete", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#callCompleteStatus").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.attempt_date; }));
+        y.domain([0, d3.max(data, function(d) { return d.no_of_calls; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Providers who gave adherence");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.attempt_date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_calls); })
+                .attr("height", function(d) { return height - y(d.no_of_calls); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=providerReminders.status.providerHungUp", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#providerHungUpStatus").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.attempt_date; }));
+        y.domain([0, d3.max(data, function(d) { return d.no_of_calls; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Providers who gave adherence");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.attempt_date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_calls); })
+                .attr("height", function(d) { return height - y(d.no_of_calls); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=providerReminders.status.networkError", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#networkErrorStatus").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.attempt_date; }));
+        y.domain([0, d3.max(data, function(d) { return d.no_of_calls; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Providers who gave adherence");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.attempt_date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_calls); })
+                .attr("height", function(d) { return height - y(d.no_of_calls); });
+    });
+
+    d3.json("/whp-reports/bigquery/execute?queryName=providerReminders.status.didNotAnswer", function(error, response) {
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+                .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+        var svg = d3.select("#didNotAnswerStatus").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = response.content;
+
+        x.domain(data.map(function(d) { return d.attempt_date; }));
+        y.domain([0, d3.max(data, function(d) { return d.no_of_calls; })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Providers who gave adherence");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.attempt_date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.no_of_calls); })
+                .attr("height", function(d) { return height - y(d.no_of_calls); });
+    });
+
+</script>
