@@ -13,7 +13,7 @@ public class Patient {
     private String phoneNumber;
     private String phi;
     private String patientStatus;
-    private boolean onActiveTreatment;
+    private String onActiveTreatment;
 
     private List<Therapy> therapies;
     private PatientAlerts patientAlerts;

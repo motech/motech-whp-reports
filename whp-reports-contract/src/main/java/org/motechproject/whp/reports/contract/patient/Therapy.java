@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class Therapy {
     private String therapyId;
-    private boolean currentTherapy;
+    private String currentTherapy;
     private Integer patientAge;
     private Date creationDate;
     private Date startDate;

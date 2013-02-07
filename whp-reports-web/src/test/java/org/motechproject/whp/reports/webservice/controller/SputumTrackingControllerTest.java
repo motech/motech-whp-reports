@@ -1,6 +1,5 @@
 package org.motechproject.whp.reports.webservice.controller;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,14 +10,12 @@ import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRe
 import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.springframework.http.MediaType;
 
-import java.io.IOException;
-
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
-public class SputumTrackingControllerTest {
+public class SputumTrackingControllerTest extends ControllerTest{
 
     @Mock
     private ContainerRecordService containerRecordService;
@@ -75,8 +72,4 @@ public class SputumTrackingControllerTest {
                 .andExpect(status().isOk());
     }
 
-    private String getJSON(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writer().writeValueAsString(object);
-    }
 }

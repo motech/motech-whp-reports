@@ -1,6 +1,5 @@
 package org.motechproject.whp.reports.webservice.controller;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,8 +9,6 @@ import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 import org.motechproject.whp.reports.service.PatientAdherenceSubmissionService;
 import org.springframework.http.MediaType;
 
-import java.io.IOException;
-
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -20,7 +17,7 @@ import static org.springframework.test.web.server.request.MockMvcRequestBuilders
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
-public class AdherenceCaptureControllerTest {
+public class AdherenceCaptureControllerTest extends ControllerTest{
 
     @Mock
     private PatientAdherenceSubmissionService adherenceSubmissionService;
@@ -60,10 +57,5 @@ public class AdherenceCaptureControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
-    }
-
-    private String getJSON(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writer().writeValueAsString(object);
     }
 }

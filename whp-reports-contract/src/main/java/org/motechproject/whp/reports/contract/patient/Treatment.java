@@ -18,9 +18,9 @@ public class Treatment {
     private String preTreatmentSmearTestResult;
     private int preTreatmentWeight;
 
-    private boolean currentTreatment;
+    private String currentTreatment;
 
-    private boolean isPaused;
+    private String isPaused;
     private Date pausedDate;
     private String reasonsForPause;
     private int totalPausedDuration;//days
