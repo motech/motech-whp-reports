@@ -50,7 +50,6 @@ CREATE TABLE whp_reports.patient_therapy (
 CREATE TABLE whp_reports.patient_treatment (
     treatment_pk serial NOT NULL,
     therapy_fk integer,
-    treatment_id varchar(30),
     provider_id varchar(30),
     provider_district varchar(30),
     tb_id varchar(30),

@@ -22,9 +22,6 @@ public class Treatment {
     @JoinColumn(name="therapy_fk", insertable=false, updatable=false)
     private Therapy therapy;
 
-    @Column(name = "treatment_id")
-    private String treatmentId;
-
     @Column(name = "provider_id")
     private String providerId;
 

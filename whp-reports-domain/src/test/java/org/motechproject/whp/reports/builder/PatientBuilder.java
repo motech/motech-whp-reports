@@ -83,7 +83,6 @@ public class PatientBuilder {
 
     private Treatment defaultTreatment(String treatmentId) {
         Treatment treatment = new Treatment();
-        treatment.setTreatmentId(treatmentId);
         treatment.setCurrentTreatment("Y");
         treatment.setEndDate(new Date(System.currentTimeMillis()));
         treatment.setStartDate(new Date(System.currentTimeMillis()));

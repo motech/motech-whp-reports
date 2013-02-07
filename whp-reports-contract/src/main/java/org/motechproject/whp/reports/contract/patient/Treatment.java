@@ -1,15 +1,16 @@
 package org.motechproject.whp.reports.contract.patient;
 
 import lombok.Data;
-import org.joda.time.LocalDate;
+
+import java.sql.Date;
 
 @Data
 public class Treatment {
     private String providerId;
     private String providerDistrict;
     private String tbId;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Date startDate;
+    private Date endDate;
 
     private String treatmentOutcome;
     private String patientType;
@@ -20,7 +21,7 @@ public class Treatment {
     private boolean currentTreatment;
 
     private boolean isPaused;
-    private LocalDate pausedDate;
+    private Date pausedDate;
     private String reasonsForPause;
     private int totalPausedDuration;//days
 }
