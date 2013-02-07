@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.contract.patient;
 import lombok.Data;
 
 @Data
-public class Address {
+public class AddressDTO {
     private String location;
     private String landmark;
     private String block;

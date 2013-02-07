@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Data
-public class Therapy {
+public class TherapyDTO {
     private String therapyId;
     private String currentTherapy;
     private Integer patientAge;
@@ -21,21 +21,21 @@ public class Therapy {
 
     private Date ipStartDate;
     private Date ipEndDate;
-    private int ipPillsTaken;
-    private int ipPillsRemaining;
-    private int ipTotalDoses;
+    private Integer ipPillsTaken;
+    private Integer ipPillsRemaining;
+    private Integer ipTotalDoses;
 
     private Date cpStartDate;
     private Date cpEndDate;
-    private int cpPillsTaken;
-    private int cpPillsRemaining;
-    private int cpTotalDoses;
+    private Integer cpPillsTaken;
+    private Integer cpPillsRemaining;
+    private Integer cpTotalDoses;
 
     private Date eipStartDate;
     private Date eipEndDate;
-    private int eipPillsTaken;
-    private int eipPillsRemaining;
-    private int eipTotalDoses;
+    private Integer eipPillsTaken;
+    private Integer eipPillsRemaining;
+    private Integer eipTotalDoses;
 
-    private List<Treatment> treatments;
+    private List<TreatmentDTO> treatments;
 }

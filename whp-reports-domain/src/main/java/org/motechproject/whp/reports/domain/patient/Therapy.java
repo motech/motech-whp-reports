@@ -61,13 +61,13 @@ public class Therapy {
     private Date ipEndDate;
 
     @Column(name = "ip_pills_taken")
-    private int ipPillsTaken;
+    private Integer ipPillsTaken;
 
     @Column(name = "ip_pills_remaining")
-    private int ipPillsRemaining;
+    private Integer ipPillsRemaining;
 
     @Column(name = "ip_total_doses")
-    private int ipTotalDoses;
+    private Integer ipTotalDoses;
 
     @Column(name = "cp_start_date")
     private Date cpStartDate;
@@ -76,13 +76,13 @@ public class Therapy {
     private Date cpEndDate;
 
     @Column(name = "cp_pills_taken")
-    private int cpPillsTaken;
+    private Integer cpPillsTaken;
 
     @Column(name = "cp_pills_remaining")
-    private int cpPillsRemaining;
+    private Integer cpPillsRemaining;
 
     @Column(name = "cp_total_doses")
-    private int cpTotalDoses;
+    private Integer cpTotalDoses;
 
     @Column(name = "eip_start_date")
     private Date eipStartDate;
@@ -91,13 +91,13 @@ public class Therapy {
     private Date eipEndDate;
 
     @Column(name = "eip_pills_taken")
-    private int eipPillsTaken;
+    private Integer eipPillsTaken;
 
     @Column(name = "eip_pills_remaining")
-    private int eipPillsRemaining;
+    private Integer eipPillsRemaining;
 
     @Column(name = "eip_total_doses")
-    private int eipTotalDoses;
+    private Integer eipTotalDoses;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="therapy_fk")

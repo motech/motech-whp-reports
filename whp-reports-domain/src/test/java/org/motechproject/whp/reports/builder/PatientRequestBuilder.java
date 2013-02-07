@@ -9,10 +9,10 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class PatientRequestBuilder {
-    private Patient patient = new Patient();
-    private Address patientAddress;
-    private PatientAlerts patientAlerts;
-    private Therapy therapy;
+    private PatientDTO patientDTO = new PatientDTO();
+    private AddressDTO patientAddress;
+    private PatientAlertsDTO patientAlerts;
+    private TherapyDTO therapy;
 
     public PatientRequestBuilder withDefaults(){
         defaultPatient();
@@ -20,25 +20,25 @@ public class PatientRequestBuilder {
         patientAlerts = defaultPatientAlerts();
         therapy = defaultTherapy();
 
-        patient.setTherapies(asList(therapy));
-        patient.setPatientAddress(patientAddress);
-        patient.setPatientAlerts(patientAlerts);
+        patientDTO.setTherapies(asList(therapy));
+        patientDTO.setPatientAddress(patientAddress);
+        patientDTO.setPatientAlerts(patientAlerts);
         return this;
     }
 
     private void defaultPatient() {
-        patient.setFirstName("firstName");
-        patient.setLastName("lastName");
-        patient.setGender("Male");
-        patient.setOnActiveTreatment("Y");
-        patient.setPatientId("patientid");
-        patient.setPatientStatus("status");
-        patient.setPhi("phi");
-        patient.setPhoneNumber("phone");
+        patientDTO.setFirstName("firstName");
+        patientDTO.setLastName("lastName");
+        patientDTO.setGender("Male");
+        patientDTO.setOnActiveTreatment("Y");
+        patientDTO.setPatientId("patientid");
+        patientDTO.setPatientStatus("status");
+        patientDTO.setPhi("phi");
+        patientDTO.setPhoneNumber("phone");
     }
 
-    private Therapy defaultTherapy() {
-        Therapy therapy = new Therapy();
+    private TherapyDTO defaultTherapy() {
+        TherapyDTO therapy = new TherapyDTO();
         therapy.setTherapyId("therapyId");
         therapy.setCloseDate(new Date(System.currentTimeMillis()));
         therapy.setStartDate(new Date(System.currentTimeMillis()));
@@ -74,15 +74,15 @@ public class PatientRequestBuilder {
         return therapy;
     }
 
-    private List<Treatment> defaultTreatments() {
-        List<Treatment> treatments  = new ArrayList<>();
+    private List<TreatmentDTO> defaultTreatments() {
+        List<TreatmentDTO> treatments  = new ArrayList<>();
         treatments.add(defaultTreatment("treatment1"));
         treatments.add(defaultTreatment("treatment2"));
         return treatments;
     }
 
-    private Treatment defaultTreatment(String treatmentId) {
-        Treatment treatment = new Treatment();
+    private TreatmentDTO defaultTreatment(String treatmentId) {
+        TreatmentDTO treatment = new TreatmentDTO();
         treatment.setCurrentTreatment("Y");
         treatment.setEndDate(new Date(System.currentTimeMillis()));
         treatment.setStartDate(new Date(System.currentTimeMillis()));
@@ -90,7 +90,7 @@ public class PatientRequestBuilder {
         treatment.setPatientType("type");
         treatment.setPausedDate(new Date(System.currentTimeMillis()));
         treatment.setPreTreatmentSmearTestResult("Positive");
-        treatment.setPreTreatmentWeight(80);
+        treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");
         treatment.setProviderId("provider");
         treatment.setReasonsForPause("A reason to remember");
@@ -101,8 +101,8 @@ public class PatientRequestBuilder {
         return treatment;
     }
 
-    private PatientAlerts defaultPatientAlerts() {
-        PatientAlerts patientAlerts = new PatientAlerts();
+    private PatientAlertsDTO defaultPatientAlerts() {
+        PatientAlertsDTO patientAlerts = new PatientAlertsDTO();
         patientAlerts.setAdherenceMissingWeeks(1);
         patientAlerts.setAdherenceMissingWeeksAlertSeverity(1);
         patientAlerts.setAdherenceMissingWeeksAlertDate(new Date(System.currentTimeMillis()));
@@ -116,8 +116,8 @@ public class PatientRequestBuilder {
         return patientAlerts;
     }
 
-    private Address defaultPatientAddress() {
-        Address patientAddress = new Address();
+    private AddressDTO defaultPatientAddress() {
+        AddressDTO patientAddress = new AddressDTO();
         patientAddress.setBlock("block");
         patientAddress.setDistrict("district");
         patientAddress.setLandmark("landmark");
@@ -128,7 +128,7 @@ public class PatientRequestBuilder {
         return patientAddress;
     }
 
-    public Patient build(){
-        return patient;
+    public PatientDTO build(){
+        return patientDTO;
     }
 }

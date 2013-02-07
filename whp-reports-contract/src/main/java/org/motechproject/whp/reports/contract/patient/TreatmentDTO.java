@@ -5,7 +5,7 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class Treatment {
+public class TreatmentDTO {
     private String providerId;
     private String providerDistrict;
     private String tbId;
@@ -16,7 +16,7 @@ public class Treatment {
     private String patientType;
     private String tbRegistrationNumber;
     private String preTreatmentSmearTestResult;
-    private int preTreatmentWeight;
+    private Double preTreatmentWeight;
 
     private String currentTreatment;
 

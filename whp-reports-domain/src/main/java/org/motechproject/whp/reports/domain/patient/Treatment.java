@@ -50,7 +50,7 @@ public class Treatment {
     private String preTreatmentSmearTestResult;
 
     @Column(name = "pretreatment_weight")
-    private int preTreatmentWeight;
+    private Double preTreatmentWeight;
 
     @Column(name = "is_current_treatment")
     private String currentTreatment;

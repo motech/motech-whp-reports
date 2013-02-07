@@ -5,7 +5,7 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class PatientAlerts {
+public class PatientAlertsDTO {
     private int cumulativeMissedDoses;
     private int cumulativeMissedDosesAlertSeverity;
     private Date cumulativeMissedDosesAlertDate;

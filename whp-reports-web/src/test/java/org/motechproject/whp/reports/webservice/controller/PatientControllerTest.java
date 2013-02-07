@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.webservice.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.whp.reports.builder.PatientRequestBuilder;
-import org.motechproject.whp.reports.contract.patient.Patient;
+import org.motechproject.whp.reports.contract.patient.PatientDTO;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
@@ -21,8 +21,8 @@ public class PatientControllerTest extends ControllerTest{
 
     @Test
     public void shouldConvertRequestBodyToPatient() throws Exception {
-        Patient patient = new PatientRequestBuilder().withDefaults().build();
-        String requestJSON = getJSON(patient);
+        PatientDTO patientDTO = new PatientRequestBuilder().withDefaults().build();
+        String requestJSON = getJSON(patientDTO);
 
         standaloneSetup(patientController).build()
                 .perform(post("/patient/update").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))

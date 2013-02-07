@@ -90,7 +90,7 @@ public class PatientBuilder {
         treatment.setPatientType("type");
         treatment.setPausedDate(new Date(System.currentTimeMillis()));
         treatment.setPreTreatmentSmearTestResult("Positive");
-        treatment.setPreTreatmentWeight(80);
+        treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");
         treatment.setProviderId("provider");
         treatment.setReasonsForPause("A reason to remember");

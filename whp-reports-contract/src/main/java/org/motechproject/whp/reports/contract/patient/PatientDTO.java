@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Patient {
+public class PatientDTO {
     private String patientId;
     private String firstName;
     private String lastName;
@@ -15,7 +15,7 @@ public class Patient {
     private String patientStatus;
     private String onActiveTreatment;
 
-    private List<Therapy> therapies;
-    private PatientAlerts patientAlerts;
-    private Address patientAddress;
+    private List<TherapyDTO> therapies;
+    private PatientAlertsDTO patientAlerts;
+    private AddressDTO patientAddress;
 }

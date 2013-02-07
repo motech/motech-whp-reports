@@ -59,7 +59,7 @@ CREATE TABLE whp_reports.patient_treatment (
     patient_type varchar(30),
     tb_registration_no varchar(30),
     pretreatment_result varchar(30),
-    pretreatment_weight integer,
+    pretreatment_weight decimal,
     is_current_treatment char(1),
     is_paused char(1),
     paused_date date,
