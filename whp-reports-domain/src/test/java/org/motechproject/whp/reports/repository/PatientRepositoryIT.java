@@ -9,6 +9,7 @@ import org.motechproject.whp.reports.domain.patient.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -51,6 +52,20 @@ public class PatientRepositoryIT  extends IntegrationTest {
                 return null;
             }
         });
+    }
+
+    @Test
+    @Transactional
+    public void shouldReturnPatientByPatientId() {
+        String patientId = "patientId";
+        Patient patient = new PatientBuilder().withDefaults().withPatientId(patientId).build();
+
+        patientRepository.save(patient);
+
+        Patient patientFromDB = patientRepository.findByPatientId(patientId);
+
+        assertNotNull(patientFromDB);
+        assertEquals(patient.getId(), patientFromDB.getId());
     }
 
     @After

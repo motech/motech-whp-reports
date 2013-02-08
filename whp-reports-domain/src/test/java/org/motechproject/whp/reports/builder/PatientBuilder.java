@@ -131,4 +131,9 @@ public class PatientBuilder {
     public Patient build(){
         return patient;
     }
+
+    public PatientBuilder withPatientId(String patientId) {
+        patient.setPatientId(patientId);
+        return this;
+    }
 }
