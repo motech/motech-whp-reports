@@ -3,7 +3,9 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.whp.reports.contract.patient.PatientDTO;
 import org.motechproject.whp.reports.domain.patient.Patient;
+import org.motechproject.whp.reports.mapper.PatientMapper;
 import org.motechproject.whp.reports.repository.PatientRepository;
 
 import static org.junit.Assert.assertEquals;
@@ -18,11 +20,13 @@ public class PatientServiceTest {
 
     @Mock
     PatientRepository patientRepository;
+    @Mock
+    PatientMapper patientMapper;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        patientService = new PatientService(patientRepository);
+        patientService = new PatientService(patientRepository, patientMapper);
     }
 
     @Test
@@ -38,10 +42,14 @@ public class PatientServiceTest {
 
     @Test
     public void shouldSavePatient() {
+        PatientDTO patientDTO = mock(PatientDTO.class);
         Patient patient = mock(Patient.class);
 
-        patientService.save(patient);
+        when(patientRepository.findByPatientId(patientDTO.getPatientId())).thenReturn(patient);
 
+        patientService.update(patientDTO);
+
+        verify(patientMapper).map(patientDTO, patient);
         verify(patientRepository).save(patient);
     }
 

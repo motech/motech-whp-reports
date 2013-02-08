@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -42,16 +43,19 @@ public class Patient {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="patient_fk")
-    private List<Therapy> therapies;
+    private List<Therapy> therapies = new ArrayList<>();
 
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="patient_alert_fk")
-    private PatientAlerts patientAlerts;
+    private PatientAlerts patientAlerts = new PatientAlerts();
 
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="patient_address_fk")
-    private Address patientAddress;
+    private Address patientAddress = new Address();
 
+    public void clearTherapies() {
+        therapies.clear();
+    }
 }

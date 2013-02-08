@@ -1,5 +1,7 @@
 package org.motechproject.whp.reports.builder;
 
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
 import org.motechproject.whp.reports.domain.patient.*;
 
 import java.sql.Date;
@@ -40,28 +42,28 @@ public class PatientBuilder {
     private Therapy defaultTherapy() {
         Therapy therapy = new Therapy();
         therapy.setTherapyId("therapyId");
-        therapy.setCloseDate(new Date(System.currentTimeMillis()));
-        therapy.setStartDate(new Date(System.currentTimeMillis()));
+        therapy.setCloseDate(today());
+        therapy.setStartDate(today());
 
-        therapy.setCpStartDate(new Date(System.currentTimeMillis()));
-        therapy.setCpEndDate(new Date(System.currentTimeMillis()));
+        therapy.setCpStartDate(today());
+        therapy.setCpEndDate(today());
         therapy.setCpPillsRemaining(4);
         therapy.setCpPillsTaken(10);
         therapy.setCpTotalDoses(20);
 
-        therapy.setIpStartDate(new Date(System.currentTimeMillis()));
-        therapy.setIpEndDate(new Date(System.currentTimeMillis()));
+        therapy.setIpStartDate(today());
+        therapy.setIpEndDate(today());
         therapy.setIpPillsRemaining(4);
         therapy.setIpPillsTaken(10);
         therapy.setIpTotalDoses(20);
 
-        therapy.setEipStartDate(new Date(System.currentTimeMillis()));
-        therapy.setEipEndDate(new Date(System.currentTimeMillis()));
+        therapy.setEipStartDate(today());
+        therapy.setEipEndDate(today());
         therapy.setEipPillsRemaining(4);
         therapy.setEipPillsTaken(10);
         therapy.setEipTotalDoses(20);
 
-        therapy.setCreationDate(new Date(System.currentTimeMillis()));
+        therapy.setCreationDate(today());
         therapy.setCurrentPhase("current");
         therapy.setCurrentTherapy("Y");
         therapy.setDiseaseClass("Disease");
@@ -84,11 +86,11 @@ public class PatientBuilder {
     private Treatment defaultTreatment(String treatmentId) {
         Treatment treatment = new Treatment();
         treatment.setCurrentTreatment("Y");
-        treatment.setEndDate(new Date(System.currentTimeMillis()));
-        treatment.setStartDate(new Date(System.currentTimeMillis()));
+        treatment.setEndDate(today());
+        treatment.setStartDate(today());
         treatment.setIsPaused("Y");
         treatment.setPatientType("type");
-        treatment.setPausedDate(new Date(System.currentTimeMillis()));
+        treatment.setPausedDate(today());
         treatment.setPreTreatmentSmearTestResult("Positive");
         treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");
@@ -105,13 +107,13 @@ public class PatientBuilder {
         PatientAlerts patientAlerts = new PatientAlerts();
         patientAlerts.setAdherenceMissingWeeks(1);
         patientAlerts.setAdherenceMissingWeeksAlertSeverity(1);
-        patientAlerts.setAdherenceMissingWeeksAlertDate(new Date(System.currentTimeMillis()));
+        patientAlerts.setAdherenceMissingWeeksAlertDate(today());
         patientAlerts.setCumulativeMissedDoses(1);
         patientAlerts.setCumulativeMissedDosesAlertSeverity(1);
-        patientAlerts.setCumulativeMissedDosesAlertDate(new Date(System.currentTimeMillis()));
+        patientAlerts.setCumulativeMissedDosesAlertDate(today());
         patientAlerts.setTreatmentNotStarted(1);
         patientAlerts.setTreatmentNotStartedAlertSeverity(1);
-        patientAlerts.setTreatmentNotStartedAlertDate(new Date(System.currentTimeMillis()));
+        patientAlerts.setTreatmentNotStartedAlertDate(today());
 
         return patientAlerts;
     }
@@ -136,4 +138,9 @@ public class PatientBuilder {
         patient.setPatientId(patientId);
         return this;
     }
+
+    private Date today() {
+        return new Date(DateTimeZone.UTC.convertUTCToLocal(new LocalDate().toDate().getTime()));
+    }
+
 }
