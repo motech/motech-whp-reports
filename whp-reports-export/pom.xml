@@ -103,5 +103,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>bad.robot</groupId>
+            <artifactId>simple-excel</artifactId>
+        </dependency>
     </dependencies>
 </project>

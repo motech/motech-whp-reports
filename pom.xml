@@ -43,6 +43,11 @@
 
     <repositories>
         <repository>
+            <id>motech.nexus.thirdparty</id>
+            <name>Motech Third Party Repository</name>
+            <url>http://nexus.motechproject.org/content/repositories/thirdparty</url>
+        </repository>
+        <repository>
             <id>central</id>
             <url>http://repo1.maven.org/maven2</url>
             <name>Repository for dependencies</name>
@@ -506,6 +511,16 @@
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache-core</artifactId>
                 <version>2.4.3</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.jxls</groupId>
+                <artifactId>jxls-core</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>bad.robot</groupId>
+                <artifactId>simple-excel</artifactId>
+                <version>1.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

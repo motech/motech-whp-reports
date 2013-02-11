@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class PatientSummary {
+    private String name;
     private String firstName;
     private String lastName;
     private Integer age;
@@ -16,8 +17,8 @@ public class PatientSummary {
     private String village;
     private String providerDistrict;
     private String treatmentCategory;
-    private Date    tbRegistrationDate;
-    private Date    treatmentStartDate;
+    private Date tbRegistrationDate;
+    private Date treatmentStartDate;
     private String diseaseClass;
     private String patientType;
     private Integer ipPillsTaken;
@@ -28,7 +29,7 @@ public class PatientSummary {
     private String cpTreatmentProgress;
     private Integer cumulativeMissedDoses;
     private String treatmentOutcome;
-    private Date    treatmentClosingDate;
+    private Date treatmentClosingDate;
     private String pretreatmentResult;
     private Double pretreatmentWeight;
 
