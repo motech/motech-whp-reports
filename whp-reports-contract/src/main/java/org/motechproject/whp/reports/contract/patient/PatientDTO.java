@@ -2,10 +2,11 @@ package org.motechproject.whp.reports.contract.patient;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class PatientDTO {
+public class PatientDTO implements Serializable {
     private String patientId;
     private String firstName;
     private String lastName;

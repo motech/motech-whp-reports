@@ -2,8 +2,10 @@ package org.motechproject.whp.reports.contract.patient;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class AddressDTO {
+public class AddressDTO implements Serializable {
     private String location;
     private String landmark;
     private String block;
