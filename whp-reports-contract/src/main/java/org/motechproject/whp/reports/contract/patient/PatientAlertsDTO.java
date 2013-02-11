@@ -7,6 +7,7 @@ import java.sql.Date;
 
 @Data
 public class PatientAlertsDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int cumulativeMissedDoses;
     private int cumulativeMissedDosesAlertSeverity;
     private Date cumulativeMissedDosesAlertDate;

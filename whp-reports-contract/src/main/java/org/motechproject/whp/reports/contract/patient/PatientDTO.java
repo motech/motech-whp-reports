@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class PatientDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String patientId;
     private String firstName;
     private String lastName;

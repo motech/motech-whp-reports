@@ -7,6 +7,7 @@ import java.sql.Date;
 
 @Data
 public class TreatmentDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String providerId;
     private String providerDistrict;
     private String tbId;

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class TherapyDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String therapyId;
     private String currentTherapy;
     private Integer patientAge;
