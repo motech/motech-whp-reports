@@ -1,12 +1,15 @@
 package org.motechproject.whp.reports.contract.enums;
 
 public enum YesNo {
-    Yes("Yes"), No("No");
+    Yes("Yes", "Y"), No("No", "N");
 
     private String text;
 
-    YesNo(String text) {
+    private String code;
+
+    YesNo(String text, String code) {
         this.text = text;
+        this.code = code;
     }
 
     public static YesNo value(Boolean bool) {
@@ -15,5 +18,9 @@ public enum YesNo {
 
     public String getText() {
         return text;
+    }
+
+    public String code(){
+        return code;
     }
 }
