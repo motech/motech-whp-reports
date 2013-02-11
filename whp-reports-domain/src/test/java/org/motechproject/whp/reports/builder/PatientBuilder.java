@@ -45,6 +45,8 @@ public class PatientBuilder {
         therapy.setCloseDate(today());
         therapy.setStartDate(today());
 
+        therapy.setTreatmentCategory("RNTCP Category 2");
+
         therapy.setCpStartDate(today());
         therapy.setCpEndDate(today());
         therapy.setCpPillsRemaining(4);
@@ -79,7 +81,6 @@ public class PatientBuilder {
     private List<Treatment> defaultTreatments() {
         List<Treatment> treatments  = new ArrayList<>();
         treatments.add(defaultTreatment("treatment1"));
-        treatments.add(defaultTreatment("treatment2"));
         return treatments;
     }
 
