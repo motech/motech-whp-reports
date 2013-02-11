@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -99,7 +100,7 @@ public class Therapy {
     @Column(name = "eip_total_doses")
     private Integer eipTotalDoses;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="therapy_fk")
-    private List<Treatment> treatments;
+    private List<Treatment> treatments = new ArrayList<>();
 }

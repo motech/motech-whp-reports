@@ -41,10 +41,11 @@ public class PatientMapper {
             BeanUtils.copyProperties(therapyDTO, therapy, new String[]{"treatments"});
             therapyList.add(therapy);
 
-            therapy.setTreatments(mapTreatments(therapyDTO.getTreatments()));
+            therapy.getTreatments().clear();
+            therapy.getTreatments().addAll(mapTreatments(therapyDTO.getTreatments()));
         }
 
-        patient.setTherapies(therapyList);
+        patient.getTherapies().addAll(therapyList);
     }
 
     private List<Treatment> mapTreatments(List<TreatmentDTO> treatmentDTOs) {

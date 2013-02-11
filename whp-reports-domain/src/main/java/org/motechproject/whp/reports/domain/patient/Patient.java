@@ -41,7 +41,7 @@ public class Patient {
     @Column(name = "is_active")
     private String onActiveTreatment;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="patient_fk")
     private List<Therapy> therapies = new ArrayList<>();
 
