@@ -30,6 +30,11 @@ public class PatientService {
 
     public void update(PatientDTO patientDTO) {
         Patient patient = patientRepository.findByPatientId(patientDTO.getPatientId());
+
+        if(patient == null){
+            patient = new Patient();
+        }
+
         patientMapper.map(patientDTO, patient);
         patientRepository.save(patient);
     }

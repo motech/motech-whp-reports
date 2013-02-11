@@ -41,11 +41,24 @@ public class PatientServiceTest {
     }
 
     @Test
-    public void shouldSavePatient() {
+    public void shouldUpdateExistingPatient() {
         PatientDTO patientDTO = mock(PatientDTO.class);
         Patient patient = mock(Patient.class);
 
         when(patientRepository.findByPatientId(patientDTO.getPatientId())).thenReturn(patient);
+
+        patientService.update(patientDTO);
+
+        verify(patientMapper).map(patientDTO, patient);
+        verify(patientRepository).save(patient);
+    }
+
+    @Test
+    public void shouldCreateNewPatient() {
+        PatientDTO patientDTO = mock(PatientDTO.class);
+        Patient patient = new Patient();
+
+        when(patientRepository.findByPatientId(patientDTO.getPatientId())).thenReturn(null);
 
         patientService.update(patientDTO);
 
