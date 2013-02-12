@@ -25,12 +25,30 @@ public class PatientSummary {
     private Integer ipTotalDoses;
     private Integer cpPillsTaken;
     private Integer cpTotalDoses;
-    private String ipTreatmentProgress;
-    private String cpTreatmentProgress;
     private Integer cumulativeMissedDoses;
     private String treatmentOutcome;
     private Date treatmentClosingDate;
-    private String pretreatmentResult;
-    private Double pretreatmentWeight;
+    private String preTreatmentSputumResult;
+    private Double preTreatmentWeight;
+
+    public String getName() {
+        return String.format("%s %s", firstName, lastName);
+    }
+
+    public String getIpTreatmentProgress() {
+        return doseCompletionMessage(ipTotalDoses, ipPillsTaken);
+    }
+
+    public String getCpTreatmentProgress() {
+        return doseCompletionMessage(cpTotalDoses, cpPillsTaken);
+    }
+
+    private String doseCompletionMessage(Integer totalDoseCount, Integer totalDoseTakenCount) {
+        if (totalDoseCount == null || totalDoseCount == 0) {
+            return String.format("%d/%d (%.2f%%)", totalDoseTakenCount, totalDoseCount, 0.0f);
+        } else {
+            return String.format("%d/%d (%.2f%%)", totalDoseTakenCount, totalDoseCount, (totalDoseTakenCount / (float) totalDoseCount) * 100);
+        }
+    }
 
 }

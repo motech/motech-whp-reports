@@ -14,7 +14,6 @@ public class ReportQueryService {
 
     private ReportQueryDAO reportQueryDAO;
 
-
     ReportQueryService() {
     }
 
