@@ -21,6 +21,7 @@ public class TherapyDTO implements Serializable {
 
     private String currentPhase;
 
+    private Integer cumulativeMissedDoses;
     private Date ipStartDate;
     private Date ipEndDate;
     private Integer ipPillsTaken;

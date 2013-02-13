@@ -63,7 +63,7 @@ public class ReportQueryDAOIT {
         assertEquals(therapy.getIpTotalDoses(), summary.getIpTotalDoses());
         assertEquals(therapy.getCpPillsTaken(), summary.getCpPillsTaken());
         assertEquals(therapy.getCpTotalDoses(), summary.getCpTotalDoses());
-        assertEquals((Integer)patient.getPatientAlerts().getCumulativeMissedDoses(), summary.getCumulativeMissedDoses());
+        assertEquals(therapy.getCumulativeMissedDoses(), summary.getCumulativeMissedDoses());
         assertEquals(treatment.getTreatmentOutcome(), summary.getTreatmentOutcome());
         assertEquals(therapy.getCloseDate(), summary.getTreatmentClosingDate());
         assertEquals(treatment.getPreTreatmentSmearTestResult(), summary.getPreTreatmentSputumResult());

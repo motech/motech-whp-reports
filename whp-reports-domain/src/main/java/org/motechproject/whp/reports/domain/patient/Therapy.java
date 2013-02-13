@@ -55,6 +55,9 @@ public class Therapy {
     @Column(name = "current_phase")
     private String currentPhase;
 
+    @Column(name = "cumulative_missed_doses")
+    private Integer cumulativeMissedDoses;
+
     @Column(name = "ip_start_date")
     private Date ipStartDate;
 

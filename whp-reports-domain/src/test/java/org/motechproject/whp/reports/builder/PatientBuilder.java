@@ -73,6 +73,8 @@ public class PatientBuilder {
         therapy.setStatus("status");
         therapy.setTreatmentCategory("category1");
 
+        therapy.setCumulativeMissedDoses(10);
+
         therapy.setTreatments(defaultTreatments());
 
         return therapy;
@@ -143,5 +145,4 @@ public class PatientBuilder {
     private Date today() {
         return new Date(DateTimeZone.UTC.convertUTCToLocal(new LocalDate().toDate().getTime()));
     }
-
 }

@@ -73,6 +73,8 @@ public class PatientRequestBuilder {
         therapy.setStatus("status");
         therapy.setTreatmentCategory("category1");
 
+        therapy.setCumulativeMissedDoses(10);
+
         therapy.setTreatments(defaultTreatments());
 
         return therapy;

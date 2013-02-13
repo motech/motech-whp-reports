@@ -26,6 +26,7 @@ CREATE TABLE whp_reports.patient_therapy (
     treatment_category varchar(30),
     disease_class varchar(30),
     current_phase varchar(10),
+    cumulative_missed_doses integer,
 
     ip_start_date date,
     ip_end_date date,
