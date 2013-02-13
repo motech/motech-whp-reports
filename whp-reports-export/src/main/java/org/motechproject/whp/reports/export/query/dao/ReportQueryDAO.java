@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.export.query.dao;
 
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,8 +23,8 @@ public class ReportQueryDAO {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<PatientSummary> getPatientSummaries() {
-        return jdbcTemplate.query(new PatientSummaryQueryBuilder().build(),
+    public List<PatientSummary> getPatientSummaries(PatientReportRequest patientReportRequest) {
+        return jdbcTemplate.query(new PatientSummaryQueryBuilder(patientReportRequest).build(),
                 new BeanPropertyRowMapper(PatientSummary.class));
     }
 }

@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.export.query.builder;
 
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.motechproject.whp.reports.export.query.service.ExcelExporter;
 import org.motechproject.whp.reports.export.query.service.ReportQueryService;
@@ -24,9 +25,9 @@ public class PatientSummaryReportBuilder extends ReportBuilder {
         this.reportQueryService = reportQueryService;
     }
 
-    public void build(OutputStream outputStream) {
-        List<PatientSummary> patientSummaries = reportQueryService.getPatientSummaries();
-        Map<String, List> params = new HashMap<>();
+    public void build(PatientReportRequest patientReportRequest, OutputStream outputStream) {
+        List<PatientSummary> patientSummaries = reportQueryService.getPatientSummaries(patientReportRequest);
+        Map<String, Object> params = new HashMap<>();
         params.put(TEMPLATE_RESULT_KEY, patientSummaries);
 
         build(outputStream, params, TEMPLATE_FILE_NAME);

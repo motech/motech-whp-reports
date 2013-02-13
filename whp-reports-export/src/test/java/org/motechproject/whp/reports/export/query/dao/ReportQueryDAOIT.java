@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.export.query.dao;
 
+import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.motechproject.whp.reports.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class ReportQueryDAOIT {
 
     @Test
     public void shouldReturnPatientSummaries() {
-        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries();
+        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(new PatientReportRequest());
 
         assertEquals(1, patientList.size());
 
@@ -70,6 +72,53 @@ public class ReportQueryDAOIT {
         assertEquals(treatment.getPreTreatmentWeight(), summary.getPreTreatmentWeight());
         assertEquals("10/20 (50.00%)", summary.getIpTreatmentProgress());
         assertEquals("10/20 (50.00%)", summary.getCpTreatmentProgress());
+    }
+
+    @Test
+    public void shouldReturnPatientForGivenDistrict() {
+        String newDistrict = "newDistrict";
+        Patient patientInNewDistrict = new PatientBuilder().withDefaults().withDistrict(newDistrict).withPatientId("patient2").build();
+        patientRepository.save(patientInNewDistrict);
+
+        PatientReportRequest patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setDistrict(newDistrict);
+        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
+
+        assertEquals(1, patientList.size());
+        assertEquals(patientInNewDistrict.getPatientId(), patientList.get(0).getPatientId());
+    }
+
+    @Test
+    public void shouldReturnPatientForGivenTbRegistrationDate() {
+        Patient patientWithNewTbRegistrationDate = new PatientBuilder().withDefaults().withTbRegistrationDate(new LocalDate(2012, 12, 25)).withPatientId("patient2").build();
+        patientRepository.save(patientWithNewTbRegistrationDate);
+
+        PatientReportRequest patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setTbRegistrationDateFrom("2012-12-10");
+        patientReportRequest.setTbRegistrationDateTo("2012-12-31");
+        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
+
+        assertEquals(1, patientList.size());
+        assertEquals(patientWithNewTbRegistrationDate.getPatientId(), patientList.get(0).getPatientId());
+    }
+
+    @Test
+    public void shouldReturnPatientForGivenDistrictAndTbRegistrationDate() {
+        Patient expectedPatient = new PatientBuilder()
+                .withDefaults()
+                .withDistrict("newDistrict")
+                .withTbRegistrationDate(new LocalDate(2012, 12, 25)).withPatientId("patient2").build();
+
+        patientRepository.save(expectedPatient);
+
+        PatientReportRequest patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setDistrict("newDistrict");
+        patientReportRequest.setTbRegistrationDateFrom("2012-12-10");
+        patientReportRequest.setTbRegistrationDateTo("2012-12-31");
+        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
+
+        assertEquals(1, patientList.size());
+        assertEquals(expectedPatient.getPatientId(), patientList.get(0).getPatientId());
     }
 
     @After

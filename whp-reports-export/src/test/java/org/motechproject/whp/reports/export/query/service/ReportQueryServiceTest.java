@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.export.query.dao.ReportQueryDAO;
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 
 import java.util.List;
@@ -30,11 +31,12 @@ public class ReportQueryServiceTest {
     @Test
     public void shouldReturnListOfPatientSummaries() {
         List expectedPatientSummaries = mock(List.class);
-        when(reportQueryDAO.getPatientSummaries()).thenReturn(expectedPatientSummaries);
+        PatientReportRequest patientReportRequest = mock(PatientReportRequest.class);
+        when(reportQueryDAO.getPatientSummaries(patientReportRequest)).thenReturn(expectedPatientSummaries);
 
-        List<PatientSummary> patientSummaries = reportQueryService.getPatientSummaries();
+        List<PatientSummary> patientSummaries = reportQueryService.getPatientSummaries(patientReportRequest);
 
         assertEquals(expectedPatientSummaries, patientSummaries);
-        verify(reportQueryDAO).getPatientSummaries();
+        verify(reportQueryDAO).getPatientSummaries(patientReportRequest);
     }
 }

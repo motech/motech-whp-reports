@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.dao;
 
 import org.junit.Test;
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -8,7 +9,8 @@ public class PatientSummaryQueryBuilderTest {
 
     @Test
     public void shouldReturnQueryForPatientSummaryWithoutAnyUserGivenFilters() {
-        assertEquals(PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL, new PatientSummaryQueryBuilder().build());
+        PatientReportRequest emptyRequest = new PatientReportRequest();
+        assertEquals(PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL, new PatientSummaryQueryBuilder(emptyRequest).build());
     }
 
     @Test
@@ -17,27 +19,36 @@ public class PatientSummaryQueryBuilderTest {
                 + "where provider_district = 'Begusarai'"
                 + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
 
-        assertEquals(expectedQuery, new PatientSummaryQueryBuilder().withDistrict("Begusarai").build());
+        PatientReportRequest requestWithDistrict = new PatientReportRequest();
+        requestWithDistrict.setDistrict("Begusarai");
+        assertEquals(expectedQuery, new PatientSummaryQueryBuilder(requestWithDistrict).build());
     }
 
     @Test
     public void shouldReturnQueryForPatientSummaryBetweenGivenTbRegistrationDates() {
         String expectedQuery = PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
-                + "where tb_registration_date between '2013-01-01' AND '2013-01-02'"
+                + "where treatment.start_date between '2013-01-01' AND '2013-01-02'"
                 + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
 
-        assertEquals(expectedQuery, new PatientSummaryQueryBuilder().withTBRegistrationDates("2013-01-01", "2013-01-02").build());
+        PatientReportRequest requestWithDates = new PatientReportRequest();
+        requestWithDates.setTbRegistrationDateFrom("2013-01-01");
+        requestWithDates.setTbRegistrationDateTo("2013-01-02");
+        assertEquals(expectedQuery, new PatientSummaryQueryBuilder(requestWithDates).build());
     }
 
     @Test
     public void shouldReturnQueryForPatientSummaryWithGivenDistrictAndBetweenTbRegistrationDates() {
         String expectedQuery = PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
-                + "where provider_district = 'Begusarai' AND tb_registration_date between '2013-01-01' AND '2013-01-02'"
+                + "where provider_district = 'Begusarai' AND treatment.start_date between '2013-01-01' AND '2013-01-02'"
                 + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
 
-        assertEquals(expectedQuery, new PatientSummaryQueryBuilder()
-                .withDistrict("Begusarai")
-                .withTBRegistrationDates("2013-01-01", "2013-01-02").build());
+        PatientReportRequest request = new PatientReportRequest();
+        request.setDistrict("Begusarai");
+        request.setTbRegistrationDateFrom("2013-01-01");
+        request.setTbRegistrationDateTo("2013-01-02");
+
+        assertEquals(expectedQuery, new PatientSummaryQueryBuilder(request)
+                .build());
 
     }
 }

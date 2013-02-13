@@ -42,30 +42,30 @@ public class PatientBuilder {
     private Therapy defaultTherapy() {
         Therapy therapy = new Therapy();
         therapy.setTherapyId("therapyId");
-        therapy.setCloseDate(today(new LocalDate()));
-        therapy.setStartDate(today(new LocalDate()));
+        therapy.setCloseDate(toSQLDate(new LocalDate()));
+        therapy.setStartDate(toSQLDate(new LocalDate()));
 
         therapy.setTreatmentCategory("RNTCP Category 2");
 
-        therapy.setCpStartDate(today(new LocalDate()));
-        therapy.setCpEndDate(today(new LocalDate()));
+        therapy.setCpStartDate(toSQLDate(new LocalDate()));
+        therapy.setCpEndDate(toSQLDate(new LocalDate()));
         therapy.setCpPillsRemaining(4);
         therapy.setCpPillsTaken(10);
         therapy.setCpTotalDoses(20);
 
-        therapy.setIpStartDate(today(new LocalDate()));
-        therapy.setIpEndDate(today(new LocalDate()));
+        therapy.setIpStartDate(toSQLDate(new LocalDate()));
+        therapy.setIpEndDate(toSQLDate(new LocalDate()));
         therapy.setIpPillsRemaining(4);
         therapy.setIpPillsTaken(10);
         therapy.setIpTotalDoses(20);
 
-        therapy.setEipStartDate(today(new LocalDate()));
-        therapy.setEipEndDate(today(new LocalDate()));
+        therapy.setEipStartDate(toSQLDate(new LocalDate()));
+        therapy.setEipEndDate(toSQLDate(new LocalDate()));
         therapy.setEipPillsRemaining(4);
         therapy.setEipPillsTaken(10);
         therapy.setEipTotalDoses(20);
 
-        therapy.setCreationDate(today(new LocalDate()));
+        therapy.setCreationDate(toSQLDate(new LocalDate()));
         therapy.setCurrentPhase("current");
         therapy.setCurrentTherapy("Y");
         therapy.setDiseaseClass("Disease");
@@ -89,11 +89,11 @@ public class PatientBuilder {
     private Treatment defaultTreatment() {
         Treatment treatment = new Treatment();
         treatment.setCurrentTreatment("Y");
-        treatment.setEndDate(today(new LocalDate().minusDays(2)));
-        treatment.setStartDate(today(new LocalDate().minusDays(4)));
+        treatment.setEndDate(toSQLDate(new LocalDate().minusDays(2)));
+        treatment.setStartDate(toSQLDate(new LocalDate().minusDays(4)));
         treatment.setIsPaused("Y");
         treatment.setPatientType("type");
-        treatment.setPausedDate(today(new LocalDate()));
+        treatment.setPausedDate(toSQLDate(new LocalDate()));
         treatment.setPreTreatmentSmearTestResult("Positive");
         treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");
@@ -110,13 +110,13 @@ public class PatientBuilder {
         PatientAlerts patientAlerts = new PatientAlerts();
         patientAlerts.setAdherenceMissingWeeks(1);
         patientAlerts.setAdherenceMissingWeeksAlertSeverity(1);
-        patientAlerts.setAdherenceMissingWeeksAlertDate(today(new LocalDate()));
+        patientAlerts.setAdherenceMissingWeeksAlertDate(toSQLDate(new LocalDate()));
         patientAlerts.setCumulativeMissedDoses(1);
         patientAlerts.setCumulativeMissedDosesAlertSeverity(1);
-        patientAlerts.setCumulativeMissedDosesAlertDate(today(new LocalDate()));
+        patientAlerts.setCumulativeMissedDosesAlertDate(toSQLDate(new LocalDate()));
         patientAlerts.setTreatmentNotStarted(1);
         patientAlerts.setTreatmentNotStartedAlertSeverity(1);
-        patientAlerts.setTreatmentNotStartedAlertDate(today(new LocalDate()));
+        patientAlerts.setTreatmentNotStartedAlertDate(toSQLDate(new LocalDate()));
 
         return patientAlerts;
     }
@@ -142,7 +142,21 @@ public class PatientBuilder {
         return this;
     }
 
-    private Date today(LocalDate date) {
+    private Date toSQLDate(LocalDate date) {
         return new Date(DateTimeZone.UTC.convertUTCToLocal(date.toDate().getTime()));
+    }
+
+    public PatientBuilder withDistrict(String newDistrict) {
+        getCurrentTreatment().setProviderDistrict(newDistrict);
+        return this;
+    }
+
+    private Treatment getCurrentTreatment() {
+        return patient.getTherapies().get(0).getTreatments().get(0);
+    }
+
+    public PatientBuilder withTbRegistrationDate(LocalDate date) {
+        getCurrentTreatment().setStartDate(toSQLDate(date));
+        return this;
     }
 }

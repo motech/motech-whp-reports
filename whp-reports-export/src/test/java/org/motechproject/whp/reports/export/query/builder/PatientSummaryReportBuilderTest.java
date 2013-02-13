@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.motechproject.whp.reports.export.query.service.ExcelExporter;
 import org.motechproject.whp.reports.export.query.service.ReportQueryService;
@@ -41,15 +42,16 @@ public class PatientSummaryReportBuilderTest{
     @Test
     public void shouldBuildPatientSummaryReport() throws IOException {
         List<PatientSummary> patientSummaries = asList(new PatientSummary());
-        when(reportQueryService.getPatientSummaries()).thenReturn(patientSummaries);
+        PatientReportRequest patientReportRequest = mock(PatientReportRequest.class);
+        when(reportQueryService.getPatientSummaries(patientReportRequest)).thenReturn(patientSummaries);
         Map<String, List<PatientSummary>> params = new HashMap<>();
         params.put("patients", patientSummaries);
         Workbook workbook = mock(Workbook.class);
         when(excelExporter.export(PatientSummaryReportBuilder.TEMPLATE_FILE_NAME, params)).thenReturn(workbook);
 
-        patientSummaryReportBuilder.build(outputStream);
+        patientSummaryReportBuilder.build(patientReportRequest, outputStream);
 
-        verify(reportQueryService).getPatientSummaries();
+        verify(reportQueryService).getPatientSummaries(patientReportRequest);
         ArgumentCaptor<Map> mapArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         ArgumentCaptor<String> templateArgumentCaptor = ArgumentCaptor.forClass(String.class);
         verify(excelExporter).export(templateArgumentCaptor.capture(), mapArgumentCaptor.capture());
