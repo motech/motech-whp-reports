@@ -42,30 +42,30 @@ public class PatientRequestBuilder {
     private TherapyDTO defaultTherapy() {
         TherapyDTO therapy = new TherapyDTO();
         therapy.setTherapyId("therapyId");
-        therapy.setCloseDate(today());
-        therapy.setStartDate(today());
+        therapy.setCloseDate(today(new LocalDate()));
+        therapy.setStartDate(today(new LocalDate()));
 
         therapy.setTreatmentCategory("RNTCP Category 2");
 
-        therapy.setCpStartDate(today());
-        therapy.setCpEndDate(today());
+        therapy.setCpStartDate(today(new LocalDate()));
+        therapy.setCpEndDate(today(new LocalDate()));
         therapy.setCpPillsRemaining(4);
         therapy.setCpPillsTaken(10);
         therapy.setCpTotalDoses(20);
 
-        therapy.setIpStartDate(today());
-        therapy.setIpEndDate(today());
+        therapy.setIpStartDate(today(new LocalDate()));
+        therapy.setIpEndDate(today(new LocalDate()));
         therapy.setIpPillsRemaining(4);
         therapy.setIpPillsTaken(10);
         therapy.setIpTotalDoses(20);
 
-        therapy.setEipStartDate(today());
-        therapy.setEipEndDate(today());
+        therapy.setEipStartDate(today(new LocalDate()));
+        therapy.setEipEndDate(today(new LocalDate()));
         therapy.setEipPillsRemaining(4);
         therapy.setEipPillsTaken(10);
         therapy.setEipTotalDoses(20);
 
-        therapy.setCreationDate(today());
+        therapy.setCreationDate(today(new LocalDate()));
         therapy.setCurrentPhase("current");
         therapy.setCurrentTherapy("Y");
         therapy.setDiseaseClass("Disease");
@@ -82,18 +82,18 @@ public class PatientRequestBuilder {
 
     private List<TreatmentDTO> defaultTreatments() {
         List<TreatmentDTO> treatments  = new ArrayList<>();
-        treatments.add(defaultTreatment("treatment1"));
+        treatments.add(defaultTreatment());
         return treatments;
     }
 
-    private TreatmentDTO defaultTreatment(String treatmentId) {
+    private TreatmentDTO defaultTreatment() {
         TreatmentDTO treatment = new TreatmentDTO();
         treatment.setCurrentTreatment("Y");
-        treatment.setEndDate(today());
-        treatment.setStartDate(today());
+        treatment.setEndDate(today(new LocalDate().minusDays(2)));
+        treatment.setStartDate(today(new LocalDate().minusDays(4)));
         treatment.setIsPaused("Y");
         treatment.setPatientType("type");
-        treatment.setPausedDate(today());
+        treatment.setPausedDate(today(new LocalDate()));
         treatment.setPreTreatmentSmearTestResult("Positive");
         treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");
@@ -106,21 +106,21 @@ public class PatientRequestBuilder {
         return treatment;
     }
 
-    private Date today() {
-        return new Date(DateTimeZone.UTC.convertUTCToLocal(new LocalDate().toDate().getTime()));
+    private Date today(LocalDate date) {
+        return new Date(DateTimeZone.UTC.convertUTCToLocal(date.toDate().getTime()));
     }
 
     private PatientAlertsDTO defaultPatientAlerts() {
         PatientAlertsDTO patientAlerts = new PatientAlertsDTO();
         patientAlerts.setAdherenceMissingWeeks(1);
         patientAlerts.setAdherenceMissingWeeksAlertSeverity(1);
-        patientAlerts.setAdherenceMissingWeeksAlertDate(today());
+        patientAlerts.setAdherenceMissingWeeksAlertDate(today(new LocalDate()));
         patientAlerts.setCumulativeMissedDoses(1);
         patientAlerts.setCumulativeMissedDosesAlertSeverity(1);
-        patientAlerts.setCumulativeMissedDosesAlertDate(today());
+        patientAlerts.setCumulativeMissedDosesAlertDate(today(new LocalDate()));
         patientAlerts.setTreatmentNotStarted(1);
         patientAlerts.setTreatmentNotStartedAlertSeverity(1);
-        patientAlerts.setTreatmentNotStartedAlertDate(today());
+        patientAlerts.setTreatmentNotStartedAlertDate(today(new LocalDate()));
 
         return patientAlerts;
     }
