@@ -112,5 +112,10 @@
             <groupId>bad.robot</groupId>
             <artifactId>simple-excel</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-testing-utils</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

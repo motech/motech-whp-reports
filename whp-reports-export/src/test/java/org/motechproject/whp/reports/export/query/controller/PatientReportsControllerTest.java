@@ -34,14 +34,14 @@ public class PatientReportsControllerTest {
 
         PatientReportRequest patientReportRequest = new PatientReportRequest();
         patientReportRequest.setDistrict("district");
-        patientReportRequest.setTbRegistrationDateFrom("2012-01-01");
-        patientReportRequest.setTbRegistrationDateTo("2012-01-31");
+        patientReportRequest.setFrom("2012-01-01");
+        patientReportRequest.setTo("2012-01-31");
 
         standaloneSetup(patientReportsController).build()
                 .perform(get("/patientreports/patientSummaryReport.xls")
                         .param("district", "district")
-                        .param("tbRegistrationDateFrom", patientReportRequest.getTbRegistrationDateFrom())
-                        .param("tbRegistrationDateTo", patientReportRequest.getTbRegistrationDateTo()))
+                        .param("from", patientReportRequest.getFrom())
+                        .param("to", patientReportRequest.getTo()))
                 .andExpect(status().isOk())
                 .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientSummaryReport.xls"))
                 .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));

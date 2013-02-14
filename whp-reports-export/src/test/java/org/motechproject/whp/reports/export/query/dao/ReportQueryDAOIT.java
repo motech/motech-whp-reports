@@ -94,8 +94,8 @@ public class ReportQueryDAOIT {
         patientRepository.save(patientWithNewTbRegistrationDate);
 
         PatientReportRequest patientReportRequest = new PatientReportRequest();
-        patientReportRequest.setTbRegistrationDateFrom("2012-12-10");
-        patientReportRequest.setTbRegistrationDateTo("2012-12-31");
+        patientReportRequest.setFrom("10/12/2012");
+        patientReportRequest.setTo("31/12/2012");
         List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
 
         assertEquals(1, patientList.size());
@@ -113,8 +113,8 @@ public class ReportQueryDAOIT {
 
         PatientReportRequest patientReportRequest = new PatientReportRequest();
         patientReportRequest.setDistrict("newDistrict");
-        patientReportRequest.setTbRegistrationDateFrom("2012-12-10");
-        patientReportRequest.setTbRegistrationDateTo("2012-12-31");
+        patientReportRequest.setFrom("10/12/2012");
+        patientReportRequest.setTo("31/12/2012");
         List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
 
         assertEquals(1, patientList.size());

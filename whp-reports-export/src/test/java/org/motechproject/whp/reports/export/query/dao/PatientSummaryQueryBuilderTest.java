@@ -1,23 +1,46 @@
 package org.motechproject.whp.reports.export.query.dao;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.motechproject.testing.utils.BaseUnitTest;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import static junit.framework.Assert.assertEquals;
 
-public class PatientSummaryQueryBuilderTest {
+public class PatientSummaryQueryBuilderTest extends BaseUnitTest {
 
     @Test
     public void shouldReturnQueryForPatientSummaryWithoutAnyUserGivenFilters() {
+        LocalDate expectedEndDate = new LocalDate(2013, 01, 01);
+        LocalDate expectedFromDate = expectedEndDate.minusDays(180);
+
+        mockCurrentDate(expectedEndDate);
+
+        String strExpectedEndDate = expectedEndDate.toString("yyyy-MM-dd");
+        String strExpectedFromDate = expectedFromDate.toString("yyyy-MM-dd");
+
         PatientReportRequest emptyRequest = new PatientReportRequest();
-        assertEquals(PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL, new PatientSummaryQueryBuilder(emptyRequest).build());
+
+        String expectedQuery = String.format(PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
+                + "where treatment.start_date between '%s' AND '%s'"
+                + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL, strExpectedFromDate, strExpectedEndDate);
+
+        assertEquals(expectedQuery, new PatientSummaryQueryBuilder(emptyRequest).build());
     }
 
     @Test
     public void shouldReturnQueryForPatientSummaryWithDistrict() {
-        String expectedQuery = PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
-                + "where provider_district = 'Begusarai'"
-                + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
+        LocalDate expectedEndDate = new LocalDate(2013, 01, 01);
+        LocalDate expectedFromDate = expectedEndDate.minusDays(180);
+
+        mockCurrentDate(expectedEndDate);
+
+        String strExpectedEndDate = expectedEndDate.toString("yyyy-MM-dd");
+        String strExpectedFromDate = expectedFromDate.toString("yyyy-MM-dd");
+
+        String expectedQuery = String.format(PatientSummaryQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
+                + "where provider_district = 'Begusarai' AND treatment.start_date between '%s' AND '%s'"
+                + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL, strExpectedFromDate, strExpectedEndDate);
 
         PatientReportRequest requestWithDistrict = new PatientReportRequest();
         requestWithDistrict.setDistrict("Begusarai");
@@ -31,8 +54,8 @@ public class PatientSummaryQueryBuilderTest {
                 + PatientSummaryQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
 
         PatientReportRequest requestWithDates = new PatientReportRequest();
-        requestWithDates.setTbRegistrationDateFrom("2013-01-01");
-        requestWithDates.setTbRegistrationDateTo("2013-01-02");
+        requestWithDates.setFrom("01/01/2013");
+        requestWithDates.setTo("02/01/2013");
         assertEquals(expectedQuery, new PatientSummaryQueryBuilder(requestWithDates).build());
     }
 
@@ -44,8 +67,8 @@ public class PatientSummaryQueryBuilderTest {
 
         PatientReportRequest request = new PatientReportRequest();
         request.setDistrict("Begusarai");
-        request.setTbRegistrationDateFrom("2013-01-01");
-        request.setTbRegistrationDateTo("2013-01-02");
+        request.setFrom("01/01/2013");
+        request.setTo("02/01/2013");
 
         assertEquals(expectedQuery, new PatientSummaryQueryBuilder(request)
                 .build());

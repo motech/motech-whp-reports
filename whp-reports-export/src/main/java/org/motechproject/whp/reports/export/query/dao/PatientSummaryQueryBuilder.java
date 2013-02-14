@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.dao;
 
 import org.apache.commons.lang3.StringUtils;
+import org.motechproject.whp.reports.export.query.model.DateRange;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import java.util.ArrayList;
@@ -39,16 +40,14 @@ public class PatientSummaryQueryBuilder {
             predicates.add(String.format(" provider_district = '%s'", patientReportRequest.getDistrict()));
         }
 
-        if(patientReportRequest.getTbRegistrationDateFrom() != null){
-            predicates.add(String.format(" treatment.start_date between '%s' AND '%s'",
-                    patientReportRequest.getTbRegistrationDateFrom(),
-                    patientReportRequest.getTbRegistrationDateTo()));
-        }
+        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+        predicates.add(tbRegistrationDateRangePredicate(dateRange.getStartDate(), dateRange.getEndDate()));
+        return  WHERE_CLAUSE + StringUtils.join(predicates, " AND");
+    }
 
-        if(predicates.isEmpty()){
-            return "";
-        } else {
-            return  WHERE_CLAUSE + StringUtils.join(predicates, " AND");
-        }
+    private String tbRegistrationDateRangePredicate(String from, String to) {
+        return String.format(" treatment.start_date between '%s' AND '%s'",
+                from,
+                to);
     }
 }
