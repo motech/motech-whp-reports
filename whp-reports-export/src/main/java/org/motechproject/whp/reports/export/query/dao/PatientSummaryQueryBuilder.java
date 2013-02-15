@@ -36,7 +36,7 @@ public class PatientSummaryQueryBuilder {
     private String buildPredicate() {
         List<String> predicates = new ArrayList<>();
 
-        if(patientReportRequest.getDistrict() != null){
+        if(StringUtils.isNotEmpty(patientReportRequest.getDistrict())){
             predicates.add(String.format(" provider_district = '%s'", patientReportRequest.getDistrict()));
         }
 
