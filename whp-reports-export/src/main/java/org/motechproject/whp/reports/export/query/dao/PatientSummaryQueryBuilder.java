@@ -41,7 +41,7 @@ public class PatientSummaryQueryBuilder {
         }
 
         DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
-        predicates.add(tbRegistrationDateRangePredicate(dateRange.getStartDate(), dateRange.getEndDate()));
+        predicates.add(tbRegistrationDateRangePredicate(dateRange.getStartDateInSqlFormat(), dateRange.getEndDateInSqlFormat()));
         return  WHERE_CLAUSE + StringUtils.join(predicates, " AND");
     }
 

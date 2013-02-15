@@ -1,5 +1,7 @@
 package org.motechproject.whp.reports.export.query.builder;
 
+import org.motechproject.util.DateUtil;
+import org.motechproject.whp.reports.export.query.model.DateRange;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.motechproject.whp.reports.export.query.service.ExcelExporter;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +18,18 @@ import java.util.Map;
 @Component
 public class PatientSummaryReportBuilder extends ReportBuilder {
 
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String GENERATED_ON = "generatedOn";
+    public static final String PATIENT_SUMMARY_TEMPLATE_FILE_NAME = "/xls/templates/patientSummaryReport.xls";
+    public static final String PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME = "/xls/templates/patientRegistrationsReport.xls";
+    public static final String TEMPLATE_RESULT_KEY = "patients";
+
+    public static final String FROM_DATE = "fromDate";
+    public static final String TO_DATE = "toDate";
+    public static final String PROVIDER_DISTRICT = "providerDistrict";
+    public static final String TOTAL_ROWS = "totalRows";
+
     private final ReportQueryService reportQueryService;
-    public static final String TEMPLATE_FILE_NAME = "/xls/templates/patientSummaryReport.xls";
-    private static final String TEMPLATE_RESULT_KEY = "patients";
 
     @Autowired
     public PatientSummaryReportBuilder(ReportQueryService reportQueryService, ExcelExporter excelExporter) {
@@ -25,11 +37,31 @@ public class PatientSummaryReportBuilder extends ReportBuilder {
         this.reportQueryService = reportQueryService;
     }
 
-    public void build(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        List<PatientSummary> patientSummaries = reportQueryService.getPatientSummaries(patientReportRequest);
-        Map<String, Object> params = new HashMap<>();
-        params.put(TEMPLATE_RESULT_KEY, patientSummaries);
+    public void buildSummaryReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
+        build(outputStream, getReportData(patientReportRequest), PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
+    }
 
-        build(outputStream, params, TEMPLATE_FILE_NAME);
+    public void buildRegistrationsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
+        build(outputStream, getReportData(patientReportRequest), PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
+    }
+
+    private Map<String, Object> getReportData(PatientReportRequest patientReportRequest) {
+        List<PatientSummary> patientSummaries = reportQueryService.getPatientSummaries(patientReportRequest);
+        return setReportParameters(patientReportRequest, patientSummaries);
+    }
+
+    private Map<String, Object> setReportParameters(PatientReportRequest patientReportRequest, List<PatientSummary> patientSummaries) {
+        Map<String, Object> params = new HashMap<>();
+
+        String generatedOn = new SimpleDateFormat(DATE_FORMAT).format(DateUtil.now().toDate());
+        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+
+        params.put(TEMPLATE_RESULT_KEY, patientSummaries);
+        params.put(GENERATED_ON, generatedOn);
+        params.put(FROM_DATE, dateRange.getStartDate());
+        params.put(TO_DATE, dateRange.getEndDate());
+        params.put(PROVIDER_DISTRICT, patientReportRequest.getDistrict());
+        params.put(TOTAL_ROWS, patientSummaries.size());
+        return params;
     }
 }

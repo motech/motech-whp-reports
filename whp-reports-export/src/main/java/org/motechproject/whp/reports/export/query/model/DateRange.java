@@ -9,6 +9,7 @@ import org.motechproject.util.DateUtil;
 public class DateRange {
 
     public static final String SQL_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
 
     LocalDate from;
     LocalDate to;
@@ -18,6 +19,7 @@ public class DateRange {
 
     public DateRange(String strFrom, String strTo) {
 
+
         boolean validFromDate = StringUtils.isNotEmpty(strFrom);
         boolean validToDate = StringUtils.isNotEmpty(strTo);
         if (validFromDate && validToDate) {
@@ -26,11 +28,13 @@ public class DateRange {
             return;
         }
 
+
         if (validFromDate) {
             this.from = parseDate(strFrom);
             this.to = this.from.plusDays(180);
             return;
         }
+
 
         if (validToDate) {
             this.to = parseDate(strTo);
@@ -46,11 +50,19 @@ public class DateRange {
         return formatter.parseLocalDate(strDate);
     }
 
-    public String getStartDate() {
+    public String getStartDateInSqlFormat() {
         return from.toString(SQL_DATE_FORMAT);
     }
 
-    public String getEndDate() {
+    public String getEndDateInSqlFormat() {
         return to.toString(SQL_DATE_FORMAT);
+    }
+
+    public String getStartDate() {
+        return from.toString(DEFAULT_DATE_FORMAT);
+    }
+
+    public String getEndDate() {
+        return to.toString(DEFAULT_DATE_FORMAT);
     }
 }

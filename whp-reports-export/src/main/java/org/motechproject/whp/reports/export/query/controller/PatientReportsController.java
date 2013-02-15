@@ -4,7 +4,6 @@ import org.motechproject.whp.reports.export.query.builder.PatientSummaryReportBu
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,10 +23,16 @@ public class PatientReportsController {
         this.patientSummaryReportBuilder = patientSummaryReportBuilder;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{reportName}.xls")
-    public void createExcelReportForPatientSummary(@PathVariable String reportName, PatientReportRequest request, HttpServletResponse response) throws IOException {
-        initializeExcelResponse(response, reportName + ".xls");
-        patientSummaryReportBuilder.build(request, response.getOutputStream());
+    @RequestMapping(method = RequestMethod.GET, value = "/patientSummary.xls")
+    public void createExcelReportForPatientSummary(PatientReportRequest request, HttpServletResponse response) throws IOException {
+        initializeExcelResponse(response, "patientSummary.xls");
+        patientSummaryReportBuilder.buildSummaryReport(request, response.getOutputStream());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/patientRegistrations.xls")
+    public void createExcelReportForPatientRegistrations(PatientReportRequest request, HttpServletResponse response) throws IOException {
+        initializeExcelResponse(response, "patientRegistrations.xls");
+        patientSummaryReportBuilder.buildRegistrationsReport(request, response.getOutputStream());
     }
 
     private void initializeExcelResponse(HttpServletResponse response, String fileName) {

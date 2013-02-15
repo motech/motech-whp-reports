@@ -30,7 +30,7 @@ public class PatientReportsControllerTest {
     }
 
     @Test
-    public void shouldInvokeReportBuilderWhenCreatingExcel() throws Exception {
+    public void shouldCreatePatientSummaryReport() throws Exception {
 
         PatientReportRequest patientReportRequest = new PatientReportRequest();
         patientReportRequest.setDistrict("district");
@@ -38,14 +38,34 @@ public class PatientReportsControllerTest {
         patientReportRequest.setTo("2012-01-31");
 
         standaloneSetup(patientReportsController).build()
-                .perform(get("/patientreports/patientSummaryReport.xls")
+                .perform(get("/patientreports/patientSummary.xls")
                         .param("district", "district")
                         .param("from", patientReportRequest.getFrom())
                         .param("to", patientReportRequest.getTo()))
                 .andExpect(status().isOk())
-                .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientSummaryReport.xls"))
+                .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientSummary.xls"))
                 .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
 
-        verify(patientSummaryReportBuilder).build(eq(patientReportRequest), any(OutputStream.class));
+        verify(patientSummaryReportBuilder).buildSummaryReport(eq(patientReportRequest), any(OutputStream.class));
+    }
+
+    @Test
+    public void shouldCreatePatientRegistrationsReport() throws Exception {
+
+        PatientReportRequest patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setDistrict("district");
+        patientReportRequest.setFrom("2012-01-01");
+        patientReportRequest.setTo("2012-01-31");
+
+        standaloneSetup(patientReportsController).build()
+                .perform(get("/patientreports/patientRegistrations.xls")
+                        .param("district", "district")
+                        .param("from", patientReportRequest.getFrom())
+                        .param("to", patientReportRequest.getTo()))
+                .andExpect(status().isOk())
+                .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientRegistrations.xls"))
+                .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
+
+        verify(patientSummaryReportBuilder).buildRegistrationsReport(eq(patientReportRequest), any(OutputStream.class));
     }
 }
