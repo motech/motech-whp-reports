@@ -15,7 +15,7 @@ CREATE TABLE whp_reports.patient (
 CREATE TABLE whp_reports.patient_therapy (
     therapy_pk bigserial NOT NULL,
     patient_fk integer,
-    therapy_id varchar(30),
+    therapy_id varchar(32),
 
     is_current_therapy char(1),
     patient_age integer,
@@ -47,7 +47,6 @@ CREATE TABLE whp_reports.patient_therapy (
     eip_total_doses integer
 );
 
-
 CREATE TABLE whp_reports.patient_treatment (
     treatment_pk bigserial NOT NULL,
     therapy_fk integer,
@@ -64,7 +63,7 @@ CREATE TABLE whp_reports.patient_treatment (
     is_current_treatment char(1),
     is_paused char(1),
     paused_date date,
-    reasons_for_pause varchar(30),
+    reasons_for_pause varchar(100),
     paused_duration integer
 );
 
@@ -83,10 +82,10 @@ CREATE TABLE whp_reports.patient_alert (
 
 CREATE TABLE whp_reports.patient_address (
     address_pk bigserial NOT NULL,
-    location varchar(30),
-    landmark varchar(30),
-    block varchar(30),
-    village varchar(30),
-    district varchar(30),
-    state varchar(30)
+    location varchar(100),
+    landmark varchar(100),
+    block varchar(100),
+    village varchar(100),
+    district varchar(100),
+    state varchar(100)
 );
