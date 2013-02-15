@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.export.query.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -17,19 +18,21 @@ public class DateRange {
 
     public DateRange(String strFrom, String strTo) {
 
-        if (strFrom != null && strTo != null) {
+        boolean validFromDate = StringUtils.isNotEmpty(strFrom);
+        boolean validToDate = StringUtils.isNotEmpty(strTo);
+        if (validFromDate && validToDate) {
             this.from = parseDate(strFrom);
             this.to = parseDate(strTo);
             return;
         }
 
-        if (strFrom != null) {
+        if (validFromDate) {
             this.from = parseDate(strFrom);
             this.to = this.from.plusDays(180);
             return;
         }
 
-        if (strTo != null) {
+        if (validToDate) {
             this.to = parseDate(strTo);
             this.from = this.to.minusDays(180);
             return;
