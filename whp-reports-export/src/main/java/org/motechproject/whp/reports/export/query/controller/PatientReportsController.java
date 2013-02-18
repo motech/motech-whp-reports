@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.controller;
 
-import org.motechproject.whp.reports.export.query.builder.PatientSummaryReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.PatientReportBuilder;
+import org.motechproject.whp.reports.export.query.dao.PatientReportType;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,23 +17,32 @@ public class PatientReportsController {
 
     public static final String CONTENT_DISPOSITION = "Content-Disposition";
     public static final String APPLICATION_VND_MS_EXCEL = "application/vnd.ms-excel";
-    private PatientSummaryReportBuilder patientSummaryReportBuilder;
+    private PatientReportBuilder patientReportBuilder;
 
     @Autowired
-    public PatientReportsController(PatientSummaryReportBuilder patientSummaryReportBuilder) {
-        this.patientSummaryReportBuilder = patientSummaryReportBuilder;
+    public PatientReportsController(PatientReportBuilder patientReportBuilder) {
+        this.patientReportBuilder = patientReportBuilder;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/patientSummary.xls")
     public void createExcelReportForPatientSummary(PatientReportRequest request, HttpServletResponse response) throws IOException {
         initializeExcelResponse(response, "patientSummary.xls");
-        patientSummaryReportBuilder.buildSummaryReport(request, response.getOutputStream());
+        request.setReportType(PatientReportType.SUMMARY_REPORT);
+        patientReportBuilder.buildSummaryReport(request, response.getOutputStream());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/patientRegistrations.xls")
     public void createExcelReportForPatientRegistrations(PatientReportRequest request, HttpServletResponse response) throws IOException {
         initializeExcelResponse(response, "patientRegistrations.xls");
-        patientSummaryReportBuilder.buildRegistrationsReport(request, response.getOutputStream());
+        request.setReportType(PatientReportType.SUMMARY_REPORT);
+        patientReportBuilder.buildRegistrationsReport(request, response.getOutputStream());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/patientClosedTreatments.xls")
+    public void createExcelReportForPatientClosedTreatments(PatientReportRequest request, HttpServletResponse response) throws IOException {
+        initializeExcelResponse(response, "patientClosedTreatments.xls");
+        request.setReportType(PatientReportType.CLOSED_TREATMENT);
+        patientReportBuilder.buildClosedTreatmentsReport(request, response.getOutputStream());
     }
 
     private void initializeExcelResponse(HttpServletResponse response, String fileName) {

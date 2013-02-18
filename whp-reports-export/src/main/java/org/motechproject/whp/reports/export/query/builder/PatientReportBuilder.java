@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class PatientSummaryReportBuilder extends ReportBuilder {
+public class PatientReportBuilder extends ReportBuilder {
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final String GENERATED_ON = "generatedOn";
     public static final String PATIENT_SUMMARY_TEMPLATE_FILE_NAME = "/xls/templates/patientSummaryReport.xls";
     public static final String PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME = "/xls/templates/patientRegistrationsReport.xls";
+    public static final String PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME = "/xls/templates/patientClosedTreatmentsReport.xls";
     public static final String TEMPLATE_RESULT_KEY = "patients";
 
     public static final String FROM_DATE = "fromDate";
@@ -32,7 +33,7 @@ public class PatientSummaryReportBuilder extends ReportBuilder {
     private final ReportQueryService reportQueryService;
 
     @Autowired
-    public PatientSummaryReportBuilder(ReportQueryService reportQueryService, ExcelExporter excelExporter) {
+    public PatientReportBuilder(ReportQueryService reportQueryService, ExcelExporter excelExporter) {
         super(excelExporter);
         this.reportQueryService = reportQueryService;
     }
@@ -43,6 +44,10 @@ public class PatientSummaryReportBuilder extends ReportBuilder {
 
     public void buildRegistrationsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
         build(outputStream, getReportData(patientReportRequest), PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
+    }
+
+    public void buildClosedTreatmentsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
+        build(outputStream, getReportData(patientReportRequest), PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
     }
 
     private Map<String, Object> getReportData(PatientReportRequest patientReportRequest) {

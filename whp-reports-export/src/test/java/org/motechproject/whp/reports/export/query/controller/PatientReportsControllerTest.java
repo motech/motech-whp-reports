@@ -3,7 +3,8 @@ package org.motechproject.whp.reports.export.query.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.export.query.builder.PatientSummaryReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.PatientReportBuilder;
+import org.motechproject.whp.reports.export.query.dao.PatientReportType;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import java.io.OutputStream;
@@ -19,14 +20,14 @@ import static org.springframework.test.web.server.setup.MockMvcBuilders.standalo
 public class PatientReportsControllerTest {
 
     @Mock
-    PatientSummaryReportBuilder patientSummaryReportBuilder;
+    PatientReportBuilder patientReportBuilder;
 
     private PatientReportsController patientReportsController;
 
     @Before
     public void setUp() {
         initMocks(this);
-        patientReportsController = new PatientReportsController(patientSummaryReportBuilder);
+        patientReportsController = new PatientReportsController(patientReportBuilder);
     }
 
     @Test
@@ -36,6 +37,7 @@ public class PatientReportsControllerTest {
         patientReportRequest.setDistrict("district");
         patientReportRequest.setFrom("2012-01-01");
         patientReportRequest.setTo("2012-01-31");
+        patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
 
         standaloneSetup(patientReportsController).build()
                 .perform(get("/patientreports/patientSummary.xls")
@@ -46,7 +48,7 @@ public class PatientReportsControllerTest {
                 .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientSummary.xls"))
                 .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
 
-        verify(patientSummaryReportBuilder).buildSummaryReport(eq(patientReportRequest), any(OutputStream.class));
+        verify(patientReportBuilder).buildSummaryReport(eq(patientReportRequest), any(OutputStream.class));
     }
 
     @Test
@@ -56,6 +58,7 @@ public class PatientReportsControllerTest {
         patientReportRequest.setDistrict("district");
         patientReportRequest.setFrom("2012-01-01");
         patientReportRequest.setTo("2012-01-31");
+        patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
 
         standaloneSetup(patientReportsController).build()
                 .perform(get("/patientreports/patientRegistrations.xls")
@@ -66,6 +69,27 @@ public class PatientReportsControllerTest {
                 .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientRegistrations.xls"))
                 .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
 
-        verify(patientSummaryReportBuilder).buildRegistrationsReport(eq(patientReportRequest), any(OutputStream.class));
+        verify(patientReportBuilder).buildRegistrationsReport(eq(patientReportRequest), any(OutputStream.class));
+    }
+
+    @Test
+    public void shouldCreatePatientClosedTreatmentReport() throws Exception {
+
+        PatientReportRequest patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setDistrict("district");
+        patientReportRequest.setFrom("2012-01-01");
+        patientReportRequest.setTo("2012-01-31");
+        patientReportRequest.setReportType(PatientReportType.CLOSED_TREATMENT);
+
+        standaloneSetup(patientReportsController).build()
+                .perform(get("/patientreports/patientClosedTreatments.xls")
+                        .param("district", "district")
+                        .param("from", patientReportRequest.getFrom())
+                        .param("to", patientReportRequest.getTo()))
+                .andExpect(status().isOk())
+                .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientClosedTreatments.xls"))
+                .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
+
+        verify(patientReportBuilder).buildClosedTreatmentsReport(eq(patientReportRequest), any(OutputStream.class));
     }
 }

@@ -24,7 +24,7 @@ public class ReportQueryDAO {
     }
 
     public List<PatientSummary> getPatientSummaries(PatientReportRequest patientReportRequest) {
-        return jdbcTemplate.query(new PatientSummaryQueryBuilder(patientReportRequest).build(),
+        return jdbcTemplate.query(new PatientReportsQueryBuilder(patientReportRequest).build(),
                 new BeanPropertyRowMapper(PatientSummary.class));
     }
 }

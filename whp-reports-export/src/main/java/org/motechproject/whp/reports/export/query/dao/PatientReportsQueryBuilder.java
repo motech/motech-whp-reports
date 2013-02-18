@@ -1,13 +1,12 @@
 package org.motechproject.whp.reports.export.query.dao;
 
 import org.apache.commons.lang3.StringUtils;
-import org.motechproject.whp.reports.export.query.model.DateRange;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientSummaryQueryBuilder {
+public class PatientReportsQueryBuilder {
 
     public static final String PATIENT_SUMMARY_SELECT_SQL = "select p.first_name, p.last_name, p.gender, p.patient_id, " +
             "treatment.tb_id, treatment.provider_id, treatment.provider_district, therapy.treatment_category, " +
@@ -25,7 +24,7 @@ public class PatientSummaryQueryBuilder {
 
     private PatientReportRequest patientReportRequest;
 
-    public PatientSummaryQueryBuilder(PatientReportRequest patientReportRequest) {
+    public PatientReportsQueryBuilder(PatientReportRequest patientReportRequest) {
         this.patientReportRequest = patientReportRequest;
     }
 
@@ -40,14 +39,10 @@ public class PatientSummaryQueryBuilder {
             predicates.add(String.format(" provider_district = '%s'", patientReportRequest.getDistrict()));
         }
 
-        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
-        predicates.add(tbRegistrationDateRangePredicate(dateRange.getStartDateInSqlFormat(), dateRange.getEndDateInSqlFormat()));
-        return  WHERE_CLAUSE + StringUtils.join(predicates, " AND");
-    }
+        PredicateBuilder predicateBuilder = new PredicateBuilderFactory().getBuilder(patientReportRequest);
+        if(predicateBuilder != null)
+            predicates.addAll(predicateBuilder.getPredicates());
 
-    private String tbRegistrationDateRangePredicate(String from, String to) {
-        return String.format(" treatment.start_date between '%s' AND '%s'",
-                from,
-                to);
+        return WHERE_CLAUSE + StringUtils.join(predicates, " AND");
     }
 }

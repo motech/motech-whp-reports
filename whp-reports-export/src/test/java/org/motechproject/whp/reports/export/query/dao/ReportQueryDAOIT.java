@@ -29,17 +29,21 @@ public class ReportQueryDAOIT {
     @Autowired
     PatientRepository patientRepository;
 
+    PatientReportRequest patientReportRequest;
+
     Patient patient;
 
     @Before
     public void setUp() {
         patient = new PatientBuilder().withDefaults().withPatientId("patient").build();
         patientRepository.save(patient);
+        patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
     }
 
     @Test
     public void shouldReturnPatientSummaries() {
-        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(new PatientReportRequest());
+        List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
 
         assertEquals(1, patientList.size());
 
@@ -96,6 +100,7 @@ public class ReportQueryDAOIT {
         PatientReportRequest patientReportRequest = new PatientReportRequest();
         patientReportRequest.setFrom("10/12/2012");
         patientReportRequest.setTo("31/12/2012");
+        patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
         List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
 
         assertEquals(1, patientList.size());
