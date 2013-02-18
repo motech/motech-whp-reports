@@ -55,7 +55,7 @@ CREATE TABLE whp_reports.patient_treatment (
     tb_id varchar(30),
     start_date date,
     end_date date,
-    treatment_outcome varchar(30),
+    treatment_outcome varchar(100),
     patient_type varchar(30),
     tb_registration_no varchar(30),
     pretreatment_result varchar(30),
