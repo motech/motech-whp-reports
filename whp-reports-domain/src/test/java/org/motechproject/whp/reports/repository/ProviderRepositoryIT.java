@@ -1,6 +1,5 @@
 package org.motechproject.whp.reports.repository;
 
-import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,22 +34,26 @@ public class ProviderRepositoryIT extends IntegrationTest {
         provider = new Provider();
         provider.setProviderId(providerId);
         provider.setDistrict("district");
-        provider.setPrimaryMobile("primaryMobile");
+        provider.setPrimaryMobile("primary");
+        provider.setSecondaryMobile("secondary");
+        provider.setTertiaryMobile("tertiary");
     }
 
     @Test
     public void shouldCreateProvider() {
         providerRepository.save(provider);
-        final Long providerId = provider.getId();
+        final Long id = provider.getId();
 
-        assertNotNull(providerId);
+        assertNotNull(id);
 
         transactionTemplate.execute(new TransactionCallback() {
             public Object doInTransaction(TransactionStatus status) {
-                Provider providerFromDB = providerRepository.findOne(providerId);
-                Assert.assertNotNull(providerFromDB.getProviderId());
-                Assert.assertNotNull(providerFromDB.getDistrict());
-                Assert.assertNotNull(providerFromDB.getPrimaryMobile());
+                Provider providerFromDB = providerRepository.findOne(id);
+                assertEquals(provider.getProviderId(), providerFromDB.getProviderId());
+                assertEquals(provider.getDistrict(),providerFromDB.getDistrict());
+                assertEquals(provider.getPrimaryMobile(),providerFromDB.getPrimaryMobile());
+                assertEquals(provider.getSecondaryMobile(),providerFromDB.getSecondaryMobile());
+                assertEquals(provider.getTertiaryMobile(),providerFromDB.getTertiaryMobile());
                 return null;
             }
         });
@@ -62,7 +65,7 @@ public class ProviderRepositoryIT extends IntegrationTest {
         providerRepository.save(provider);
         Provider providerFromDB = providerRepository.findByProviderId(providerId);
 
-        Assert.assertNotNull(providerId);
+        assertNotNull(providerId);
         assertEquals(provider.getId(), providerFromDB.getId());
     }
 
