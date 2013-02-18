@@ -40,7 +40,6 @@ public class PatientRepositoryIT  extends IntegrationTest {
         final Long patientId = patient.getId();
         assertNotNull(patientId);
 
-
         transactionTemplate.execute(new TransactionCallback() {
             public Object doInTransaction(TransactionStatus status) {
                 Patient patientFromDB = patientRepository.findOne(patientId);
