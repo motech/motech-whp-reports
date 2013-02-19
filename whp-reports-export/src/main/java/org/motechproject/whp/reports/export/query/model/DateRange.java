@@ -28,13 +28,11 @@ public class DateRange {
             return;
         }
 
-
         if (validFromDate) {
             this.from = parseDate(strFrom);
             this.to = this.from.plusDays(180);
             return;
         }
-
 
         if (validToDate) {
             this.to = parseDate(strTo);
