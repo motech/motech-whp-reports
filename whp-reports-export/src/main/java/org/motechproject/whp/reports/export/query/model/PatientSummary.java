@@ -23,6 +23,8 @@ public class PatientSummary {
     private String patientType;
     private Integer ipPillsTaken;
     private Integer ipTotalDoses;
+    private Integer eipPillsTaken;
+    private Integer eipTotalDoses;
     private Integer cpPillsTaken;
     private Integer cpTotalDoses;
     private Integer cumulativeMissedDoses;
@@ -36,7 +38,19 @@ public class PatientSummary {
     }
 
     public String getIpTreatmentProgress() {
-        return doseCompletionMessage(ipTotalDoses, ipPillsTaken);
+        int totalDoseCount = 0;
+        int totalDoseTakenCount = 0;
+
+        if (eipTotalDoses == null || eipPillsTaken == null){
+            totalDoseCount = ipTotalDoses;
+            totalDoseTakenCount = ipPillsTaken;
+        }
+        else {
+            totalDoseCount = ipTotalDoses + eipTotalDoses;
+            totalDoseTakenCount = ipPillsTaken + eipPillsTaken;
+        }
+
+        return doseCompletionMessage(totalDoseCount, totalDoseTakenCount);
     }
 
     public String getCpTreatmentProgress() {

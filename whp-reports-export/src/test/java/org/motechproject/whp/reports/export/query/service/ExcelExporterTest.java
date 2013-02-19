@@ -45,6 +45,8 @@ public class ExcelExporterTest {
         patientSummary.setPatientType("patientType");
         patientSummary.setIpPillsTaken(12);
         patientSummary.setIpTotalDoses(16);
+        patientSummary.setEipPillsTaken(3);
+        patientSummary.setEipTotalDoses(4);
         patientSummary.setCpPillsTaken(13);
         patientSummary.setCpTotalDoses(16);
         patientSummary.setCumulativeMissedDoses(1);
@@ -83,7 +85,7 @@ public class ExcelExporterTest {
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.K, 9), workbook).getNumericCellValue(), is(equalTo((double) 1)));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.N, 9), workbook).getStringCellValue(), is(equalTo("disease class")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.O, 9), workbook).getStringCellValue(), is(equalTo("patientType")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.P, 9), workbook).getStringCellValue(), is(equalTo("12/16 (75.00%)")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.P, 9), workbook).getStringCellValue(), is(equalTo("15/20 (75.00%)")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.Q, 9), workbook).getStringCellValue(), is(equalTo("13/16 (81.25%)")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.R, 9), workbook).getNumericCellValue(), is(equalTo((double) 1)));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.S, 9), workbook).getStringCellValue(), is(equalTo("treatmentOutcome")));

@@ -27,8 +27,10 @@ public class PatientSummaryTest {
     public void shouldReturnGetIpTreatmentProgress(){
         patientSummary.setIpPillsTaken(12);
         patientSummary.setIpTotalDoses(14);
+        patientSummary.setEipPillsTaken(3);
+        patientSummary.setEipTotalDoses(5);
 
-        assertThat(patientSummary.getIpTreatmentProgress(), is("12/14 (85.71%)"));
+        assertThat(patientSummary.getIpTreatmentProgress(), is("15/19 (78.95%)"));
 
     }
 
@@ -38,6 +40,17 @@ public class PatientSummaryTest {
         patientSummary.setCpTotalDoses(15);
 
         assertThat(patientSummary.getCpTreatmentProgress(), is("12/15 (80.00%)"));
+
+    }
+
+    @Test
+    public void shouldNotAddEipIPIfEipDetailsIsNull(){
+        patientSummary.setIpPillsTaken(12);
+        patientSummary.setIpTotalDoses(14);
+        patientSummary.setEipPillsTaken(null);
+        patientSummary.setEipTotalDoses(null);
+
+        assertThat(patientSummary.getIpTreatmentProgress(), is("12/14 (85.71%)"));
 
     }
     
