@@ -12,8 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AdherenceAuditLogService {
 
-    private final AdherenceAuditLogMapper adherenceAuditLogMapper;
-    private final AdherenceAuditLogRepository adherenceAuditLogRepository;
+    private AdherenceAuditLogMapper adherenceAuditLogMapper;
+    private AdherenceAuditLogRepository adherenceAuditLogRepository;
+
+    AdherenceAuditLogService() {
+    }
 
     @Autowired
     public AdherenceAuditLogService(AdherenceAuditLogMapper adherenceAuditLogMapper, AdherenceAuditLogRepository adherenceAuditLogRepository) {
