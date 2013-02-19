@@ -1,20 +1,24 @@
 package org.motechproject.whp.reports.mapper;
 
-import org.joda.time.DateTime;
+import org.junit.Test;
 import org.motechproject.whp.reports.contract.adherence.AdherenceAuditLogDTO;
+import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import static org.junit.Assert.assertEquals;
 
 public class AdherenceAuditLogMapperTest {
 
-    AdherenceAuditLogMapper adherenceAuditLogMapper;
-/*
+    AdherenceAuditLogMapper adherenceAuditLogMapper = new AdherenceAuditLogMapper();
 
     @Test
     public void shouldMapAdherenceAuditLogDTOToAdherenceAuditLog() {
         AdherenceAuditLogDTO adherenceAuditLogDTO = new AdherenceAuditLogDTO();
-      //  AdherenceAuditLog adherenceAuditLog = new AdherenceAuditLog();
 
         createAdherenceAuditLog(adherenceAuditLogDTO);
-        adherenceAuditLogMapper.map(adherenceAuditLogDTO, adherenceAuditLog);
+        AdherenceAuditLog adherenceAuditLog = adherenceAuditLogMapper.map(adherenceAuditLogDTO);
 
         assertEquals(adherenceAuditLogDTO.getCreationTime(), adherenceAuditLog.getCreationTime());
         assertEquals(adherenceAuditLogDTO.getUserId(), adherenceAuditLog.getUserId());
@@ -27,16 +31,16 @@ public class AdherenceAuditLogMapperTest {
         assertEquals(adherenceAuditLogDTO.getNumberOfDosesTaken(), adherenceAuditLog.getNumberOfDosesTaken());
 
     }
-*/
 
     private void createAdherenceAuditLog(AdherenceAuditLogDTO adherenceAuditLogDTO) {
         adherenceAuditLogDTO.setPatientId("patientId");
         adherenceAuditLogDTO.setProviderId("providerId");
-        adherenceAuditLogDTO.setCreationTime(new DateTime());
-        adherenceAuditLogDTO.setDoseDate(new DateTime());
+        long currentTime = System.currentTimeMillis();
+        adherenceAuditLogDTO.setCreationTime(new Timestamp(currentTime));
+        adherenceAuditLogDTO.setDoseDate(new Date(currentTime));
         adherenceAuditLogDTO.setNumberOfDosesTaken(2);
         adherenceAuditLogDTO.setPillStatus("pillStatus");
-        adherenceAuditLogDTO.setSourceOfChange("channel");
+        adherenceAuditLogDTO.setChannel("channel");
         adherenceAuditLogDTO.setTbId("tbId");
         adherenceAuditLogDTO.setUserId("userId");
     }
