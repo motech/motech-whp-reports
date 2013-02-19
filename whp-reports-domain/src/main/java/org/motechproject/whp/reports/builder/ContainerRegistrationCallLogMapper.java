@@ -3,11 +3,10 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallDetailsLogRequest;
 import org.motechproject.whp.reports.contract.ContainerVerificationLogRequest;
 import org.motechproject.whp.reports.contract.ProviderVerificationLogRequest;
+import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import java.sql.Timestamp;
 
 @Component
 public class ContainerRegistrationCallLogMapper {
-    private final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(DATE_TIME_FORMAT);
     private ContainerRegistrationCallLogRepository containerRegistrationCallLogRepository;
 
     @Autowired
@@ -81,7 +78,7 @@ public class ContainerRegistrationCallLogMapper {
     }
 
     private java.util.Date toDate(String date) {
-        return dateTimeFormatter.parseDateTime(date).toDate();
+        return WHPDateTime.datetime(date).date().toDate();
     }
 
     private Timestamp getDateTimeIfNotNull(DateTime dateTime) {
