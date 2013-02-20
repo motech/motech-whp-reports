@@ -1,8 +1,13 @@
 package org.motechproject.whp.reports.date;
 
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Test;
 import org.motechproject.model.DayOfWeek;
+import org.motechproject.util.DateUtil;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
@@ -20,5 +25,19 @@ public class WHPDateTimeTest {
         assertNull(WHPDateTime.timestamp(null));
         assertNull(WHPDateTime.timestamp(""));
         assertNull(WHPDateTime.timestamp(" "));
+    }
+
+    @Test
+    public void shouldConvertToSQLDate() {
+        DateTime now = DateUtil.now();
+        long currentTimeInMillis = now.getMillis();
+        Assert.assertEquals(new Date(currentTimeInMillis), WHPDateTime.toSqlDate(now));
+    }
+
+    @Test
+    public void shouldConvertToSQLTimestamp() {
+        DateTime now = DateUtil.now();
+        long currentTimeInMillis = now.getMillis();
+        Assert.assertEquals(new Timestamp(currentTimeInMillis), WHPDateTime.toSqlTimestamp(now));
     }
 }

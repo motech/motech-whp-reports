@@ -61,4 +61,16 @@ public class WHPDateTime {
         }
         return datetime(time).time();
     }
+
+    public static java.sql.Date toSqlDate(DateTime dateTime) {
+        if(dateTime == null)
+            return null;
+        return new java.sql.Date(dateTime.toDate().getTime());
+    }
+
+    public static Timestamp toSqlTimestamp(DateTime dateTime) {
+        if(dateTime == null)
+            return null;
+        return new Timestamp(dateTime.toDate().getTime());
+    }
 }
