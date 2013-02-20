@@ -1,5 +1,5 @@
 CREATE TABLE whp_reports.adherence_audit_log (
-    audit_log_id bigserial NOT NULL,
+    audit_log_id bigserial NOT NULL UNIQUE,
     patient_id varchar(32),
     provider_id varchar(30),
     tb_id varchar(30),

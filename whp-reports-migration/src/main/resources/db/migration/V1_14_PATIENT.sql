@@ -1,5 +1,5 @@
 CREATE TABLE whp_reports.patient (
-    patient_pk bigserial NOT NULL,
+    patient_pk bigserial NOT NULL UNIQUE ,
     patient_id varchar(32) UNIQUE,
     patient_alert_fk integer,
     patient_address_fk integer,
@@ -13,7 +13,7 @@ CREATE TABLE whp_reports.patient (
 );
 
 CREATE TABLE whp_reports.patient_therapy (
-    therapy_pk bigserial NOT NULL,
+    therapy_pk bigserial NOT NULL UNIQUE ,
     patient_fk integer,
     therapy_id varchar(32),
 
@@ -48,7 +48,7 @@ CREATE TABLE whp_reports.patient_therapy (
 );
 
 CREATE TABLE whp_reports.patient_treatment (
-    treatment_pk bigserial NOT NULL,
+    treatment_pk bigserial NOT NULL UNIQUE ,
     therapy_fk integer,
     provider_id varchar(30),
     provider_district varchar(30),
@@ -68,7 +68,7 @@ CREATE TABLE whp_reports.patient_treatment (
 );
 
 CREATE TABLE whp_reports.patient_alert (
-    alert_pk bigserial NOT NULL,
+    alert_pk bigserial NOT NULL UNIQUE,
     missed_doses integer,
     missed_doses_severity integer,
     missed_doses_as_of date,
@@ -81,7 +81,7 @@ CREATE TABLE whp_reports.patient_alert (
 );
 
 CREATE TABLE whp_reports.patient_address (
-    address_pk bigserial NOT NULL,
+    address_pk bigserial NOT NULL UNIQUE,
     location varchar(100),
     landmark varchar(100),
     block varchar(100),
