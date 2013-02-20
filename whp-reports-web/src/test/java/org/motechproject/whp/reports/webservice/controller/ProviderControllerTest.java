@@ -9,9 +9,9 @@ import org.springframework.http.MediaType;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class ProviderControllerTest extends ControllerTest{
 
@@ -32,7 +32,7 @@ public class ProviderControllerTest extends ControllerTest{
         String requestJSON = getJSON(providerDTO);
 
         standaloneSetup(providerController).build()
-                .perform(post("/provider/update").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/provider/update").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         verify(providerService).save(providerDTO);

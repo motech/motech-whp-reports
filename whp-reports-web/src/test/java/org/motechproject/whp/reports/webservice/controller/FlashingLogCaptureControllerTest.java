@@ -15,9 +15,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class FlashingLogCaptureControllerTest extends ControllerTest{
 
@@ -44,7 +44,7 @@ public class FlashingLogCaptureControllerTest extends ControllerTest{
 
         String requestJson = getJSON(flashingLogRequest);
         standaloneSetup(controller).build()
-                .perform(post("/flashingLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/flashingLog/measure").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(flashingLogService).save(domainMapper.buildFlashingRequestLog(flashingLogRequest));
     }
@@ -57,7 +57,7 @@ public class FlashingLogCaptureControllerTest extends ControllerTest{
         doThrow(new RuntimeException()).when(flashingLogService).save(any(FlashingLog.class));
         standaloneSetup(controller).build()
                 .perform(post("/flashingLog/measure")
-                        .body(requestJson.getBytes())
+                        .content(requestJson.getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());

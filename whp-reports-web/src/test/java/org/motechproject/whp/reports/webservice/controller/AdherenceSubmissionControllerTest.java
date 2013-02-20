@@ -9,9 +9,9 @@ import org.springframework.http.MediaType;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class AdherenceSubmissionControllerTest extends ControllerTest {
 
@@ -34,7 +34,7 @@ public class AdherenceSubmissionControllerTest extends ControllerTest {
         String requestJson = getJSON(request);
 
         standaloneSetup(controller).build()
-                .perform(post("/adherencesubmission/request").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/adherencesubmission/request").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(providerReminderCallLogService).updateAdherenceStatus(request);
     }

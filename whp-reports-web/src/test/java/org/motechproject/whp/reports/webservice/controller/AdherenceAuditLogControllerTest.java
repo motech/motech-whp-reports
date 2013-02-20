@@ -6,12 +6,12 @@ import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.adherence.AdherenceAuditLogDTO;
 import org.motechproject.whp.reports.service.AdherenceAuditLogService;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AdherenceAuditLogControllerTest extends ControllerTest{
 
@@ -33,8 +33,8 @@ public class AdherenceAuditLogControllerTest extends ControllerTest{
 
         String requestJSON = getJSON(adherenceAuditLogDTO);
 
-        standaloneSetup(adherenceAuditLogController).build()
-                .perform(post("/adherence/auditlog").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+        MockMvcBuilders.standaloneSetup(adherenceAuditLogController).build()
+                .perform(post("/adherence/auditlog").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         verify(adherenceAuditLogService).save(adherenceAuditLogDTO);

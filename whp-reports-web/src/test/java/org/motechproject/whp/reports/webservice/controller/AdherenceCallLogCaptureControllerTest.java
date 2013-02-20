@@ -16,9 +16,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
 
@@ -46,7 +46,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
 
         String requestJson = getJSON(callLogRequest);
         standaloneSetup(controller).build()
-                .perform(post("/adherenceCallLog/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/adherenceCallLog/measure").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(callLogService).save(domainMapper.mapAdherenceCallLog(callLogRequest));
     }
@@ -69,7 +69,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
 
         String requestJson = getJSON(request);
         standaloneSetup(controller).build()
-                .perform(post("/adherenceCallLog/status/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/adherenceCallLog/status/measure").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(callLogService).save(domainMapper.mapAdherenceCallLog(request.toCallLogRequest()));
     }
@@ -82,7 +82,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
         doThrow(new RuntimeException()).when(callLogService).save(any(AdherenceCallLog.class));
         standaloneSetup(controller).build()
                 .perform(post("/adherenceCallLog/measure")
-                        .body(requestJson.getBytes())
+                        .content(requestJson.getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
@@ -94,7 +94,7 @@ public class AdherenceCallLogCaptureControllerTest extends ControllerTest {
 
         String requestJson = getJSON(invalidRequest);
         standaloneSetup(controller).build()
-                .perform(post("/adherenceCallLog/status/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/adherenceCallLog/status/measure").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 }

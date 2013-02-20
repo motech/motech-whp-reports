@@ -13,9 +13,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class AdherenceCaptureControllerTest extends ControllerTest{
 
@@ -39,7 +39,7 @@ public class AdherenceCaptureControllerTest extends ControllerTest{
 
         String requestJson = getJSON(request);
         standaloneSetup(controller).build()
-                .perform(post("/adherence/measure").body(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/adherence/measure").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         verify(adherenceSubmissionService).save(domainMapper.mapAdherenceSubmission(request));
     }
@@ -53,7 +53,7 @@ public class AdherenceCaptureControllerTest extends ControllerTest{
         doThrow(new RuntimeException()).when(adherenceSubmissionService).save(any(PatientAdherenceSubmission.class));
         standaloneSetup(controller).build()
                 .perform(post("/adherence/measure")
-                        .body(requestJson.getBytes())
+                        .content(requestJson.getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());

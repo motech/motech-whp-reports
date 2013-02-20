@@ -12,9 +12,9 @@ import org.springframework.http.MediaType;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class PatientControllerTest extends ControllerTest{
 
@@ -35,7 +35,7 @@ public class PatientControllerTest extends ControllerTest{
         String requestJSON = getJSON(patientDTO);
 
         standaloneSetup(patientController).build()
-                .perform(post("/patient/update").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/patient/update").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         ArgumentCaptor<PatientDTO> patientDTOArgumentCaptor = ArgumentCaptor.forClass(PatientDTO.class);

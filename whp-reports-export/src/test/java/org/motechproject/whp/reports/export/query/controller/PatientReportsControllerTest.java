@@ -13,9 +13,11 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class PatientReportsControllerTest {
 
@@ -46,7 +48,7 @@ public class PatientReportsControllerTest {
                         .param("to", patientReportRequest.getTo()))
                 .andExpect(status().isOk())
                 .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientSummary.xls"))
-                .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
+                .andExpect(content().contentType(PatientReportsController.APPLICATION_VND_MS_EXCEL));
 
         verify(patientReportBuilder).buildSummaryReport(eq(patientReportRequest), any(OutputStream.class));
     }
@@ -67,7 +69,7 @@ public class PatientReportsControllerTest {
                         .param("to", patientReportRequest.getTo()))
                 .andExpect(status().isOk())
                 .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientRegistrations.xls"))
-                .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
+                .andExpect(content().contentType(PatientReportsController.APPLICATION_VND_MS_EXCEL));
 
         verify(patientReportBuilder).buildRegistrationsReport(eq(patientReportRequest), any(OutputStream.class));
     }
@@ -88,7 +90,7 @@ public class PatientReportsControllerTest {
                         .param("to", patientReportRequest.getTo()))
                 .andExpect(status().isOk())
                 .andExpect(header().string(PatientReportsController.CONTENT_DISPOSITION, "inline; filename=patientClosedTreatments.xls"))
-                .andExpect(content().type(PatientReportsController.APPLICATION_VND_MS_EXCEL));
+                .andExpect(content().contentType(PatientReportsController.APPLICATION_VND_MS_EXCEL));
 
         verify(patientReportBuilder).buildClosedTreatmentsReport(eq(patientReportRequest), any(OutputStream.class));
     }

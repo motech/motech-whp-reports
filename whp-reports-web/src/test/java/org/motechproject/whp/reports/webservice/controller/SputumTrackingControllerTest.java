@@ -11,9 +11,9 @@ import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.springframework.http.MediaType;
 
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class SputumTrackingControllerTest extends ControllerTest{
 
@@ -35,7 +35,7 @@ public class SputumTrackingControllerTest extends ControllerTest{
         String requestJSON = getJSON(containerRegistrationReportingRequest);
 
         standaloneSetup(sputumTrackingController).build()
-                        .perform(post("/sputumTracking/containerRegistrationMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                        .perform(post("/sputumTracking/containerRegistrationMeasure").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk());
     }
 
@@ -46,7 +46,7 @@ public class SputumTrackingControllerTest extends ControllerTest{
         String requestJSON = getJSON(request);
 
         standaloneSetup(sputumTrackingController).build()
-                .perform(post("/sputumTracking/sputumLabResultsMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/sputumTracking/sputumLabResultsMeasure").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -57,7 +57,7 @@ public class SputumTrackingControllerTest extends ControllerTest{
         String requestJSON = getJSON(request);
 
         standaloneSetup(sputumTrackingController).build()
-                .perform(post("/sputumTracking/containerStatusMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/sputumTracking/containerStatusMeasure").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -68,7 +68,7 @@ public class SputumTrackingControllerTest extends ControllerTest{
         String requestJSON = getJSON(request);
 
         standaloneSetup(sputumTrackingController).build()
-                .perform(post("/sputumTracking/containerPatientMappingMeasure").body(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .perform(post("/sputumTracking/containerPatientMappingMeasure").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

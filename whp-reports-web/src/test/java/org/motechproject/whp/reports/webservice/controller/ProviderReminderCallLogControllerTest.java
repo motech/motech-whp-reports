@@ -16,10 +16,10 @@ import static org.junit.internal.matchers.StringContains.containsString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class ProviderReminderCallLogControllerTest extends ControllerTest{
 
@@ -57,7 +57,7 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
         standaloneSetup(controller)
                 .build()
                 .perform(post("/providerReminderCallLog/measure")
-                        .body(getJSON(request).getBytes())
+                        .content(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
@@ -72,7 +72,7 @@ public class ProviderReminderCallLogControllerTest extends ControllerTest{
         standaloneSetup(controller)
                 .build()
                 .perform(post("/providerReminderCallLog/measure")
-                        .body(getJSON(request).getBytes())
+                        .content(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isBadRequest())

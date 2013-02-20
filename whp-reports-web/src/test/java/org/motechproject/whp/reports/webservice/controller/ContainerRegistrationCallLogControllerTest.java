@@ -18,9 +18,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
 
@@ -56,7 +56,7 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
         standaloneSetup(controller)
                 .build()
                 .perform(post("/containerRegistrationCallLog/updateCallDetails")
-                        .body(getJSON(request).getBytes())
+                        .content(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
@@ -77,7 +77,7 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
         standaloneSetup(controller)
                 .build()
                 .perform(post("/containerRegistrationCallLog/providerVerification")
-                        .body(getJSON(request).getBytes())
+                        .content(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
@@ -98,7 +98,7 @@ public class ContainerRegistrationCallLogControllerTest extends ControllerTest {
         standaloneSetup(controller)
                 .build()
                 .perform(post("/containerRegistrationCallLog/containerVerification")
-                        .body(getJSON(request).getBytes())
+                        .content(getJSON(request).getBytes())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
