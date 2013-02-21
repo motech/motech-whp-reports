@@ -22,8 +22,7 @@ public class AdherenceRecordRepositoryIT extends IntegrationTest{
         AdherenceRecord adherenceRecord = createDefaultAdherenceRecord();
         adherenceRecordRepository.save(adherenceRecord);
 
-        AdherenceRecordId adherenceRecordId = new AdherenceRecordId(adherenceRecord.getPatientId(),
-                adherenceRecord.getTherapyId(), adherenceRecord.getPillDate());
+        AdherenceRecordId adherenceRecordId = adherenceRecord.getAdherenceRecordId();
         assertNotNull(adherenceRecordRepository.findOne(adherenceRecordId));
 
         String newDistrict = "newDistrict";
@@ -38,8 +37,7 @@ public class AdherenceRecordRepositoryIT extends IntegrationTest{
         AdherenceRecord adherenceRecord = createDefaultAdherenceRecord();
         adherenceRecordRepository.save(adherenceRecord);
 
-        AdherenceRecordId adherenceRecordId = new AdherenceRecordId(adherenceRecord.getPatientId(),
-                adherenceRecord.getTherapyId(), adherenceRecord.getPillDate());
+        AdherenceRecordId adherenceRecordId = adherenceRecord.getAdherenceRecordId();
         assertNotNull(adherenceRecordRepository.findOne(adherenceRecordId));
 
         adherenceRecord.setPatientId("newPatientId");
@@ -47,8 +45,7 @@ public class AdherenceRecordRepositoryIT extends IntegrationTest{
         adherenceRecordRepository.save(adherenceRecord);
         assertNotNull(adherenceRecordRepository.findOne(adherenceRecordId));
 
-        AdherenceRecordId newAdherenceRecordId = new AdherenceRecordId(adherenceRecord.getPatientId(),
-                adherenceRecord.getTherapyId(), adherenceRecord.getPillDate());
+        AdherenceRecordId newAdherenceRecordId =adherenceRecord.getAdherenceRecordId();
 
         assertNotNull(adherenceRecordRepository.findOne(newAdherenceRecordId));
 
