@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.service;
 
 import org.motechproject.whp.reports.export.query.dao.ReportQueryDAO;
+import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,9 @@ public class ReportQueryService {
 
     public List<PatientSummary> getPatientSummaries(PatientReportRequest patientReportRequest) {
         return reportQueryDAO.getPatientSummaries(patientReportRequest);
+    }
+
+    public List<AdherenceAuditLogSummary> getAdherenceAuditLogSummaries() {
+        return reportQueryDAO.getAdherenceAuditLogSummaries();
     }
 }

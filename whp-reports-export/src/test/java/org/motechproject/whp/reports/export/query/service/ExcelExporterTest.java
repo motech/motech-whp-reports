@@ -4,8 +4,12 @@ import bad.robot.excel.valuetypes.Coordinate;
 import bad.robot.excel.valuetypes.ExcelColumnIndex;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.date.WHPDate;
+import org.motechproject.whp.reports.date.WHPDateTime;
+import org.motechproject.whp.reports.export.query.builder.AdherenceAuditLogReportBuilder;
+import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 
 import java.io.IOException;
@@ -25,6 +29,7 @@ public class ExcelExporterTest {
     private final String summaryReportTemplateFileName = "/xls/templates/patientSummaryReport.xls";
     private final String registrationsReportTemplateFileName = "/xls/templates/patientRegistrationsReport.xls";
     private final String closeTreatmentsReportTemplateFileName = "/xls/templates/patientClosedTreatmentsReport.xls";
+    private final String adherenceAuditLogReportTemplateFileName = "/xls/templates/adherenceAuditLogReport.xls";
 
     @Test
     public void shouldCreateWorkbookForSummaryReport() throws IOException {
@@ -206,6 +211,37 @@ public class ExcelExporterTest {
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.L, 8), workbook).getStringCellValue(), is(equalTo("disease class")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.M, 8), workbook).getStringCellValue(), is(equalTo("patientType")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.O, 8), workbook).getStringCellValue(), is(equalTo("treatmentOutcome")));
+    }
+
+    @Test
+    public void shouldCreateWorkbookForAdherenceAuditLogReport() throws IOException {
+        AdherenceAuditLogSummary adherenceAuditLogSummary = new AdherenceAuditLogSummary();
+        adherenceAuditLogSummary.setPatientId("patientId");
+        adherenceAuditLogSummary.setProviderId("providerId");
+        adherenceAuditLogSummary.setTbId("tbId");
+        adherenceAuditLogSummary.setCreationTime(WHPDateTime.toSqlTimestamp(new DateTime()));
+        adherenceAuditLogSummary.setDoseDate(WHPDateTime.toSqlDate(new DateTime()));
+        adherenceAuditLogSummary.setUserId("userId");
+        adherenceAuditLogSummary.setNumberOfDosesTaken(2);
+        adherenceAuditLogSummary.setPillStatus("Taken");
+        adherenceAuditLogSummary.setSourceOfChange("WEB");
+        adherenceAuditLogSummary.setDistrict("providerDistrict");
+
+        List adherenceAuditLogSummaries = asList(adherenceAuditLogSummary);
+
+        Map params = new HashMap();
+        params.put(AdherenceAuditLogReportBuilder.TEMPLATE_RESULT_KEY, adherenceAuditLogSummaries);
+
+        Workbook workbook = excelExporter.export(adherenceAuditLogReportTemplateFileName, params);
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 1), workbook).getStringCellValue(), is(equalTo("Adherence")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("patientId")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 3), workbook).getStringCellValue(), is(equalTo("tbId")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.C, 3), workbook).getStringCellValue(), is(equalTo("providerId")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.F, 3), workbook).getStringCellValue(), is(equalTo("userId")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.G, 3), workbook).getNumericCellValue(), is(equalTo((double) 2)));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.H, 3), workbook).getStringCellValue(), is(equalTo("Taken")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.I, 3), workbook).getStringCellValue(), is(equalTo("WEB")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.J, 3), workbook).getStringCellValue(), is(equalTo("providerDistrict")));
     }
 
     public static org.apache.poi.ss.usermodel.Cell getCellForCoordinate(Coordinate coordinate, Workbook workbook) throws IOException {

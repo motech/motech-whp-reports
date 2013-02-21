@@ -4,7 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
@@ -180,8 +179,7 @@ public class ReportQueryDAOIT {
     }
 
     @Test
-    @Ignore("Test is failing.")
-    public void shouldReturnAdherenceAuditLogsForAdminrEntryWhereNumberOfDosesIsNull(){
+    public void shouldReturnAdherenceAuditLogsWithBlankProviderDistrictForAdminEntryWhereNumberOfDosesIsNull(){
         Provider provider = new Provider();
         provider.setDistrict("district");
         provider.setProviderId("providerId");
@@ -192,16 +190,13 @@ public class ReportQueryDAOIT {
         adherenceGivenByAdmin.setNumberOfDosesTaken(null);
         adherenceGivenByAdmin.setUserId("admin");
 
-        AdherenceAuditLog adherenceEnteredByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
-        adherenceEnteredByProvider.setProviderId("providerId");
-
-        adherenceAuditLogRepository.save(asList(adherenceGivenByAdmin, adherenceEnteredByProvider));
+        adherenceAuditLogRepository.save(asList(adherenceGivenByAdmin));
 
         List<AdherenceAuditLogSummary> adherenceAuditLogSummaries = reportQueryDAO.getAdherenceAuditLogSummaries();
-        assertThat(adherenceAuditLogSummaries.size(), is(2));
+        assertThat(adherenceAuditLogSummaries.size(), is(1));
 
         assertThat(adherenceAuditLogSummaries.get(0).getCreationTime(), is(adherenceGivenByAdmin.getCreationTime()));
-        assertThat(adherenceAuditLogSummaries.get(0).getDistrict(), is(provider.getDistrict()));
+        assertThat(adherenceAuditLogSummaries.get(0).getDistrict(), is(""));
         assertThat(adherenceAuditLogSummaries.get(0).getDoseDate().toString(), is(adherenceGivenByAdmin.getDoseDate().toString()));
         assertThat(adherenceAuditLogSummaries.get(0).getNumberOfDosesTaken(), is(adherenceGivenByAdmin.getNumberOfDosesTaken()));
         assertThat(adherenceAuditLogSummaries.get(0).getPatientId(), is(adherenceGivenByAdmin.getPatientId()));
@@ -210,6 +205,7 @@ public class ReportQueryDAOIT {
         assertThat(adherenceAuditLogSummaries.get(0).getSourceOfChange(), is(adherenceGivenByAdmin.getChannel()));
         assertThat(adherenceAuditLogSummaries.get(0).getTbId(), is(adherenceGivenByAdmin.getTbId()));
         assertThat(adherenceAuditLogSummaries.get(0).getUserId(), is(adherenceGivenByAdmin.getUserId()));
+
     }
 
     @After

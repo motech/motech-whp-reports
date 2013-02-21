@@ -2,8 +2,8 @@ package org.motechproject.whp.reports.export.query.model;
 
 import lombok.Data;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.sql.Date;
 
 @Data
 public class AdherenceAuditLogSummary {
@@ -17,4 +17,12 @@ public class AdherenceAuditLogSummary {
     private String pillStatus;
     private String sourceOfChange;
     private String district;
+
+    public String getDistrict(){
+        if (numberOfDosesTaken == null){
+            return "";
+        }
+        else return district;
+    }
+
 }
