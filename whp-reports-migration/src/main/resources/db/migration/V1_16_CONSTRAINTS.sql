@@ -1,6 +1,6 @@
 CREATE INDEX provider_district_idx ON whp_reports.patient_treatment (provider_district);
-CREATE INDEX start_date_idx ON whp_reports.patient_treatment (start_date);
-CREATE INDEX end_date_idx ON whp_reports.patient_treatment (end_date);
+CREATE INDEX patient_treatment_start_date_idx ON whp_reports.patient_treatment (start_date);
+CREATE INDEX patient_treatment_end_date_idx ON whp_reports.patient_treatment (end_date);
 
 ALTER TABLE whp_reports.patient_therapy
 ADD CONSTRAINT patient_therapy_fk
