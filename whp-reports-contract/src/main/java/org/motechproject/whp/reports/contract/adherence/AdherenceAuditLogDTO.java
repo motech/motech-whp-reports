@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 
 @Data
 public class AdherenceAuditLogDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String patientId;
     private String providerId;
     private String tbId;
