@@ -43,4 +43,7 @@ public class AdherenceAuditLog {
     @Column(name = "channel")
     private String channel;
 
+    @Column(name="is_given_by_provider")
+    private String isGivenByProvider;
+
 }

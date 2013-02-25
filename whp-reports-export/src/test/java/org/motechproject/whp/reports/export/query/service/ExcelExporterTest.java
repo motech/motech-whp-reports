@@ -226,6 +226,7 @@ public class ExcelExporterTest {
         adherenceAuditLogSummary.setPillStatus("Taken");
         adherenceAuditLogSummary.setSourceOfChange("WEB");
         adherenceAuditLogSummary.setDistrict("providerDistrict");
+        adherenceAuditLogSummary.setIsGivenByProvider("Yes");
 
         List adherenceAuditLogSummaries = asList(adherenceAuditLogSummary);
 
@@ -246,6 +247,7 @@ public class ExcelExporterTest {
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.H, 3), workbook).getStringCellValue(), is(equalTo("Taken")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.I, 3), workbook).getStringCellValue(), is(equalTo("WEB")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.J, 3), workbook).getStringCellValue(), is(equalTo("providerDistrict")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.K, 3), workbook).getStringCellValue(), is(equalTo("Yes")));
     }
 
     public static org.apache.poi.ss.usermodel.Cell getCellForCoordinate(Coordinate coordinate, Workbook workbook) throws IOException {

@@ -19,4 +19,5 @@ public class AdherenceAuditLogDTO implements Serializable {
     private Integer numberOfDosesTaken;
     private String pillStatus;
     private String channel;
+    private String isGivenByProvider;
 }

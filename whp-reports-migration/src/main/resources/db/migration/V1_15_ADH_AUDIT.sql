@@ -8,9 +8,9 @@ CREATE TABLE whp_reports.adherence_audit_log (
     user_id varchar(30),
     doses_taken integer,
     pill_status varchar(20),
-    channel varchar(10)
+    channel varchar(10),
+    is_given_by_provider varchar(3)
 );
-
 
 
 

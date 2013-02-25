@@ -156,6 +156,7 @@ public class ReportQueryDAOIT {
 
         AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceGivenByProvider.setProviderId("providerId");
+        adherenceGivenByProvider.setIsGivenByProvider("Yes");
 
         AdherenceAuditLog adherenceLogFourMonthsAgo = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceLogFourMonthsAgo.setCreationTime(toSqlTimestamp(today.minusMonths(4)));
@@ -178,6 +179,7 @@ public class ReportQueryDAOIT {
         assertThat(adherenceAuditLogSummaries.get(0).getSourceOfChange(), is(adherenceGivenByProvider.getChannel()));
         assertThat(adherenceAuditLogSummaries.get(0).getTbId(), is(adherenceGivenByProvider.getTbId()));
         assertThat(adherenceAuditLogSummaries.get(0).getUserId(), is(adherenceGivenByProvider.getUserId()));
+        assertThat(adherenceAuditLogSummaries.get(0).getIsGivenByProvider(), is(adherenceGivenByProvider.getIsGivenByProvider()));
 
     }
 

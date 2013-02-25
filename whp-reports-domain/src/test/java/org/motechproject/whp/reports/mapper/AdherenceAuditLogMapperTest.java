@@ -29,6 +29,7 @@ public class AdherenceAuditLogMapperTest {
         assertEquals(adherenceAuditLogDTO.getNumberOfDosesTaken(), adherenceAuditLog.getNumberOfDosesTaken());
         assertEquals(adherenceAuditLogDTO.getPillStatus(), adherenceAuditLog.getPillStatus());
         assertEquals(adherenceAuditLogDTO.getNumberOfDosesTaken(), adherenceAuditLog.getNumberOfDosesTaken());
+        assertEquals(adherenceAuditLogDTO.getIsGivenByProvider(), adherenceAuditLog.getIsGivenByProvider());
 
     }
 
@@ -43,5 +44,6 @@ public class AdherenceAuditLogMapperTest {
         adherenceAuditLogDTO.setChannel("channel");
         adherenceAuditLogDTO.setTbId("tbId");
         adherenceAuditLogDTO.setUserId("userId");
+        adherenceAuditLogDTO.setIsGivenByProvider("Yes");
     }
 }

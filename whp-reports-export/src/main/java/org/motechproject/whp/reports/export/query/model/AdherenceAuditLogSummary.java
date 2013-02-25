@@ -16,6 +16,7 @@ public class AdherenceAuditLogSummary {
     private String pillStatus;
     private String sourceOfChange;
     private String district;
+    private String isGivenByProvider;
 
     public Date getCreationTime(){
         return new Date(creationTime.getTime());

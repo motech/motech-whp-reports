@@ -20,6 +20,7 @@ public class AdherenceAuditLogMapper {
         adherenceAuditLog.setDoseDate(adherenceAuditLogDTO.getDoseDate());
         adherenceAuditLog.setCreationTime(adherenceAuditLogDTO.getCreationTime());
         adherenceAuditLog.setNumberOfDosesTaken(adherenceAuditLogDTO.getNumberOfDosesTaken());
+        adherenceAuditLog.setIsGivenByProvider(adherenceAuditLogDTO.getIsGivenByProvider());
 
         return adherenceAuditLog;
     }

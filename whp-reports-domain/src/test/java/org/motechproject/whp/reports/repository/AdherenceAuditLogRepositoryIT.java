@@ -29,6 +29,7 @@ public class AdherenceAuditLogRepositoryIT extends IntegrationTest{
         adherenceAuditLog.setPillStatus("pillStatus");
         adherenceAuditLog.setChannel("channel");
         adherenceAuditLog.setTbId("tbId");
+        adherenceAuditLog.setIsGivenByProvider("Yes");
 
         adherenceAuditLogRepository.save(adherenceAuditLog);
 

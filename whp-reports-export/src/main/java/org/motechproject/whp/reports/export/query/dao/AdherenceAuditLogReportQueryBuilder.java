@@ -8,7 +8,8 @@ public class AdherenceAuditLogReportQueryBuilder {
 
 
     public static final String ADHERENCE_AUDIT_LOG_SQL = "select patient_id, a.provider_id, tb_id, creation_time," +
-            " dose_date, user_id, doses_taken as number_of_doses_taken, pill_status, channel as Source_of_Change, district" +
+            " dose_date, user_id, doses_taken as number_of_doses_taken, pill_status, " +
+            "channel as Source_of_Change, is_given_by_provider, district" +
             " from whp_reports.adherence_audit_log a" +
             " join whp_reports.provider provider on provider.provider_id=a.provider_id " ;
 
