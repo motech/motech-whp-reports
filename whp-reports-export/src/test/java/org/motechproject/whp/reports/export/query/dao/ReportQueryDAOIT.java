@@ -4,7 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
@@ -24,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -166,9 +167,10 @@ public class ReportQueryDAOIT {
         List<AdherenceAuditLogSummary> adherenceAuditLogSummaries = reportQueryDAO.getAdherenceAuditLogSummaries();
         assertThat(adherenceAuditLogSummaries.size(), is(1));
 
-        assertThat(adherenceAuditLogSummaries.get(0).getCreationTime(), is(adherenceGivenByProvider.getCreationTime()));
+        assertThat(adherenceAuditLogSummaries.get(0).getCreationTime(), is(new Date(adherenceGivenByProvider.getCreationTime().getTime())));
         assertThat(adherenceAuditLogSummaries.get(0).getDistrict(), is(provider.getDistrict()));
-        assertThat(adherenceAuditLogSummaries.get(0).getDoseDate().toString(), is(adherenceGivenByProvider.getDoseDate().toString()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        assertThat(formatter.format(adherenceAuditLogSummaries.get(0).getDoseDate()), is(formatter.format(adherenceGivenByProvider.getDoseDate())));
         assertThat(adherenceAuditLogSummaries.get(0).getNumberOfDosesTaken(), is(adherenceGivenByProvider.getNumberOfDosesTaken()));
         assertThat(adherenceAuditLogSummaries.get(0).getPatientId(), is(adherenceGivenByProvider.getPatientId()));
         assertThat(adherenceAuditLogSummaries.get(0).getPillStatus(), is(adherenceGivenByProvider.getPillStatus()));
@@ -179,36 +181,6 @@ public class ReportQueryDAOIT {
 
     }
 
-    @Test
-    @Ignore("Change in requirement. To be implemented later. Ignoring failing test.")
-    public void shouldReturnAdherenceAuditLogsWithBlankProviderDistrictForAdminEntryWhereNumberOfDosesIsNull(){
-        Provider provider = new Provider();
-        provider.setDistrict("district");
-        provider.setProviderId("providerId");
-        providerRepository.save(provider);
-
-        AdherenceAuditLog adherenceGivenByAdmin = new AdherenceAuditLogBuilder().withDefaults().build();
-        adherenceGivenByAdmin.setProviderId("providerId");
-        adherenceGivenByAdmin.setNumberOfDosesTaken(null);
-        adherenceGivenByAdmin.setUserId("admin");
-
-        adherenceAuditLogRepository.save(asList(adherenceGivenByAdmin));
-
-        List<AdherenceAuditLogSummary> adherenceAuditLogSummaries = reportQueryDAO.getAdherenceAuditLogSummaries();
-        assertThat(adherenceAuditLogSummaries.size(), is(1));
-
-        assertThat(adherenceAuditLogSummaries.get(0).getCreationTime(), is(adherenceGivenByAdmin.getCreationTime()));
-        assertThat(adherenceAuditLogSummaries.get(0).getDistrict(), is(""));
-        assertThat(adherenceAuditLogSummaries.get(0).getDoseDate().toString(), is(adherenceGivenByAdmin.getDoseDate().toString()));
-        assertThat(adherenceAuditLogSummaries.get(0).getNumberOfDosesTaken(), is(adherenceGivenByAdmin.getNumberOfDosesTaken()));
-        assertThat(adherenceAuditLogSummaries.get(0).getPatientId(), is(adherenceGivenByAdmin.getPatientId()));
-        assertThat(adherenceAuditLogSummaries.get(0).getPillStatus(), is(adherenceGivenByAdmin.getPillStatus()));
-        assertThat(adherenceAuditLogSummaries.get(0).getProviderId(), is(adherenceGivenByAdmin.getProviderId()));
-        assertThat(adherenceAuditLogSummaries.get(0).getSourceOfChange(), is(adherenceGivenByAdmin.getChannel()));
-        assertThat(adherenceAuditLogSummaries.get(0).getTbId(), is(adherenceGivenByAdmin.getTbId()));
-        assertThat(adherenceAuditLogSummaries.get(0).getUserId(), is(adherenceGivenByAdmin.getUserId()));
-
-    }
 
     @After
     public void tearDown() {

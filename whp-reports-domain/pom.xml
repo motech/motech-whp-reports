@@ -149,7 +149,7 @@
                     <execution>
                         <id>process-resources2</id>
                         <goals>
-                            <goal>clean</goal>
+                            <!--<goal>clean</goal>-->
                             <goal>migrate</goal>
                         </goals>
                         <phase>pre-integration-test</phase>
@@ -187,15 +187,15 @@
                             <target name="init">
                                 <echo message="init db" />
                                 <exec executable="dropdb">
-                                    <arg line="-U postgres whp" />
+                                    <arg line="-h locahost -U postgres whp" />
                                 </exec>
 
                                 <exec executable="createdb">
-                                    <arg line="-U postgres whp" />
+                                    <arg line="-h localhost -U postgres whp" />
                                 </exec>
                                 <echo message="Setting up schema" />
                                 <exec executable="psql">
-                                    <arg line="-U postgres" />
+                                    <arg line="-h localhost -U postgres" />
                                     <arg line="-d whp" />
                                     <arg line="-f ${project.basedir}/../whp-reports-migration/src/main/resources/db/setup/base_setup.sql" />
                                 </exec>

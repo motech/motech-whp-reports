@@ -22,7 +22,7 @@
         <!--Only CMF Admin-->
         <intercept-url pattern="/reports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/patientreports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
-        <intercept-url pattern="/auditreports/**" access="permitAll" requires-channel="any"/>
+        <intercept-url pattern="/auditreports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
 
         <intercept-url pattern="/adherenceCallLog/**" access="permitAll"  requires-channel="any"/>
         <intercept-url pattern="/adherence/**" access="permitAll" requires-channel="any"/>
