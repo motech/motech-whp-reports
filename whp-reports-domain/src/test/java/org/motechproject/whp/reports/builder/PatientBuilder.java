@@ -159,4 +159,24 @@ public class PatientBuilder {
         getCurrentTreatment().setStartDate(toSQLDate(date));
         return this;
     }
+
+    public PatientBuilder withTbRegistrationDate(Date date) {
+        therapy.setStartDate(date);
+        return this;
+    }
+
+    public PatientBuilder withProviderId(String providerId) {
+        getCurrentTreatment().setProviderId(providerId);
+        return this;
+    }
+
+    public PatientBuilder withTreatmentStartDate(Date date) {
+        getCurrentTreatment().setStartDate(date);
+        return this;
+    }
+
+    public PatientBuilder withTreatmentEndDate(Date endDate) {
+        getCurrentTreatment().setEndDate(endDate);
+        return this;
+    }
 }

@@ -69,4 +69,11 @@ public class WHPDate {
 
         return WHPDate.date(timestamp).value();
     }
+
+
+    public static java.sql.Date toSqlDate(LocalDate date) {
+        if(date == null)
+            return null;
+        return new java.sql.Date(date.toDate().getTime());
+    }
 }
