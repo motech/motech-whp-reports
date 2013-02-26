@@ -58,7 +58,7 @@ public class ProviderAdherenceQueryDAO {
     private static final String PROVIDER_ADHERENCE_AUDIT_QUERY = "select provider.provider_id, " +
             "case when exists(select 1 from whp_reports.adherence_audit_log " +
             "where provider.provider_id = adherence_audit_log.user_id " +
-            "and adherence_audit_log.creation_time between ? and ?) " +
+            "and adherence_audit_log.creation_time  -  interval '1 week' between ? and ?) " +
             "then '1' else '0' end as adherence_given " +
             "from whp_reports.provider " +
             "where provider.district = ? and exists( " +

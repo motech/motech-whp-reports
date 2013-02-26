@@ -157,8 +157,8 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
 
     @Test
     public void shouldReturnAdherenceAuditStatusForGivenDistrictAndWeek() {
-        AdherenceAuditLog auditLogForProviderWithAdherence = createAdherenceAuditLog(providerWithAdherence.getProviderId(), WHPDateTime.toSqlTimestamp(new DateTime(2013, 1, 16, 0, 0)));
-        AdherenceAuditLog auditLogForProviderWithoutAdherence = createAdherenceAuditLog(providerWithoutAdherence.getProviderId(), WHPDateTime.toSqlTimestamp(new DateTime(2013, 1, 1, 0, 0)));
+        AdherenceAuditLog auditLogForProviderWithAdherence = createAdherenceAuditLog(providerWithAdherence.getProviderId(), WHPDateTime.toSqlTimestamp(new DateTime(2013, 1, 23, 0, 0)));
+        AdherenceAuditLog auditLogForProviderWithoutAdherence = createAdherenceAuditLog(providerWithoutAdherence.getProviderId(), WHPDateTime.toSqlTimestamp(new DateTime(2013, 1, 8, 0, 0)));
 
         adherenceAuditLogRepository.save(auditLogForProviderWithAdherence);
         adherenceAuditLogRepository.save(auditLogForProviderWithoutAdherence);
