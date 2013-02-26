@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
-@RequestMapping(value = "/providerAdherenceSummary", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/providerAdherenceSummary", produces = APPLICATION_JSON_VALUE)
 public class ProviderAdherenceSummaryController {
 
     private ProviderAdherenceDataService providerAdherenceDataService;

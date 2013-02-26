@@ -45,7 +45,7 @@ public class ProviderAdherenceDataServiceTest extends BaseUnitTest{
         List<ProviderAdherenceSummary> providerAdherenceSummaryList = asList(adherenceSummary);
         String district = "district";
 
-        LocalDate referenceDate = today().minusWeeks(9);
+        LocalDate referenceDate = today().minusWeeks(8);
         TreatmentWeek treatmentWeek = new TreatmentWeek(referenceDate);
 
         when(providerAdherenceQueryDAO.getProviderAdherenceSummaries(district)).thenReturn(providerAdherenceSummaryList);
