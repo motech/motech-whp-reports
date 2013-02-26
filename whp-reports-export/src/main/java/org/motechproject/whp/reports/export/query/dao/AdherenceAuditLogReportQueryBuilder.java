@@ -18,8 +18,11 @@ public class AdherenceAuditLogReportQueryBuilder {
 
     public static final String WHERE_CLAUSE = "where ";
 
+    public static final String ORDER_BY = "order by creation_time DESC ";
+    public static final String LIMIT = "LIMIT 65000";
+
 
     public String build() {
-        return ADHERENCE_AUDIT_LOG_SQL + WHERE_CLAUSE + LIMIT_TO_THREE_MONTHS;
+        return ADHERENCE_AUDIT_LOG_SQL + WHERE_CLAUSE + LIMIT_TO_THREE_MONTHS + ORDER_BY + LIMIT;
     }
 }

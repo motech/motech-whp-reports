@@ -15,6 +15,7 @@ public class AdherenceAuditLogBuilder {
         DateTime today = DateTime.now();
         adherenceAuditLog.setCreationTime(toSqlTimestamp(today));
         adherenceAuditLog.setPatientId("patientId");
+        adherenceAuditLog.setProviderId("providerId");
         adherenceAuditLog.setUserId("user");
         adherenceAuditLog.setDoseDate(toSqlDate(today));
         adherenceAuditLog.setNumberOfDosesTaken(2);

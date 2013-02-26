@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
 import org.motechproject.whp.reports.builder.PatientBuilder;
+import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
 import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.domain.patient.Patient;
@@ -75,7 +76,7 @@ public class ReportQueryDAOIT {
         assertEquals(patient.getPatientId(), summary.getPatientId());
         Treatment treatment = therapy.getTreatments().get(0);
         assertEquals(treatment.getTbId(), summary.getTbId());
-        assertEquals(treatment.getProviderId() , summary.getProviderId());
+        assertEquals(treatment.getProviderId(), summary.getProviderId());
         assertEquals(patient.getPatientAddress().getVillage(), summary.getVillage());
         assertEquals(treatment.getProviderDistrict(), summary.getProviderDistrict());
         assertEquals(therapy.getTreatmentCategory(), summary.getTreatmentCategory());
@@ -147,7 +148,7 @@ public class ReportQueryDAOIT {
     }
 
     @Test
-    public void shouldReturnAdherenceAuditLogsForThreeMonths(){
+    public void shouldReturnAdherenceAuditLogsForThreeMonths() {
         DateTime today = DateTime.now();
         Provider provider = new Provider();
         provider.setDistrict("district");
@@ -155,12 +156,10 @@ public class ReportQueryDAOIT {
         providerRepository.save(provider);
 
         AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
-        adherenceGivenByProvider.setProviderId("providerId");
         adherenceGivenByProvider.setIsGivenByProvider("Yes");
 
         AdherenceAuditLog adherenceLogFourMonthsAgo = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceLogFourMonthsAgo.setCreationTime(toSqlTimestamp(today.minusMonths(4)));
-        adherenceLogFourMonthsAgo.setProviderId("providerId");
         adherenceLogFourMonthsAgo.setDoseDate(toSqlDate(today.minusMonths(1)));
 
         adherenceAuditLogRepository.save(asList(adherenceGivenByProvider, adherenceLogFourMonthsAgo));
@@ -183,11 +182,46 @@ public class ReportQueryDAOIT {
 
     }
 
+    @Test
+    public void shouldOrderRecordsByCreationTime() {
+
+        Provider provider = new Provider();
+        provider.setDistrict("district");
+        provider.setProviderId("providerId");
+        providerRepository.save(provider);
+
+        DateTime today = DateTime.now();
+        AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
+        adherenceGivenByProvider.setCreationTime(WHPDateTime.toSqlTimestamp(today));
+        adherenceGivenByProvider.setPatientId("patient1");
+
+        AdherenceAuditLog adherenceGivenByAdmin = new AdherenceAuditLogBuilder().withDefaults().build();
+        adherenceGivenByAdmin.setCreationTime(WHPDateTime.toSqlTimestamp(today.minusMinutes(35)));
+        adherenceGivenByAdmin.setPatientId("patient2");
+
+        AdherenceAuditLog adherenceGivenBy4MonthsAgo = new AdherenceAuditLogBuilder().withDefaults().build();
+        adherenceGivenBy4MonthsAgo.setCreationTime(WHPDateTime.toSqlTimestamp(today.minusMonths(4)));
+        adherenceGivenBy4MonthsAgo.setPatientId("patient3");
+
+        AdherenceAuditLog adherenceGivenSameTimeAsPatient1 = new AdherenceAuditLogBuilder().withDefaults().build();
+        adherenceGivenSameTimeAsPatient1.setCreationTime(WHPDateTime.toSqlTimestamp(today.minusMillis(2)));
+        adherenceGivenSameTimeAsPatient1.setPatientId("patient4");
+
+        adherenceAuditLogRepository.save(asList(adherenceGivenByProvider, adherenceGivenByAdmin, adherenceGivenBy4MonthsAgo, adherenceGivenSameTimeAsPatient1));
+
+        List<AdherenceAuditLogSummary> adherenceAuditLogSummaries = reportQueryDAO.getAdherenceAuditLogSummaries();
+        assertThat(adherenceAuditLogSummaries.size(), is(3));
+        assertThat(adherenceAuditLogSummaries.get(0).getPatientId(), is("patient1"));
+        assertThat(adherenceAuditLogSummaries.get(1).getPatientId(), is("patient4"));
+        assertThat(adherenceAuditLogSummaries.get(2).getPatientId(), is("patient2"));
+
+
+    }
 
     @After
     public void tearDown() {
-        patientRepository.deleteAll();
-        adherenceAuditLogRepository.deleteAll();
-        providerRepository.deleteAll();
+       patientRepository.deleteAll();
+       adherenceAuditLogRepository.deleteAll();
+       providerRepository.deleteAll();
     }
 }
