@@ -38,7 +38,7 @@ public class AdherenceAuditLogReportsControllerTest {
         standaloneSetup(adherenceAuditLogReportsController).build()
                 .perform(get("/auditreports/adherenceAuditLogReport.xls"))
                         .andExpect(status().isOk())
-                        .andExpect(header().string(AdherenceAuditLogReportsController.CONTENT_DISPOSITION, "inline; filename=adherenceAuditLogReport.xls"))
+                        .andExpect(header().string(AdherenceRecordReportsController.CONTENT_DISPOSITION, "inline; filename=adherenceAuditLogReport.xls"))
                         .andExpect(content().contentType(AdherenceAuditLogReportsController.APPLICATION_VND_MS_EXCEL));
 
         verify(adherenceAuditLogReportBuilder).buildAdherenceAuditLogReport(any(OutputStream.class));

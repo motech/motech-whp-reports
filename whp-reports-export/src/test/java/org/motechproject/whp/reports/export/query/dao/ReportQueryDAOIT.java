@@ -6,18 +6,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
 import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
+import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
 import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
 import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
+import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.motechproject.whp.reports.repository.AdherenceAuditLogRepository;
+import org.motechproject.whp.reports.repository.AdherenceRecordRepository;
 import org.motechproject.whp.reports.repository.PatientRepository;
 import org.motechproject.whp.reports.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +51,14 @@ public class ReportQueryDAOIT {
     AdherenceAuditLogRepository adherenceAuditLogRepository;
     @Autowired
     ProviderRepository providerRepository;
+    @Autowired
+    AdherenceRecordRepository adherenceRecordRepository;
 
     PatientReportRequest patientReportRequest;
 
     Patient patient;
+
+    public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     @Before
     public void setUp() {
@@ -169,7 +177,7 @@ public class ReportQueryDAOIT {
 
         assertThat(adherenceAuditLogSummaries.get(0).getCreationTime(), is(new Date(adherenceGivenByProvider.getCreationTime().getTime())));
         assertThat(adherenceAuditLogSummaries.get(0).getDistrict(), is(provider.getDistrict()));
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
         assertThat(formatter.format(adherenceAuditLogSummaries.get(0).getDoseDate()), is(formatter.format(adherenceGivenByProvider.getDoseDate())));
         assertThat(adherenceAuditLogSummaries.get(0).getNumberOfDosesTaken(), is(adherenceGivenByProvider.getNumberOfDosesTaken()));
         assertThat(adherenceAuditLogSummaries.get(0).getPatientId(), is(adherenceGivenByProvider.getPatientId()));
@@ -218,10 +226,60 @@ public class ReportQueryDAOIT {
 
     }
 
+    @Test
+    public void shouldReturnAdherenceRecords() {
+
+        // test order by
+        java.sql.Date pillDate = toSqlDate(DateUtil.now());
+        AdherenceRecord adherenceRecord = createAdherenceRecord("patientId", "district", pillDate);
+        adherenceRecordRepository.save(adherenceRecord);
+
+        List<AdherenceRecordSummary> adherenceRecordSummaries = reportQueryDAO.getAdherenceRecordSummaries();
+        assertThat(adherenceRecordSummaries.size(), is(1));
+        assertThat(adherenceRecordSummaries.get(0).getPatientId(), is("patientId"));
+        assertThat(adherenceRecordSummaries.get(0).getTbId(), is("tbId"));
+        assertThat(adherenceRecordSummaries.get(0).getDistrict(), is("district"));
+        assertThat(formatter.format(adherenceRecordSummaries.get(0).getAdherenceDate()), is(formatter.format(pillDate.getTime())));
+        assertThat(adherenceRecordSummaries.get(0).getAdherenceValue(), is("Taken"));
+
+    }
+
+    @Test
+    public void shouldOrderAdherenceRecordsByPillDateAndLimitToThreeMonths() {
+
+        DateTime now = DateUtil.now();
+        AdherenceRecord adherenceRecord1 = createAdherenceRecord("patientId1", "district", toSqlDate(now));
+        AdherenceRecord adherenceRecord2 = createAdherenceRecord("patientId2", "district", toSqlDate(now.plusDays(2)));
+        AdherenceRecord adherenceRecord3 = createAdherenceRecord("patientId3", "district", toSqlDate(now.plusDays(3)));
+        AdherenceRecord adherenceRecord5 = createAdherenceRecord("patientId5", "district", toSqlDate(now.minusMonths(4)));
+
+        adherenceRecordRepository.save(asList(adherenceRecord1, adherenceRecord2, adherenceRecord3, adherenceRecord5));
+
+        List<AdherenceRecordSummary> adherenceRecordSummaries = reportQueryDAO.getAdherenceRecordSummaries();
+        assertThat(adherenceRecordSummaries.size(), is(3));
+        assertThat(adherenceRecordSummaries.get(0).getPatientId(), is("patientId3"));
+        assertThat(adherenceRecordSummaries.get(1).getPatientId(), is("patientId2"));
+        assertThat(adherenceRecordSummaries.get(2).getPatientId(), is("patientId1"));
+
+    }
+
+
+    private AdherenceRecord createAdherenceRecord(String patientId, String district, java.sql.Date pillDate) {
+        AdherenceRecord adherenceRecord = new AdherenceRecord();
+        adherenceRecord.setDistrict(district);
+        adherenceRecord.setPatientId(patientId);
+        adherenceRecord.setPillDate(pillDate);
+        adherenceRecord.setPillStatus("Taken");
+        adherenceRecord.setTherapyId("therapyId");
+        adherenceRecord.setTbId("tbId");
+        return adherenceRecord;
+    }
+
     @After
     public void tearDown() {
        patientRepository.deleteAll();
        adherenceAuditLogRepository.deleteAll();
        providerRepository.deleteAll();
+       adherenceRecordRepository.deleteAll();
     }
 }

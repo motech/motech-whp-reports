@@ -9,7 +9,9 @@ import org.junit.Test;
 import org.motechproject.whp.reports.date.WHPDate;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.export.query.builder.AdherenceAuditLogReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.AdherenceRecordsReportBuilder;
 import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
+import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class ExcelExporterTest {
     private final String registrationsReportTemplateFileName = "/xls/templates/patientRegistrationsReport.xls";
     private final String closeTreatmentsReportTemplateFileName = "/xls/templates/patientClosedTreatmentsReport.xls";
     private final String adherenceAuditLogReportTemplateFileName = "/xls/templates/adherenceAuditLogReport.xls";
+    private final String adherenceRecordReportTemplateFileName = "/xls/templates/adherenceReport.xls";
 
     @Test
     public void shouldCreateWorkbookForSummaryReport() throws IOException {
@@ -248,6 +251,30 @@ public class ExcelExporterTest {
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.I, 3), workbook).getStringCellValue(), is(equalTo("WEB")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.J, 3), workbook).getStringCellValue(), is(equalTo("providerDistrict")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.K, 3), workbook).getStringCellValue(), is(equalTo("Yes")));
+    }
+
+    @Test
+    public void shouldCreateWorkbookForAdherenceRecordReport() throws IOException {
+        AdherenceRecordSummary adherenceRecordSummary = new AdherenceRecordSummary();
+        adherenceRecordSummary.setDistrict("district");
+        adherenceRecordSummary.setPatientId("patientId");
+        adherenceRecordSummary.setAdherenceDate(WHPDateTime.toSqlDate(new DateTime("2013-02-22")));
+        adherenceRecordSummary.setAdherenceValue("Taken");
+        adherenceRecordSummary.setTbId("tbId");
+
+        List adherenceRecordSummaries = asList(adherenceRecordSummary);
+
+        Map params = new HashMap();
+        params.put(AdherenceRecordsReportBuilder.TEMPLATE_RESULT_KEY, adherenceRecordSummaries);
+
+        Workbook workbook = excelExporter.export(adherenceRecordReportTemplateFileName, params);
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 1), workbook).getStringCellValue(), is(equalTo("Adherence Records")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("patientId")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 3), workbook).getStringCellValue(), is(equalTo("tbId")));
+        //unformatted date time value
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.C, 3), workbook).getNumericCellValue(), is(equalTo(41327.0)));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.D, 3), workbook).getStringCellValue(), is(equalTo("Taken")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.E, 3), workbook).getStringCellValue(), is(equalTo("district")));
     }
 
     public static org.apache.poi.ss.usermodel.Cell getCellForCoordinate(Coordinate coordinate, Workbook workbook) throws IOException {

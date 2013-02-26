@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.export.query.dao.ReportQueryDAO;
 import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
+import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 
@@ -50,5 +51,16 @@ public class ReportQueryServiceTest {
 
         assertEquals(expectedAdherenceAuditLogSummaries, auditLogSummaries);
         verify(reportQueryDAO).getAdherenceAuditLogSummaries();
+    }
+
+    @Test
+    public void shouldReturnListOfAdherenceRecordSummaries() {
+        List expectedAdherenceRecordSummaries = mock(List.class);
+        when(reportQueryDAO.getAdherenceRecordSummaries()).thenReturn(expectedAdherenceRecordSummaries);
+
+        List<AdherenceRecordSummary> adherenceRecordSummaries = reportQueryService.getAdherenceRecordSummaries();
+
+        assertEquals(expectedAdherenceRecordSummaries, adherenceRecordSummaries);
+        verify(reportQueryDAO).getAdherenceRecordSummaries();
     }
 }

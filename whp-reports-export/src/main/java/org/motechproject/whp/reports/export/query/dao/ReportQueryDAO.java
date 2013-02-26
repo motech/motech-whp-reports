@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.dao;
 
 import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
+import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class ReportQueryDAO {
 
     public List<AdherenceAuditLogSummary> getAdherenceAuditLogSummaries() {
         return jdbcTemplate.query(new AdherenceAuditLogReportQueryBuilder().build(), new BeanPropertyRowMapper(AdherenceAuditLogSummary.class));
+    }
+
+    public List<AdherenceRecordSummary> getAdherenceRecordSummaries() {
+        return jdbcTemplate.query(new AdherenceDataReportQueryBuilder().build(), new BeanPropertyRowMapper(AdherenceRecordSummary.class));
     }
 }
