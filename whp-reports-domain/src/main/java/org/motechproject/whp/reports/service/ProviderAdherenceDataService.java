@@ -51,7 +51,7 @@ public class ProviderAdherenceDataService {
     }
 
     private List<AdherenceStatus> getAdherenceStatusesForPast8Weeks(String district) {
-        TreatmentWeek treatmentWeek = new TreatmentWeek(DateUtil.today().minusWeeks(8));
+        TreatmentWeek treatmentWeek = new TreatmentWeek(DateUtil.today().minusWeeks(7));
         List<AdherenceStatus> adherenceStatuses = new ArrayList<>();
         for(int i=0; i < 8; i++){
             adherenceStatuses.addAll(providerAdherenceQueryDAO.getAdherenceGivenStatus(district,
