@@ -9,6 +9,9 @@ public class ProviderAdherenceSummaries {
     private String district;
     private List<ProviderAdherenceSummary> adherenceSummaryList;
 
+    public ProviderAdherenceSummaries() {
+    }
+
     public ProviderAdherenceSummaries(String district, List<ProviderAdherenceSummary> adherenceSummaryList) {
         this.district = district;
         this.adherenceSummaryList = adherenceSummaryList;
