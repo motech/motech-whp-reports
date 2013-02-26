@@ -229,7 +229,7 @@ public class ExcelExporterTest {
         adherenceAuditLogSummary.setPillStatus("Taken");
         adherenceAuditLogSummary.setSourceOfChange("WEB");
         adherenceAuditLogSummary.setDistrict("providerDistrict");
-        adherenceAuditLogSummary.setIsGivenByProvider("Yes");
+        adherenceAuditLogSummary.setIsGivenByProvider("Y");
 
         List adherenceAuditLogSummaries = asList(adherenceAuditLogSummary);
 

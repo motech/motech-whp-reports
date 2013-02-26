@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.model;
 
 import lombok.Data;
+import org.motechproject.whp.reports.contract.enums.YesNo;
 
 import java.util.Date;
 
@@ -20,5 +21,9 @@ public class AdherenceAuditLogSummary {
 
     public Date getCreationTime(){
         return new Date(creationTime.getTime());
+    }
+
+    public String getIsGivenByProvider(){
+        return (isGivenByProvider.equals(YesNo.Yes.code()))? YesNo.Yes.name():YesNo.No.name();
     }
 }

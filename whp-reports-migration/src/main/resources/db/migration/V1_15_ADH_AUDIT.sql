@@ -9,7 +9,7 @@ CREATE TABLE whp_reports.adherence_audit_log (
     doses_taken integer,
     pill_status varchar(20),
     channel varchar(10),
-    is_given_by_provider varchar(3)
+    is_given_by_provider char(1)
 );
 
 

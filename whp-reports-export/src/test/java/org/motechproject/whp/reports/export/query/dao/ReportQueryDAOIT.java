@@ -164,7 +164,7 @@ public class ReportQueryDAOIT {
         providerRepository.save(provider);
 
         AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
-        adherenceGivenByProvider.setIsGivenByProvider("Yes");
+        adherenceGivenByProvider.setIsGivenByProvider("Y");
 
         AdherenceAuditLog adherenceLogFourMonthsAgo = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceLogFourMonthsAgo.setCreationTime(toSqlTimestamp(today.minusMonths(4)));
@@ -186,7 +186,7 @@ public class ReportQueryDAOIT {
         assertThat(adherenceAuditLogSummaries.get(0).getSourceOfChange(), is(adherenceGivenByProvider.getChannel()));
         assertThat(adherenceAuditLogSummaries.get(0).getTbId(), is(adherenceGivenByProvider.getTbId()));
         assertThat(adherenceAuditLogSummaries.get(0).getUserId(), is(adherenceGivenByProvider.getUserId()));
-        assertThat(adherenceAuditLogSummaries.get(0).getIsGivenByProvider(), is(adherenceGivenByProvider.getIsGivenByProvider()));
+        assertThat(adherenceAuditLogSummaries.get(0).getIsGivenByProvider(), is("Yes"));
 
     }
 
@@ -262,7 +262,6 @@ public class ReportQueryDAOIT {
         assertThat(adherenceRecordSummaries.get(2).getPatientId(), is("patientId1"));
 
     }
-
 
     private AdherenceRecord createAdherenceRecord(String patientId, String district, java.sql.Date pillDate) {
         AdherenceRecord adherenceRecord = new AdherenceRecord();
