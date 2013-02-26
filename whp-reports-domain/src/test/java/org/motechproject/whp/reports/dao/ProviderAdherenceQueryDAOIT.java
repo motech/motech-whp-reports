@@ -1,6 +1,8 @@
 package org.motechproject.whp.reports.dao;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,20 +10,27 @@ import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.contract.adherence.ProviderAdherenceSummary;
 import org.motechproject.whp.reports.date.WHPDate;
+import org.motechproject.whp.reports.date.WHPDateTime;
+import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
 import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.domain.patient.Patient;
+import org.motechproject.whp.reports.model.AdherenceStatus;
+import org.motechproject.whp.reports.repository.AdherenceAuditLogRepository;
 import org.motechproject.whp.reports.repository.AdherenceRecordRepository;
 import org.motechproject.whp.reports.repository.PatientRepository;
 import org.motechproject.whp.reports.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
+import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 
 public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
 
@@ -30,6 +39,9 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
 
     @Autowired
     AdherenceRecordRepository adherenceRecordRepository;
+
+    @Autowired
+    AdherenceAuditLogRepository adherenceAuditLogRepository;
 
     @Autowired
     PatientRepository patientRepository;
@@ -42,10 +54,10 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
     private Patient patientWithClosedTreatment;
     private Patient patientWithAdherence;
     private Patient patientWithoutAdherence;
-    private final Date olderPillDate = WHPDate.toSqlDate(new LocalDate(2013, 1, 1));
-    private final Date currentWeekPillDate = WHPDate.toSqlDate(new LocalDate(2013, 1, 24));
-    private final Date currentTreatmentWeekStartDate = WHPDate.toSqlDate(new LocalDate(2013, 1, 20));
-    private final Date currentTreatmentWeekEndDate = WHPDate.toSqlDate(new LocalDate(2013, 1, 26));
+    private final Date olderPillDate = toSqlDate(new LocalDate(2013, 1, 1));
+    private final Date currentWeekPillDate = toSqlDate(new LocalDate(2013, 1, 24));
+    private final Date currentTreatmentWeekStartDate = toSqlDate(new LocalDate(2013, 1, 20));
+    private final Date currentTreatmentWeekEndDate = toSqlDate(new LocalDate(2013, 1, 26));
     private final static String DISTRICT = "district";
     private Provider providerWithoutAdherence;
     private Provider providerWithAdherence;
@@ -66,8 +78,8 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
         providerWithNoActivePatients = createProvider("provider3", DISTRICT);
         providerWithDifferentDistrict = createProvider("provider4", "districtB");
 
-        Date startDate = WHPDate.toSqlDate(new LocalDate(2013, 1, 1));
-        Date endDate = WHPDate.toSqlDate(new LocalDate(2013, 1, 8));
+        Date startDate = toSqlDate(new LocalDate(2013, 1, 1));
+        Date endDate = toSqlDate(new LocalDate(2013, 1, 8));
 
         patientWithoutAdherence = new PatientBuilder()
                 .withDefaults()
@@ -136,11 +148,36 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
 
         List<ProviderAdherenceSummary> providerAdherenceSummaries = providerAdherenceQueryDAO.getProviderAdherenceSummaries(DISTRICT);
 
-        ProviderAdherenceSummary providerWithAdherence = createProviderAdherenceSummary(this.providerWithAdherence, true);
-        ProviderAdherenceSummary providerWithoutAdherence = createProviderAdherenceSummary(this.providerWithoutAdherence, false);
+        ProviderAdherenceSummary expectedProviderWithAdherence = createProviderAdherenceSummary(this.providerWithAdherence, true);
+        ProviderAdherenceSummary expectedProviderWithoutAdherence = createProviderAdherenceSummary(this.providerWithoutAdherence, false);
 
         assertThat(providerAdherenceSummaries.size(), is(2));
-        assertThat(providerAdherenceSummaries, hasItems(providerWithAdherence, providerWithoutAdherence));
+        assertThat(providerAdherenceSummaries, hasItems(expectedProviderWithAdherence, expectedProviderWithoutAdherence));
+    }
+
+    @Test
+    public void shouldReturnAdherenceAuditStatusForGivenDistrictAndWeek() {
+        AdherenceAuditLog auditLogForProviderWithAdherence = createAdherenceAuditLog(providerWithAdherence.getProviderId(), WHPDateTime.toSqlTimestamp(new DateTime(2013, 1, 16, 0, 0)));
+        AdherenceAuditLog auditLogForProviderWithoutAdherence = createAdherenceAuditLog(providerWithoutAdherence.getProviderId(), WHPDateTime.toSqlTimestamp(new DateTime(2013, 1, 1, 0, 0)));
+
+        adherenceAuditLogRepository.save(auditLogForProviderWithAdherence);
+        adherenceAuditLogRepository.save(auditLogForProviderWithoutAdherence);
+
+        List<AdherenceStatus> adherenceGivenStatuses = providerAdherenceQueryDAO.getAdherenceGivenStatus(DISTRICT,
+                toSqlDate(new LocalDate(2013, 1, 13)),
+                toSqlDate(new LocalDate(2013, 1, 19)));
+
+        assertThat(adherenceGivenStatuses.size(), is(2));
+        assertThat(adherenceGivenStatuses, hasItems(new AdherenceStatus(providerWithAdherence.getProviderId(), true),
+                new AdherenceStatus(providerWithoutAdherence.getProviderId(), false)));
+    }
+
+    private AdherenceAuditLog createAdherenceAuditLog(String providerId, Timestamp creationTime) {
+        AdherenceAuditLog auditLog = new AdherenceAuditLog();
+        auditLog.setCreationTime(new Timestamp(creationTime.getTime()));
+        auditLog.setProviderId(providerId);
+        auditLog.setUserId(providerId);
+        return auditLog;
     }
 
     private ProviderAdherenceSummary createProviderAdherenceSummary(Provider provider, boolean adherenceGiven) {
@@ -149,7 +186,7 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
                 provider.getSecondaryMobile(),
                 provider.getTertiaryMobile(),
                 adherenceGiven,
-                null);
+                0);
     }
 
     private AdherenceRecord createAdherenceRecord(String patientId, String providerId,  String district, Date pillDate) {

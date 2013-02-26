@@ -8,7 +8,7 @@ public class ProviderAdherenceSummary {
     public ProviderAdherenceSummary() {
     }
 
-    public ProviderAdherenceSummary(String providerId, String primaryMobile, String secondaryMobile, String tertiaryMobile, boolean adherenceGiven, Integer adherenceMissingWeeks) {
+    public ProviderAdherenceSummary(String providerId, String primaryMobile, String secondaryMobile, String tertiaryMobile, boolean adherenceGiven, int adherenceMissingWeeks) {
         this.providerId = providerId;
         this.primaryMobile = primaryMobile;
         this.secondaryMobile = secondaryMobile;
@@ -22,5 +22,9 @@ public class ProviderAdherenceSummary {
     private String secondaryMobile;
     private String tertiaryMobile;
     private boolean adherenceGiven;
-    private Integer adherenceMissingWeeks;
+    private int adherenceMissingWeeks;
+
+    public void incrementAdherenceMissingWeeks() {
+        adherenceMissingWeeks ++;
+    }
 }

@@ -39,4 +39,8 @@ public class TreatmentWeek {
     public int hashCode() {
         return startDate().hashCode();
     }
+
+    public void moveToNextWeek() {
+        reference = reference.plusWeeks(1);
+    }
 }

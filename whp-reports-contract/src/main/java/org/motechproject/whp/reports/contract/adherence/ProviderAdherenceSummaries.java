@@ -7,6 +7,10 @@ import java.util.List;
 @Data
 public class ProviderAdherenceSummaries {
     private String district;
-    private List<ProviderAdherenceSummary> adherenceGivenList;
-    private List<ProviderAdherenceSummary> adherencePendingList;
+    private List<ProviderAdherenceSummary> adherenceSummaryList;
+
+    public ProviderAdherenceSummaries(String district, List<ProviderAdherenceSummary> adherenceSummaryList) {
+        this.district = district;
+        this.adherenceSummaryList = adherenceSummaryList;
+    }
 }
