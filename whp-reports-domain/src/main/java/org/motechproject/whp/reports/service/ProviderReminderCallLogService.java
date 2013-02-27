@@ -1,9 +1,9 @@
 package org.motechproject.whp.reports.service;
 
 import org.motechproject.whp.reports.contract.AdherenceSubmissionRequest;
+import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.paging.MostRecentProviderReminderCallLog;
-import org.motechproject.whp.reports.domain.paging.ProviderReminderCallLogPageRequest;
 import org.motechproject.whp.reports.repository.ProviderReminderCallLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,12 +44,8 @@ public class ProviderReminderCallLogService {
         if(mostRecentLogForProvider == null)
             return;
 
-        mostRecentLogForProvider.setAdherenceReported(true);
+        mostRecentLogForProvider.setAdherenceReported(YesNo.Yes.code());
         providerReminderCallLogRepository.save(mostRecentLogForProvider);
     }
 
-    public List<ProviderReminderCallLog> getAll(int pageNumber, int pageSize) {
-        ProviderReminderCallLogPageRequest pageRequest = new ProviderReminderCallLogPageRequest(pageNumber, pageSize);
-        return providerReminderCallLogRepository.findAll(pageRequest).getContent();
-    }
 }

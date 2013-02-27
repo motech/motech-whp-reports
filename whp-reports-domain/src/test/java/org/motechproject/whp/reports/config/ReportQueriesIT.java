@@ -15,6 +15,7 @@ public class ReportQueriesIT extends IntegrationTest {
     public void shouldReturnReportQueries() {
         assertNotNull(reportQueries.getAdherenceAuditLogReportQuery());
         assertNotNull(reportQueries.getAdherenceDataReportQuery());
+        assertNotNull(reportQueries.getProviderReminderCallLogQuery());
     }
 
 }

@@ -8,6 +8,8 @@ import org.motechproject.model.DayOfWeek;
 
 import java.sql.Timestamp;
 
+import static org.joda.time.Seconds.secondsBetween;
+
 public class WHPDateTime {
 
     public static final String DATE_TIME_FORMAT = "dd/MM/YYYY HH:mm:ss";
@@ -72,5 +74,17 @@ public class WHPDateTime {
         if(dateTime == null)
             return null;
         return new Timestamp(dateTime.toDate().getTime());
+    }
+
+    public static Integer getDuration(Timestamp startTime, Timestamp endTime) {
+        if(startTime == null)
+            return null;
+        if(endTime == null)
+            return null;
+        return secondsBetween(new DateTime(startTime), new DateTime(endTime)).getSeconds();
+    }
+
+    public static String dayOfWeek(Timestamp timestamp) {
+        return DayOfWeek.getDayOfWeek(new DateTime(timestamp).getDayOfWeek()).name();
     }
 }

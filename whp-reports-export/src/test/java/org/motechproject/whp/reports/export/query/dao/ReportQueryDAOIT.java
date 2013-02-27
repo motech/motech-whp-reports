@@ -6,28 +6,26 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.model.DayOfWeek;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
 import org.motechproject.whp.reports.builder.PatientBuilder;
+import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
 import org.motechproject.whp.reports.domain.dimension.Provider;
+import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
-import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
-import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
-import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
-import org.motechproject.whp.reports.export.query.model.PatientSummary;
-import org.motechproject.whp.reports.repository.AdherenceAuditLogRepository;
-import org.motechproject.whp.reports.repository.AdherenceRecordRepository;
-import org.motechproject.whp.reports.repository.PatientRepository;
-import org.motechproject.whp.reports.repository.ProviderRepository;
+import org.motechproject.whp.reports.export.query.model.*;
+import org.motechproject.whp.reports.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +51,8 @@ public class ReportQueryDAOIT {
     ProviderRepository providerRepository;
     @Autowired
     AdherenceRecordRepository adherenceRecordRepository;
+    @Autowired
+    ProviderReminderCallLogRepository providerReminderCallLogRepository;
 
     PatientReportRequest patientReportRequest;
 
@@ -60,12 +60,15 @@ public class ReportQueryDAOIT {
 
     public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
+    DateTime now ;
     @Before
     public void setUp() {
         patient = new PatientBuilder().withDefaults().withPatientId("patient").build();
         patientRepository.save(patient);
         patientReportRequest = new PatientReportRequest();
         patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
+
+        now = DateTime.now();
     }
 
     @Test
@@ -193,10 +196,7 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldOrderRecordsByCreationTime() {
 
-        Provider provider = new Provider();
-        provider.setDistrict("district");
-        provider.setProviderId("providerId");
-        providerRepository.save(provider);
+        createProvider();
 
         DateTime today = DateTime.now();
         AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
@@ -226,10 +226,16 @@ public class ReportQueryDAOIT {
 
     }
 
+    private void createProvider() {
+        Provider provider = new Provider();
+        provider.setDistrict("district");
+        provider.setProviderId("providerId");
+        providerRepository.save(provider);
+    }
+
     @Test
     public void shouldReturnAdherenceRecords() {
 
-        // test order by
         java.sql.Date pillDate = toSqlDate(DateUtil.now());
         AdherenceRecord adherenceRecord = createAdherenceRecord("patientId", "district", pillDate);
         adherenceRecordRepository.save(adherenceRecord);
@@ -247,7 +253,6 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldOrderAdherenceRecordsByPillDateAndLimitToThreeMonths() {
 
-        DateTime now = DateUtil.now();
         AdherenceRecord adherenceRecord1 = createAdherenceRecord("patientId1", "district", toSqlDate(now));
         AdherenceRecord adherenceRecord2 = createAdherenceRecord("patientId2", "district", toSqlDate(now.plusDays(2)));
         AdherenceRecord adherenceRecord3 = createAdherenceRecord("patientId3", "district", toSqlDate(now.plusDays(3)));
@@ -260,7 +265,49 @@ public class ReportQueryDAOIT {
         assertThat(adherenceRecordSummaries.get(0).getPatientId(), is("patientId3"));
         assertThat(adherenceRecordSummaries.get(1).getPatientId(), is("patientId2"));
         assertThat(adherenceRecordSummaries.get(2).getPatientId(), is("patientId1"));
+    }
 
+    @Test
+    public void shouldReturnProviderReminderCallLogRecords() {
+        createProvider();
+        ProviderReminderCallLog providerReminderCallLog = createProviderReminderCallLog();
+
+        providerReminderCallLogRepository.save(asList(providerReminderCallLog));
+
+        List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO.getProviderReminderCallLogSummaries();
+
+        assertThat(providerReminderCallLogSummaries.size(), is(1));
+        assertThat(providerReminderCallLogSummaries.get(0).getCallId(), is(providerReminderCallLog.getCallId()));
+        assertThat(providerReminderCallLogSummaries.get(0).getAdherenceReportedDisplayText(), is(YesNo.valueFromCode(providerReminderCallLog.getAdherenceReported()).getText()));
+        assertThat(providerReminderCallLogSummaries.get(0).getAttempt(),is(providerReminderCallLog.getAttempt()));
+        assertThat(providerReminderCallLogSummaries.get(0).getAttemptDateTime(),is(providerReminderCallLog.getAttemptTime()));
+        assertThat(providerReminderCallLogSummaries.get(0).getStartDateTime(),is(providerReminderCallLog.getStartTime()));
+        assertThat(providerReminderCallLogSummaries.get(0).getEndDateTime(),is(providerReminderCallLog.getEndTime()));
+        assertThat(providerReminderCallLogSummaries.get(0).getDuration(),is(3));
+        assertThat(providerReminderCallLogSummaries.get(0).getCallAnswered(),is(providerReminderCallLog.getCallAnswered()));
+        assertThat(providerReminderCallLogSummaries.get(0).getReminderType(),is(providerReminderCallLog.getReminderType()));
+        assertThat(providerReminderCallLogSummaries.get(0).getReminderDay(),is(DayOfWeek.Wednesday.name()));
+        assertThat(providerReminderCallLogSummaries.get(0).getProviderId(),is(providerReminderCallLog.getProviderId()));
+        assertThat(providerReminderCallLogSummaries.get(0).getDisconnectionType(),is(providerReminderCallLog.getDisconnectionType()));
+    }
+
+    private ProviderReminderCallLog createProviderReminderCallLog() {
+
+        ProviderReminderCallLog providerReminderCallLog = new ProviderReminderCallLog();
+        providerReminderCallLog.setAdherenceReported("Y");
+        providerReminderCallLog.setAttempt(1);
+
+        providerReminderCallLog.setAttemptTime(new Timestamp(now.getMillis()));
+        providerReminderCallLog.setStartTime(new Timestamp(now.getMillis()));
+        providerReminderCallLog.setEndTime(new Timestamp(now.getMillis() + 3000L));
+        providerReminderCallLog.setCallAnswered("Yes");
+        providerReminderCallLog.setCallId("callId");
+        providerReminderCallLog.setDisconnectionType("type");
+        providerReminderCallLog.setMobileNumber("mobileNumber");
+        providerReminderCallLog.setProviderId("providerId");
+        providerReminderCallLog.setReminderType("reminderType");
+
+        return  providerReminderCallLog;
     }
 
     private AdherenceRecord createAdherenceRecord(String patientId, String district, java.sql.Date pillDate) {
@@ -280,5 +327,6 @@ public class ReportQueryDAOIT {
        adherenceAuditLogRepository.deleteAll();
        providerRepository.deleteAll();
        adherenceRecordRepository.deleteAll();
+       providerReminderCallLogRepository.deleteAll();
     }
 }

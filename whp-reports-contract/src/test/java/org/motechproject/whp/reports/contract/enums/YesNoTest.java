@@ -14,4 +14,11 @@ public class YesNoTest {
         assertNull(YesNo.value(null));
     }
 
+    @Test
+    public void shouldReturnYesNoValueFromCode() {
+        assertEquals(YesNo.Yes, YesNo.valueFromCode("Y"));
+        assertEquals(YesNo.No, YesNo.valueFromCode("N"));
+        assertNull(YesNo.valueFromCode(null));
+    }
+
 }

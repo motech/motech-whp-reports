@@ -23,4 +23,8 @@ public enum YesNo {
     public String code(){
         return code;
     }
+
+    public static YesNo valueFromCode(String str) {
+        return str == null ? null : (Yes.code().equals(str) ? Yes : No);
+    }
 }
