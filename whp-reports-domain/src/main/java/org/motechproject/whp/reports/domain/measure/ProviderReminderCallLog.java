@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.domain.measure;
 
 
 import lombok.Data;
+import org.motechproject.whp.reports.contract.enums.YesNo;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -50,5 +51,5 @@ public class ProviderReminderCallLog {
     private Timestamp attemptTime;
 
     @Column(name = "adherence_reported")
-    private String adherenceReported;
+    private String adherenceReported = YesNo.No.code();
 }
