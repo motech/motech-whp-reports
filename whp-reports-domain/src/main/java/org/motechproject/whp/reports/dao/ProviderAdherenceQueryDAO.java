@@ -38,7 +38,6 @@ public class ProviderAdherenceQueryDAO {
             "where treatment.provider_id = provider.provider_id " +
             "and treatment.is_current_treatment = 'Y' " +
             "and therapy.status != 'Closed' " +
-            "and therapy.start_date <= ? " +
             "and treatment.end_date is  null) " +
             "and provider.district = ?";
 
@@ -51,7 +50,7 @@ public class ProviderAdherenceQueryDAO {
         Date endDate = WHPDate.toSqlDate(treatmentWeekEndDate);
 
         return jdbcTemplate.query(PROVIDER_CURRENT_ADHERENCE_SUMMARY_QUERY,
-                new BeanPropertyRowMapper(ProviderAdherenceSummary.class), startDate, endDate, startDate, district);
+                new BeanPropertyRowMapper(ProviderAdherenceSummary.class), startDate, endDate, district);
     }
 
 
@@ -78,6 +77,6 @@ public class ProviderAdherenceQueryDAO {
     public List<AdherenceStatus> getAdherenceGivenStatus(String district, Date startDate, Date endDate) {
         return jdbcTemplate.query(PROVIDER_ADHERENCE_AUDIT_QUERY,
                 new BeanPropertyRowMapper(AdherenceStatus.class),
-                startDate, endDate, district, startDate, endDate, startDate, endDate);
+                startDate, endDate, district, endDate, endDate, endDate, endDate);
     }
 }
