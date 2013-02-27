@@ -1,5 +1,6 @@
 package org.motechproject.whp.reports.export.query.dao;
 
+import org.motechproject.whp.reports.config.ReportQueries;
 import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
 import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
@@ -17,11 +18,14 @@ public class ReportQueryDAO {
 
     private JdbcTemplate jdbcTemplate;
 
+    ReportQueries reportQueries;
+
     ReportQueryDAO() {
     }
 
     @Autowired
-    public ReportQueryDAO(DataSource dataSource) {
+    public ReportQueryDAO(DataSource dataSource, ReportQueries reportQueries) {
+        this.reportQueries = reportQueries;
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -31,10 +35,10 @@ public class ReportQueryDAO {
     }
 
     public List<AdherenceAuditLogSummary> getAdherenceAuditLogSummaries() {
-        return jdbcTemplate.query(new AdherenceAuditLogReportQueryBuilder().build(), new BeanPropertyRowMapper(AdherenceAuditLogSummary.class));
+        return jdbcTemplate.query(reportQueries.getAdherenceAuditLogReportQuery(), new BeanPropertyRowMapper(AdherenceAuditLogSummary.class));
     }
 
     public List<AdherenceRecordSummary> getAdherenceRecordSummaries() {
-        return jdbcTemplate.query(new AdherenceDataReportQueryBuilder().build(), new BeanPropertyRowMapper(AdherenceRecordSummary.class));
+        return jdbcTemplate.query(reportQueries.getAdherenceDataReportQuery(), new BeanPropertyRowMapper(AdherenceRecordSummary.class));
     }
 }
