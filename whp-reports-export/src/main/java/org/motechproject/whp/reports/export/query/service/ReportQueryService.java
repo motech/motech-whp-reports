@@ -1,10 +1,7 @@
 package org.motechproject.whp.reports.export.query.service;
 
 import org.motechproject.whp.reports.export.query.dao.ReportQueryDAO;
-import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
-import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
-import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
-import org.motechproject.whp.reports.export.query.model.PatientSummary;
+import org.motechproject.whp.reports.export.query.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +32,9 @@ public class ReportQueryService {
 
     public List<AdherenceRecordSummary> getAdherenceRecordSummaries() {
         return reportQueryDAO.getAdherenceRecordSummaries();
+    }
+
+    public List<ProviderReminderCallLogSummary> getProviderReminderCallLogSummaries() {
+        return reportQueryDAO.getProviderReminderCallLogSummaries();
     }
 }

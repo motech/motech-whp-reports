@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.export.query.dao;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.motechproject.testing.utils.BaseUnitTest;
+import org.motechproject.whp.reports.export.query.dao.query.builder.PatientReportsQueryBuilder;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import static junit.framework.Assert.assertEquals;

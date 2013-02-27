@@ -1,5 +1,6 @@
-package org.motechproject.whp.reports.export.query.dao;
+package org.motechproject.whp.reports.export.query.dao.query.builder;
 
+import org.motechproject.whp.reports.export.query.dao.PatientReportType;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 public class PredicateBuilderFactory {

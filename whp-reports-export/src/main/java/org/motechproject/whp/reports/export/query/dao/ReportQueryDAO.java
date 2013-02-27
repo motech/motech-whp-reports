@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.dao;
 
 import org.motechproject.whp.reports.config.ReportQueries;
+import org.motechproject.whp.reports.export.query.dao.query.builder.PatientReportsQueryBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

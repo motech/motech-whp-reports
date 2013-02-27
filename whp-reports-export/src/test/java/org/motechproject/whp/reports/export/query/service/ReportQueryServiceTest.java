@@ -4,10 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.export.query.dao.ReportQueryDAO;
-import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
-import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
-import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
-import org.motechproject.whp.reports.export.query.model.PatientSummary;
+import org.motechproject.whp.reports.export.query.model.*;
 
 import java.util.List;
 
@@ -62,5 +59,16 @@ public class ReportQueryServiceTest {
 
         assertEquals(expectedAdherenceRecordSummaries, adherenceRecordSummaries);
         verify(reportQueryDAO).getAdherenceRecordSummaries();
+    }
+
+    @Test
+    public void shouldProviderReminderCallLogSummaries() {
+        List expectedProviderReminderCallLogSummaries = mock(List.class);
+        when(reportQueryDAO.getProviderReminderCallLogSummaries()).thenReturn(expectedProviderReminderCallLogSummaries);
+
+        List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryService.getProviderReminderCallLogSummaries();
+
+        assertEquals(expectedProviderReminderCallLogSummaries, providerReminderCallLogSummaries);
+        verify(reportQueryDAO).getProviderReminderCallLogSummaries();
     }
 }

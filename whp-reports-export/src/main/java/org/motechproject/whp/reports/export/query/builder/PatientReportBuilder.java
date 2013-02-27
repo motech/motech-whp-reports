@@ -4,7 +4,6 @@ import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.export.query.model.DateRange;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
-import org.motechproject.whp.reports.export.query.service.ExcelExporter;
 import org.motechproject.whp.reports.export.query.service.ReportQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,10 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class PatientReportBuilder extends ReportBuilder {
+public class PatientReportBuilder {
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
-    public static final String GENERATED_ON = "generatedOn";
     public static final String PATIENT_SUMMARY_TEMPLATE_FILE_NAME = "/xls/templates/patientSummaryReport.xls";
     public static final String PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME = "/xls/templates/patientRegistrationsReport.xls";
     public static final String PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME = "/xls/templates/patientClosedTreatmentsReport.xls";
@@ -31,23 +29,24 @@ public class PatientReportBuilder extends ReportBuilder {
     public static final String TOTAL_ROWS = "totalRows";
 
     private final ReportQueryService reportQueryService;
+    private ReportBuilder reportBuilder;
 
     @Autowired
-    public PatientReportBuilder(ReportQueryService reportQueryService, ExcelExporter excelExporter) {
-        super(excelExporter);
+    public PatientReportBuilder(ReportQueryService reportQueryService, ReportBuilder reportBuilder) {
         this.reportQueryService = reportQueryService;
+        this.reportBuilder = reportBuilder;
     }
 
     public void buildSummaryReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        build(outputStream, getReportData(patientReportRequest), PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
+        reportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     public void buildRegistrationsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        build(outputStream, getReportData(patientReportRequest), PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
+        reportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
     }
 
     public void buildClosedTreatmentsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        build(outputStream, getReportData(patientReportRequest), PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
+        reportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
     }
 
     private Map<String, Object> getReportData(PatientReportRequest patientReportRequest) {
@@ -62,7 +61,6 @@ public class PatientReportBuilder extends ReportBuilder {
         DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
 
         params.put(TEMPLATE_RESULT_KEY, patientSummaries);
-        params.put(GENERATED_ON, generatedOn);
         params.put(FROM_DATE, dateRange.getStartDate());
         params.put(TO_DATE, dateRange.getEndDate());
         params.put(PROVIDER_DISTRICT, patientReportRequest.getDistrict());

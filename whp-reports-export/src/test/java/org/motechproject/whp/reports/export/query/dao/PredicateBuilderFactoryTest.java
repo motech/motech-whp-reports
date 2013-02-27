@@ -2,6 +2,9 @@ package org.motechproject.whp.reports.export.query.dao;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.whp.reports.export.query.dao.query.builder.PatientCloseTreatmentPredicateBuilder;
+import org.motechproject.whp.reports.export.query.dao.query.builder.PatientSummaryPredicateBuilder;
+import org.motechproject.whp.reports.export.query.dao.query.builder.PredicateBuilderFactory;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import static junit.framework.Assert.assertEquals;

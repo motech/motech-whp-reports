@@ -1,4 +1,4 @@
-package org.motechproject.whp.reports.export.query.dao;
+package org.motechproject.whp.reports.export.query.dao.query.builder;
 
 import lombok.Data;
 import org.motechproject.whp.reports.export.query.model.DateRange;

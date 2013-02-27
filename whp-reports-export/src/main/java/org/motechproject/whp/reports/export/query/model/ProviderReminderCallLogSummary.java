@@ -18,6 +18,7 @@ public class ProviderReminderCallLogSummary {
     private String adherenceReported;
     private String disconnectionType;
     private Integer attempt;
+    private String district;
 
     public String getReminderDay() {
         return WHPDateTime.dayOfWeek(attemptDateTime);

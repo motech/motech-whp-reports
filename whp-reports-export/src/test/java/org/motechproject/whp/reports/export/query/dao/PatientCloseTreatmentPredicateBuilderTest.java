@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.dao;
 
 import org.junit.Test;
+import org.motechproject.whp.reports.export.query.dao.query.builder.PatientCloseTreatmentPredicateBuilder;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import java.util.List;

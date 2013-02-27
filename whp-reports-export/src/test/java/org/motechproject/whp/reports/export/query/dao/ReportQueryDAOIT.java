@@ -19,6 +19,7 @@ import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
+import org.motechproject.whp.reports.export.query.builder.ReportBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.motechproject.whp.reports.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,9 @@ public class ReportQueryDAOIT {
     AdherenceRecordRepository adherenceRecordRepository;
     @Autowired
     ProviderReminderCallLogRepository providerReminderCallLogRepository;
+    @Autowired
+    ReportBuilder reportBuilder;
+
 
     PatientReportRequest patientReportRequest;
 
@@ -226,12 +230,6 @@ public class ReportQueryDAOIT {
 
     }
 
-    private void createProvider() {
-        Provider provider = new Provider();
-        provider.setDistrict("district");
-        provider.setProviderId("providerId");
-        providerRepository.save(provider);
-    }
 
     @Test
     public void shouldReturnAdherenceRecords() {
@@ -289,6 +287,7 @@ public class ReportQueryDAOIT {
         assertThat(providerReminderCallLogSummaries.get(0).getReminderDay(),is(DayOfWeek.Wednesday.name()));
         assertThat(providerReminderCallLogSummaries.get(0).getProviderId(),is(providerReminderCallLog.getProviderId()));
         assertThat(providerReminderCallLogSummaries.get(0).getDisconnectionType(),is(providerReminderCallLog.getDisconnectionType()));
+        assertThat(providerReminderCallLogSummaries.get(0).getDistrict(),is("district"));
     }
 
     private ProviderReminderCallLog createProviderReminderCallLog() {
@@ -319,6 +318,12 @@ public class ReportQueryDAOIT {
         adherenceRecord.setTherapyId("therapyId");
         adherenceRecord.setTbId("tbId");
         return adherenceRecord;
+    }
+    private void createProvider() {
+        Provider provider = new Provider();
+        provider.setDistrict("district");
+        provider.setProviderId("providerId");
+        providerRepository.save(provider);
     }
 
     @After
