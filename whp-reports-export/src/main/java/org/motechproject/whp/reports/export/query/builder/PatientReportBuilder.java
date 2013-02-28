@@ -29,24 +29,24 @@ public class PatientReportBuilder {
     public static final String TOTAL_ROWS = "totalRows";
 
     private final ReportQueryService reportQueryService;
-    private ReportBuilder reportBuilder;
+    private ExcelReportBuilder excelReportBuilder;
 
     @Autowired
-    public PatientReportBuilder(ReportQueryService reportQueryService, ReportBuilder reportBuilder) {
+    public PatientReportBuilder(ReportQueryService reportQueryService, ExcelReportBuilder excelReportBuilder) {
         this.reportQueryService = reportQueryService;
-        this.reportBuilder = reportBuilder;
+        this.excelReportBuilder = excelReportBuilder;
     }
 
     public void buildSummaryReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        reportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
+        excelReportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     public void buildRegistrationsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        reportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
+        excelReportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
     }
 
     public void buildClosedTreatmentsReport(PatientReportRequest patientReportRequest, OutputStream outputStream) {
-        reportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
+        excelReportBuilder.build(outputStream, getReportData(patientReportRequest), PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
     }
 
     private Map<String, Object> getReportData(PatientReportRequest patientReportRequest) {

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -25,7 +26,7 @@ public class AdherenceAuditLogReportBuilderTest extends BaseUnitTest{
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ReportBuilder reportBuilder;
+    private ExcelReportBuilder excelReportBuilder;
     @Mock
     private OutputStream outputStream;
 
@@ -36,7 +37,7 @@ public class AdherenceAuditLogReportBuilderTest extends BaseUnitTest{
     @Before
     public void setUp() {
         initMocks(this);
-        adherenceAuditLogReportBuilder = new AdherenceAuditLogReportBuilder(reportQueryService, reportBuilder);
+        adherenceAuditLogReportBuilder = new AdherenceAuditLogReportBuilder(reportQueryService, excelReportBuilder);
 
         adherenceAuditLogSummaries = asList(new AdherenceAuditLogSummary());
 
@@ -48,9 +49,14 @@ public class AdherenceAuditLogReportBuilderTest extends BaseUnitTest{
     public void shouldBuildAdherenceAuditLogReport() throws IOException {
         when(reportQueryService.getAdherenceAuditLogSummaries()).thenReturn(adherenceAuditLogSummaries);
 
-        adherenceAuditLogReportBuilder.buildAdherenceAuditLogReport(outputStream);
+        adherenceAuditLogReportBuilder.build(outputStream);
 
         verify(reportQueryService).getAdherenceAuditLogSummaries();
-        verify(reportBuilder).build(outputStream, expectedParams, AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
+        verify(excelReportBuilder).build(outputStream, expectedParams, AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
+    }
+
+    @Test
+    public void shouldReturnAdherenceAuditLogReportName() {
+        assertEquals("adherenceAuditLogReport", adherenceAuditLogReportBuilder.getReportName());
     }
 }

@@ -11,20 +11,20 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class AdherenceAuditLogReportBuilder {
+public class AdherenceAuditLogReportBuilder implements ReportBuilder {
     public static final String ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME = "/xls/templates/adherenceAuditLogReport.xls";
 
     private ReportQueryService reportQueryService;
-    private ReportBuilder reportBuilder;
+    private ExcelReportBuilder excelReportBuilder;
 
     @Autowired
-    public AdherenceAuditLogReportBuilder(ReportQueryService reportQueryService, ReportBuilder reportBuilder) {
+    public AdherenceAuditLogReportBuilder(ReportQueryService reportQueryService, ExcelReportBuilder excelReportBuilder) {
         this.reportQueryService = reportQueryService;
-        this.reportBuilder = reportBuilder;
+        this.excelReportBuilder = excelReportBuilder;
     }
 
-    public void buildAdherenceAuditLogReport(OutputStream outputStream) {
-        reportBuilder.build(outputStream, getReportData(), ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
+    public void build(OutputStream outputStream) {
+        excelReportBuilder.build(outputStream, getReportData(), ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     private Map<String, Object> getReportData() {
@@ -32,5 +32,10 @@ public class AdherenceAuditLogReportBuilder {
         Map<String, Object> params = new HashMap<>();
         params.put("auditLogs", adherenceAuditLogSummaries);
         return params;
+    }
+
+    @Override
+    public String getReportName() {
+        return "adherenceAuditLogReport";
     }
 }

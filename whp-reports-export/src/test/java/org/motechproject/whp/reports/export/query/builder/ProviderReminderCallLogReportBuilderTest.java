@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,7 +24,7 @@ public class ProviderReminderCallLogReportBuilderTest {
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ReportBuilder reportBuilder;
+    private ExcelReportBuilder excelReportBuilder;
 
     @Mock
     private OutputStream outputStream;
@@ -34,7 +35,7 @@ public class ProviderReminderCallLogReportBuilderTest {
     @Before
     public void setUp() {
         initMocks(this);
-        providerReminderCallLogReportBuilder = new ProviderReminderCallLogReportBuilder(reportQueryService, reportBuilder);
+        providerReminderCallLogReportBuilder = new ProviderReminderCallLogReportBuilder(reportQueryService, excelReportBuilder);
         providerReminderCallLogSummaries = asList(mock(ProviderReminderCallLogSummary.class));
 
         expectedParams = new HashMap();
@@ -46,10 +47,15 @@ public class ProviderReminderCallLogReportBuilderTest {
     public void shouldCreateProviderReminderCallLogReport() {
         when(reportQueryService.getProviderReminderCallLogSummaries()).thenReturn(providerReminderCallLogSummaries);
 
-        providerReminderCallLogReportBuilder.buildProviderReminderCallLogReport(outputStream);
+        providerReminderCallLogReportBuilder.build(outputStream);
 
         verify(reportQueryService).getProviderReminderCallLogSummaries();
-        verify(reportBuilder).build(outputStream, expectedParams, ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
+        verify(excelReportBuilder).build(outputStream, expectedParams, ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
+    }
+
+    @Test
+    public void shouldReturnProviderReminderCallLogReportName() {
+        assertEquals("providerReminderCallLogReport", providerReminderCallLogReportBuilder.getReportName());
     }
 
 }

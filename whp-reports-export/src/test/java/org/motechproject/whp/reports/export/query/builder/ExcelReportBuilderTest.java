@@ -19,19 +19,19 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ReportBuilderTest extends BaseUnitTest{
+public class ExcelReportBuilderTest extends BaseUnitTest{
 
     @Mock
     ExcelExporter excelExporter;
     @Mock
     OutputStream outputStream;
 
-    ReportBuilder reportBuilder;
+    ExcelReportBuilder excelReportBuilder;
 
     @Before
     public void setUp() {
         initMocks(this);
-        reportBuilder = new ReportBuilder(excelExporter);
+        excelReportBuilder = new ExcelReportBuilder(excelExporter);
     }
 
     @Test
@@ -42,10 +42,10 @@ public class ReportBuilderTest extends BaseUnitTest{
         String templateFileName = "template";
         Map params = new HashMap();
 
-        reportBuilder.build(outputStream, params, templateFileName);
+        excelReportBuilder.build(outputStream, params, templateFileName);
 
         verify(excelExporter).export(templateFileName, params);
         verify(outputStream).flush();
-        assertThat((String) params.get(ReportBuilder.GENERATED_ON), is(generatedOn));
+        assertThat((String) params.get(ExcelReportBuilder.GENERATED_ON), is(generatedOn));
     }
 }

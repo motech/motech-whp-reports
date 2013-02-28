@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.model.DayOfWeek;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
 import org.motechproject.whp.reports.builder.PatientBuilder;
@@ -19,7 +18,7 @@ import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
-import org.motechproject.whp.reports.export.query.builder.ReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.motechproject.whp.reports.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ import static org.motechproject.whp.reports.date.WHPDateTime.toSqlDate;
 import static org.motechproject.whp.reports.date.WHPDateTime.toSqlTimestamp;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-applicationReportingExportContext.xml")
+@ContextConfiguration("classpath:applicationReportingExportContext.xml")
 public class ReportQueryDAOIT {
 
     @Autowired
@@ -56,7 +55,7 @@ public class ReportQueryDAOIT {
     @Autowired
     ProviderReminderCallLogRepository providerReminderCallLogRepository;
     @Autowired
-    ReportBuilder reportBuilder;
+    ExcelReportBuilder excelReportBuilder;
 
 
     PatientReportRequest patientReportRequest;

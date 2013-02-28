@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.motechproject.whp.reports.export.query.builder.PatientReportBuilder.*;
-import static org.motechproject.whp.reports.export.query.builder.ReportBuilder.GENERATED_ON;
+import static org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder.GENERATED_ON;
 
 public class PatientReportsExcelExportTest extends ExcelTest{
 

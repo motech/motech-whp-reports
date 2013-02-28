@@ -11,20 +11,20 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class ProviderReminderCallLogReportBuilder {
+public class ProviderReminderCallLogReportBuilder implements ReportBuilder{
 
     private final ReportQueryService reportQueryService;
-    private ReportBuilder reportBuilder;
+    private ExcelReportBuilder excelReportBuilder;
     public static final String PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME = "/xls/templates/providerReminderCallLogReport.xls";
 
     @Autowired
-    public ProviderReminderCallLogReportBuilder(ReportQueryService reportQueryService, ReportBuilder reportBuilder) {
+    public ProviderReminderCallLogReportBuilder(ReportQueryService reportQueryService, ExcelReportBuilder excelReportBuilder) {
         this.reportQueryService = reportQueryService;
-        this.reportBuilder = reportBuilder;
+        this.excelReportBuilder = excelReportBuilder;
     }
 
-    public void buildProviderReminderCallLogReport(OutputStream outputStream) {
-        reportBuilder.build(outputStream,getReportData(), PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
+    public void build(OutputStream outputStream) {
+        excelReportBuilder.build(outputStream,getReportData(), PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
     }
 
     private Map<String, Object> getReportData() {
@@ -32,5 +32,10 @@ public class ProviderReminderCallLogReportBuilder {
         Map<String, Object> params = new HashMap<>();
         params.put("callLogs", providerReminderCallLogSummaries);
         return params;
+    }
+
+    @Override
+    public String getReportName() {
+        return "providerReminderCallLogReport";
     }
 }

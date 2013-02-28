@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.export.query.builder.ProviderReminderCallLogReportBuilder;
-import org.motechproject.whp.reports.export.query.builder.ReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.model.ProviderReminderCallLogSummary;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class ProviderReminderCallLogExcelExportTest extends ExcelTest {
         Map params = new HashMap();
         params.put("callLogs", providerReminderCallLogSummaries);
         String generatedDateTimeValue = date(now).value();
-        params.put(ReportBuilder.GENERATED_ON, generatedDateTimeValue);
+        params.put(ExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
 
         excelExporter.export(ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME, params);
 

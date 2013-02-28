@@ -8,5 +8,5 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="org.motechproject.whp.reports.export"/>
-
+    <import resource="classpath*:applicationReportingDomainContext.xml" />
 </beans>

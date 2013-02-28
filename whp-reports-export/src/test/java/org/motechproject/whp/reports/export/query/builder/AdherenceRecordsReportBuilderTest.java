@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -24,7 +25,7 @@ public class AdherenceRecordsReportBuilderTest {
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ReportBuilder reportBuilder;
+    private ExcelReportBuilder excelReportBuilder;
     @Mock
     private OutputStream outputStream;
 
@@ -34,7 +35,7 @@ public class AdherenceRecordsReportBuilderTest {
     @Before
     public void setUp() {
         initMocks(this);
-        adherenceRecordsReportBuilder = new AdherenceRecordsReportBuilder(reportQueryService, reportBuilder);
+        adherenceRecordsReportBuilder = new AdherenceRecordsReportBuilder(reportQueryService, excelReportBuilder);
         adherenceRecordSummaries = asList(new AdherenceRecordSummary());
 
         expectedParams = new HashMap();
@@ -45,8 +46,13 @@ public class AdherenceRecordsReportBuilderTest {
     public void shouldBuildAdherenceRecordsReport() throws IOException {
         when(reportQueryService.getAdherenceRecordSummaries()).thenReturn(adherenceRecordSummaries);
 
-        adherenceRecordsReportBuilder.buildAdherenceRecordReport(outputStream);
+        adherenceRecordsReportBuilder.build(outputStream);
 
-        verify(reportBuilder).build(outputStream, expectedParams, AdherenceRecordsReportBuilder.ADHERENCE_RECORD_SUMMARY_TEMPLATE_FILE_NAME);
+        verify(excelReportBuilder).build(outputStream, expectedParams, AdherenceRecordsReportBuilder.ADHERENCE_RECORD_SUMMARY_TEMPLATE_FILE_NAME);
+    }
+
+    @Test
+    public void shouldReturnAdherenceRecordReportName() {
+        assertEquals("adherenceReport", adherenceRecordsReportBuilder.getReportName());
     }
 }
