@@ -66,6 +66,6 @@ public class WHPDateTimeTest {
         DateTime now = DateUtil.now();
         Timestamp timestamp = new Timestamp(now.getMillis());
 
-        assertThat(WHPDateTime.dayOfWeek(timestamp), is(DayOfWeek.Wednesday.name()));
+        assertThat(WHPDateTime.dayOfWeek(timestamp), is(DayOfWeek.getDayOfWeek(now.getDayOfWeek()).name()));
     }
 }

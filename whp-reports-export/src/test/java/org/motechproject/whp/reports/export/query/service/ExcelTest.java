@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.IOException;
 
-public class ExcelTest {
+public abstract class ExcelTest {
 
     protected final ExcelExporter excelExporter = new ExcelExporter();
 

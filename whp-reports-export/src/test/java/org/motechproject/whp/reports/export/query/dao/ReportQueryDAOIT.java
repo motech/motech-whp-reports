@@ -34,6 +34,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.date.WHPDateTime.toSqlDate;
 import static org.motechproject.whp.reports.date.WHPDateTime.toSqlTimestamp;
@@ -284,7 +285,7 @@ public class ReportQueryDAOIT {
         assertThat(providerReminderCallLogSummaries.get(0).getDuration(),is(3));
         assertThat(providerReminderCallLogSummaries.get(0).getCallAnswered(),is(providerReminderCallLog.getCallAnswered()));
         assertThat(providerReminderCallLogSummaries.get(0).getReminderType(),is(providerReminderCallLog.getReminderType()));
-        assertThat(providerReminderCallLogSummaries.get(0).getReminderDay(),is(DayOfWeek.Wednesday.name()));
+        assertThat(providerReminderCallLogSummaries.get(0).getReminderDay(), notNullValue());
         assertThat(providerReminderCallLogSummaries.get(0).getProviderId(),is(providerReminderCallLog.getProviderId()));
         assertThat(providerReminderCallLogSummaries.get(0).getDisconnectionType(),is(providerReminderCallLog.getDisconnectionType()));
         assertThat(providerReminderCallLogSummaries.get(0).getDistrict(),is("district"));
