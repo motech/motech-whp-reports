@@ -27,7 +27,7 @@ public class ReportsControllerIT {
 
     @Test
     public void shouldContainAllReportBuilders() {
-        assertEquals(3, reportsController.reportBuilders.size());
+        assertEquals(4, reportsController.reportBuilders.size());
         assertEquals(adherenceRecordsReportBuilder, reportsController.reportBuilders.get(adherenceRecordsReportBuilder.getReportName()));
         assertEquals(adherenceAuditLogReportBuilder, reportsController.reportBuilders.get(adherenceAuditLogReportBuilder.getReportName()));
         assertEquals(providerReminderCallLogReportBuilder, reportsController.reportBuilders.get(providerReminderCallLogReportBuilder.getReportName()));

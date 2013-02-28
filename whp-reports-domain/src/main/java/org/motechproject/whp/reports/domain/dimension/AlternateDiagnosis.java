@@ -16,4 +16,12 @@ public class AlternateDiagnosis {
     @Id
     @Column(name = "code")
     private String code;
+
+    public AlternateDiagnosis() {
+    }
+
+    public AlternateDiagnosis(String code, String text) {
+        this.text = text;
+        this.code = code;
+    }
 }

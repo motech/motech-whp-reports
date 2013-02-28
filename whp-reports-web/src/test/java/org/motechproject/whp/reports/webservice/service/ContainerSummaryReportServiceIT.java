@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.webservice.service;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/spring/applicationContext.xml")
+@Ignore
 public class ContainerSummaryReportServiceIT {
     @Autowired
     ContainerSummaryReportService containerSummaryReportService;

@@ -71,4 +71,5 @@ public class ReportQueryServiceTest {
         assertEquals(expectedProviderReminderCallLogSummaries, providerReminderCallLogSummaries);
         verify(reportQueryDAO).getProviderReminderCallLogSummaries();
     }
+
 }

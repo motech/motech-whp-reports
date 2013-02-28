@@ -1,6 +1,5 @@
 package org.motechproject.whp.reports.builder;
 
-import org.joda.time.LocalDate;
 import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
 import org.motechproject.whp.reports.domain.measure.ContainerRecord;
@@ -27,6 +26,12 @@ public class ContainerRecordBuilder {
 
     public ContainerRecordBuilder withIssuedOnDate(Date dateIssuedOn) {
         containerRecord.setIssuedOn(new java.sql.Date(dateIssuedOn.getTime()));
+        return this;
+    }
+
+
+    public ContainerRecordBuilder withIssuedOnSqlDate(java.sql.Date dateIssuedOn) {
+        containerRecord.setIssuedOn(dateIssuedOn);
         return this;
     }
 
@@ -147,16 +152,27 @@ public class ContainerRecordBuilder {
     }
 
     public ContainerRecordBuilder withDefaults() {
+        long currentTimeInMillis = System.currentTimeMillis();
         this.withProviderId("providerId")
                 .withSubmittedBy("CmfAdmin")
-                .withIssuedOnDate(new LocalDate(2012, 9, 21).toDate())
+                .withIssuedOnSqlDate(new java.sql.Date(currentTimeInMillis))
                 .withSubmitterId("admin")
                 .withProviderDistrict("Patna")
                 .withRegistrationInstance("Instance")
                 .withChannel("IVR")
                 .withPatientId("patient1")
                 .withStatus("Close")
-                .withReasonForClosureCode("0");
+                .withReasonForClosureCode("0")
+                .withAlternateDiagnosisCode("1334")
+                .withClosureDate(new Date(currentTimeInMillis))
+                .withConsultationDate(new Date(currentTimeInMillis))
+                .withDiagnosis("positive")
+                .withLabName("labName")
+                .withLabNumber("labNumber")
+                .withLabResultsCapturedOn(new Date(currentTimeInMillis))
+                .withStatus("status")
+                .withTbId("tbId")
+                .withSmearTestResults(new Date(currentTimeInMillis), "result1", new Date(currentTimeInMillis), "result2");
         return this;
     }
 }

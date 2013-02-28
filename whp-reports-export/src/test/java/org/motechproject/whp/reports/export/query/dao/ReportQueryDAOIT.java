@@ -8,12 +8,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
+import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
 import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
+import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.dimension.Provider;
+import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
+import org.motechproject.whp.reports.domain.measure.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
@@ -55,8 +59,13 @@ public class ReportQueryDAOIT {
     @Autowired
     ProviderReminderCallLogRepository providerReminderCallLogRepository;
     @Autowired
+    private ContainerRecordRepository containerRecordRepository;
+    @Autowired
+    private AlternateDiagnosisRepository alternateDiagnosisRepository;
+    @Autowired
+    private ReasonForClosureRepository reasonForClosureRepository;
+    @Autowired
     ExcelReportBuilder excelReportBuilder;
-
 
     PatientReportRequest patientReportRequest;
 
@@ -64,7 +73,8 @@ public class ReportQueryDAOIT {
 
     public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-    DateTime now ;
+    DateTime now;
+
     @Before
     public void setUp() {
         patient = new PatientBuilder().withDefaults().withPatientId("patient").build();
@@ -275,19 +285,73 @@ public class ReportQueryDAOIT {
         List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO.getProviderReminderCallLogSummaries();
 
         assertThat(providerReminderCallLogSummaries.size(), is(1));
-        assertThat(providerReminderCallLogSummaries.get(0).getCallId(), is(providerReminderCallLog.getCallId()));
-        assertThat(providerReminderCallLogSummaries.get(0).getAdherenceReportedDisplayText(), is(YesNo.valueFromCode(providerReminderCallLog.getAdherenceReported()).getText()));
-        assertThat(providerReminderCallLogSummaries.get(0).getAttempt(),is(providerReminderCallLog.getAttempt()));
-        assertThat(providerReminderCallLogSummaries.get(0).getAttemptDateTime(),is(providerReminderCallLog.getAttemptTime()));
-        assertThat(providerReminderCallLogSummaries.get(0).getStartDateTime(),is(providerReminderCallLog.getStartTime()));
-        assertThat(providerReminderCallLogSummaries.get(0).getEndDateTime(),is(providerReminderCallLog.getEndTime()));
-        assertThat(providerReminderCallLogSummaries.get(0).getDuration(),is(3));
-        assertThat(providerReminderCallLogSummaries.get(0).getCallAnswered(),is(providerReminderCallLog.getCallAnswered()));
-        assertThat(providerReminderCallLogSummaries.get(0).getReminderType(),is(providerReminderCallLog.getReminderType()));
-        assertThat(providerReminderCallLogSummaries.get(0).getReminderDay(), notNullValue());
-        assertThat(providerReminderCallLogSummaries.get(0).getProviderId(),is(providerReminderCallLog.getProviderId()));
-        assertThat(providerReminderCallLogSummaries.get(0).getDisconnectionType(),is(providerReminderCallLog.getDisconnectionType()));
-        assertThat(providerReminderCallLogSummaries.get(0).getDistrict(),is("district"));
+        ProviderReminderCallLogSummary callLog = providerReminderCallLogSummaries.get(0);
+        assertThat(callLog.getCallId(), is(providerReminderCallLog.getCallId()));
+        assertThat(callLog.getAdherenceReportedDisplayText(), is(YesNo.valueFromCode(providerReminderCallLog.getAdherenceReported()).getText()));
+        assertThat(callLog.getAttempt(), is(providerReminderCallLog.getAttempt()));
+        assertThat(callLog.getAttemptDateTime(), is(providerReminderCallLog.getAttemptTime()));
+        assertThat(callLog.getStartDateTime(), is(providerReminderCallLog.getStartTime()));
+        assertThat(callLog.getEndDateTime(), is(providerReminderCallLog.getEndTime()));
+        assertThat(callLog.getDuration(), is(3));
+        assertThat(callLog.getCallAnswered(), is(providerReminderCallLog.getCallAnswered()));
+        assertThat(callLog.getReminderType(), is(providerReminderCallLog.getReminderType()));
+        assertThat(callLog.getReminderDay(), notNullValue());
+        assertThat(callLog.getProviderId(), is(providerReminderCallLog.getProviderId()));
+        assertThat(callLog.getDisconnectionType(), is(providerReminderCallLog.getDisconnectionType()));
+        assertThat(callLog.getDistrict(), is("district"));
+    }
+
+    @Test
+    public void shouldReturnContainerRecords() {
+        AlternateDiagnosis alternateDiagnosis = new AlternateDiagnosis("ac", "alternateDiagnosisText");
+        ReasonForClosure reasonForClosure = new ReasonForClosure("rc", "reasonText");
+
+        alternateDiagnosisRepository.save(alternateDiagnosis);
+        reasonForClosureRepository.save(reasonForClosure);
+
+        ContainerRecord containerRecord = new ContainerRecordBuilder().withDefaults()
+                .withAlternateDiagnosisCode(alternateDiagnosis.getCode())
+                .withReasonForClosureCode(reasonForClosure.getCode())
+                .withIssuedOnDate(toSqlDate(DateTime.now())).build();
+
+
+        containerRecordRepository.save(containerRecord);
+
+        List<ContainerSummary> containerSummaries = reportQueryDAO.getContainerSummaries();
+
+        assertThat(containerSummaries.size(), is(1));
+        ContainerSummary summary = containerSummaries.get(0);
+        assertThat(summary.getPatientId(), is(containerRecord.getPatientId()));
+        assertThat(summary.getReasonForClosure(), is(reasonForClosure.getText()));
+        assertThat(summary.getAlternateDiagnosisCode(), is(containerRecord.getAlternateDiagnosisCode()));
+        assertThat(summary.getAlternateDiagnosisName(), is(alternateDiagnosis.getText()));
+        assertThat(summary.getChannelId(), is(containerRecord.getChannelId()));
+        assertThat(summary.getClosureDate(), is(getSqlDate(containerRecord.getClosureDate())));
+        assertThat(summary.getConsultationDate(), is(getSqlDate(containerRecord.getConsultationDate())));
+        assertThat(summary.getContainerId(), is(containerRecord.getContainerId()));
+        assertThat(summary.getDateIssuedOn(), is(getSqlDate(containerRecord.getIssuedOn())));
+        assertThat(summary.getDiagnosis(), is(containerRecord.getDiagnosis()));
+        assertThat(summary.getLabName(), is(containerRecord.getLabName()));
+        assertThat(summary.getLabNumber(), is(containerRecord.getLabNumber()));
+        assertThat(summary.getLabResultsCapturedOn(), is(getSqlDate(containerRecord.getLabResultsCapturedOn())));
+        assertThat(summary.getMappingInstance(), is(containerRecord.getMappingInstance()));
+        assertThat(summary.getProviderDistrict(), is(containerRecord.getProviderDistrict()));
+        assertThat(summary.getProviderId(), is(containerRecord.getProviderId()));
+        assertThat(summary.getRegistrationInstance(), is(containerRecord.getRegistrationInstance()));
+        assertThat(summary.getSmearTestDate1(), is(getSqlDate(containerRecord.getSmearTestDate1())));
+        assertThat(summary.getSmearTestDate2(), is(getSqlDate(containerRecord.getSmearTestDate2())));
+        assertThat(summary.getSmearTestResult1(), is(containerRecord.getSmearTestResult1()));
+        assertThat(summary.getSmearTestResult2(), is(containerRecord.getSmearTestResult2()));
+        assertThat(summary.getStatus(), is(containerRecord.getStatus()));
+        assertThat(summary.getSubmitterId(), is(containerRecord.getSubmitterId()));
+    }
+
+    private java.sql.Date getSqlDate(java.sql.Date date) {
+        return new java.sql.Date(new LocalDate(date.getTime()).toDate().getTime());
+    }
+
+    private java.sql.Date getSqlDate(Timestamp timestamp) {
+        return new java.sql.Date(new LocalDate(timestamp.getTime()).toDate().getTime());
     }
 
     private ProviderReminderCallLog createProviderReminderCallLog() {
@@ -306,7 +370,7 @@ public class ReportQueryDAOIT {
         providerReminderCallLog.setProviderId("providerId");
         providerReminderCallLog.setReminderType("reminderType");
 
-        return  providerReminderCallLog;
+        return providerReminderCallLog;
     }
 
     private AdherenceRecord createAdherenceRecord(String patientId, String district, java.sql.Date pillDate) {
@@ -319,6 +383,7 @@ public class ReportQueryDAOIT {
         adherenceRecord.setTbId("tbId");
         return adherenceRecord;
     }
+
     private void createProvider() {
         Provider provider = new Provider();
         provider.setDistrict("district");
@@ -328,10 +393,13 @@ public class ReportQueryDAOIT {
 
     @After
     public void tearDown() {
-       patientRepository.deleteAll();
-       adherenceAuditLogRepository.deleteAll();
-       providerRepository.deleteAll();
-       adherenceRecordRepository.deleteAll();
-       providerReminderCallLogRepository.deleteAll();
+        patientRepository.deleteAll();
+        adherenceAuditLogRepository.deleteAll();
+        providerRepository.deleteAll();
+        adherenceRecordRepository.deleteAll();
+        providerReminderCallLogRepository.deleteAll();
+        containerRecordRepository.deleteAll();
+        alternateDiagnosisRepository.deleteAll();
+        reasonForClosureRepository.deleteAll();
     }
 }

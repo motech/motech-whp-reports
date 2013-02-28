@@ -21,9 +21,6 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
     @Autowired
     ContainerRecordRepository containerRecordRepository;
 
-    @Autowired
-    AlternateDiagnosisRepository alternateDiagnosisRepository;
-
     @Test
     public void shouldCreateSputumTrackingRecord() {
         Date submissionDate = new Date();

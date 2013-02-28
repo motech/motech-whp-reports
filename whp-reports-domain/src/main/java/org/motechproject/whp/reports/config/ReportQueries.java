@@ -16,4 +16,7 @@ public class ReportQueries {
 
     @Value("#{reportSQLQueries['provider.reminder.call.log.query']}")
     private String providerReminderCallLogQuery;
+
+    @Value("#{reportSQLQueries['container.tracking.query']}")
+    private String containerRecordQuery;
 }

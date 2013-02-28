@@ -16,5 +16,13 @@ public class ReasonForClosure {
     @Id
     @Column(name = "code")
     private String code;
+
+    public ReasonForClosure() {
+    }
+
+    public ReasonForClosure(String code, String text) {
+        this.code = code;
+        this.text = text;
+    }
 }
 

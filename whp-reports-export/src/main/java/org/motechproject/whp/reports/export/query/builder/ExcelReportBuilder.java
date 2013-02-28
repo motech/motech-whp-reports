@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.export.query.builder;
 
 import org.apache.poi.ss.usermodel.Workbook;
-import org.joda.time.DateTime;
+import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.export.query.service.ExcelExporter;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class ExcelReportBuilder {
     }
 
     void build(OutputStream outputStream, Map params, String templateFileName) {
-        params.put(GENERATED_ON, WHPDateTime.date(DateTime.now()).value());
+        params.put(GENERATED_ON, WHPDateTime.date(DateUtil.now()).value());
         try {
             Workbook workbook = excelExporter.export(templateFileName, params);
             if (workbook != null) {
