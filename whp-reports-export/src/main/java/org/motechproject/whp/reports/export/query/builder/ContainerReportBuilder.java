@@ -36,6 +36,6 @@ public class ContainerReportBuilder implements ReportBuilder {
 
     @Override
     public String getReportName() {
-        return "containerTrackingReport";
+        return "containerReport";
     }
 }
