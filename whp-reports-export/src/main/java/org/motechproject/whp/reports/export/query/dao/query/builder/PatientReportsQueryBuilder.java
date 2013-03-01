@@ -6,6 +6,7 @@ import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PatientReportsQueryBuilder {
 
     public static final String PATIENT_SUMMARY_SELECT_SQL = "select p.first_name, p.last_name, p.gender, p.patient_id, " +
@@ -21,6 +22,7 @@ public class PatientReportsQueryBuilder {
 
     public static final String PATIENT_SUMMARY_SORT_SQL = " order by treatment_start_date";
     public static final String WHERE_CLAUSE = "where";
+    private static final String DEFAULT_TEST_DISTRICT_FILTER = " provider_district != 'TestDistrict'";
 
     private PatientReportRequest patientReportRequest;
 
@@ -34,6 +36,8 @@ public class PatientReportsQueryBuilder {
 
     private String buildPredicate() {
         List<String> predicates = new ArrayList<>();
+
+        predicates.add(DEFAULT_TEST_DISTRICT_FILTER);
 
         if(StringUtils.isNotEmpty(patientReportRequest.getDistrict())){
             predicates.add(String.format(" provider_district = '%s'", patientReportRequest.getDistrict()));

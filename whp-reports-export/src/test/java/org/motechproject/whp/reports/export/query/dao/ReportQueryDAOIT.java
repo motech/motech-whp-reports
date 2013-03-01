@@ -70,6 +70,10 @@ public class ReportQueryDAOIT {
     PatientReportRequest patientReportRequest;
 
     Patient patient;
+    Patient testPatient;
+
+    Provider provider;
+    Provider testProvider;
 
     public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -78,7 +82,8 @@ public class ReportQueryDAOIT {
     @Before
     public void setUp() {
         patient = new PatientBuilder().withDefaults().withPatientId("patient").build();
-        patientRepository.save(patient);
+        testPatient = new PatientBuilder().withDefaults().withPatientId("testpatient").withTbRegistrationDate(new LocalDate(2012, 12, 25)).withDistrict("TestDistrict").build();
+        patientRepository.save(asList(patient, testPatient));
         patientReportRequest = new PatientReportRequest();
         patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
 
@@ -86,7 +91,7 @@ public class ReportQueryDAOIT {
     }
 
     @Test
-    public void shouldReturnPatientSummaries() {
+    public void shouldReturnPatientSummariesExcludingTestData() {
         List<PatientSummary> patientList = reportQueryDAO.getPatientSummaries(patientReportRequest);
 
         assertEquals(1, patientList.size());
@@ -141,7 +146,8 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldReturnPatientForGivenTbRegistrationDate() {
         Patient patientWithNewTbRegistrationDate = new PatientBuilder().withDefaults().withTbRegistrationDate(new LocalDate(2012, 12, 25)).withPatientId("patient2").build();
-        patientRepository.save(patientWithNewTbRegistrationDate);
+//        Patient testPatientWithNewTbRegistrationDate = new PatientBuilder().withDefaults().withTbRegistrationDate(new LocalDate(2012, 12, 25)).withPatientId("testPatient").withDistrict("TestDistrict").build();
+        patientRepository.save(asList(patientWithNewTbRegistrationDate));
 
         PatientReportRequest patientReportRequest = new PatientReportRequest();
         patientReportRequest.setFrom("10/12/2012");
@@ -175,19 +181,20 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldReturnAdherenceAuditLogsForThreeMonths() {
         DateTime today = DateTime.now();
-        Provider provider = new Provider();
-        provider.setDistrict("district");
-        provider.setProviderId("providerId");
-        providerRepository.save(provider);
+        createProvider();
+        createTestProvider();
 
         AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceGivenByProvider.setIsGivenByProvider("Y");
+
+        AdherenceAuditLog adherenceGivenByTestProvider = new AdherenceAuditLogBuilder().withDefaults().build();
+        adherenceGivenByTestProvider.setProviderId(testProvider.getProviderId());
 
         AdherenceAuditLog adherenceLogFourMonthsAgo = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceLogFourMonthsAgo.setCreationTime(toSqlTimestamp(today.minusMonths(4)));
         adherenceLogFourMonthsAgo.setDoseDate(toSqlDate(today.minusMonths(1)));
 
-        adherenceAuditLogRepository.save(asList(adherenceGivenByProvider, adherenceLogFourMonthsAgo));
+        adherenceAuditLogRepository.save(asList(adherenceGivenByProvider, adherenceLogFourMonthsAgo, adherenceGivenByTestProvider));
 
         List<AdherenceAuditLogSummary> adherenceAuditLogSummaries = reportQueryDAO.getAdherenceAuditLogSummaries();
         assertThat(adherenceAuditLogSummaries.size(), is(1));
@@ -244,15 +251,19 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldReturnAdherenceRecords() {
 
+        createProvider();
+        createTestProvider();
+
         java.sql.Date pillDate = toSqlDate(DateUtil.now());
-        AdherenceRecord adherenceRecord = createAdherenceRecord("patientId", "district", pillDate);
-        adherenceRecordRepository.save(adherenceRecord);
+        AdherenceRecord adherenceRecord = createAdherenceRecord("patientId", provider.getDistrict(), pillDate);
+        AdherenceRecord testAdherenceRecord = createAdherenceRecord("patientId1", testProvider.getDistrict(), pillDate);
+        adherenceRecordRepository.save(asList(adherenceRecord, testAdherenceRecord));
 
         List<AdherenceRecordSummary> adherenceRecordSummaries = reportQueryDAO.getAdherenceRecordSummaries();
         assertThat(adherenceRecordSummaries.size(), is(1));
         assertThat(adherenceRecordSummaries.get(0).getPatientId(), is("patientId"));
         assertThat(adherenceRecordSummaries.get(0).getTbId(), is("tbId"));
-        assertThat(adherenceRecordSummaries.get(0).getDistrict(), is("district"));
+        assertThat(adherenceRecordSummaries.get(0).getDistrict(), is(provider.getDistrict()));
         assertThat(formatter.format(adherenceRecordSummaries.get(0).getAdherenceDate()), is(formatter.format(pillDate.getTime())));
         assertThat(adherenceRecordSummaries.get(0).getAdherenceValue(), is("Taken"));
 
@@ -278,9 +289,14 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldReturnProviderReminderCallLogRecords() {
         createProvider();
-        ProviderReminderCallLog providerReminderCallLog = createProviderReminderCallLog();
+        createTestProvider();
 
-        providerReminderCallLogRepository.save(asList(providerReminderCallLog));
+        ProviderReminderCallLog providerReminderCallLog = createProviderReminderCallLog();
+        ProviderReminderCallLog testProviderReminderCallLog = createProviderReminderCallLog();
+        testProviderReminderCallLog.setProviderId(testProvider.getProviderId());
+        testProviderReminderCallLog.setCallId("callId1");
+
+        providerReminderCallLogRepository.save(asList(providerReminderCallLog, testProviderReminderCallLog));
 
         List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO.getProviderReminderCallLogSummaries();
 
@@ -303,6 +319,9 @@ public class ReportQueryDAOIT {
 
     @Test
     public void shouldReturnContainerRecords() {
+
+        createTestProvider();
+
         AlternateDiagnosis alternateDiagnosis = new AlternateDiagnosis("ac", "alternateDiagnosisText");
         ReasonForClosure reasonForClosure = new ReasonForClosure("rc", "reasonText");
 
@@ -314,8 +333,15 @@ public class ReportQueryDAOIT {
                 .withReasonForClosureCode(reasonForClosure.getCode())
                 .withIssuedOnDate(toSqlDate(DateTime.now())).build();
 
+        ContainerRecord testContainerRecord = new ContainerRecordBuilder().withDefaults()
+                .withAlternateDiagnosisCode(alternateDiagnosis.getCode())
+                .withReasonForClosureCode(reasonForClosure.getCode())
+                .withIssuedOnDate(toSqlDate(DateTime.now())).build();
+        testContainerRecord.setProviderId(testProvider.getProviderId());
+        testContainerRecord.setProviderDistrict(testProvider.getDistrict());
 
-        containerRecordRepository.save(containerRecord);
+
+        containerRecordRepository.save(asList(containerRecord, testContainerRecord));
 
         List<ContainerSummary> containerSummaries = reportQueryDAO.getContainerSummaries();
 
@@ -384,11 +410,18 @@ public class ReportQueryDAOIT {
         return adherenceRecord;
     }
 
-    private void createProvider() {
-        Provider provider = new Provider();
+    public void createProvider(){
+        provider = new Provider();
         provider.setDistrict("district");
         provider.setProviderId("providerId");
         providerRepository.save(provider);
+    }
+
+    public void createTestProvider(){
+        testProvider = new Provider();
+        testProvider.setDistrict("TestDistrict");
+        testProvider.setProviderId("testProviderId");
+        providerRepository.save(testProvider);
     }
 
     @After
