@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.motechproject.testing.utils.BaseUnitTest;
 import org.motechproject.whp.reports.contract.adherence.ProviderAdherenceSummaries;
 import org.motechproject.whp.reports.contract.adherence.ProviderAdherenceSummary;
+import org.motechproject.whp.reports.contract.adherence.WeeklyAdherenceStatus;
 import org.motechproject.whp.reports.dao.ProviderAdherenceQueryDAO;
 import org.motechproject.whp.reports.domain.TreatmentWeek;
 import org.motechproject.whp.reports.model.AdherenceStatus;
@@ -45,9 +46,6 @@ public class ProviderAdherenceDataServiceTest extends BaseUnitTest{
         List<ProviderAdherenceSummary> providerAdherenceSummaryList = asList(adherenceSummary);
         String district = "district";
 
-        LocalDate referenceDate = today().minusWeeks(8);
-        TreatmentWeek treatmentWeek = new TreatmentWeek(referenceDate);
-
         when(providerAdherenceQueryDAO.getProviderAdherenceSummaries(district)).thenReturn(providerAdherenceSummaryList);
 
         List<List<AdherenceStatus>> allAdherenceStatuses = asList(
@@ -61,6 +59,18 @@ public class ProviderAdherenceDataServiceTest extends BaseUnitTest{
           asList(new AdherenceStatus("providerId", true))
         );
 
+        setUpAdherenceGivenStatusForEachWeek(district, allAdherenceStatuses, today().minusWeeks(8));
+
+        ProviderAdherenceSummaries adherenceSummaries = providerAdherenceDataService.getAdherenceSummary(district);
+
+        ProviderAdherenceSummary expectedSummary = expectedAdherenceSummary(today().minusWeeks(8));
+
+        assertThat(adherenceSummaries.getAdherenceSummaryList().size(), is(1));
+        assertThat(adherenceSummaries.getAdherenceSummaryList(), hasItem(expectedSummary));
+    }
+
+    private void setUpAdherenceGivenStatusForEachWeek(String district, List<List<AdherenceStatus>> allAdherenceStatuses, LocalDate referenceDate) {
+        TreatmentWeek treatmentWeek = new TreatmentWeek(referenceDate);
         for(int i=0; i < 8; i++){
             when(providerAdherenceQueryDAO.getAdherenceGivenStatus(district,
                     toSqlDate(treatmentWeek.startDate()),
@@ -68,15 +78,30 @@ public class ProviderAdherenceDataServiceTest extends BaseUnitTest{
                     .thenReturn(allAdherenceStatuses.get(i));
             treatmentWeek.moveToNextWeek();
         }
+    }
 
-        ProviderAdherenceSummaries adherenceSummaries = providerAdherenceDataService.getAdherenceSummary(district);
-
+    private ProviderAdherenceSummary expectedAdherenceSummary(LocalDate referenceDate) {
+        TreatmentWeek treatmentWeek;
         ProviderAdherenceSummary expectedSummary = createAdherenceSummary("providerId");
         expectedSummary.setAdherenceGiven(true);
-        expectedSummary.setAdherenceMissingWeeks(4);
 
-        assertThat(adherenceSummaries.getAdherenceSummaryList().size(), is(1));
-        assertThat(adherenceSummaries.getAdherenceSummaryList(), hasItem(expectedSummary));
+        treatmentWeek = new TreatmentWeek(referenceDate);
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), false));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), true));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), false));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), true));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), false));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), true));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), false));
+        treatmentWeek.moveToNextWeek();
+        expectedSummary.addWeeklyAdherenceStatus(new WeeklyAdherenceStatus(treatmentWeek.startDate(), treatmentWeek.endDate(), true));
+        return expectedSummary;
     }
 
     private ProviderAdherenceSummary createAdherenceSummary(String providerId) {

@@ -2,6 +2,9 @@ package org.motechproject.whp.reports.contract.adherence;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class ProviderAdherenceSummary {
 
@@ -23,8 +26,12 @@ public class ProviderAdherenceSummary {
     private String tertiaryMobile;
     private boolean adherenceGiven;
     private int adherenceMissingWeeks;
+    private List<WeeklyAdherenceStatus> weeklyAdherenceStatuses = new ArrayList<>();
 
-    public void incrementAdherenceMissingWeeks() {
-        adherenceMissingWeeks ++;
+    public void addWeeklyAdherenceStatus(WeeklyAdherenceStatus weeklyAdherenceStatus){
+        weeklyAdherenceStatuses.add(weeklyAdherenceStatus);
+        if(!weeklyAdherenceStatus.isAdherenceGiven()){
+            adherenceMissingWeeks ++;
+        }
     }
 }

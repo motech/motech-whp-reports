@@ -3,9 +3,11 @@ package org.motechproject.whp.reports.service;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.contract.adherence.ProviderAdherenceSummaries;
 import org.motechproject.whp.reports.contract.adherence.ProviderAdherenceSummary;
+import org.motechproject.whp.reports.contract.adherence.WeeklyAdherenceStatus;
 import org.motechproject.whp.reports.dao.ProviderAdherenceQueryDAO;
 import org.motechproject.whp.reports.domain.TreatmentWeek;
 import org.motechproject.whp.reports.model.AdherenceStatus;
+import org.motechproject.whp.reports.model.ProviderWeeklyAdherenceStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,30 +38,36 @@ public class ProviderAdherenceDataService {
         List<ProviderAdherenceSummary> providerAdherenceSummaries = providerAdherenceQueryDAO.getProviderAdherenceSummaries(district);
         Map<String, ProviderAdherenceSummary> adherenceSummaryMap = adherenceSummaryMap(providerAdherenceSummaries);
 
-        List<AdherenceStatus> adherenceStatuses = getAdherenceStatusesForPast8Weeks(district);
+        List<ProviderWeeklyAdherenceStatus> adherenceStatuses = getAdherenceStatusesForPast8Weeks(district);
 
         updateAdherenceSummary(adherenceSummaryMap, adherenceStatuses);
 
         return new ProviderAdherenceSummaries(district, providerAdherenceSummaries);
     }
 
-    private void updateAdherenceSummary(Map<String, ProviderAdherenceSummary> adherenceSummaryMap, List<AdherenceStatus> adherenceStatuses) {
-        for(AdherenceStatus adherenceStatus : adherenceStatuses){
-            if(!adherenceStatus.isAdherenceGiven())
-                adherenceSummaryMap.get(adherenceStatus.getProviderId()).incrementAdherenceMissingWeeks();
+    private void updateAdherenceSummary(Map<String, ProviderAdherenceSummary> adherenceSummaryMap, List<ProviderWeeklyAdherenceStatus> providerWeeklyAdherenceStatuses) {
+        for(ProviderWeeklyAdherenceStatus providerWeeklyAdherenceStatus : providerWeeklyAdherenceStatuses){
+            for(AdherenceStatus adherenceStatus : providerWeeklyAdherenceStatus.getAdherenceStatuses()){
+                WeeklyAdherenceStatus weeklyAdherenceStatus = new WeeklyAdherenceStatus(providerWeeklyAdherenceStatus.getFrom(),
+                        providerWeeklyAdherenceStatus.getTo(),
+                        adherenceStatus.isAdherenceGiven());
+                adherenceSummaryMap.get(adherenceStatus.getProviderId()).addWeeklyAdherenceStatus(weeklyAdherenceStatus);
+            }
         }
     }
 
-    private List<AdherenceStatus> getAdherenceStatusesForPast8Weeks(String district) {
+    private List<ProviderWeeklyAdherenceStatus> getAdherenceStatusesForPast8Weeks(String district) {
         TreatmentWeek treatmentWeek = new TreatmentWeek(DateUtil.today().minusWeeks(8));
-        List<AdherenceStatus> adherenceStatuses = new ArrayList<>();
+        List<ProviderWeeklyAdherenceStatus> weeklyAdherenceStatuses = new ArrayList<>();
         for(int i=0; i < 8; i++){
-            adherenceStatuses.addAll(providerAdherenceQueryDAO.getAdherenceGivenStatus(district,
+            List<AdherenceStatus> adherenceStatusList = providerAdherenceQueryDAO.getAdherenceGivenStatus(district,
                     toSqlDate(treatmentWeek.startDate()),
-                    toSqlDate(treatmentWeek.endDate())));
+                    toSqlDate(treatmentWeek.endDate()));
+
+            weeklyAdherenceStatuses.add(new ProviderWeeklyAdherenceStatus(adherenceStatusList, treatmentWeek.startDate(), treatmentWeek.endDate()));
             treatmentWeek.moveToNextWeek();
         }
-        return adherenceStatuses;
+        return weeklyAdherenceStatuses;
     }
 
     private Map<String, ProviderAdherenceSummary> adherenceSummaryMap(List<ProviderAdherenceSummary> providerAdherenceSummaries) {

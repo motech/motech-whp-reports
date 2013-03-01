@@ -18,8 +18,6 @@ public class DateRange {
     private DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
 
     public DateRange(String strFrom, String strTo) {
-
-
         boolean validFromDate = StringUtils.isNotEmpty(strFrom);
         boolean validToDate = StringUtils.isNotEmpty(strTo);
         if (validFromDate && validToDate) {
