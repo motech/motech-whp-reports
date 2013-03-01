@@ -266,11 +266,6 @@
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>
-                <artifactId>motech-bulk-export-import</artifactId>
-                <version>${motech.contrib.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.motechproject.whp-contrib</groupId>
                 <artifactId>motech-diagnostics-web</artifactId>
                 <version>${motech.contrib.version}</version>
                 <exclusions>
