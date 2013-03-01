@@ -1,11 +1,13 @@
 package org.motechproject.whp.reports.export.query.builder;
 
+import org.motechproject.whp.reports.export.query.model.ContainerSummary;
 import org.motechproject.whp.reports.export.query.service.ReportQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -26,9 +28,9 @@ public class ContainerReportBuilder implements ReportBuilder {
     }
 
     private Map<String, Object> getReportData() {
-       // List<ContainerSummary> containerSummaries = reportQueryService.();
+        List<ContainerSummary> containerSummaries = reportQueryService.getContainerSummaries();
         Map<String, Object> params = new HashMap<>();
-//       params.put("auditLogs", );
+        params.put("containerRecords", containerSummaries);
         return params;
     }
 

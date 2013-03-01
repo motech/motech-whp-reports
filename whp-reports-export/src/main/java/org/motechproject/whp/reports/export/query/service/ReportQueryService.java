@@ -37,4 +37,8 @@ public class ReportQueryService {
     public List<ProviderReminderCallLogSummary> getProviderReminderCallLogSummaries() {
         return reportQueryDAO.getProviderReminderCallLogSummaries();
     }
+
+    public List<ContainerSummary> getContainerSummaries() {
+        return reportQueryDAO.getContainerSummaries();
+    }
 }

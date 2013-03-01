@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.export.query.builder.AdherenceAuditLogReportBuilder;
 import org.motechproject.whp.reports.export.query.builder.AdherenceRecordsReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.ContainerReportBuilder;
 import org.motechproject.whp.reports.export.query.builder.ProviderReminderCallLogReportBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,6 +25,8 @@ public class ReportsControllerIT {
     AdherenceRecordsReportBuilder adherenceRecordsReportBuilder;
     @Autowired
     ProviderReminderCallLogReportBuilder providerReminderCallLogReportBuilder;
+    @Autowired
+    ContainerReportBuilder containerReportBuilder;
 
     @Test
     public void shouldContainAllReportBuilders() {
@@ -31,6 +34,7 @@ public class ReportsControllerIT {
         assertEquals(adherenceRecordsReportBuilder, reportsController.reportBuilders.get(adherenceRecordsReportBuilder.getReportName()));
         assertEquals(adherenceAuditLogReportBuilder, reportsController.reportBuilders.get(adherenceAuditLogReportBuilder.getReportName()));
         assertEquals(providerReminderCallLogReportBuilder, reportsController.reportBuilders.get(providerReminderCallLogReportBuilder.getReportName()));
+        assertEquals(containerReportBuilder, reportsController.reportBuilders.get(containerReportBuilder.getReportName()));
     }
 
 
