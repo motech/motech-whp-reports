@@ -4,14 +4,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="baseUri" class="java.net.URI">
-        <constructor-arg value="http://localhost:9999/whp-reports"/>
-    </bean>
-
     <bean id="config" class="org.springframework.data.rest.webmvc.RepositoryRestConfiguration"
           p:jsonpParamName="callback"
-          p:jsonpOnErrParamName="errback"
-          p:baseUri-ref="baseUri">
+          p:jsonpOnErrParamName="errback">
         <property name="domainTypeToRepositoryMappings">
             <map key-type="java.lang.Class" value-type="java.lang.Class">
                 <entry key="org.motechproject.whp.reports.domain.measure.FlashingLog"

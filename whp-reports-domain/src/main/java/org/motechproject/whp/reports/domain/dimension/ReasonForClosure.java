@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "reasons_for_closure", uniqueConstraints = {@UniqueConstraint(columnNames = {"code", "text"})})
-@Cacheable(true)
 public class ReasonForClosure {
 
     @Column(name = "text")

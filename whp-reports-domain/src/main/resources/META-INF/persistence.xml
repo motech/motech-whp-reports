@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="default"  transaction-type="RESOURCE_LOCAL">
-        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-        <properties>
-            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>
-            <property name="hibernate.cache.use_second_level_cache" value="true"/>
-            <property name="hibernate.cache.use_query_cache" value="false"/>
-            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
-            <property name="hibernate.generate_statistics" value="true" />
-        </properties>
     </persistence-unit>
 </persistence>
 

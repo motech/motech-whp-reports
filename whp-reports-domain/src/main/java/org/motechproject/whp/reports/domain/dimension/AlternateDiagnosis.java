@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "alternate_diagnosis", uniqueConstraints = {@UniqueConstraint(columnNames = {"code", "text"})})
-@Cacheable(true)
 public class AlternateDiagnosis {
 
     @Column(name = "text")
