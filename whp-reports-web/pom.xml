@@ -64,6 +64,10 @@
             <artifactId>motech-testing-utils</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-web-utils</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.flyway</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
@@ -134,7 +138,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
