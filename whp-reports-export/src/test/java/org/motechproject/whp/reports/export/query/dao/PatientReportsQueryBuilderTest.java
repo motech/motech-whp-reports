@@ -26,7 +26,8 @@ public class PatientReportsQueryBuilderTest extends BaseUnitTest {
 
         String expectedQuery = String.format(PatientReportsQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
                 + "where provider_district != 'TestDistrict' AND treatment.start_date between '%s' AND '%s'"
-                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL, strExpectedFromDate, strExpectedEndDate);
+                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL
+                + PatientReportsQueryBuilder.LIMIT_ROWS , strExpectedFromDate, strExpectedEndDate);
 
         assertEquals(expectedQuery, new PatientReportsQueryBuilder(emptyRequest).build());
     }
@@ -43,7 +44,8 @@ public class PatientReportsQueryBuilderTest extends BaseUnitTest {
 
         String expectedQuery = String.format(PatientReportsQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
                 + "where provider_district != 'TestDistrict' AND provider_district = 'Begusarai' AND treatment.start_date between '%s' AND '%s'"
-                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL, strExpectedFromDate, strExpectedEndDate);
+                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL
+                + PatientReportsQueryBuilder.LIMIT_ROWS , strExpectedFromDate, strExpectedEndDate);
 
         PatientReportRequest requestWithDistrict = new PatientReportRequest();
         requestWithDistrict.setDistrict("Begusarai");
@@ -55,7 +57,8 @@ public class PatientReportsQueryBuilderTest extends BaseUnitTest {
     public void shouldReturnQueryForPatientSummaryBetweenGivenTbRegistrationDates() {
         String expectedQuery = PatientReportsQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
                 + "where provider_district != 'TestDistrict' AND treatment.start_date between '2013-01-01' AND '2013-01-02'"
-                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
+                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL
+                + PatientReportsQueryBuilder.LIMIT_ROWS;
 
         PatientReportRequest requestWithDates = new PatientReportRequest();
         requestWithDates.setFrom("01/01/2013");
@@ -68,7 +71,8 @@ public class PatientReportsQueryBuilderTest extends BaseUnitTest {
     public void shouldReturnQueryForPatientSummaryWithGivenDistrictAndBetweenTbRegistrationDates() {
         String expectedQuery = PatientReportsQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
                 + "where provider_district != 'TestDistrict' AND provider_district = 'Begusarai' AND treatment.start_date between '2013-01-01' AND '2013-01-02'"
-                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
+                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL
+                + PatientReportsQueryBuilder.LIMIT_ROWS;
 
         PatientReportRequest request = new PatientReportRequest();
         request.setDistrict("Begusarai");
@@ -84,7 +88,8 @@ public class PatientReportsQueryBuilderTest extends BaseUnitTest {
     public void shouldIgnorePredicatesWhenThereAreNoPredicateBuildersForGivenReportType() {
         String expectedQuery = PatientReportsQueryBuilder.PATIENT_SUMMARY_SELECT_SQL
                 + "where provider_district != 'TestDistrict' AND provider_district = 'Begusarai'"
-                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL;
+                + PatientReportsQueryBuilder.PATIENT_SUMMARY_SORT_SQL
+                + PatientReportsQueryBuilder.LIMIT_ROWS;
 
         PatientReportRequest request = new PatientReportRequest();
         request.setDistrict("Begusarai");

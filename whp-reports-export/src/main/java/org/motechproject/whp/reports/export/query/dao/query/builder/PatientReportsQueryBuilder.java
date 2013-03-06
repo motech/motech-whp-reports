@@ -20,7 +20,8 @@ public class PatientReportsQueryBuilder {
             "join whp_reports.patient_treatment treatment on therapy.therapy_pk = treatment.therapy_fk " +
             "join whp_reports.patient_address address on p.patient_address_fk = address.address_pk " ;
 
-    public static final String PATIENT_SUMMARY_SORT_SQL = " order by treatment_start_date";
+    public static final String PATIENT_SUMMARY_SORT_SQL = " order by treatment_start_date ";
+    public static final String LIMIT_ROWS = " limit 65000";
     public static final String WHERE_CLAUSE = "where";
     private static final String DEFAULT_TEST_DISTRICT_FILTER = " provider_district != 'TestDistrict'";
 
@@ -31,7 +32,7 @@ public class PatientReportsQueryBuilder {
     }
 
     public String build() {
-        return PATIENT_SUMMARY_SELECT_SQL + buildPredicate() + PATIENT_SUMMARY_SORT_SQL;
+        return PATIENT_SUMMARY_SELECT_SQL + buildPredicate() + PATIENT_SUMMARY_SORT_SQL + LIMIT_ROWS;
     }
 
     private String buildPredicate() {
