@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
+import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.paging.MostRecentProviderReminderCallLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class ProviderReminderCallLogRepositoryIT extends IntegrationTest {
     @Test
     public void shouldCreateCallLog() {
         String providerId = "providerId";
+        Provider provider = createProvider("providerId", "district");
+        providerRepository.save(provider);
 
         ProviderReminderCallLog providerReminderCallLog = createReminderCallLog(providerId);
 
@@ -57,27 +60,36 @@ public class ProviderReminderCallLogRepositoryIT extends IntegrationTest {
         Timestamp yesterday = new Timestamp(new DateTime().minusDays(1).toDate().getTime());
         Timestamp today = new Timestamp(new DateTime().toDate().getTime());
 
-        String providerId = "provider1";
-        ProviderReminderCallLog olderCallLog = createReminderCallLog(providerId);
+        String providerId1 = "provider1";
+        String providerId2 = "provider2";
+        Provider provider = createProvider(providerId1, "district");
+        providerRepository.save(provider);
+        provider = createProvider(providerId2, "district");
+        providerRepository.save(provider);
+
+        ProviderReminderCallLog olderCallLog = createReminderCallLog(providerId1);
         olderCallLog.setAttemptTime(yesterday);
 
-        ProviderReminderCallLog newerCallLog = createReminderCallLog(providerId);
+        ProviderReminderCallLog newerCallLog = createReminderCallLog(providerId1);
         newerCallLog.setAttemptTime(today);
 
-        ProviderReminderCallLog callLogForAnotherProvider = createReminderCallLog("provider2");
+        ProviderReminderCallLog callLogForAnotherProvider = createReminderCallLog(providerId2);
 
         providerReminderCallLogRepository.save(olderCallLog);
         providerReminderCallLogRepository.save(newerCallLog);
         providerReminderCallLogRepository.save(callLogForAnotherProvider);
 
-        List<ProviderReminderCallLog> actualCallLogs = providerReminderCallLogRepository.findByProviderIdAndAttemptTimeLessThan(providerId, new Timestamp(new DateTime().toDate().getTime()), new MostRecentProviderReminderCallLog());
+        List<ProviderReminderCallLog> actualCallLogs = providerReminderCallLogRepository.findByProviderIdAndAttemptTimeLessThan(providerId1, new Timestamp(new DateTime().toDate().getTime()), new MostRecentProviderReminderCallLog());
 
         assertEquals(newerCallLog, actualCallLogs.get(0));
         assertEquals(1, actualCallLogs.size());
     }
 
+
+
     @After
     public void tearDown() {
         providerReminderCallLogRepository.deleteAll();
+        providerRepository.deleteAll();
     }
 }

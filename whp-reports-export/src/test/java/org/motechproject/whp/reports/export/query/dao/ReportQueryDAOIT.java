@@ -426,13 +426,13 @@ public class ReportQueryDAOIT {
 
     @After
     public void tearDown() {
-        patientRepository.deleteAll();
         adherenceAuditLogRepository.deleteAll();
-        providerRepository.deleteAll();
         adherenceRecordRepository.deleteAll();
         providerReminderCallLogRepository.deleteAll();
         containerRecordRepository.deleteAll();
         alternateDiagnosisRepository.deleteAll();
         reasonForClosureRepository.deleteAll();
+        patientRepository.deleteAll();
+        providerRepository.deleteAll();
     }
 }

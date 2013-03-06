@@ -32,9 +32,6 @@ import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
 
     @Autowired
-    ProviderRepository providerRepository;
-
-    @Autowired
     AdherenceRecordRepository adherenceRecordRepository;
 
     @Autowired
@@ -198,29 +195,11 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
         return adherenceRecord;
     }
 
-    private Provider createProvider(String providerId, String district) {
-        Provider provider = new Provider();
-        provider.setProviderId(providerId);
-        provider.setDistrict(district);
-        return provider;
-    }
-
     @Override
     @After
     public void tearDown() {
-        patientRepository.delete(patientWithAdherence);
-        patientRepository.delete(patientWithoutAdherence);
-        patientRepository.delete(patientWithClosedTreatment);
-        patientRepository.delete(patientFromDifferentDistrict);
-
-        providerRepository.delete(providerWithAdherence);
-        providerRepository.delete(providerWithoutAdherence);
-        providerRepository.delete(providerWithNoActivePatients);
-        providerRepository.delete(providerWithDifferentDistrict);
-
-        adherenceRecordRepository.delete(adherenceRecordForPatientWithAdherence);
-        adherenceRecordRepository.delete(adherenceRecordForPatientWithoutAdherence);
-        adherenceRecordRepository.delete(adherenceRecordForClosedPatient);
-        adherenceRecordRepository.delete(adherenceRecordForDifferentDistrict);
+        adherenceAuditLogRepository.deleteAll();
+        patientRepository.deleteAll();
+        providerRepository.deleteAll();
     }
 }
