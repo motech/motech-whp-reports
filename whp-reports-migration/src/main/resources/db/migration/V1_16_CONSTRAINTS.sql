@@ -9,8 +9,6 @@ CREATE INDEX creation_time_idx ON whp_reports.adherence_audit_log (creation_time
 CREATE INDEX attempt_date_time_idx ON whp_reports.provider_reminder_call_log (attempt_date_time);
 CREATE INDEX sputum_district_idx ON whp_reports.sputum_tracking (provider_district);
 
-
-
 ALTER TABLE whp_reports.patient_therapy
 ADD CONSTRAINT patient_therapy_fk
 FOREIGN KEY (patient_fk) REFERENCES whp_reports.patient(patient_pk);
@@ -23,10 +21,6 @@ ALTER TABLE whp_reports.patient
 ADD CONSTRAINT patient_address_fk
 FOREIGN KEY (patient_address_fk) REFERENCES whp_reports.patient_address(address_pk);
 
-ALTER TABLE whp_reports.adherence_audit_log
-ADD CONSTRAINT provider_district_fk
-  FOREIGN KEY (provider_id) REFERENCES whp_reports.provider(provider_id);
-
 ALTER TABLE whp_reports.provider_reminder_call_log
 ADD CONSTRAINT provider_call_log_fk
 FOREIGN KEY (provider_id) REFERENCES whp_reports.provider(provider_id);
@@ -38,5 +32,3 @@ FOREIGN KEY (alternate_diagnosis_code) REFERENCES whp_reports.alternate_diagnosi
 ALTER TABLE whp_reports.sputum_tracking
 ADD CONSTRAINT reason_closure_fk
 FOREIGN KEY (reason_for_closure) REFERENCES whp_reports.reasons_for_closure(code);
-
-
