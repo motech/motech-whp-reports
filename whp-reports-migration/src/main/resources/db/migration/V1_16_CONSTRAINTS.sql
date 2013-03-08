@@ -21,10 +21,6 @@ ALTER TABLE whp_reports.patient
 ADD CONSTRAINT patient_address_fk
 FOREIGN KEY (patient_address_fk) REFERENCES whp_reports.patient_address(address_pk);
 
-ALTER TABLE whp_reports.provider_reminder_call_log
-ADD CONSTRAINT provider_call_log_fk
-FOREIGN KEY (provider_id) REFERENCES whp_reports.provider(provider_id);
-
 ALTER TABLE whp_reports.sputum_tracking
 ADD CONSTRAINT diagnosis_code_fk
 FOREIGN KEY (alternate_diagnosis_code) REFERENCES whp_reports.alternate_diagnosis(code);
