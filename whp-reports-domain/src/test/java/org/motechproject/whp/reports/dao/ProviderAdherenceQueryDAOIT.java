@@ -201,5 +201,6 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
         adherenceAuditLogRepository.deleteAll();
         patientRepository.deleteAll();
         providerRepository.deleteAll();
+        adherenceRecordRepository.deleteAll();
     }
 }
