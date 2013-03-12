@@ -50,8 +50,6 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
     private Patient patientWithoutAdherence;
     private final Date olderPillDate = toSqlDate(new LocalDate(2013, 1, 1));
     private final Date currentWeekPillDate = toSqlDate(new LocalDate(2013, 1, 24));
-    private final Date currentTreatmentWeekStartDate = toSqlDate(new LocalDate(2013, 1, 20));
-    private final Date currentTreatmentWeekEndDate = toSqlDate(new LocalDate(2013, 1, 26));
     private final static String DISTRICT = "district";
     private Provider providerWithoutAdherence;
     private Provider providerWithAdherence;
