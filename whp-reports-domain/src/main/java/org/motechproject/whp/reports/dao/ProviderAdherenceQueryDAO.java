@@ -61,13 +61,14 @@ public class ProviderAdherenceQueryDAO {
             "then '1' else '0' end as adherence_given " +
             "from whp_reports.provider " +
             "where provider.district = ? and exists( " +
-            "select all_treatment.provider_id " +
+            "select 1 " +
             "from  whp_reports.patient_therapy all_therapy " +
             "inner join whp_reports.patient_treatment all_treatment " +
             "on all_treatment.therapy_fk = all_therapy.therapy_pk " +
-            "where " +
-            "(all_therapy.start_date >= all_treatment.start_date and all_therapy.start_date <=  ? and (all_therapy.close_date is null or  all_therapy.close_date >= ?) " +
-            "OR  (all_therapy.start_date < all_treatment.start_date and all_treatment.start_date <=  ? and  (all_treatment.end_date is  null or all_treatment.end_date >= ?))) " +
+            "where all_treatment.provider_id = provider.provider_id and " +
+            "((all_therapy.start_date >= all_treatment.start_date and all_therapy.start_date <=  ?) " +
+            " OR  (all_therapy.start_date < all_treatment.start_date and all_treatment.start_date <=  ?)) " +
+            "and (all_therapy.close_date is null or  all_therapy.close_date >= ?) and  (all_treatment.end_date is  null or all_treatment.end_date >= ?) " +
             "and " +
             "exists (select 1 from  whp_reports.patient_therapy therapy " +
             "inner join whp_reports.patient_treatment treatment on treatment.therapy_fk = therapy.therapy_pk " +
