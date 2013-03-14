@@ -31,4 +31,8 @@ public class ContainerSummary {
     private Date consultationDate;
     private String mappingInstance;
     private String alternateDiagnosisName;
+    private String givenPatientName;
+    private String givenPatientId;
+    private Integer givenPatientAge;
+    private String givenGender;
 }

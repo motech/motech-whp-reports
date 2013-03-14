@@ -19,6 +19,7 @@ import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
 import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
@@ -26,6 +27,7 @@ import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.motechproject.whp.reports.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -55,6 +57,7 @@ public class ReportQueryDAOIT {
     @Autowired
     ProviderRepository providerRepository;
     @Autowired
+    @Qualifier(value = "adherenceRecordRepository")
     AdherenceRecordRepository adherenceRecordRepository;
     @Autowired
     ProviderReminderCallLogRepository providerReminderCallLogRepository;
@@ -340,7 +343,6 @@ public class ReportQueryDAOIT {
         testContainerRecord.setProviderId(testProvider.getProviderId());
         testContainerRecord.setProviderDistrict(testProvider.getDistrict());
 
-
         containerRecordRepository.save(asList(containerRecord, testContainerRecord));
 
         List<ContainerSummary> containerSummaries = reportQueryDAO.getContainerSummaries();
@@ -370,6 +372,15 @@ public class ReportQueryDAOIT {
         assertThat(summary.getSmearTestResult2(), is(containerRecord.getSmearTestResult2()));
         assertThat(summary.getStatus(), is(containerRecord.getStatus()));
         assertThat(summary.getSubmitterId(), is(containerRecord.getSubmitterId()));
+        assertUserGivenDetails(summary, containerRecord);
+    }
+
+    private void assertUserGivenDetails(ContainerSummary summary, ContainerRecord containerRecord) {
+        UserGivenPatientDetails expectedDetails = containerRecord.getUserGivenPatientDetails();
+        assertThat(summary.getGivenPatientName(), is(expectedDetails.getPatientName()));
+        assertThat(summary.getGivenPatientId(), is(expectedDetails.getPatientId()));
+        assertThat(summary.getGivenPatientAge(), is(expectedDetails.getPatientAge()));
+        assertThat(summary.getGivenGender(), is(expectedDetails.getGender()));
     }
 
     private java.sql.Date getSqlDate(java.sql.Date date) {

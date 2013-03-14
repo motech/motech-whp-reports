@@ -173,7 +173,8 @@ public class ContainerRecordBuilder {
                 .withLabResultsCapturedOn(new Date(currentTimeInMillis))
                 .withStatus("status")
                 .withTbId("tbId")
-                .withSmearTestResults(new Date(currentTimeInMillis), "result1", new Date(currentTimeInMillis), "result2");
+                .withSmearTestResults(new Date(currentTimeInMillis), "result1", new Date(currentTimeInMillis), "result2")
+                .withUserGivenPatientDetails("id", "name", 99, "gender");
         return this;
     }
 

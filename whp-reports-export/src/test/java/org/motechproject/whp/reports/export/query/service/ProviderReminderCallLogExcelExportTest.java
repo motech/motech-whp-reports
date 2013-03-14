@@ -79,5 +79,8 @@ public class ProviderReminderCallLogExcelExportTest extends ExcelTest {
         return providerReminderCallLogSummary;
     }
 
-
+    @Override
+    Workbook getWorkbook() {
+        return null;
+    }
 }

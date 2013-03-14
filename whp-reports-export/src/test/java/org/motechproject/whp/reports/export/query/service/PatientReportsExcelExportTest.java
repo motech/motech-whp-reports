@@ -203,4 +203,9 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.M, 8), workbook).getStringCellValue(), is(equalTo("patientType")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.O, 8), workbook).getStringCellValue(), is(equalTo("treatmentOutcome")));
     }
+
+    @Override
+    Workbook getWorkbook() {
+        return null;
+    }
 }

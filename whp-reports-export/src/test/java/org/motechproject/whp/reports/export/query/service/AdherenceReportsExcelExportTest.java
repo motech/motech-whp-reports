@@ -84,4 +84,8 @@ public class AdherenceReportsExcelExportTest extends ExcelTest{
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.E, 3), workbook).getStringCellValue(), is(equalTo("district")));
     }
 
+    @Override
+    Workbook getWorkbook() {
+        return null;
+    }
 }

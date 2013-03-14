@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static bad.robot.excel.valuetypes.Coordinate.coordinate;
 import static bad.robot.excel.valuetypes.ExcelColumnIndex.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,6 +24,7 @@ import static org.motechproject.whp.reports.date.WHPDateTime.toSqlDate;
 public class ContainerTrackingReportExcelExportTest extends ExcelTest {
 
     DateTime now = now();
+    private Workbook workbook;
 
     @Test
     public void shouldCreateContainerTrackingReport() throws IOException {
@@ -37,34 +37,41 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
 
         excelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
 
-        Workbook workbook = excelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
-        assertThat(getCellForCoordinate(coordinate(A, 1), workbook).getStringCellValue(), is(equalTo("Container Tracking Report")));
-        assertThat(getCellForCoordinate(coordinate(A, 3), workbook).getStringCellValue(), is(equalTo("Generated as on " + generatedDateTimeValue)));
-        assertThat(getCellForCoordinate(coordinate(A, 5), workbook).getStringCellValue(), is(equalTo("containerId")));
-        assertThat(getCellForCoordinate(coordinate(B, 5), workbook).getDateCellValue(), is(now.toDate()));
-        assertThat(getCellForCoordinate(coordinate(C, 5), workbook).getStringCellValue(), is(equalTo("providerId")));
-        assertThat(getCellForCoordinate(coordinate(D, 5), workbook).getStringCellValue(), is(equalTo("district")));
-        assertThat(getCellForCoordinate(coordinate(E, 5), workbook).getStringCellValue(), is(equalTo("submitterId")));
-        assertThat(getCellForCoordinate(coordinate(F, 5), workbook).getStringCellValue(), is("Instance"));
-        assertThat(getCellForCoordinate(coordinate(G, 5), workbook).getStringCellValue(), is("channelId"));
-        assertThat(getCellForCoordinate(coordinate(H, 5), workbook).getStringCellValue(), is("patientId"));
-        assertThat(getCellForCoordinate(coordinate(I, 5), workbook).getStringCellValue(), is("tbId"));
-        assertThat(getCellForCoordinate(coordinate(J, 5), workbook).getStringCellValue(), is("mappingInstance"));
-        assertThat(getCellForCoordinate(coordinate(K, 5), workbook).getDateCellValue(), is(now.toDate()));
-        assertThat(getCellForCoordinate(coordinate(L, 5), workbook).getStringCellValue(), is("testResult1"));
-        assertThat(getCellForCoordinate(coordinate(M, 5), workbook).getDateCellValue(), is(now.toDate()));
-        assertThat(getCellForCoordinate(coordinate(N, 5), workbook).getStringCellValue(), is("testResult2"));
-        assertThat(getCellForCoordinate(coordinate(O, 5), workbook).getStringCellValue(), is("labName"));
-        assertThat(getCellForCoordinate(coordinate(P, 5), workbook).getStringCellValue(), is("labNumber"));
-        assertThat(getCellForCoordinate(coordinate(Q, 5), workbook).getDateCellValue(), is(now.toDate()));
-        assertThat(getCellForCoordinate(coordinate(R, 5), workbook).getStringCellValue(), is("status"));
-        assertThat(getCellForCoordinate(coordinate(S, 5), workbook).getStringCellValue(), is("reasonForClosure"));
-        assertThat(getCellForCoordinate(coordinate(T, 5), workbook).getDateCellValue(), is(now.toDate()));
-        assertThat(getCellForCoordinate(coordinate(U, 5), workbook).getDateCellValue(), is(now.toDate()));
-        assertThat(getCellForCoordinate(coordinate(V, 5), workbook).getStringCellValue(), is("diagnosis"));
-        assertThat(getCellForCoordinate(coordinate(W, 5), workbook).getStringCellValue(), is("alternateDiagnosisCode"));
-        assertThat(getCellForCoordinate(coordinate(X, 5), workbook).getStringCellValue(), is("alternateDiagnosisName"));
+        workbook = excelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
+        assertThat(stringValue(A, 1), is(equalTo("Container Tracking Report")));
+        assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));
+        assertThat(stringValue(A, 5), is(equalTo("containerId")));
+        assertThat(dateValue(B, 5), is(now.toDate()));
+        assertThat(stringValue(C, 5), is(equalTo("providerId")));
+        assertThat(stringValue(D, 5), is(equalTo("district")));
+        assertThat(stringValue(E, 5), is(equalTo("submitterId")));
+        assertThat(stringValue(F, 5), is("Instance"));
+        assertThat(stringValue(G, 5), is("channelId"));
+        assertThat(stringValue(H, 5), is("patientId"));
+        assertThat(stringValue(I, 5), is("tbId"));
+        assertThat(stringValue(J, 5), is("mappingInstance"));
+        assertThat(dateValue(K, 5), is(now.toDate()));
+        assertThat(stringValue(L, 5), is("testResult1"));
+        assertThat(dateValue(M, 5), is(now.toDate()));
+        assertThat(stringValue(N, 5), is("testResult2"));
+        assertThat(stringValue(O, 5), is("labName"));
+        assertThat(stringValue(P, 5), is("labNumber"));
+        assertThat(dateValue(Q, 5), is(now.toDate()));
+        assertThat(stringValue(R, 5), is("status"));
+        assertThat(stringValue(S, 5), is("reasonForClosure"));
+        assertThat(dateValue(T, 5), is(now.toDate()));
+        assertThat(dateValue(U, 5), is(now.toDate()));
+        assertThat(stringValue(V, 5), is("diagnosis"));
+        assertThat(stringValue(W, 5), is("alternateDiagnosisCode"));
+        assertThat(stringValue(X, 5), is("alternateDiagnosisName"));
+        assertThat(stringValue(Y, 5), is("name"));
+        assertThat(stringValue(Z, 5), is("id"));
+        assertThat(numericValue(AA, 5), is(98.0));
+        assertThat(stringValue(AB, 5), is("gender"));
+    }
 
+    public Workbook getWorkbook() {
+        return workbook;
     }
 
     private ContainerSummary createContainerSummary() {
@@ -93,8 +100,11 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
         containerSummary.setSubmitterId("submitterId");
         containerSummary.setTbId("tbId");
         containerSummary.setRegistrationInstance("Instance");
+        containerSummary.setGivenPatientName("name");
+        containerSummary.setGivenPatientId("id");
+        containerSummary.setGivenPatientAge(98);
+        containerSummary.setGivenGender("gender");
 
         return containerSummary;
     }
-
 }
