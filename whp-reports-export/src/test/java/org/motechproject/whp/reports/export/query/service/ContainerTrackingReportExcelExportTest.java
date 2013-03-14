@@ -35,8 +35,6 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
         String generatedDateTimeValue = date(now).value();
         params.put(ExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
 
-        excelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
-
         workbook = excelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
         assertThat(stringValue(A, 1), is(equalTo("Container Tracking Report")));
         assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));

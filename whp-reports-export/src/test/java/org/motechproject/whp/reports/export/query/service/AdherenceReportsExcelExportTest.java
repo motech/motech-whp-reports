@@ -23,6 +23,8 @@ import static org.hamcrest.Matchers.is;
 
 public class AdherenceReportsExcelExportTest extends ExcelTest{
 
+    private Workbook workbook;
+
     @Test
     public void shouldCreateWorkbookForAdherenceAuditLogReport() throws IOException {
         AdherenceAuditLogSummary adherenceAuditLogSummary = new AdherenceAuditLogSummary();
@@ -43,21 +45,23 @@ public class AdherenceReportsExcelExportTest extends ExcelTest{
         Map params = new HashMap();
         params.put("auditLogs", adherenceAuditLogSummaries);
 
-        Workbook workbook = excelExporter.export(AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME, params);
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 1), workbook).getStringCellValue(), is(equalTo("Adherence")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("patientId")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 3), workbook).getStringCellValue(), is(equalTo("tbId")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.C, 3), workbook).getStringCellValue(), is(equalTo("providerId")));
-        //unformatted date time value
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.D, 3), workbook).getNumericCellValue(), is(equalTo(41327.0)));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.E, 3), workbook).getNumericCellValue(), is(equalTo(41327.0)));
+        workbook = excelExporter.export(AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME, params);
 
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.F, 3), workbook).getStringCellValue(), is(equalTo("userId")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.G, 3), workbook).getNumericCellValue(), is(equalTo((double) 2)));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.H, 3), workbook).getStringCellValue(), is(equalTo("Taken")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.I, 3), workbook).getStringCellValue(), is(equalTo("WEB")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.J, 3), workbook).getStringCellValue(), is(equalTo("providerDistrict")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.K, 3), workbook).getStringCellValue(), is(equalTo("Yes")));
+        assertThat(stringValue(ExcelColumnIndex.A, 1), is(equalTo("Adherence")));
+        assertThat(stringValue(ExcelColumnIndex.A, 3), is(equalTo("patientId")));
+        assertThat(stringValue(ExcelColumnIndex.B, 3), is(equalTo("tbId")));
+        assertThat(stringValue(ExcelColumnIndex.C, 3), is(equalTo("providerId")));
+        //unformatted date time value
+        assertThat(numericValue(ExcelColumnIndex.D, 3), is(equalTo(41327.0)));
+        assertThat(numericValue(ExcelColumnIndex.E, 3), is(equalTo(41327.0)));
+
+        assertThat(stringValue(ExcelColumnIndex.F, 3), is(equalTo("userId")));
+
+        assertThat(numericValue(ExcelColumnIndex.G, 3), is(equalTo((double) 2)));
+        assertThat(stringValue(ExcelColumnIndex.H, 3), is(equalTo("Taken")));
+        assertThat(stringValue(ExcelColumnIndex.I, 3), is(equalTo("WEB")));
+        assertThat(stringValue(ExcelColumnIndex.J, 3), is(equalTo("providerDistrict")));
+        assertThat(stringValue(ExcelColumnIndex.K, 3), is(equalTo("Yes")));
     }
 
     @Test
@@ -86,6 +90,6 @@ public class AdherenceReportsExcelExportTest extends ExcelTest{
 
     @Override
     Workbook getWorkbook() {
-        return null;
+        return workbook;
     }
 }
