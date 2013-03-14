@@ -9,7 +9,7 @@
           p:jsonpOnErrParamName="errback">
         <property name="domainTypeToRepositoryMappings">
             <map key-type="java.lang.Class" value-type="java.lang.Class">
-                <entry key="org.motechproject.whp.reports.domain.measure.FlashingLog"
+                <entry key="org.motechproject.whp.reports.domain.measure.calllog.FlashingLog"
                        value="org.motechproject.whp.reports.repository.FlashingLogRepository"/>
             </map>
         </property>

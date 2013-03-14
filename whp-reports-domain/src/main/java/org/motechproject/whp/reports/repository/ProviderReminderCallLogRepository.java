@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.repository;
 
 
-import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
 import org.springframework.data.domain.Pageable;
 
 import java.sql.Timestamp;

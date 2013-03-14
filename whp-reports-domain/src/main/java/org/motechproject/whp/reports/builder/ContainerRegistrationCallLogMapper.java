@@ -7,7 +7,7 @@ import org.motechproject.whp.reports.contract.ContainerRegistrationCallDetailsLo
 import org.motechproject.whp.reports.contract.ContainerVerificationLogRequest;
 import org.motechproject.whp.reports.contract.ProviderVerificationLogRequest;
 import org.motechproject.whp.reports.date.WHPDateTime;
-import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

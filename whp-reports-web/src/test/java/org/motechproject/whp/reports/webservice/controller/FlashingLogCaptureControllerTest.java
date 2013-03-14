@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
-import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.domain.measure.calllog.FlashingLog;
 import org.motechproject.whp.reports.service.FlashingLogService;
 import org.springframework.http.MediaType;
 

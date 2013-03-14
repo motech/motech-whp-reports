@@ -5,16 +5,17 @@ import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRe
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
 @Component
-public class ContainerTrackingReportingRequestMapper {
+public class ContainerReportingRequestMapper {
 
-    public  ContainerRecord buildContainerRegistrationRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
+    public  ContainerRecord mapContainerRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
         containerRecord.setIssuedOn(getDateIfNotNull(containerRegistrationReportingRequest.getIssuedOn()));
@@ -27,7 +28,18 @@ public class ContainerTrackingReportingRequestMapper {
         containerRecord.setProviderDistrict(containerRegistrationReportingRequest.getProviderDistrict());
         containerRecord.setStatus(containerRegistrationReportingRequest.getStatus());
         containerRecord.setCallId(containerRegistrationReportingRequest.getCallId());
+
+        mapUserGivenPatientDetails(containerRegistrationReportingRequest, containerRecord);
         return containerRecord;
+    }
+
+    private void mapUserGivenPatientDetails(ContainerRegistrationReportingRequest request, ContainerRecord containerRecord) {
+        UserGivenPatientDetails patientDetailsRecord = containerRecord.getUserGivenPatientDetails();
+        org.motechproject.whp.reports.contract.UserGivenPatientDetails patientDetailsRequest = request.getUserGivenPatientDetails();
+        patientDetailsRecord.setGender(patientDetailsRequest.getGender());
+        patientDetailsRecord.setPatientId(patientDetailsRequest.getPatientId());
+        patientDetailsRecord.setPatientAge(patientDetailsRequest.getPatientAge());
+        patientDetailsRecord.setPatientName(patientDetailsRequest.getPatientName());
     }
 
     public  void populateSputumLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {

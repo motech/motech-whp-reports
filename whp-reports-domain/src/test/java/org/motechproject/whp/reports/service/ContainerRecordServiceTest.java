@@ -9,9 +9,9 @@ import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRe
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
-import org.motechproject.whp.reports.mapper.ContainerTrackingReportingRequestMapper;
+import org.motechproject.whp.reports.mapper.ContainerReportingRequestMapper;
 import org.motechproject.whp.reports.repository.ContainerRecordRepository;
 import org.springframework.data.domain.Page;
 
@@ -28,7 +28,7 @@ public class ContainerRecordServiceTest {
     @Mock
     private ContainerRecordRepository containerRecordRepository;
     @Mock
-    private ContainerTrackingReportingRequestMapper requestMapper;
+    private ContainerReportingRequestMapper requestMapper;
     private ContainerRecordService containerRecordService;
 
     @Before()

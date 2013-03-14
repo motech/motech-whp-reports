@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
 import org.motechproject.whp.reports.repository.AdherenceCallLogRepository;
 
 import static org.mockito.Mockito.verify;

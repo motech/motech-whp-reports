@@ -5,7 +5,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,7 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
 
         ContainerRecord containerRecordFromDB = containerRecordRepository.findOne(containerRecord.getId());
         assertThat(containerRecordFromDB.getContainerId(), is(containerRecord.getContainerId()));
+        assertUserGivenPatientDetails(containerRecord, containerRecordFromDB);
     }
 
     @Test
@@ -83,23 +85,6 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         assertThat(containerRecordFromDB.getContainerId(), is(containerRecord.getContainerId()));
     }
 
-    private ContainerRecord createContainerRecord(Date submissionDate, String containerId) {
-        return new ContainerRecordBuilder()
-                    .withContainerId(containerId)
-                    .withIssuedOnDate(submissionDate)
-                    .withProviderId("providerId")
-                    .withSubmittedBy("CmfAdmin")
-                    .withSubmitterId("admin")
-                    .withProviderDistrict("Patna")
-                    .withRegistrationInstance("Instance")
-                    .withChannel("IVR")
-                    .withPatientId("patient1")
-                    .withStatus("Close")
-                    .withReasonForClosureCode("0")
-                    .withAlternateDiagnosisCode("1027")
-                    .build();
-    }
-
     @Test
     public void shouldPageThroughContainerRecords() {
         ContainerRecord container1 = createContainerRecord(new LocalDate(2012, 9, 19).toDate(), "containerId1");
@@ -134,6 +119,34 @@ public class ContainerRecordRepositoryIT extends IntegrationTest {
         assertEquals(container4.getId(), iterator.next().getId());
         assertEquals(container5.getId(), iterator.next().getId());
         assertEquals(2, page2.getNumberOfElements());
+    }
+
+    private ContainerRecord createContainerRecord(Date submissionDate, String containerId) {
+        return new ContainerRecordBuilder()
+                .withContainerId(containerId)
+                .withIssuedOnDate(submissionDate)
+                .withProviderId("providerId")
+                .withSubmittedBy("CmfAdmin")
+                .withSubmitterId("admin")
+                .withProviderDistrict("Patna")
+                .withRegistrationInstance("Instance")
+                .withChannel("IVR")
+                .withPatientId("patient1")
+                .withStatus("Close")
+                .withReasonForClosureCode("0")
+                .withAlternateDiagnosisCode("1027")
+                .withUserGivenPatientDetails("patientId", "patientName", 99, "Female")
+                .build();
+    }
+
+    private void assertUserGivenPatientDetails(ContainerRecord expected, ContainerRecord record) {
+        UserGivenPatientDetails actualPatientDetails = record.getUserGivenPatientDetails();
+        UserGivenPatientDetails expectedPatientDetails = expected.getUserGivenPatientDetails();
+
+        assertEquals(expectedPatientDetails.getPatientName(), actualPatientDetails.getPatientName());
+        assertEquals(expectedPatientDetails.getPatientId(), actualPatientDetails.getPatientId());
+        assertEquals(expectedPatientDetails.getPatientAge(), actualPatientDetails.getPatientAge());
+        assertEquals(expectedPatientDetails.getGender(), actualPatientDetails.getGender());
     }
 
 

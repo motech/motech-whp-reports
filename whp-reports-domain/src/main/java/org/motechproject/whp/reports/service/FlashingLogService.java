@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.domain.measure.calllog.FlashingLog;
 import org.motechproject.whp.reports.repository.FlashingLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

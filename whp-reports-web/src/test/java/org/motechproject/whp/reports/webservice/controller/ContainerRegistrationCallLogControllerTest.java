@@ -9,7 +9,7 @@ import org.motechproject.whp.reports.builder.ContainerRegistrationCallLogMapper;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallDetailsLogRequest;
 import org.motechproject.whp.reports.contract.ContainerVerificationLogRequest;
 import org.motechproject.whp.reports.contract.ProviderVerificationLogRequest;
-import org.motechproject.whp.reports.domain.measure.ContainerRegistrationCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ContainerRegistrationCallLog;
 import org.motechproject.whp.reports.repository.ContainerRegistrationCallLogRepository;
 import org.motechproject.whp.reports.service.ContainerRegistrationCallLogService;
 import org.springframework.http.MediaType;

@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.motechproject.whp.reports.builder.DomainMapper;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.AdherenceCallStatusRequest;
-import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
 import org.motechproject.whp.reports.service.AdherenceCallLogService;
 import org.springframework.http.MediaType;
 

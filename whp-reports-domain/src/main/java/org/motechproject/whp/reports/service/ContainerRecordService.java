@@ -4,9 +4,9 @@ import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRe
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
-import org.motechproject.whp.reports.mapper.ContainerTrackingReportingRequestMapper;
+import org.motechproject.whp.reports.mapper.ContainerReportingRequestMapper;
 import org.motechproject.whp.reports.repository.ContainerRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,19 +19,19 @@ import java.util.List;
 public class ContainerRecordService {
 
     private ContainerRecordRepository containerRecordRepository;
-    private ContainerTrackingReportingRequestMapper requestMapper;
+    private ContainerReportingRequestMapper requestMapper;
 
     // Required by Spring to crete proxy as class is @Transactional
     ContainerRecordService() {}
 
     @Autowired
-    public ContainerRecordService(ContainerRecordRepository containerRecordRepository, ContainerTrackingReportingRequestMapper requestMapper) {
+    public ContainerRecordService(ContainerRecordRepository containerRecordRepository, ContainerReportingRequestMapper requestMapper) {
         this.containerRecordRepository = containerRecordRepository;
         this.requestMapper = requestMapper;
     }
 
     public void recordContainerRegistration(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
-        ContainerRecord containerRecord = requestMapper.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
+        ContainerRecord containerRecord = requestMapper.mapContainerRecord(containerRegistrationReportingRequest);
         containerRecordRepository.save(containerRecord);
     }
 

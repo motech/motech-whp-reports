@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.builder;
 
-import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.domain.measure.calllog.FlashingLog;
 
 import java.sql.Timestamp;
 import java.util.Date;

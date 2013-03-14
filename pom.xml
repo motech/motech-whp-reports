@@ -245,6 +245,13 @@
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>whp-reports-contract</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
                 <artifactId>whp-reports-domain</artifactId>
                 <version>${project.version}</version>
                 <type>test-jar</type>

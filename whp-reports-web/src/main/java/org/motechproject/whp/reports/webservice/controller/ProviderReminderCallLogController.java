@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.webservice.controller;
 
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
-import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
 import org.motechproject.whp.reports.mapper.ProviderReminderCallLogMapper;
 import org.motechproject.whp.reports.service.ProviderReminderCallLogService;
 import org.springframework.beans.factory.annotation.Autowired;

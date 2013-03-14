@@ -4,8 +4,8 @@ import org.joda.time.Period;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.AdherenceCaptureRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
-import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
-import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.FlashingLog;
 import org.motechproject.whp.reports.domain.measure.PatientAdherenceSubmission;
 import org.springframework.stereotype.Component;
 

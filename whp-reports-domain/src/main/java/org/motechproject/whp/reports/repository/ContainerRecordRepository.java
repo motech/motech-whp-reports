@@ -1,8 +1,6 @@
 package org.motechproject.whp.reports.repository;
 
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.repository.annotation.RestResource;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 
 public interface ContainerRecordRepository extends MotechJpaRepository<ContainerRecord>{
     ContainerRecord findByContainerId(String containerId);

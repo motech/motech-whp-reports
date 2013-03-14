@@ -7,7 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.contract.AdherenceSubmissionRequest;
 import org.motechproject.whp.reports.contract.enums.YesNo;
-import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.paging.MostRecentProviderReminderCallLog;
 import org.motechproject.whp.reports.repository.ProviderReminderCallLogRepository;
 

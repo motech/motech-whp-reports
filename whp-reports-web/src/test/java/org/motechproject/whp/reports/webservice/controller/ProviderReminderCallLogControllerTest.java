@@ -7,7 +7,7 @@ import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
 import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
-import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
 import org.motechproject.whp.reports.mapper.ProviderReminderCallLogMapper;
 import org.motechproject.whp.reports.service.ProviderReminderCallLogService;
 import org.springframework.http.MediaType;

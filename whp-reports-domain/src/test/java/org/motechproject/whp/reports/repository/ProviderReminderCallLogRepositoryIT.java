@@ -7,7 +7,7 @@ import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.contract.enums.ReminderDisconnectionType;
 import org.motechproject.whp.reports.contract.enums.ReminderType;
 import org.motechproject.whp.reports.domain.dimension.Provider;
-import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
 import org.motechproject.whp.reports.domain.paging.MostRecentProviderReminderCallLog;
 import org.springframework.beans.factory.annotation.Autowired;
 

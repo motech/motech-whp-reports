@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
 import org.motechproject.whp.reports.repository.AdherenceCallLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

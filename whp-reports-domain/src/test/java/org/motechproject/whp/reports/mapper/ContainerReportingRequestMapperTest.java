@@ -6,31 +6,25 @@ import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRe
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
 import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
 import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 
 import java.sql.Timestamp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.motechproject.whp.reports.contract.builder.ContainerRegistrationRequestBuilder.defaultRequest;
 
-public class SputumTrackingRequestMapperTest {
+public class ContainerReportingRequestMapperTest {
 
-    private ContainerTrackingReportingRequestMapper requestMapper = new ContainerTrackingReportingRequestMapper();
+    private ContainerReportingRequestMapper requestMapper = new ContainerReportingRequestMapper();
 
     @Test
     public void shouldCreateContainerRecordOnRegistration() {
-        java.util.Date now = new java.util.Date();
+        ContainerRegistrationReportingRequest containerRegistrationReportingRequest = defaultRequest();
 
-        ContainerRegistrationReportingRequest containerRegistrationReportingRequest = new ContainerRegistrationReportingRequest();
-        containerRegistrationReportingRequest.setContainerId("containerId");
-        containerRegistrationReportingRequest.setInstance("PreTreatment");
-        containerRegistrationReportingRequest.setIssuedOn(now);
-        containerRegistrationReportingRequest.setProviderId("raj");
-        containerRegistrationReportingRequest.setSubmitterRole("CmfAdmin");
-        containerRegistrationReportingRequest.setSubmitterId("submitterId");
-
-        ContainerRecord containerRecord = requestMapper.buildContainerRegistrationRecord(containerRegistrationReportingRequest);
+        ContainerRecord containerRecord = requestMapper.mapContainerRecord(containerRegistrationReportingRequest);
 
         assertThat(containerRecord.getContainerId(), is(containerRegistrationReportingRequest.getContainerId()));
         assertThat(containerRecord.getRegistrationInstance(), is(containerRegistrationReportingRequest.getInstance()));
@@ -38,6 +32,8 @@ public class SputumTrackingRequestMapperTest {
         assertThat(containerRecord.getProviderId(), is(containerRegistrationReportingRequest.getProviderId()));
         assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationReportingRequest.getSubmitterRole()));
         assertThat(containerRecord.getSubmitterId(), is(containerRegistrationReportingRequest.getSubmitterId()));
+
+        assertUserGivenPatientDetails(containerRegistrationReportingRequest.getUserGivenPatientDetails(), containerRecord.getUserGivenPatientDetails());
     }
 
     @Test
@@ -125,4 +121,13 @@ public class SputumTrackingRequestMapperTest {
         assertEquals(containerPatientMappingReportingRequest.getTbId(), containerRecord.getTbId());
         assertEquals(containerPatientMappingReportingRequest.getDiagnosis(), containerRecord.getDiagnosis());
     }
+
+    private void assertUserGivenPatientDetails(org.motechproject.whp.reports.contract.UserGivenPatientDetails expectedPatientDetails, UserGivenPatientDetails actualPatientDetails) {
+        assertEquals(expectedPatientDetails.getPatientName(), actualPatientDetails.getPatientName());
+        assertEquals(expectedPatientDetails.getPatientId(), actualPatientDetails.getPatientId());
+        assertEquals(expectedPatientDetails.getPatientAge(), actualPatientDetails.getPatientAge());
+        assertEquals(expectedPatientDetails.getGender(), actualPatientDetails.getGender());
+    }
+
+
 }

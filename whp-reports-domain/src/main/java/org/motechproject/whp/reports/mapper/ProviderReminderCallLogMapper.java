@@ -2,7 +2,7 @@ package org.motechproject.whp.reports.mapper;
 
 import org.apache.commons.lang.StringUtils;
 import org.motechproject.whp.reports.contract.ProviderReminderCallLogRequest;
-import org.motechproject.whp.reports.domain.measure.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
 import org.springframework.stereotype.Component;
 
 import static org.motechproject.whp.reports.date.WHPDateTime.timestamp;

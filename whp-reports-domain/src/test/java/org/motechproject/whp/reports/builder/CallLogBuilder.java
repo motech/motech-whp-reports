@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.builder;
 
-import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
 
 import java.sql.Timestamp;
 import java.util.Date;

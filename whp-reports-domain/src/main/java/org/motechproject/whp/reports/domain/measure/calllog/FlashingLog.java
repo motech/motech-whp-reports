@@ -1,4 +1,4 @@
-package org.motechproject.whp.reports.domain.measure;
+package org.motechproject.whp.reports.domain.measure.calllog;
 
 import lombok.Data;
 

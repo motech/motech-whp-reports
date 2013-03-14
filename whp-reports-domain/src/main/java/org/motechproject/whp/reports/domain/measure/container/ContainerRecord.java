@@ -1,4 +1,4 @@
-package org.motechproject.whp.reports.domain.measure;
+package org.motechproject.whp.reports.domain.measure.container;
 
 import lombok.Data;
 import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
@@ -103,4 +103,7 @@ public class ContainerRecord {
 
     @Column(name = "mapping_instance")
     private String mappingInstance;
+
+    @Embedded
+    private UserGivenPatientDetails userGivenPatientDetails = new UserGivenPatientDetails();
 }

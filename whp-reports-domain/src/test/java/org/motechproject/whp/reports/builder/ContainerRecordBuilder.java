@@ -2,7 +2,8 @@ package org.motechproject.whp.reports.builder;
 
 import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
-import org.motechproject.whp.reports.domain.measure.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
+import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -174,5 +175,16 @@ public class ContainerRecordBuilder {
                 .withTbId("tbId")
                 .withSmearTestResults(new Date(currentTimeInMillis), "result1", new Date(currentTimeInMillis), "result2");
         return this;
+    }
+
+    public ContainerRecordBuilder withUserGivenPatientDetails(String patientId, String patientName, int age, String gender) {
+        UserGivenPatientDetails userGivenPatientDetails = new UserGivenPatientDetails();
+        userGivenPatientDetails.setPatientId(patientId);
+        userGivenPatientDetails.setPatientName(patientName);
+        userGivenPatientDetails.setPatientAge(age);
+        userGivenPatientDetails.setGender(gender);
+
+        containerRecord.setUserGivenPatientDetails(userGivenPatientDetails);
+        return  this;
     }
 }

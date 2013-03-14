@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.whp.reports.contract.AdherenceCallLogRequest;
 import org.motechproject.whp.reports.contract.FlashingLogRequest;
-import org.motechproject.whp.reports.domain.measure.AdherenceCallLog;
-import org.motechproject.whp.reports.domain.measure.FlashingLog;
+import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
+import org.motechproject.whp.reports.domain.measure.calllog.FlashingLog;
 
 import java.sql.Date;
 import java.sql.Timestamp;

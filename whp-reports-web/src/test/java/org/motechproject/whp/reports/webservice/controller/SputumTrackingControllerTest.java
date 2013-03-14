@@ -10,7 +10,9 @@ import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRe
 import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.springframework.http.MediaType;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.motechproject.whp.reports.contract.builder.ContainerRegistrationRequestBuilder.defaultRequest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -29,14 +31,14 @@ public class SputumTrackingControllerTest extends ControllerTest{
 
     @Test
     public void shouldRegisterContainer() throws Exception {
-
-        ContainerRegistrationReportingRequest containerRegistrationReportingRequest = new ContainerRegistrationReportingRequest();
-
-        String requestJSON = getJSON(containerRegistrationReportingRequest);
+        ContainerRegistrationReportingRequest request = defaultRequest();
+        String requestJSON = getJSON(request);
 
         standaloneSetup(sputumTrackingController).build()
                         .perform(post("/sputumTracking/containerRegistrationMeasure").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk());
+
+        verify(containerRecordService).recordContainerRegistration(request);
     }
 
     @Test
