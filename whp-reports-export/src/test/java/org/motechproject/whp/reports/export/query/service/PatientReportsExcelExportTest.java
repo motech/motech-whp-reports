@@ -67,7 +67,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("Start Date: 01/12/2012")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 4), workbook).getStringCellValue(), is(equalTo("End Date: 30/12/2012")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 5), workbook).getStringCellValue(), is(equalTo("Provider District: d1")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 7), workbook).getStringCellValue(), is(equalTo("Number of patients found: 1")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 7), workbook).getStringCellValue(), is(equalTo("Number of records: 1")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 9), workbook).getStringCellValue(), is(equalTo("John Doe")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 9), workbook).getNumericCellValue(), is(equalTo((double) 40)));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.C, 9), workbook).getStringCellValue(), is(equalTo("M")));
@@ -130,7 +130,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("Start Date: 01/12/2012")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 4), workbook).getStringCellValue(), is(equalTo("End Date: 30/12/2012")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 5), workbook).getStringCellValue(), is(equalTo("Provider District: d1")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 6), workbook).getStringCellValue(), is(equalTo("Number of patients found: 1")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 6), workbook).getStringCellValue(), is(equalTo("Number of records: 1")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 8), workbook).getStringCellValue(), is(equalTo("John Doe")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 8), workbook).getNumericCellValue(), is(equalTo((double) 40)));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.C, 8), workbook).getStringCellValue(), is(equalTo("M")));
@@ -188,7 +188,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("Start Date: 01/12/2012")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 4), workbook).getStringCellValue(), is(equalTo("End Date: 30/12/2012")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 5), workbook).getStringCellValue(), is(equalTo("Provider District: d1")));
-        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 6), workbook).getStringCellValue(), is(equalTo("Number of patients found: 1")));
+        assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 6), workbook).getStringCellValue(), is(equalTo("Number of records: 1")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 8), workbook).getStringCellValue(), is(equalTo("John Doe")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 8), workbook).getNumericCellValue(), is(equalTo((double) 40)));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.C, 8), workbook).getStringCellValue(), is(equalTo("M")));
