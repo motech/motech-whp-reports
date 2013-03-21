@@ -70,6 +70,7 @@ public class ProviderAdherenceDataService {
         return weeklyAdherenceStatuses;
     }
 
+
     private Map<String, ProviderAdherenceSummary> adherenceSummaryMap(List<ProviderAdherenceSummary> providerAdherenceSummaries) {
         Map<String, ProviderAdherenceSummary> adherenceSummaryMap = new HashMap<>();
         for(ProviderAdherenceSummary adherenceSummary : providerAdherenceSummaries){

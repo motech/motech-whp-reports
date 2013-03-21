@@ -13,7 +13,7 @@ import static java.util.Arrays.asList;
 public class PatientBuilder {
     private Patient patient = new Patient();
     private Address patientAddress;
-    private PatientAlerts patientAlerts;
+    private PatientAlerts patientAlerts = new PatientAlerts();
     private Therapy therapy;
 
     public PatientBuilder withDefaults(){
@@ -177,6 +177,21 @@ public class PatientBuilder {
 
     public PatientBuilder withTreatmentEndDate(Date endDate) {
         getCurrentTreatment().setEndDate(endDate);
+        return this;
+    }
+
+    public PatientBuilder withAdherenceMissingWeeks(int missingWeeks) {
+        patientAlerts.setAdherenceMissingWeeks(missingWeeks);
+        return this;
+    }
+
+    public PatientBuilder withMobileNumber(String mobileNumber) {
+        patient.setPhoneNumber(mobileNumber);
+        return this;
+    }
+
+    public PatientBuilder withInactiveStatus() {
+        patient.setOnActiveTreatment("N");
         return this;
     }
 }
