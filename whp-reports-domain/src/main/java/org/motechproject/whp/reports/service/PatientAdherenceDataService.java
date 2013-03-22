@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.contract.query.PatientAdherenceInfo;
+import org.motechproject.whp.reports.contract.query.PatientAdherenceSummary;
 import org.motechproject.whp.reports.dao.PatientQueryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class PatientAdherenceDataService {
         this.patientQueryDAO = patientQueryDAO;
     }
 
-    public List<PatientAdherenceInfo> getAdherenceInfoForActivePatientsWithMissingAdherence(int skip, int limit) {
-        return patientQueryDAO.findPatientDetailsOfActivePatientsWithAdherenceMissing(skip, limit);
+    public List<PatientAdherenceSummary> getPatientsWithMissingAdherence(int skip, int limit) {
+        return patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(skip, limit);
     }
 }

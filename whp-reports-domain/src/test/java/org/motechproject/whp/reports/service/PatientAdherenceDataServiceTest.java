@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.contract.query.PatientAdherenceInfo;
+import org.motechproject.whp.reports.contract.query.PatientAdherenceSummary;
 import org.motechproject.whp.reports.dao.PatientQueryDAO;
 
 import java.util.List;
@@ -34,11 +34,11 @@ public class PatientAdherenceDataServiceTest {
 
         List expectedPatientAdherenceList = mock(List.class);
 
-        when(patientQueryDAO.findPatientDetailsOfActivePatientsWithAdherenceMissing(skip, limit)).thenReturn(expectedPatientAdherenceList);
+        when(patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(skip, limit)).thenReturn(expectedPatientAdherenceList);
 
-        List<PatientAdherenceInfo> patientAdherenceInfoList = patientAdherenceDataService.getAdherenceInfoForActivePatientsWithMissingAdherence(skip, limit);
+        List<PatientAdherenceSummary> patientAdherenceSummaryList = patientAdherenceDataService.getPatientsWithMissingAdherence(skip, limit);
 
-        assertEquals(expectedPatientAdherenceList, patientAdherenceInfoList);
-        verify(patientQueryDAO).findPatientDetailsOfActivePatientsWithAdherenceMissing(skip, limit);
+        assertEquals(expectedPatientAdherenceList, patientAdherenceSummaryList);
+        verify(patientQueryDAO).findActivePatientsWithMissingAdherenceAndAMobileNumber(skip, limit);
     }
 }

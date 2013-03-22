@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.dao;
 
-import org.motechproject.whp.reports.contract.query.PatientAdherenceInfo;
+import org.motechproject.whp.reports.contract.query.PatientAdherenceSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,8 +26,8 @@ public class PatientQueryDAO {
             "adherence_missing as missing_weeks from whp_reports.patient inner join whp_reports.patient_alert " +
             "on patient_alert_fk = alert_pk " +
             "where adherence_missing > 0 and phone_no is not null and is_active = 'Y' limit ? offset ?";
-    public List<PatientAdherenceInfo> findPatientDetailsOfActivePatientsWithAdherenceMissing(int skip, int limit) {
+    public List<PatientAdherenceSummary> findActivePatientsWithMissingAdherenceAndAMobileNumber(int skip, int limit) {
         return jdbcTemplate.query(ACTIVE_PATIENTS_WITH_MISSING_ADHERENCE,
-                new BeanPropertyRowMapper(PatientAdherenceInfo.class), limit, skip);
+                new BeanPropertyRowMapper(PatientAdherenceSummary.class), limit, skip);
     }
 }

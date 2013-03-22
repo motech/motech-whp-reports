@@ -3,15 +3,15 @@ package org.motechproject.whp.reports.contract.query;
 import lombok.Data;
 
 @Data
-public class PatientAdherenceInfo {
+public class PatientAdherenceSummary {
     private String patientId;
     private String mobileNumber;
     private int missingWeeks;
 
-    public PatientAdherenceInfo() {
+    public PatientAdherenceSummary() {
     }
 
-    public PatientAdherenceInfo(String patientId, String mobileNumber, int missingWeeks) {
+    public PatientAdherenceSummary(String patientId, String mobileNumber, int missingWeeks) {
         this.patientId = patientId;
         this.mobileNumber = mobileNumber;
         this.missingWeeks = missingWeeks;

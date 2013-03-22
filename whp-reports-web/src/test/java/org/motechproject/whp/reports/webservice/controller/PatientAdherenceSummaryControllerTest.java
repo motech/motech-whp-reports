@@ -3,7 +3,7 @@ package org.motechproject.whp.reports.webservice.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.contract.query.PatientAdherenceInfo;
+import org.motechproject.whp.reports.contract.query.PatientAdherenceSummary;
 import org.motechproject.whp.reports.service.PatientAdherenceDataService;
 import org.springframework.http.MediaType;
 
@@ -35,9 +35,9 @@ public class PatientAdherenceSummaryControllerTest extends ControllerTest {
         int limit = 100;
         int skip = 0;
 
-        List<PatientAdherenceInfo> adherenceInfoList = asList(new PatientAdherenceInfo("p1", "m1", 1), new PatientAdherenceInfo("p2", "m2", 2));
+        List<PatientAdherenceSummary> adherenceSummaryList = asList(new PatientAdherenceSummary("p1", "m1", 1), new PatientAdherenceSummary("p2", "m2", 2));
 
-        when(patientAdherenceDataService.getAdherenceInfoForActivePatientsWithMissingAdherence(skip, limit)).thenReturn(adherenceInfoList);
+        when(patientAdherenceDataService.getPatientsWithMissingAdherence(skip, limit)).thenReturn(adherenceSummaryList);
 
         standaloneSetup(patientAdherenceSummaryController).build()
                 .perform(get("/patientsWithoutAdherence")
@@ -46,6 +46,6 @@ public class PatientAdherenceSummaryControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(getJSON(adherenceInfoList)));
+                .andExpect(content().string(getJSON(adherenceSummaryList)));
     }
 }

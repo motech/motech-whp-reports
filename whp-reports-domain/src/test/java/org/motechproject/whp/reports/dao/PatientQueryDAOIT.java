@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.PatientBuilder;
-import org.motechproject.whp.reports.contract.query.PatientAdherenceInfo;
+import org.motechproject.whp.reports.contract.query.PatientAdherenceSummary;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,7 @@ public class PatientQueryDAOIT extends IntegrationTest {
     PatientQueryDAO patientQueryDAO;
 
     @Test
-    public void shouldFetchPatientAdherenceDetailsOfActivePatientsWithAdherenceMissingAlertsAndMobileNumbers() {
-
+    public void shouldFindActivePatientsWithMissingAdherenceAndAMobileNumber() {
         Patient expectedPatient = new PatientBuilder()
                 .withDefaults()
                 .withPatientId("expectedPatient")
@@ -56,14 +55,14 @@ public class PatientQueryDAOIT extends IntegrationTest {
 
         patientRepository.save(asList(expectedPatient, patientWithNoMobileNumber, patientWithNoAdherenceMissing, inactivePatient));
 
-        List<PatientAdherenceInfo> patientAdherenceInfos = patientQueryDAO.findPatientDetailsOfActivePatientsWithAdherenceMissing(0, 1);
+        List<PatientAdherenceSummary> patientAdherenceSummaries = patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(0, 1);
 
-        assertThat(patientAdherenceInfos.size(), is(1));
-        assertThat(patientAdherenceInfos.get(0).getMobileNumber(), is(expectedPatient.getPhoneNumber()));
-        assertThat(patientAdherenceInfos.get(0).getPatientId(), is(expectedPatient.getPatientId()));
-        assertThat(patientAdherenceInfos.get(0).getMissingWeeks(), is(expectedPatient.getPatientAlerts().getAdherenceMissingWeeks()));
+        assertThat(patientAdherenceSummaries.size(), is(1));
+        assertThat(patientAdherenceSummaries.get(0).getMobileNumber(), is(expectedPatient.getPhoneNumber()));
+        assertThat(patientAdherenceSummaries.get(0).getPatientId(), is(expectedPatient.getPatientId()));
+        assertThat(patientAdherenceSummaries.get(0).getMissingWeeks(), is(expectedPatient.getPatientAlerts().getAdherenceMissingWeeks()));
 
-        assertThat(patientQueryDAO.findPatientDetailsOfActivePatientsWithAdherenceMissing(1, 1).size(), is(0));
+        assertThat(patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(1, 1).size(), is(0));
     }
 
     @After
