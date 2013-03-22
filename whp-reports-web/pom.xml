@@ -59,6 +59,10 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
+            <artifactId>motech-call-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>whp-reports-domain</artifactId>
             <type>test-jar</type>
             <scope>test</scope>

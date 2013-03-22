@@ -7,15 +7,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                              http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <context:component-scan base-package="org.motechproject.whp.reports"/>
+    <context:component-scan base-package="org.motechproject.whp.reports.calllog"/>
+    <context:property-placeholder location="classpath:callLog.properties"/>
 
-    <jpa:repositories base-package="org.motechproject.whp.reports.repository" entity-manager-factory-ref="entityManagerFactory"></jpa:repositories>
+    <jpa:repositories base-package="org.motechproject.whp.reports.calllog.repository"
+                      transaction-manager-ref="callLogTransactionManager"
+                      entity-manager-factory-ref="callLogEntityManagerFactory"/>
 
-    <bean id="entityManagerFactory"
+    <bean id="callLogEntityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="whpReports" />
-        <property name="packagesToScan" value="org.motechproject.whp.reports.domain"/>
-        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="callLog" />
+        <property name="packagesToScan" value="org.motechproject.whp.reports.calllog.domain"/>
+        <property name="dataSource" ref="callLogDataSource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="showSql" value="true"/>
@@ -29,16 +32,17 @@
         </property>
     </bean>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="callLogDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-          p:entityManagerFactory-ref="entityManagerFactory">
+    <bean id="callLogTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="callLogEntityManagerFactory">
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="callLogTransactionManager"/>
+
 </beans>

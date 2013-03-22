@@ -12,6 +12,7 @@
     <import resource="classpath*:applicationReportingBigQueryContext.xml" />
     <import resource="classpath*:applicationContext-DiagnosticsWeb.xml"/>
     <import resource="classpath*:applicationReportingExportContext.xml"/>
+    <import resource="classpath*:applicationCallLogContext.xml"/>
 
     <context:annotation-config/>
     <context:spring-configured/>
@@ -38,4 +39,5 @@
             </map>
         </constructor-arg>
     </bean>
+
 </beans>
