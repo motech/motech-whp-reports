@@ -12,9 +12,9 @@ public class CallLogRequest {
 
     private String phoneNumber;
 
-    private Timestamp startDateTime;
+    private Timestamp startTime;
 
-    private Timestamp endDateTime;
+    private Timestamp endTime;
 
     private String disposition;
 

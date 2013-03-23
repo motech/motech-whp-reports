@@ -12,15 +12,15 @@ public class CallLogMapper {
         CallLog callLog = new CallLog();
         callLog.setCallId(callLogRequest.getCallId());
         callLog.setDisposition(callLogRequest.getDisposition());
-        callLog.setEndDateTime(callLogRequest.getEndDateTime());
-        callLog.setStartDateTime(callLogRequest.getStartDateTime());
+        callLog.setEndDateTime(callLogRequest.getEndTime());
+        callLog.setStartDateTime(callLogRequest.getStartTime());
         callLog.setPhoneNumber(callLogRequest.getPhoneNumber());
         callLog.setErrorMessage(callLogRequest.getErrorMessage());
 
         OutboundDetails outboundDetails = callLogRequest.getOutboundDetails();
         if(outboundDetails != null) {
-            callLog.setAttemptTime(outboundDetails.getAttemptDatetime());
-            callLog.setAttemptNumber(outboundDetails.getAttemptNumber());
+            callLog.setAttemptTime(outboundDetails.getAttemptTime());
+            callLog.setAttempt(outboundDetails.getAttempt());
             callLog.setCallType(outboundDetails.getCallType());
             callLog.setRequestId(outboundDetails.getRequestId());
         }

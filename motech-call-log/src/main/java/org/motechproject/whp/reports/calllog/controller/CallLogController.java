@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.motechproject.whp.reports.calllog.request.CallLogRequest;
 import org.motechproject.whp.reports.calllog.service.CallLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class CallLogController {
         this.callLogService = callLogService;
     }
 
-    @RequestMapping(value = "/log", method = RequestMethod.POST)
+    @RequestMapping(value = "/log", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public void log(@RequestBody CallLogRequest callLogRequest) {
         callLogService.add(callLogRequest);

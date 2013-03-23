@@ -11,7 +11,7 @@ public class OutboundDetails {
 
     private String requestId;
 
-    private Timestamp attemptDatetime;
+    private Timestamp attemptTime;
 
-    private String attemptNumber;
+    private String attempt;
 }

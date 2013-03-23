@@ -48,7 +48,7 @@ public class CallLog {
     private Timestamp attemptTime;
 
     @Column(name = "attempt_number")
-    private String attemptNumber;
+    private String attempt;
 
     @Type(type = "hstore")
     @Column(columnDefinition = "hstore", name = "call_events")

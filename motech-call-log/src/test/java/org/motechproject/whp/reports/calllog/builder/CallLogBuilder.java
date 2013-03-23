@@ -28,7 +28,7 @@ public class CallLogBuilder {
         callLog.setErrorMessage("errorMessage");
 
         callLog.setAttemptTime(new Timestamp(new Date().getTime()));
-        callLog.setAttemptNumber("3");
+        callLog.setAttempt("3");
         callLog.setCallType("patientAlerts");
         callLog.setRequestId("requestId");
 
@@ -50,8 +50,8 @@ public class CallLogBuilder {
 
     public CallLogBuilder withOutboundDetails(OutboundDetails outboundDetails) {
         if(outboundDetails != null) {
-            callLog.setAttemptTime(outboundDetails.getAttemptDatetime());
-            callLog.setAttemptNumber(outboundDetails.getAttemptNumber());
+            callLog.setAttemptTime(outboundDetails.getAttemptTime());
+            callLog.setAttempt(outboundDetails.getAttempt());
             callLog.setCallType(outboundDetails.getCallType());
             callLog.setRequestId(outboundDetails.getRequestId());
         }
@@ -70,7 +70,7 @@ public class CallLogBuilder {
 
     public CallLogBuilder withNullOutboundDetails() {
         callLog.setAttemptTime(null);
-        callLog.setAttemptNumber(null);
+        callLog.setAttempt(null);
         callLog.setCallType(null);
         callLog.setRequestId(null);
         return this;
