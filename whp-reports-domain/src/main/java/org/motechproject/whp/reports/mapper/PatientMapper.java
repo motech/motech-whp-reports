@@ -52,9 +52,16 @@ public class PatientMapper {
         List<Treatment> treatments =  new ArrayList<>();
         for(TreatmentDTO treatmentDTO : treatmentDTOs){
             Treatment treatment = new Treatment();
-            BeanUtils.copyProperties(treatmentDTO, treatment);
+            BeanUtils.copyProperties(treatmentDTO, treatment, new String[]{"treatmentDetails"});
+            mapTreatmentDetails(treatmentDTO, treatment);
             treatments.add(treatment);
         }
         return treatments;
+    }
+
+    private void mapTreatmentDetails(TreatmentDTO treatmentDTO, Treatment treatment) {
+        TreatmentDetails treatmentDetails = new TreatmentDetails();
+        BeanUtils.copyProperties(treatmentDTO.getTreatmentDetails(), treatmentDetails);
+        treatment.setTreatmentDetails(treatmentDetails);
     }
 }

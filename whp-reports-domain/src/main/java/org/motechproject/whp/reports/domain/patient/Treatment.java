@@ -67,4 +67,10 @@ public class Treatment {
     @Column(name = "paused_duration")
     private int totalPausedDuration;//days
 
+    @Column(name = "close_treatment_remarks")
+    private String closeTreatmentRemarks;
+
+    @Embedded
+    private TreatmentDetails treatmentDetails = new TreatmentDetails();
+
 }

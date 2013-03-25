@@ -26,4 +26,7 @@ public class TreatmentDTO implements Serializable {
     private Date pausedDate;
     private String reasonsForPause;
     private int totalPausedDuration;//days
+    private String closeTreatmentRemarks;
+    private TreatmentDetailsDTO treatmentDetails = new TreatmentDetailsDTO();
+
 }

@@ -102,8 +102,35 @@ public class PatientRequestBuilder {
         treatment.setTbRegistrationNumber("tbRegNumber");
         treatment.setTotalPausedDuration(10);
         treatment.setTreatmentOutcome("treatment outcome");
+        treatment.setCloseTreatmentRemarks("you are free my child");
+        treatment.setTreatmentDetails(setDefaultTreatmentDetails());
 
         return treatment;
+    }
+
+    private TreatmentDetailsDTO setDefaultTreatmentDetails() {
+
+        TreatmentDetailsDTO treatmentDetailsDTO = new TreatmentDetailsDTO();
+        treatmentDetailsDTO.setDistrictWithCode("district_with_code");
+        treatmentDetailsDTO.setTbUnitWithCode("tb_with_code");
+        treatmentDetailsDTO.setEpSite("ep_site");
+        treatmentDetailsDTO.setOtherInvestigations("others");
+        treatmentDetailsDTO.setPreviousTreatmentHistory("treatment_history");
+        treatmentDetailsDTO.setHivStatus("hiv_status");
+        treatmentDetailsDTO.setHivTestDate(today(new LocalDate()));
+        treatmentDetailsDTO.setMembersBelowSixYears(6);
+        treatmentDetailsDTO.setPhcReferred("phc_referred");
+        treatmentDetailsDTO.setProviderName("provider_name");
+        treatmentDetailsDTO.setDotCentre("dot_center");
+        treatmentDetailsDTO.setProviderType("provider_type");
+        treatmentDetailsDTO.setCmfDoctor("cmf doctor");
+        treatmentDetailsDTO.setContactPersonName("person name");
+        treatmentDetailsDTO.setContactPersonPhoneNumber("phone number");
+        treatmentDetailsDTO.setXpertTestResult("xpert test result");
+        treatmentDetailsDTO.setXpertDeviceNumber("xpert device number");
+        treatmentDetailsDTO.setXpertTestDate(today(new LocalDate()));
+        treatmentDetailsDTO.setRifResistanceResult("rif resistance result");
+        return treatmentDetailsDTO;
     }
 
     private Date today(LocalDate date) {

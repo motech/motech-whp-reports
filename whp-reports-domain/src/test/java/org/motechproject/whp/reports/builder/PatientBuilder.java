@@ -102,8 +102,34 @@ public class PatientBuilder {
         treatment.setTbRegistrationNumber("tbRegNumber");
         treatment.setTotalPausedDuration(10);
         treatment.setTreatmentOutcome("treatment outcome");
-
+        treatment.setCloseTreatmentRemarks("you are free my child");
+        treatment.setTreatmentDetails(setDefaultTreatmentDetails());
         return treatment;
+    }
+
+    private TreatmentDetails setDefaultTreatmentDetails() {
+
+        TreatmentDetails treatmentDetails = new TreatmentDetails();
+        treatmentDetails.setDistrictWithCode("district_with_code");
+        treatmentDetails.setTbUnitWithCode("tb_with_code");
+        treatmentDetails.setEpSite("ep_site");
+        treatmentDetails.setOtherInvestigations("others");
+        treatmentDetails.setPreviousTreatmentHistory("treatment_history");
+        treatmentDetails.setHivStatus("hiv_status");
+        treatmentDetails.setHivTestDate(toSQLDate(new LocalDate()));
+        treatmentDetails.setMembersBelowSixYears(6);
+        treatmentDetails.setPhcReferred("phc_referred");
+        treatmentDetails.setProviderName("provider_name");
+        treatmentDetails.setDotCentre("dot_center");
+        treatmentDetails.setProviderType("provider_type");
+        treatmentDetails.setCmfDoctor("cmf doctor");
+        treatmentDetails.setContactPersonName("person name");
+        treatmentDetails.setContactPersonPhoneNumber("phone number");
+        treatmentDetails.setXpertTestResult("xpert test result");
+        treatmentDetails.setXpertDeviceNumber("xpert device number");
+        treatmentDetails.setXpertTestDate(toSQLDate(new LocalDate()));
+        treatmentDetails.setRifResistanceResult("rif resistance result");
+        return treatmentDetails;
     }
 
     private PatientAlerts defaultPatientAlerts() {
