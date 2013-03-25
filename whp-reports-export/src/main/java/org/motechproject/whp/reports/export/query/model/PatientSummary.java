@@ -33,6 +33,27 @@ public class PatientSummary {
     private String preTreatmentSputumResult;
     private Double preTreatmentWeight;
 
+    private String closeTreatmentRemarks;
+    private String districtWithCode;
+    private String tbUnitWithCode;
+    private String epSite;
+    private String otherInvestigations;
+    private String previousTreatmentHistory;
+    private String hivStatus;
+    private Date hivTestDate;
+    private Integer membersBelowSixYears;
+    private String phcReferred;
+    private String providerName;
+    private String dotCentre;
+    private String providerType;
+    private String cmfDoctor;
+    private String contactPersonName;
+    private String contactPersonPhoneNumber;
+    private String xpertTestResult;
+    private String xpertDeviceNumber;
+    private Date xpertTestDate;
+    private String rifResistanceResult;
+
     public String getName() {
         return String.format("%s %s", firstName, lastName);
     }

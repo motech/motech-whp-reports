@@ -2,12 +2,13 @@ package org.motechproject.whp.reports.export.query.service;
 
 import bad.robot.excel.valuetypes.ExcelColumnIndex;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.whp.reports.date.WHPDate;
 import org.motechproject.whp.reports.export.query.builder.PatientReportBuilder;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,15 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.joda.time.DateTime.now;
 import static org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder.GENERATED_ON;
 import static org.motechproject.whp.reports.export.query.builder.PatientReportBuilder.*;
 
 public class PatientReportsExcelExportTest extends ExcelTest{
 
     private Workbook workbook;
+    private DateTime now = now();
+    private Date testDate = now.toDate();
 
     @Test
     public void shouldCreateWorkbookForSummaryReport() throws IOException {
@@ -37,8 +41,8 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setVillage("village");
         patientSummary.setProviderDistrict("providerDistrict");
         patientSummary.setTreatmentCategory("treatmentCategory");
-        patientSummary.setTbRegistrationDate(WHPDate.date("12/12/12").date().toDate());
-        patientSummary.setTreatmentStartDate(WHPDate.date("12/12/12").date().toDate());
+        patientSummary.setTbRegistrationDate(testDate);
+        patientSummary.setTreatmentStartDate(testDate);
         patientSummary.setDiseaseClass("disease class");
         patientSummary.setPatientType("patientType");
         patientSummary.setIpPillsTaken(12);
@@ -49,9 +53,23 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setCpTotalDoses(16);
         patientSummary.setCumulativeMissedDoses(1);
         patientSummary.setTreatmentOutcome("treatmentOutcome");
-        patientSummary.setTreatmentClosingDate(WHPDate.date("12/12/12").date().toDate());
+        patientSummary.setTreatmentClosingDate(testDate);
         patientSummary.setPreTreatmentSputumResult("preTreatmentResult");
         patientSummary.setPreTreatmentWeight((double) 1);
+        patientSummary.setCloseTreatmentRemarks("you are free my child");
+        patientSummary.setDistrictWithCode("district_with_code");
+        patientSummary.setTbUnitWithCode("tb_with_code");
+        patientSummary.setEpSite("ep_site");
+        patientSummary.setOtherInvestigations("others");
+        patientSummary.setPreviousTreatmentHistory("treatment_history");
+        patientSummary.setHivStatus("hiv_status");
+        patientSummary.setMembersBelowSixYears(6);
+        patientSummary.setProviderType("provider_type");
+        patientSummary.setCmfDoctor("cmf doctor");
+        patientSummary.setXpertTestResult("xpert test result");
+        patientSummary.setXpertDeviceNumber("xpert device number");
+        patientSummary.setXpertTestDate(testDate);
+        patientSummary.setRifResistanceResult("rif resistance result");
 
         List patientSummaries = asList(patientSummary);
 
@@ -87,6 +105,21 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.Q, 9), is(equalTo("13/16 (81.25%)")));
         assertThat(numericValue(ExcelColumnIndex.R, 9), is(equalTo((double) 1)));
         assertThat(stringValue(ExcelColumnIndex.S, 9), is(equalTo("treatmentOutcome")));
+        assertThat(dateValue(ExcelColumnIndex.T, 9), is(testDate));
+        assertThat(stringValue(ExcelColumnIndex.U, 9), is(equalTo("district_with_code")));
+        assertThat(stringValue(ExcelColumnIndex.V, 9), is(equalTo("tb_with_code")));
+        assertThat(stringValue(ExcelColumnIndex.W, 9), is(equalTo("ep_site")));
+        assertThat(stringValue(ExcelColumnIndex.X, 9), is(equalTo("others")));
+        assertThat(stringValue(ExcelColumnIndex.Y, 9), is(equalTo("treatment_history")));
+        assertThat(stringValue(ExcelColumnIndex.Z, 9), is(equalTo("hiv_status")));
+        assertThat(numericValue(ExcelColumnIndex.AA, 9), is(equalTo((double)6)));
+        assertThat(stringValue(ExcelColumnIndex.AB, 9), is(equalTo("cmf doctor")));
+        assertThat(stringValue(ExcelColumnIndex.AC, 9), is(equalTo("provider_type")));
+        assertThat(stringValue(ExcelColumnIndex.AD, 9), is(equalTo("xpert device number")));
+        assertThat(dateValue(ExcelColumnIndex.AE, 9), is(testDate));
+        assertThat(stringValue(ExcelColumnIndex.AF, 9), is(equalTo("xpert test result")));
+        assertThat(stringValue(ExcelColumnIndex.AG, 9), is(equalTo("rif resistance result")));
+        assertThat(stringValue(ExcelColumnIndex.AH, 9), is(equalTo("you are free my child")));
     }
 
     @Test
@@ -102,8 +135,8 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setVillage("village");
         patientSummary.setProviderDistrict("providerDistrict");
         patientSummary.setTreatmentCategory("treatmentCategory");
-        patientSummary.setTbRegistrationDate(WHPDate.date("12/12/12").date().toDate());
-        patientSummary.setTreatmentStartDate(WHPDate.date("12/12/12").date().toDate());
+        patientSummary.setTbRegistrationDate(testDate);
+        patientSummary.setTreatmentStartDate(testDate);
         patientSummary.setDiseaseClass("disease class");
         patientSummary.setPatientType("patientType");
         patientSummary.setIpPillsTaken(12);
@@ -112,7 +145,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setCpTotalDoses(16);
         patientSummary.setCumulativeMissedDoses(1);
         patientSummary.setTreatmentOutcome("treatmentOutcome");
-        patientSummary.setTreatmentClosingDate(WHPDate.date("12/12/12").date().toDate());
+        patientSummary.setTreatmentClosingDate(testDate);
         patientSummary.setPreTreatmentSputumResult("preTreatmentResult");
         patientSummary.setPreTreatmentWeight((double) 1);
 
@@ -161,8 +194,8 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setVillage("village");
         patientSummary.setProviderDistrict("providerDistrict");
         patientSummary.setTreatmentCategory("treatmentCategory");
-        patientSummary.setTbRegistrationDate(WHPDate.date("12/12/12").date().toDate());
-        patientSummary.setTreatmentStartDate(WHPDate.date("12/12/12").date().toDate());
+        patientSummary.setTbRegistrationDate(testDate);
+        patientSummary.setTreatmentStartDate(testDate);
         patientSummary.setDiseaseClass("disease class");
         patientSummary.setPatientType("patientType");
         patientSummary.setIpPillsTaken(12);
@@ -171,7 +204,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setCpTotalDoses(16);
         patientSummary.setCumulativeMissedDoses(1);
         patientSummary.setTreatmentOutcome("treatmentOutcome");
-        patientSummary.setTreatmentClosingDate(WHPDate.date("12/12/12").date().toDate());
+        patientSummary.setTreatmentClosingDate(testDate);
         patientSummary.setPreTreatmentSputumResult("preTreatmentResult");
         patientSummary.setPreTreatmentWeight((double) 1);
 

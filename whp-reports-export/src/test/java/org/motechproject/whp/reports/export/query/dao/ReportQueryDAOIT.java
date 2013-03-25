@@ -17,12 +17,13 @@ import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
 import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
-import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
+import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
+import org.motechproject.whp.reports.domain.patient.TreatmentDetails;
 import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.motechproject.whp.reports.repository.*;
@@ -130,6 +131,28 @@ public class ReportQueryDAOIT {
         assertEquals(treatment.getPreTreatmentWeight(), summary.getPreTreatmentWeight());
         assertEquals("20/40 (50.00%)", summary.getIpTreatmentProgress());
         assertEquals("10/20 (50.00%)", summary.getCpTreatmentProgress());
+
+        Treatment currentTreatment = patient.getTherapies().get(0).getTreatments().get(0);
+        TreatmentDetails expectedTreatmentDetails = currentTreatment.getTreatmentDetails();
+        assertEquals(currentTreatment.getCloseTreatmentRemarks(), summary.getCloseTreatmentRemarks());
+        assertTreatmentDetails(summary, expectedTreatmentDetails);
+
+    }
+
+    private void assertTreatmentDetails(PatientSummary summary, TreatmentDetails expectedTreatmentDetails) {
+        assertEquals(expectedTreatmentDetails.getDistrictWithCode(), summary.getDistrictWithCode());
+        assertEquals(expectedTreatmentDetails.getTbUnitWithCode(), summary.getTbUnitWithCode());
+        assertEquals(expectedTreatmentDetails.getEpSite(), summary.getEpSite());
+        assertEquals(expectedTreatmentDetails.getOtherInvestigations(), summary.getOtherInvestigations());
+        assertEquals(expectedTreatmentDetails.getPreviousTreatmentHistory(), summary.getPreviousTreatmentHistory());
+        assertEquals(expectedTreatmentDetails.getHivStatus(), summary.getHivStatus());
+        assertEquals(expectedTreatmentDetails.getMembersBelowSixYears(), summary.getMembersBelowSixYears());
+        assertEquals(expectedTreatmentDetails.getCmfDoctor(), summary.getCmfDoctor());
+        assertEquals(expectedTreatmentDetails.getProviderType(), summary.getProviderType());
+        assertEquals(expectedTreatmentDetails.getXpertDeviceNumber(), summary.getXpertDeviceNumber());
+        assertEquals(expectedTreatmentDetails.getXpertTestDate(), summary.getXpertTestDate());
+        assertEquals(expectedTreatmentDetails.getXpertTestResult(), summary.getXpertTestResult());
+        assertEquals(expectedTreatmentDetails.getRifResistanceResult(), summary.getRifResistanceResult());
     }
 
     @Test

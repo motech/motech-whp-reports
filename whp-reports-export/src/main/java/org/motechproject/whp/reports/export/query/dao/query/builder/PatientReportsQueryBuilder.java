@@ -15,7 +15,11 @@ public class PatientReportsQueryBuilder {
             "therapy.ip_pills_taken, therapy.ip_total_doses, therapy.eip_pills_taken, therapy.eip_total_doses, therapy.cp_pills_taken, " +
             "therapy.cp_total_doses, therapy.cumulative_missed_doses, " +
             "treatment.treatment_outcome, treatment.end_date as treatment_closing_date, treatment.pretreatment_result as pre_treatment_sputum_result, " +
-            "treatment.pretreatment_weight as pre_treatment_weight, therapy.patient_age as age, address.village from whp_reports.patient p " +
+            "treatment.pretreatment_weight as pre_treatment_weight, therapy.patient_age as age, address.village, treatment.close_treatment_remarks, " +
+            "treatment.district_with_code, treatment.tb_unit_with_code, treatment.ep_site, treatment.other_investigations, treatment.previous_treatment_history, " +
+            "treatment.hiv_status, treatment.members_below_six_years, treatment.provider_type, treatment.cmf_doctor, treatment.xpert_test_result, "+
+            "treatment.xpert_device_number, treatment.xpert_test_date, treatment.rif_resistance_result " +
+            "from whp_reports.patient p " +
             "join whp_reports.patient_therapy therapy on p.patient_pk=therapy.patient_fk " +
             "join whp_reports.patient_treatment treatment on therapy.therapy_pk = treatment.therapy_fk " +
             "join whp_reports.patient_address address on p.patient_address_fk = address.address_pk " ;
