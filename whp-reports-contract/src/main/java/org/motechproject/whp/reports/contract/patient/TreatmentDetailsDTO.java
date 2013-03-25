@@ -2,10 +2,12 @@ package org.motechproject.whp.reports.contract.patient;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
-public class TreatmentDetailsDTO {
+public class TreatmentDetailsDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String districtWithCode;
     private String tbUnitWithCode;
     private String epSite;
