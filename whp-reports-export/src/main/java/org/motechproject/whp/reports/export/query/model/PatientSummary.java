@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.model;
 
 import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 
@@ -34,8 +35,11 @@ public class PatientSummary {
     private Double preTreatmentWeight;
 
     public String getName() {
-        return String.format("%s %s", firstName, lastName);
+        if(StringUtils.isNotBlank(lastName))
+            return String.format("%s %s", firstName, lastName);
+        return firstName;
     }
+
 
     public String getIpTreatmentProgress() {
         int totalDoseCount = 0;
