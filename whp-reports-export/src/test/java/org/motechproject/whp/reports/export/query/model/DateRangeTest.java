@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.motechproject.testing.utils.BaseUnitTest;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DateRangeTest extends BaseUnitTest{
 
@@ -23,26 +25,13 @@ public class DateRangeTest extends BaseUnitTest{
 
         assertEquals("12/12/2012", dateRange.getStartDate());
         assertEquals("25/12/2012", dateRange.getEndDate());
+        assertTrue(dateRange.hasValidRange());
     }
 
     @Test
-    public void shouldReturnDefaultStartAndEndDates() {
-        LocalDate today = new LocalDate(2012, 12, 12);
-        mockCurrentDate(today);
+    public void shouldCheckIfDateRangeExists() {
         DateRange dateRange = new DateRange(null, null);
-
-        assertEquals(today.minusDays(180).toString("yyyy-MM-dd"), dateRange.getStartDateInSqlFormat());
-        assertEquals(today.toString("yyyy-MM-dd"), dateRange.getEndDateInSqlFormat());
-    }
-
-    @Test
-    public void shouldReturnDefaultStartAndEndDatesForEmptyDateValues() {
-        LocalDate today = new LocalDate(2012, 12, 12);
-        mockCurrentDate(today);
-        DateRange dateRange = new DateRange("", "");
-
-        assertEquals(today.minusDays(180).toString("yyyy-MM-dd"), dateRange.getStartDateInSqlFormat());
-        assertEquals(today.toString("yyyy-MM-dd"), dateRange.getEndDateInSqlFormat());
+        assertFalse(dateRange.hasValidRange());
     }
 
     @Test
@@ -53,6 +42,7 @@ public class DateRangeTest extends BaseUnitTest{
 
         assertEquals(startDate.toString("yyyy-MM-dd"), dateRange.getStartDateInSqlFormat());
         assertEquals(startDate.plusDays(180).toString("yyyy-MM-dd"), dateRange.getEndDateInSqlFormat());
+        assertTrue(dateRange.hasValidRange());
     }
 
     @Test
@@ -63,6 +53,7 @@ public class DateRangeTest extends BaseUnitTest{
 
         assertEquals(endDate.minusDays(180).toString("yyyy-MM-dd"), dateRange.getStartDateInSqlFormat());
         assertEquals(endDate.toString("yyyy-MM-dd"), dateRange.getEndDateInSqlFormat());
+        assertTrue(dateRange.hasValidRange());
     }
 
 }

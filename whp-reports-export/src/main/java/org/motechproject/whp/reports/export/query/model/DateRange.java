@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.motechproject.util.DateUtil;
 
 public class DateRange {
 
@@ -37,10 +36,8 @@ public class DateRange {
             this.from = this.to.minusDays(180);
             return;
         }
-
-        this.to = DateUtil.today();
-        this.from = this.to.minusDays(180);
     }
+
 
     private LocalDate parseDate(String strDate) {
         return formatter.parseLocalDate(strDate);
@@ -60,5 +57,9 @@ public class DateRange {
 
     public String getEndDate() {
         return to.toString(DEFAULT_DATE_FORMAT);
+    }
+
+    public boolean hasValidRange() {
+        return from != null && to != null;
     }
 }
