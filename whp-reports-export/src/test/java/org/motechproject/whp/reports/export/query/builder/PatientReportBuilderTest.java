@@ -96,8 +96,6 @@ public class PatientReportBuilderTest extends BaseUnitTest {
     public void shouldBuildPatientRegistrationsReportWithoutUserSuppliedDateRange() throws IOException {
         expectedParams = new HashMap();
         expectedParams.put(PatientReportBuilder.TEMPLATE_RESULT_KEY, patientSummaries);
-        expectedParams.put(PatientReportBuilder.FROM_DATE, "28/06/2012");
-        expectedParams.put(PatientReportBuilder.TO_DATE, "25/12/2012");
         expectedParams.put(PatientReportBuilder.PROVIDER_DISTRICT, providerDistrict);
         expectedParams.put(PatientReportBuilder.TOTAL_ROWS, 1);
 

@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.motechproject.whp.reports.export.query.dao.query.builder.PatientSummaryPredicateBuilder;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -22,5 +23,18 @@ public class PatientSummaryPredicateBuilderTest {
 
         List<String> expectedPredicates = asList(" treatment.start_date between '2012-12-25' AND '2013-12-25'");
         assertThat(patientSummaryPredicateBuilder.getPredicates(), is(expectedPredicates));
+    }
+
+    @Test
+    public void shouldReturnEmptyPredicateWhenDateRangeIsNotPresent(){
+        PatientReportRequest patientReportRequest = new PatientReportRequest();
+        patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
+        patientReportRequest.setFrom(null);
+        patientReportRequest.setTo(null);
+
+        PatientSummaryPredicateBuilder patientSummaryPredicateBuilder = new PatientSummaryPredicateBuilder(patientReportRequest);
+
+        List<String> emptyPredicates = new ArrayList<>();
+        assertThat(patientSummaryPredicateBuilder.getPredicates(), is(emptyPredicates));
     }
 }

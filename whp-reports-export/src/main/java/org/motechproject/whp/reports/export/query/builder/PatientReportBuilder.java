@@ -1,6 +1,5 @@
 package org.motechproject.whp.reports.export.query.builder;
 
-import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.export.query.model.DateRange;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,12 +55,13 @@ public class PatientReportBuilder {
     private Map<String, Object> setReportParameters(PatientReportRequest patientReportRequest, List<PatientSummary> patientSummaries) {
         Map<String, Object> params = new HashMap<>();
 
-        String generatedOn = new SimpleDateFormat(DATE_FORMAT).format(DateUtil.now().toDate());
         DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+        if(dateRange.hasValidRange()){
+            params.put(FROM_DATE, dateRange.getStartDate());
+            params.put(TO_DATE, dateRange.getEndDate());
+        }
 
         params.put(TEMPLATE_RESULT_KEY, patientSummaries);
-        params.put(FROM_DATE, dateRange.getStartDate());
-        params.put(TO_DATE, dateRange.getEndDate());
         params.put(PROVIDER_DISTRICT, patientReportRequest.getDistrict());
         params.put(TOTAL_ROWS, patientSummaries.size());
         return params;
