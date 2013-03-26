@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.event.MotechEvent;
+import org.motechproject.validation.validator.BeanValidator;
 import org.motechproject.whp.reports.calllog.request.CallLogRequest;
 import org.motechproject.whp.reports.calllog.service.CallLogService;
 
@@ -18,13 +19,16 @@ import static org.motechproject.whp.reports.calllog.handler.EventKeys.CALL_LOG_R
 public class CallLogHandlerTest {
 
     private CallLogHandler callLogHandler;
+
     @Mock
     private CallLogService callLogService;
+    @Mock
+    private BeanValidator beanValidator;
 
     @Before
     public void setUp() {
         initMocks(this);
-        callLogHandler = new CallLogHandler(callLogService);
+        callLogHandler = new CallLogHandler(callLogService, beanValidator);
     }
 
     @Test

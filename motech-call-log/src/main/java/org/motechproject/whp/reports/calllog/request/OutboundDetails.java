@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.calllog.request;
 
 import lombok.Data;
+import org.motechproject.validation.constraints.DateTimeFormat;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ public class OutboundDetails implements Serializable {
 
     private String requestId;
 
+    @DateTimeFormat(validateEmptyString = false)
     private String attemptTime;
 
     private String attempt;

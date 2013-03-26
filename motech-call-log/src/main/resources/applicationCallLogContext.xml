@@ -17,6 +17,8 @@
                       entity-manager-factory-ref="callLogEntityManagerFactory"/>
 
     <import resource="classpath*:applicationPlatformServerAPI.xml"/>
+    <import resource="classpath*:applicationValidationContext.xml"/>
+
 
     <bean id="callLogEntityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

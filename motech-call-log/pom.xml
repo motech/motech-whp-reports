@@ -90,5 +90,19 @@
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-scheduler</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.kubek2k</groupId>
+            <artifactId>springockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kubek2k</groupId>
+            <artifactId>springockito-annotations</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

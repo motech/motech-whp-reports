@@ -7,12 +7,14 @@
                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <import resource="classpath*:applicationValidationContext.xml"/>
+    <context:property-placeholder location="classpath:whp-reports.properties"  ignore-unresolvable="true"/>
+
+    <import resource="classpath*:applicationCallLogContext.xml"/>
     <import resource="classpath*:applicationReportingDomainContext.xml" />
+    <import resource="classpath*:applicationValidationContext.xml"/>
     <import resource="classpath*:applicationReportingBigQueryContext.xml" />
     <import resource="classpath*:applicationContext-DiagnosticsWeb.xml"/>
     <import resource="classpath*:applicationReportingExportContext.xml"/>
-    <import resource="classpath*:applicationCallLogContext.xml"/>
 
     <context:annotation-config/>
     <context:spring-configured/>

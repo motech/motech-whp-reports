@@ -3,11 +3,14 @@ package org.motechproject.whp.reports.calllog.it;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.motechproject.scheduler.context.EventContext;
 import org.motechproject.whp.reports.calllog.controller.CallLogController;
 import org.motechproject.whp.reports.calllog.domain.CallLog;
+import org.motechproject.whp.reports.calllog.domain.DispositionType;
 import org.motechproject.whp.reports.calllog.repository.GenericCallLogRepository;
 import org.motechproject.whp.reports.calllog.request.CallLogRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class CallLogControllerIT {
 
     private CallLogController callLogController;
 
+    @Rule
+    public ExpectedException exceptionThrown = ExpectedException.none();
+
     @Autowired
     private EventContext eventcontext;
     @Autowired
@@ -43,11 +49,13 @@ public class CallLogControllerIT {
 
     @Test
     public void shouldHandleCallLogRequest() throws Exception {
-        CallLogRequest callLogRequest = new CallLogRequest();
         String callId = "callId";
-        callLogRequest.setCallId(callId);
         String phoneNumber = "1234567890";
+
+        CallLogRequest callLogRequest = new CallLogRequest();
+        callLogRequest.setCallId(callId);
         callLogRequest.setPhoneNumber(phoneNumber);
+        callLogRequest.setDisposition(DispositionType.FAILED.name());
         HashMap<String, String> customData = new HashMap<>();
         String key = "patientId";
         String value = "12345";
