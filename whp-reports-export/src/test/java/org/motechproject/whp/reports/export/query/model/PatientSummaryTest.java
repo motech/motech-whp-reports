@@ -22,7 +22,16 @@ public class PatientSummaryTest {
 
         assertThat(patientSummary.getName(), is("John Doe"));
     }
-    
+
+    @Test
+    public void shouldHandleNullLastName() {
+        String firstName = "firstName";
+        patientSummary.setFirstName(firstName);
+        patientSummary.setLastName(null);
+
+        assertThat(patientSummary.getName(), is(firstName));
+    }
+
     @Test
     public void shouldReturnGetIpTreatmentProgress(){
         patientSummary.setIpPillsTaken(12);
@@ -53,5 +62,4 @@ public class PatientSummaryTest {
         assertThat(patientSummary.getIpTreatmentProgress(), is("12/14 (85.71%)"));
 
     }
-    
 }
