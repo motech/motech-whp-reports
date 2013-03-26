@@ -534,6 +534,16 @@
                 <version>1.0.0.M1</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.motechproject</groupId>
+                <artifactId>motech-platform-scheduler</artifactId>
+                <version>${motech.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject</groupId>
+                <artifactId>motech-platform-server-api</artifactId>
+                <version>${motech.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>

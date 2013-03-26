@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.calllog.builder;
 
 import org.motechproject.whp.reports.calllog.domain.CallLog;
 import org.motechproject.whp.reports.calllog.request.OutboundDetails;
+import org.motechproject.whp.reports.calllog.util.DateTimeConverter;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class CallLogBuilder {
 
     public CallLogBuilder withOutboundDetails(OutboundDetails outboundDetails) {
         if(outboundDetails != null) {
-            callLog.setAttemptTime(outboundDetails.getAttemptTime());
+            callLog.setAttemptTime(DateTimeConverter.timestamp(outboundDetails.getAttemptTime()));
             callLog.setAttempt(outboundDetails.getAttempt());
             callLog.setCallType(outboundDetails.getCallType());
             callLog.setRequestId(outboundDetails.getRequestId());

@@ -2,19 +2,19 @@ package org.motechproject.whp.reports.calllog.request;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import java.util.Map;
 
 @Data
-public class CallLogRequest {
+public class CallLogRequest implements Serializable {
 
     private String callId;
 
     private String phoneNumber;
 
-    private Timestamp startTime;
+    private String startTime;
 
-    private Timestamp endTime;
+    private String endTime;
 
     private String disposition;
 

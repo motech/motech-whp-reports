@@ -4,6 +4,7 @@ import org.motechproject.whp.reports.calllog.domain.CallLog;
 import org.motechproject.whp.reports.calllog.request.CallLogRequest;
 import org.motechproject.whp.reports.calllog.request.OutboundDetails;
 import org.springframework.stereotype.Component;
+import static org.motechproject.whp.reports.calllog.util.DateTimeConverter.timestamp;
 
 @Component
 public class CallLogMapper {
@@ -12,14 +13,14 @@ public class CallLogMapper {
         CallLog callLog = new CallLog();
         callLog.setCallId(callLogRequest.getCallId());
         callLog.setDisposition(callLogRequest.getDisposition());
-        callLog.setEndDateTime(callLogRequest.getEndTime());
-        callLog.setStartDateTime(callLogRequest.getStartTime());
+        callLog.setEndDateTime(timestamp(callLogRequest.getEndTime()));
+        callLog.setStartDateTime(timestamp(callLogRequest.getStartTime()));
         callLog.setPhoneNumber(callLogRequest.getPhoneNumber());
         callLog.setErrorMessage(callLogRequest.getErrorMessage());
 
         OutboundDetails outboundDetails = callLogRequest.getOutboundDetails();
         if(outboundDetails != null) {
-            callLog.setAttemptTime(outboundDetails.getAttemptTime());
+            callLog.setAttemptTime(timestamp(outboundDetails.getAttemptTime()));
             callLog.setAttempt(outboundDetails.getAttempt());
             callLog.setCallType(outboundDetails.getCallType());
             callLog.setRequestId(outboundDetails.getRequestId());

@@ -2,16 +2,16 @@ package org.motechproject.whp.reports.calllog.request;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 
 @Data
-public class OutboundDetails {
+public class OutboundDetails implements Serializable {
 
     private String callType;
 
     private String requestId;
 
-    private Timestamp attemptTime;
+    private String attemptTime;
 
     private String attempt;
 }

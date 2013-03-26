@@ -1,13 +1,13 @@
 package org.motechproject.whp.reports.calllog.mapper;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.calllog.builder.CallLogBuilder;
 import org.motechproject.whp.reports.calllog.domain.CallLog;
 import org.motechproject.whp.reports.calllog.request.CallLogRequest;
 import org.motechproject.whp.reports.calllog.request.OutboundDetails;
+import org.motechproject.whp.reports.calllog.util.DateTimeConverter;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -16,9 +16,9 @@ import static org.junit.Assert.assertThat;
 public class CallLogMapperTest {
     @Test
     public void shouldMapCallLogRequestToCallLog() {
-        Timestamp endTime = new Timestamp(new Date().getTime());
-        Timestamp startTime = new Timestamp(new Date().getTime());
-        Timestamp attemptTime = new Timestamp(new Date().getTime());
+        String endTime = new DateTimeConverter(new DateTime()).value();
+        String startTime = new DateTimeConverter(new DateTime()).value();
+        String attemptTime = new DateTimeConverter(new DateTime()).value();
 
         CallLogRequest callLogRequest = new CallLogRequest();
         callLogRequest.setCallId("callId");
@@ -29,7 +29,7 @@ public class CallLogMapperTest {
         callLogRequest.setErrorMessage("errorMessage");
 
         OutboundDetails outboundDetails = new OutboundDetails();
-        outboundDetails.setAttemptTime(attemptTime);
+        outboundDetails.setAttemptTime(attemptTime.toString());
         outboundDetails.setAttempt("3");
         outboundDetails.setCallType("patientAlerts");
         outboundDetails.setRequestId("requestId");
@@ -47,17 +47,17 @@ public class CallLogMapperTest {
 
         CallLog expectedCallLog = new CallLogBuilder()
                 .withDefaults()
-                .withStartDateTime(startTime)
-                .withEndDateTime(endTime)
-                .withAttemptDateTime(attemptTime).build();
+                .withStartDateTime(DateTimeConverter.timestamp(startTime))
+                .withEndDateTime(DateTimeConverter.timestamp(endTime))
+                .withAttemptDateTime(DateTimeConverter.timestamp(attemptTime)).build();
 
         assertThat(actualCallLog, is(expectedCallLog));
     }
 
     @Test
     public void shouldNotMapOutboundDetailsIfItIsNotThere() {
-        Timestamp endTime = new Timestamp(new Date().getTime());
-        Timestamp startTime = new Timestamp(new Date().getTime());
+        String endTime = new DateTimeConverter(new DateTime()).value();
+        String startTime = new DateTimeConverter(new DateTime()).value();
 
         CallLogRequest callLogRequest = new CallLogRequest();
         callLogRequest.setCallId("callId");
@@ -80,8 +80,8 @@ public class CallLogMapperTest {
         CallLog expectedCallLog = new CallLogBuilder()
                 .withDefaults()
                 .withNullOutboundDetails()
-                .withStartDateTime(startTime)
-                .withEndDateTime(endTime)
+                .withStartDateTime(DateTimeConverter.timestamp(startTime))
+                .withEndDateTime(DateTimeConverter.timestamp(endTime))
                 .build();
 
         assertThat(actualCallLog, is(expectedCallLog));
