@@ -148,6 +148,10 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setTreatmentClosingDate(testDate);
         patientSummary.setPreTreatmentSputumResult("preTreatmentResult");
         patientSummary.setPreTreatmentWeight((double) 1);
+        patientSummary.setXpertTestResult("xpert test result");
+        patientSummary.setXpertDeviceNumber("xpert device number");
+        patientSummary.setXpertTestDate(testDate);
+        patientSummary.setRifResistanceResult("rif resistance result");
 
         List patientSummaries = asList(patientSummary);
 
@@ -179,6 +183,10 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.K, 8), is(equalTo("preTreatmentResult")));
         assertThat(stringValue(ExcelColumnIndex.L, 8), is(equalTo("disease class")));
         assertThat(stringValue(ExcelColumnIndex.M, 8), is(equalTo("patientType")));
+        assertThat(stringValue(ExcelColumnIndex.N, 8), is(equalTo("xpert device number")));
+        assertThat(dateValue(ExcelColumnIndex.O, 8), is(testDate));
+        assertThat(stringValue(ExcelColumnIndex.P, 8), is(equalTo("xpert test result")));
+        assertThat(stringValue(ExcelColumnIndex.Q, 8), is(equalTo("rif resistance result")));
     }
 
     @Test
@@ -207,6 +215,10 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setTreatmentClosingDate(testDate);
         patientSummary.setPreTreatmentSputumResult("preTreatmentResult");
         patientSummary.setPreTreatmentWeight((double) 1);
+        patientSummary.setXpertTestResult("xpert test result");
+        patientSummary.setXpertDeviceNumber("xpert device number");
+        patientSummary.setXpertTestDate(testDate);
+        patientSummary.setRifResistanceResult("rif resistance result");
 
         List patientSummaries = asList(patientSummary);
 
@@ -239,6 +251,10 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.L, 8), is(equalTo("disease class")));
         assertThat(stringValue(ExcelColumnIndex.M, 8), is(equalTo("patientType")));
         assertThat(stringValue(ExcelColumnIndex.O, 8), is(equalTo("treatmentOutcome")));
+        assertThat(stringValue(ExcelColumnIndex.P, 8), is(equalTo("xpert device number")));
+        assertThat(dateValue(ExcelColumnIndex.Q, 8), is(testDate));
+        assertThat(stringValue(ExcelColumnIndex.R, 8), is(equalTo("xpert test result")));
+        assertThat(stringValue(ExcelColumnIndex.S, 8), is(equalTo("rif resistance result")));
     }
 
     @Override
