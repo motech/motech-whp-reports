@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.motechproject.whp.reports.export.query.dao.query.builder.PatientCloseTreatmentPredicateBuilder;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -26,14 +25,14 @@ public class PatientCloseTreatmentPredicateBuilderTest {
     }
 
     @Test
-    public void shouldReturnEmptyPredicateToFilterByTreatmentClosedDate(){
+    public void shouldReturnPredicateWhenDateRangeIsNotGiven(){
         PatientReportRequest patientReportRequest = new PatientReportRequest();
         patientReportRequest.setReportType(PatientReportType.CLOSED_TREATMENT);
         patientReportRequest.setFrom(null);
         patientReportRequest.setTo(null);
         PatientCloseTreatmentPredicateBuilder patientCloseTreatmentPredicateBuilder = new PatientCloseTreatmentPredicateBuilder(patientReportRequest);
 
-        List<String> emptyPredicates = new ArrayList<>();
-        assertThat(patientCloseTreatmentPredicateBuilder.getPredicates(), is(emptyPredicates));
+        List<String> closedTreatmentPredicate = asList(" treatment.end_date is not null");
+        assertThat(patientCloseTreatmentPredicateBuilder.getPredicates(), is(closedTreatmentPredicate));
     }
 }
