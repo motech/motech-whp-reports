@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -71,9 +72,16 @@ public class CallLogControllerIT {
                                 .contentType(APPLICATION_JSON)
                 ).andExpect(status().isOk());
 
-        List<CallLog> allCallLogs = callLogRepository.findAll();
+        new TimedRunner(10, 1000) {
+            @Override
+            protected void run() {
+                List<CallLog> allCallLogs = callLogRepository.findAll();
+                assertEquals(allCallLogs.size(), 1);
+            }
+        }.executeWithTimeout();
 
-        assertThat(allCallLogs.size(), is(1));
+        List<CallLog> allCallLogs = callLogRepository.findAll();
+        assertEquals(allCallLogs.size(), 1);
         assertThat(allCallLogs.get(0).getCallId(), is(callId));
         assertThat(allCallLogs.get(0).getPhoneNumber(), is(phoneNumber));
     }
