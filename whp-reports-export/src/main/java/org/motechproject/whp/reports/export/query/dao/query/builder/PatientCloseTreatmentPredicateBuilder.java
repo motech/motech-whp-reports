@@ -4,7 +4,6 @@ import lombok.Data;
 import org.motechproject.whp.reports.export.query.model.DateRange;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -26,6 +25,6 @@ public class PatientCloseTreatmentPredicateBuilder implements PredicateBuilder{
                 dateRange.getEndDateInSqlFormat()));
         }
         else
-            return new ArrayList<>();
+            return asList(String.format(" treatment.end_date is not null"));
     }
 }
