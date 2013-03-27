@@ -15,7 +15,6 @@
         <module>whp-reports-config</module>
         <module>whp-reports-bigquery</module>
         <module>whp-reports-export</module>
-        <module>motech-call-log</module>
     </modules>
 
     <properties>
@@ -330,6 +329,11 @@
             <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>
                 <artifactId>motech-web-utils</artifactId>
+                <version>${motech.contrib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp-contrib</groupId>
+                <artifactId>motech-call-log</artifactId>
                 <version>${motech.contrib.version}</version>
             </dependency>
             <dependency>
