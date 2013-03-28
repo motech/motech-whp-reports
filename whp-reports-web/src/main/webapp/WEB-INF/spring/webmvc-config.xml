@@ -28,6 +28,12 @@
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     <!-- Configures Handler Interceptors -->
     <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/callLog/log"/>
+            <bean class="org.motechproject.whp.reports.webservice.interceptor.APIKeyInterceptor">
+                <constructor-arg value="#{whpReportsProperties['whp.reports.api.key']}"/>
+            </bean>
+        </mvc:interceptor>
 
         <bean id="staticContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
             <property name="cacheSeconds" value="0"/>
