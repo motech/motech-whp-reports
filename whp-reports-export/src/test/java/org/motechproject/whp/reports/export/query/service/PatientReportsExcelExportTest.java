@@ -87,7 +87,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.A, 3), is(equalTo("Start Date: 01/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 4), is(equalTo("End Date: 30/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 5), is(equalTo("Provider District: d1")));
-        assertThat(stringValue(ExcelColumnIndex.A, 7), is(equalTo("Number of patients found: 1")));
+        assertThat(stringValue(ExcelColumnIndex.A, 7), is(equalTo("Number of records: 1")));
         assertThat(stringValue(ExcelColumnIndex.A, 9), is(equalTo("John Doe")));
         assertThat(numericValue(ExcelColumnIndex.B, 9), is(equalTo((double) 40)));
         assertThat(stringValue(ExcelColumnIndex.C, 9), is(equalTo("M")));
@@ -170,7 +170,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.A, 3), is(equalTo("Start Date: 01/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 4), is(equalTo("End Date: 30/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 5), is(equalTo("Provider District: d1")));
-        assertThat(stringValue(ExcelColumnIndex.A, 6), is(equalTo("Number of patients found: 1")));
+        assertThat(stringValue(ExcelColumnIndex.A, 6), is(equalTo("Number of records: 1")));
         assertThat(stringValue(ExcelColumnIndex.A, 8), is(equalTo("John Doe")));
         assertThat(numericValue(ExcelColumnIndex.B, 8), is(equalTo((double) 40)));
         assertThat(stringValue(ExcelColumnIndex.C, 8), is(equalTo("M")));
@@ -237,7 +237,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.A, 3), is(equalTo("Start Date: 01/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 4), is(equalTo("End Date: 30/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 5), is(equalTo("Provider District: d1")));
-        assertThat(stringValue(ExcelColumnIndex.A, 6), is(equalTo("Number of patients found: 1")));
+        assertThat(stringValue(ExcelColumnIndex.A, 6), is(equalTo("Number of records: 1")));
         assertThat(stringValue(ExcelColumnIndex.A, 8), is(equalTo("John Doe")));
         assertThat(numericValue(ExcelColumnIndex.B, 8), is(equalTo((double) 40)));
         assertThat(stringValue(ExcelColumnIndex.C, 8), is(equalTo("M")));
