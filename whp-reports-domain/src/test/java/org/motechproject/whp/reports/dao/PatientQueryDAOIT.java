@@ -31,6 +31,13 @@ public class PatientQueryDAOIT extends IntegrationTest {
                 .withMobileNumber("1234567890")
                 .build();
 
+        Patient expectedPatient2 = new PatientBuilder()
+                .withDefaults()
+                .withPatientId("expectedPatient2")
+                .withAdherenceMissingWeeks(2)
+                .withMobileNumber("1234567890")
+                .build();
+
         Patient patientWithNoMobileNumber = new PatientBuilder()
                 .withDefaults()
                 .withPatientId("patientWithNoMobileNumber")
@@ -53,16 +60,15 @@ public class PatientQueryDAOIT extends IntegrationTest {
                 .withInactiveStatus()
                 .build();
 
-        patientRepository.save(asList(expectedPatient, patientWithNoMobileNumber, patientWithNoAdherenceMissing, inactivePatient));
+        patientRepository.save(asList(expectedPatient, expectedPatient2, patientWithNoMobileNumber, patientWithNoAdherenceMissing, inactivePatient));
 
-        List<PatientAdherenceSummary> patientAdherenceSummaries = patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(0, 1);
+        List<PatientAdherenceSummary> patientAdherenceSummaries = patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(0, 5);
 
-        assertThat(patientAdherenceSummaries.size(), is(1));
+        assertThat(patientAdherenceSummaries.size(), is(2));
         assertThat(patientAdherenceSummaries.get(0).getMobileNumber(), is(expectedPatient.getPhoneNumber()));
         assertThat(patientAdherenceSummaries.get(0).getPatientId(), is(expectedPatient.getPatientId()));
         assertThat(patientAdherenceSummaries.get(0).getMissingWeeks(), is(expectedPatient.getPatientAlerts().getAdherenceMissingWeeks()));
-
-        assertThat(patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(1, 1).size(), is(0));
+        assertThat(patientAdherenceSummaries.get(1).getPatientId(), is(expectedPatient2.getPatientId()));
     }
 
     @After
