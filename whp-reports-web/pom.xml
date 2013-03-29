@@ -60,6 +60,13 @@
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>motech-call-log</artifactId>
+           <exclusions>
+            <exclusion>
+                <groupId>org.openmrs.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+            </exclusion>
+        </exclusions>
+
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
@@ -84,6 +91,12 @@
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-testing-utils</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openmrs.hibernate</groupId>
+                    <artifactId>hibernate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
