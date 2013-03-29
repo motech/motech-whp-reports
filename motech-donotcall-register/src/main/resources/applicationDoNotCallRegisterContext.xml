@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <context:component-scan base-package="org.motechproject.donotcall"/>
+    <context:property-placeholder location="classpath:whp-reports.properties" ignore-unresolvable="true"/>
+
+    <jpa:repositories base-package="org.motechproject.donotcall.repository"
+                      transaction-manager-ref="doNotCallRepositoryTransactionManager"
+                      entity-manager-factory-ref="doNotCallRegisterEntityManagerFactory"/>
+
+    <import resource="classpath*:applicationPlatformServerAPI.xml"/>
+    <import resource="classpath*:applicationValidationContext.xml"/>
+
+
+    <bean id="doNotCallRegisterEntityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="callLog" />
+        <property name="packagesToScan" value="org.motechproject.donotcall.domain"/>
+        <property name="dataSource" ref="doNotCallRegisterDataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true"/>
+                <property name="databasePlatform" value="${hibernate.dialect}"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="doNotCallRegisterDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="doNotCallRepositoryTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="doNotCallRegisterEntityManagerFactory">
+    </bean>
+
+    <tx:annotation-driven transaction-manager="doNotCallRepositoryTransactionManager"/>
+</beans>

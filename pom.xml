@@ -15,6 +15,7 @@
         <module>whp-reports-config</module>
         <module>whp-reports-bigquery</module>
         <module>whp-reports-export</module>
+        <module>motech-donotcall-register</module>
     </modules>
 
     <properties>
