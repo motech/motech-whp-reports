@@ -151,7 +151,7 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
-            <artifactId>motech-couchdb-crud</artifactId>
+            <artifactId>motech-crud</artifactId>
         </dependency>
     </dependencies>
 </project>

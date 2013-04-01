@@ -1,6 +1,6 @@
 package org.motechproject.donotcall.service;
 
-import org.motechproject.couchdbcrud.service.JpaCrudEntity;
+import org.motechproject.crud.service.JpaCrudEntity;
 import org.motechproject.donotcall.domain.DoNotCallEntry;
 import org.motechproject.donotcall.repository.DoNotCallEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 @Service
-public class DoNotCallCrudService extends JpaCrudEntity<DoNotCallEntry, Long>{
+public class DoNotCallCrudService extends JpaCrudEntity<DoNotCallEntry, Long> {
 
     @Autowired
     public DoNotCallCrudService(DoNotCallEntryRepository doNotCallEntryRepository) {

@@ -17,7 +17,7 @@
     <import resource="classpath*:applicationReportingExportContext.xml"/>
     <import resource="classpath*:applicationContext-Paginator.xml"/>
     <import resource="classpath*:applicationDoNotCallRegisterContext.xml"/>
-    <import resource="classpath*:applicationCouchdbCrudModuleContext.xml"/>
+    <import resource="classpath*:applicationCrudModuleContext.xml"/>
 
     <context:annotation-config/>
     <context:spring-configured/>
