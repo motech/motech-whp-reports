@@ -251,6 +251,12 @@
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp.reports</groupId>
+                <artifactId>motech-donotcall-register</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp.reports</groupId>
                 <artifactId>whp-reports-contract</artifactId>
                 <version>${project.version}</version>
                 <type>test-jar</type>
@@ -342,6 +348,11 @@
                         <artifactId>hibernate</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp-contrib</groupId>
+                <artifactId>motech-couchdb-crud</artifactId>
+                <version>${motech.contrib.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>

@@ -19,7 +19,7 @@
 
     <bean id="doNotCallRegisterEntityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="callLog" />
+        <property name="persistenceUnitName" value="doNotCallRegister" />
         <property name="packagesToScan" value="org.motechproject.donotcall.domain"/>
         <property name="dataSource" ref="doNotCallRegisterDataSource"/>
         <property name="jpaVendorAdapter">
