@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.dao;
 import org.junit.After;
 import org.junit.Test;
 import org.motechproject.donotcall.domain.DoNotCallEntry;
+import org.motechproject.donotcall.domain.EntityType;
 import org.motechproject.donotcall.repository.DoNotCallEntryRepository;
 import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.PatientBuilder;
@@ -35,11 +36,11 @@ public class PatientQueryDAOIT extends IntegrationTest {
                 .withMobileNumber("1234567890")
                 .build();
 
-        Patient expectedPatient2 = new PatientBuilder()
+        Patient patientWithEmptyMobileNumber = new PatientBuilder()
                 .withDefaults()
-                .withPatientId("expectedPatient2")
+                .withPatientId("patientWithEmptyMobileNumber")
                 .withAdherenceMissingWeeks(2)
-                .withMobileNumber("1234567890")
+                .withMobileNumber("")
                 .build();
 
         Patient patientWithNoMobileNumber = new PatientBuilder()
@@ -64,15 +65,14 @@ public class PatientQueryDAOIT extends IntegrationTest {
                 .withInactiveStatus()
                 .build();
 
-        patientRepository.save(asList(expectedPatient, expectedPatient2, patientWithNoMobileNumber, patientWithNoAdherenceMissing, inactivePatient));
+        patientRepository.save(asList(expectedPatient, patientWithEmptyMobileNumber, patientWithNoMobileNumber, patientWithNoAdherenceMissing, inactivePatient));
 
         List<PatientAdherenceSummary> patientAdherenceSummaries = patientQueryDAO.findActivePatientsWithMissingAdherenceAndAMobileNumber(0, 5);
 
-        assertThat(patientAdherenceSummaries.size(), is(2));
+        assertThat(patientAdherenceSummaries.size(), is(1));
         assertThat(patientAdherenceSummaries.get(0).getMobileNumber(), is(expectedPatient.getPhoneNumber()));
         assertThat(patientAdherenceSummaries.get(0).getPatientId(), is(expectedPatient.getPatientId()));
         assertThat(patientAdherenceSummaries.get(0).getMissingWeeks(), is(expectedPatient.getPatientAlerts().getAdherenceMissingWeeks()));
-        assertThat(patientAdherenceSummaries.get(1).getPatientId(), is(expectedPatient2.getPatientId()));
     }
 
     @Test
@@ -113,7 +113,7 @@ public class PatientQueryDAOIT extends IntegrationTest {
 
     private void createDoNotCallEntry(String entity, String entityId, String mobileNumber) {
         DoNotCallEntry doNotCallPatient1 = new DoNotCallEntry();
-        doNotCallPatient1.setEntity(entity);
+        doNotCallPatient1.setEntity(EntityType.Patient);
         doNotCallPatient1.setEntityId(entityId);
         doNotCallPatient1.setMobileNumber(mobileNumber);
         doNotCallEntryRepository.save(doNotCallPatient1);

@@ -16,7 +16,8 @@ public class DoNotCallEntry {
     private Long id;
 
     @Column(name = "entity")
-    private String entity;
+    @Enumerated(EnumType.STRING)
+    private EntityType entity;
 
     @Column(name = "entity_id")
     private String entityId;

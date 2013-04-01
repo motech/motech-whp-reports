@@ -14,18 +14,23 @@ import static java.util.Arrays.asList;
 public class DoNotCallCrudService extends JpaCrudEntity<DoNotCallEntry, Long>{
 
     @Autowired
-    public DoNotCallCrudService(DoNotCallEntryRepository jpaRepository) {
-        super(jpaRepository, Long.class);
+    public DoNotCallCrudService(DoNotCallEntryRepository doNotCallEntryRepository) {
+        super(doNotCallEntryRepository, Long.class);
     }
 
     @Override
     public List<String> getDisplayFields() {
-        return asList("entityId", "mobileNumber");
+        return asList("entityId", "entity", "mobileNumber");
     }
 
     @Override
     public List<String> getFilterFields() {
-        return asList("entityId", "mobileNumber");
+        return asList("entityId");
+    }
+
+    @Override
+    public List<String> getHiddenFields() {
+        return asList("id", "updatedOn");
     }
 
     @Override
