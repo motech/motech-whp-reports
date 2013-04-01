@@ -9,6 +9,7 @@
 
     <context:property-placeholder location="classpath:whp-reports.properties" ignore-unresolvable="true"/>
     <import resource="classpath*:applicationHibernateContext.xml" />
+    <import resource="classpath*:applicationDoNotCallRegisterContext.xml" />
 
     <util:properties id="reportSQLQueries" location="classpath:/report-queries.properties"/>
 
