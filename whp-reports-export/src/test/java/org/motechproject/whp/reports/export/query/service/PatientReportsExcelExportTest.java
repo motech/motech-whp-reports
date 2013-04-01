@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.joda.time.DateTime.now;
-import static org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder.GENERATED_ON;
+import static org.motechproject.whp.reports.export.query.builder.WhpExcelReportBuilder.GENERATED_ON;
 import static org.motechproject.whp.reports.export.query.builder.PatientReportBuilder.*;
 
 public class PatientReportsExcelExportTest extends ExcelTest{
@@ -81,7 +81,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         params.put(PROVIDER_DISTRICT, "d1");
         params.put(TOTAL_ROWS, "1");
 
-        workbook = excelExporter.export(PatientReportBuilder.PATIENT_SUMMARY_TEMPLATE_FILE_NAME, params);
+        workbook = whpExcelExporter.export(PatientReportBuilder.PATIENT_SUMMARY_TEMPLATE_FILE_NAME, params);
         assertThat(stringValue(ExcelColumnIndex.A, 1), is(equalTo("All Patient Summary Data")));
         assertThat(stringValue(ExcelColumnIndex.A, 2), is(equalTo("Generated as on 25/12/2012")));
         assertThat(stringValue(ExcelColumnIndex.A, 3), is(equalTo("Start Date: 01/12/2012")));
@@ -163,7 +163,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         params.put(PROVIDER_DISTRICT, "d1");
         params.put(TOTAL_ROWS, "1");
 
-        workbook = excelExporter.export(PatientReportBuilder.PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME, params);
+        workbook = whpExcelExporter.export(PatientReportBuilder.PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME, params);
 
         assertThat(stringValue(ExcelColumnIndex.A, 1), is(equalTo("Patient Registrations Data")));
         assertThat(stringValue(ExcelColumnIndex.A, 2), is(equalTo("Generated as on 25/12/2012")));
@@ -230,7 +230,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         params.put(PROVIDER_DISTRICT, "d1");
         params.put(TOTAL_ROWS, "1");
 
-        workbook = excelExporter.export(PatientReportBuilder.PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME, params);
+        workbook = whpExcelExporter.export(PatientReportBuilder.PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME, params);
 
         assertThat(stringValue(ExcelColumnIndex.A, 1), is(equalTo("All Patient Closed Treatments Data")));
         assertThat(stringValue(ExcelColumnIndex.A, 2), is(equalTo("Generated as on 25/12/2012")));

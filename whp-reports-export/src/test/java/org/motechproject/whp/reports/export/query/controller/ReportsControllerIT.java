@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class ReportsControllerIT {
 
     @Autowired
-    ReportsController reportsController;
+    WhpReportsController whpReportsController;
 
     @Autowired
     AdherenceAuditLogReportBuilder adherenceAuditLogReportBuilder;
@@ -30,11 +30,11 @@ public class ReportsControllerIT {
 
     @Test
     public void shouldContainAllReportBuilders() {
-        assertEquals(4, reportsController.reportBuilders.size());
-        assertEquals(adherenceRecordsReportBuilder, reportsController.reportBuilders.get(adherenceRecordsReportBuilder.getReportName()));
-        assertEquals(adherenceAuditLogReportBuilder, reportsController.reportBuilders.get(adherenceAuditLogReportBuilder.getReportName()));
-        assertEquals(providerReminderCallLogReportBuilder, reportsController.reportBuilders.get(providerReminderCallLogReportBuilder.getReportName()));
-        assertEquals(containerReportBuilder, reportsController.reportBuilders.get(containerReportBuilder.getReportName()));
+        assertEquals(4, whpReportsController.reportBuilders.size());
+        assertEquals(adherenceRecordsReportBuilder, whpReportsController.reportBuilders.get(adherenceRecordsReportBuilder.getReportName()));
+        assertEquals(adherenceAuditLogReportBuilder, whpReportsController.reportBuilders.get(adherenceAuditLogReportBuilder.getReportName()));
+        assertEquals(providerReminderCallLogReportBuilder, whpReportsController.reportBuilders.get(providerReminderCallLogReportBuilder.getReportName()));
+        assertEquals(containerReportBuilder, whpReportsController.reportBuilders.get(containerReportBuilder.getReportName()));
     }
 
 

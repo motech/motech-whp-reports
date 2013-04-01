@@ -24,7 +24,7 @@ import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
 import org.motechproject.whp.reports.domain.patient.TreatmentDetails;
-import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.WhpExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.motechproject.whp.reports.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@ public class ReportQueryDAOIT {
     @Autowired
     private ReasonForClosureRepository reasonForClosureRepository;
     @Autowired
-    ExcelReportBuilder excelReportBuilder;
+    WhpExcelReportBuilder whpExcelReportBuilder;
 
     PatientReportRequest patientReportRequest;
 

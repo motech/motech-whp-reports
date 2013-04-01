@@ -24,7 +24,7 @@ public class ProviderReminderCallLogReportBuilderTest {
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
 
     @Mock
     private OutputStream outputStream;
@@ -35,7 +35,7 @@ public class ProviderReminderCallLogReportBuilderTest {
     @Before
     public void setUp() {
         initMocks(this);
-        providerReminderCallLogReportBuilder = new ProviderReminderCallLogReportBuilder(reportQueryService, excelReportBuilder);
+        providerReminderCallLogReportBuilder = new ProviderReminderCallLogReportBuilder(reportQueryService, whpExcelReportBuilder);
         providerReminderCallLogSummaries = asList(mock(ProviderReminderCallLogSummary.class));
 
         expectedParams = new HashMap();
@@ -50,7 +50,7 @@ public class ProviderReminderCallLogReportBuilderTest {
         providerReminderCallLogReportBuilder.build(outputStream);
 
         verify(reportQueryService).getProviderReminderCallLogSummaries();
-        verify(excelReportBuilder).build(outputStream, expectedParams, ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
     }
 
     @Test

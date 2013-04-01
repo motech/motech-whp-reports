@@ -234,11 +234,6 @@
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp.reports</groupId>
-                <artifactId>motech-call-log</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.motechproject.whp.reports</groupId>
                 <artifactId>whp-reports-contract</artifactId>
                 <version>${project.version}</version>
                 <type>jar</type>
@@ -348,6 +343,11 @@
                         <artifactId>hibernate</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.whp-contrib</groupId>
+                <artifactId>motech-excel-builder</artifactId>
+                <version>${motech.contrib.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>

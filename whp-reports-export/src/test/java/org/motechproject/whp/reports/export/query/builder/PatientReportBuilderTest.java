@@ -27,7 +27,7 @@ public class PatientReportBuilderTest extends BaseUnitTest {
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
 
     @Mock
     private OutputStream outputStream;
@@ -46,7 +46,7 @@ public class PatientReportBuilderTest extends BaseUnitTest {
         toDate = "30/11/2012";
         providerDistrict = "d1";
 
-        patientReportBuilder = new PatientReportBuilder(reportQueryService, excelReportBuilder);
+        patientReportBuilder = new PatientReportBuilder(reportQueryService, whpExcelReportBuilder);
 
         patientSummaries = asList(new PatientSummary());
         patientReportRequest = new PatientReportRequest();
@@ -69,7 +69,7 @@ public class PatientReportBuilderTest extends BaseUnitTest {
         patientReportBuilder.buildSummaryReport(patientReportRequest, outputStream);
 
         verify(reportQueryService).getPatientSummaries(patientReportRequest);
-        verify(excelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class PatientReportBuilderTest extends BaseUnitTest {
         patientReportBuilder.buildRegistrationsReport(patientReportRequest, outputStream);
 
         verify(reportQueryService).getPatientSummaries(patientReportRequest);
-        verify(excelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class PatientReportBuilderTest extends BaseUnitTest {
         patientReportBuilder.buildClosedTreatmentsReport(patientReportRequest, outputStream);
 
         verify(reportQueryService).getPatientSummaries(patientReportRequest);
-        verify(excelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_CLOSED_TREATMENT_TEMPLATE_FILE_NAME);
     }
 
     @Test
@@ -107,6 +107,6 @@ public class PatientReportBuilderTest extends BaseUnitTest {
         patientReportBuilder.buildRegistrationsReport(patientReportRequest, outputStream);
 
         verify(reportQueryService).getPatientSummaries(patientReportRequest);
-        verify(excelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, PatientReportBuilder.PATIENT_REGISTRATIONS_TEMPLATE_FILE_NAME);
     }
 }

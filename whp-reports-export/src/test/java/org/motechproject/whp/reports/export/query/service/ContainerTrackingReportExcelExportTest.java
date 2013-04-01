@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.export.query.builder.ContainerReportBuilder;
-import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.WhpExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.model.ContainerSummary;
 
 import java.io.IOException;
@@ -33,9 +33,9 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
         Map params = new HashMap();
         params.put("containerRecords", containerSummaries);
         String generatedDateTimeValue = date(now).value();
-        params.put(ExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
+        params.put(WhpExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
 
-        workbook = excelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
+        workbook = whpExcelExporter.export(ContainerReportBuilder.CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
         assertThat(stringValue(A, 1), is(equalTo("Container Tracking Report")));
         assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));
         assertThat(stringValue(A, 5), is(equalTo("containerId")));

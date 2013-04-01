@@ -26,7 +26,7 @@ public class AdherenceAuditLogReportBuilderTest extends BaseUnitTest{
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
     @Mock
     private OutputStream outputStream;
 
@@ -37,7 +37,7 @@ public class AdherenceAuditLogReportBuilderTest extends BaseUnitTest{
     @Before
     public void setUp() {
         initMocks(this);
-        adherenceAuditLogReportBuilder = new AdherenceAuditLogReportBuilder(reportQueryService, excelReportBuilder);
+        adherenceAuditLogReportBuilder = new AdherenceAuditLogReportBuilder(reportQueryService, whpExcelReportBuilder);
 
         adherenceAuditLogSummaries = asList(new AdherenceAuditLogSummary());
 
@@ -52,7 +52,7 @@ public class AdherenceAuditLogReportBuilderTest extends BaseUnitTest{
         adherenceAuditLogReportBuilder.build(outputStream);
 
         verify(reportQueryService).getAdherenceAuditLogSummaries();
-        verify(excelReportBuilder).build(outputStream, expectedParams, AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     @Test

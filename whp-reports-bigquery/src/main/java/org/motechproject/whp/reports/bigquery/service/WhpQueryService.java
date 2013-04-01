@@ -1,27 +1,27 @@
 package org.motechproject.whp.reports.bigquery.service;
 
-import org.motechproject.whp.reports.bigquery.dao.QueryDAO;
+import org.motechproject.whp.reports.bigquery.dao.WhpQueryDAO;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QueryService {
+public class WhpQueryService {
 
     Queries queries;
-    QueryDAO queryDAO;
+    WhpQueryDAO whpQueryDAO;
 
-    QueryService() {
+    WhpQueryService() {
     }
 
     @Autowired
-    public QueryService(Queries queries, QueryDAO queryDAO) {
+    public WhpQueryService(Queries queries, WhpQueryDAO whpQueryDAO) {
         this.queries = queries;
-        this.queryDAO = queryDAO;
+        this.whpQueryDAO = whpQueryDAO;
     }
 
     public QueryResult executeQuery(String queryName) {
         String query = queries.getQuery(queryName);
-        return queryDAO.executeQuery(query);
+        return whpQueryDAO.executeQuery(query);
     }
 }

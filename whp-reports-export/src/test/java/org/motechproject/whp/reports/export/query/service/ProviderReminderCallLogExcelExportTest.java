@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.whp.reports.date.WHPDateTime;
-import org.motechproject.whp.reports.export.query.builder.ExcelReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.WhpExcelReportBuilder;
 import org.motechproject.whp.reports.export.query.builder.ProviderReminderCallLogReportBuilder;
 import org.motechproject.whp.reports.export.query.model.ProviderReminderCallLogSummary;
 
@@ -38,9 +38,9 @@ public class ProviderReminderCallLogExcelExportTest extends ExcelTest {
         Map params = new HashMap();
         params.put("callLogs", providerReminderCallLogSummaries);
         String generatedDateTimeValue = date(now).value();
-        params.put(ExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
+        params.put(WhpExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
 
-        workbook = excelExporter.export(ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME, params);
+        workbook = whpExcelExporter.export(ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME, params);
 
         assertThat(stringValue(A, 1), is(equalTo("Provider Reminder Call Logs")));
         assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));

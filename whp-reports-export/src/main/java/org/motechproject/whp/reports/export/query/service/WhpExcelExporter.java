@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 @Component
-public class ExcelExporter {
+public class WhpExcelExporter {
 
     public Workbook export(String templateFileName, Map params) {
         XLSTransformer transformer = new XLSTransformer();

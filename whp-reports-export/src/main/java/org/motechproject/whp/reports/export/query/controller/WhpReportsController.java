@@ -13,14 +13,14 @@ import java.util.Map;
 import java.util.Set;
 
 @Controller
-public class ReportsController {
+public class WhpReportsController {
 
     public static final String CONTENT_DISPOSITION = "Content-Disposition";
     public static final String APPLICATION_VND_MS_EXCEL = "application/vnd.ms-excel";
     Map<String, ReportBuilder> reportBuilders = new HashMap<>();
 
     @Autowired
-    public ReportsController(Set<ReportBuilder> reportBuilderSet) {
+    public WhpReportsController(Set<ReportBuilder> reportBuilderSet) {
         for(ReportBuilder reportBuilder : reportBuilderSet){
             reportBuilders.put(reportBuilder.getReportName(), reportBuilder);
         }

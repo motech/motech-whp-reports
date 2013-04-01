@@ -17,9 +17,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class ReportsControllerTest {
+public class WhpReportsControllerTest {
 
-    private ReportsController reportsController;
+    private WhpReportsController whpReportsController;
 
     @Mock
     ReportBuilder reportBuilder;
@@ -32,16 +32,16 @@ public class ReportsControllerTest {
 
         Set reportBuilders = new HashSet();
         reportBuilders.add(reportBuilder);
-        reportsController = new ReportsController(reportBuilders);
+        whpReportsController = new WhpReportsController(reportBuilders);
     }
 
     @Test
     public void shouldExportGivenReport() throws Exception {
-        standaloneSetup(reportsController).build()
+        standaloneSetup(whpReportsController).build()
                 .perform(get("/reports/" + reportName))
                 .andExpect(status().isOk())
-                .andExpect(header().string(ReportsController.CONTENT_DISPOSITION, "inline; filename=" + reportName + ".xls"))
-                .andExpect(content().contentType(ReportsController.APPLICATION_VND_MS_EXCEL));
+                .andExpect(header().string(WhpReportsController.CONTENT_DISPOSITION, "inline; filename=" + reportName + ".xls"))
+                .andExpect(content().contentType(WhpReportsController.APPLICATION_VND_MS_EXCEL));
 
         verify(reportBuilder).build(any(OutputStream.class));
     }

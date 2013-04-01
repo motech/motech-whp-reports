@@ -50,10 +50,6 @@
             <artifactId>whp-reports-export</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.motechproject.whp-contrib</groupId>
-            <artifactId>motech-web-utils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
             <artifactId>whp-reports-domain</artifactId>
         </dependency>
@@ -62,14 +58,12 @@
             <artifactId>whp-reports-bigquery</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.motechproject.whp.reports</groupId>
+            <groupId>org.motechproject.whp-contrib</groupId>
             <artifactId>motech-call-log</artifactId>
-           <exclusions>
-            <exclusion>
-                <groupId>org.openmrs.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-            </exclusion>
-        </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-excel-builder</artifactId>
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>

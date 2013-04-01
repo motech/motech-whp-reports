@@ -15,16 +15,16 @@ public class AdherenceAuditLogReportBuilder implements ReportBuilder {
     public static final String ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME = "/xls/templates/adherenceAuditLogReport.xls";
 
     private ReportQueryService reportQueryService;
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
 
     @Autowired
-    public AdherenceAuditLogReportBuilder(ReportQueryService reportQueryService, ExcelReportBuilder excelReportBuilder) {
+    public AdherenceAuditLogReportBuilder(ReportQueryService reportQueryService, WhpExcelReportBuilder whpExcelReportBuilder) {
         this.reportQueryService = reportQueryService;
-        this.excelReportBuilder = excelReportBuilder;
+        this.whpExcelReportBuilder = whpExcelReportBuilder;
     }
 
     public void build(OutputStream outputStream) {
-        excelReportBuilder.build(outputStream, getReportData(), ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
+        whpExcelReportBuilder.build(outputStream, getReportData(), ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     private Map<String, Object> getReportData() {

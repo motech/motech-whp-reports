@@ -9,14 +9,14 @@ import static org.junit.Assert.assertNotNull;
 public class ReportQueriesIT extends IntegrationTest {
 
     @Autowired
-    ReportQueries reportQueries;
+    WhpReportQueries whpReportQueries;
 
     @Test
     public void shouldReturnReportQueries() {
-        assertNotNull(reportQueries.getAdherenceAuditLogReportQuery());
-        assertNotNull(reportQueries.getAdherenceDataReportQuery());
-        assertNotNull(reportQueries.getProviderReminderCallLogQuery());
-        assertNotNull(reportQueries.getContainerRecordQuery());
+        assertNotNull(whpReportQueries.getAdherenceAuditLogReportQuery());
+        assertNotNull(whpReportQueries.getAdherenceDataReportQuery());
+        assertNotNull(whpReportQueries.getProviderReminderCallLogQuery());
+        assertNotNull(whpReportQueries.getContainerRecordQuery());
     }
 
 }

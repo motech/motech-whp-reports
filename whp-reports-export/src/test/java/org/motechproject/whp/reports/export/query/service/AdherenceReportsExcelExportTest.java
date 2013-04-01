@@ -45,7 +45,7 @@ public class AdherenceReportsExcelExportTest extends ExcelTest{
         Map params = new HashMap();
         params.put("auditLogs", adherenceAuditLogSummaries);
 
-        workbook = excelExporter.export(AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME, params);
+        workbook = whpExcelExporter.export(AdherenceAuditLogReportBuilder.ADHERENCE_AUDIT_LOG_SUMMARY_TEMPLATE_FILE_NAME, params);
 
         assertThat(stringValue(ExcelColumnIndex.A, 1), is(equalTo("Adherence")));
         assertThat(stringValue(ExcelColumnIndex.A, 3), is(equalTo("patientId")));
@@ -78,7 +78,7 @@ public class AdherenceReportsExcelExportTest extends ExcelTest{
         Map params = new HashMap();
         params.put("adherenceRecords", adherenceRecordSummaries);
 
-        Workbook workbook = excelExporter.export(AdherenceRecordsReportBuilder.ADHERENCE_RECORD_SUMMARY_TEMPLATE_FILE_NAME, params);
+        Workbook workbook = whpExcelExporter.export(AdherenceRecordsReportBuilder.ADHERENCE_RECORD_SUMMARY_TEMPLATE_FILE_NAME, params);
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 1), workbook).getStringCellValue(), is(equalTo("Adherence Records")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.A, 3), workbook).getStringCellValue(), is(equalTo("patientId")));
         assertThat(getCellForCoordinate(Coordinate.coordinate(ExcelColumnIndex.B, 3), workbook).getStringCellValue(), is(equalTo("tbId")));

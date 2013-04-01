@@ -15,16 +15,16 @@ public class ContainerReportBuilder implements ReportBuilder {
     public static final String CONTAINER_REPORT_TEMPLATE_FILE_NAME = "/xls/templates/containerReport.xls";
 
     private ReportQueryService reportQueryService;
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
 
     @Autowired
-    public ContainerReportBuilder(ReportQueryService reportQueryService, ExcelReportBuilder excelReportBuilder) {
+    public ContainerReportBuilder(ReportQueryService reportQueryService, WhpExcelReportBuilder whpExcelReportBuilder) {
         this.reportQueryService = reportQueryService;
-        this.excelReportBuilder = excelReportBuilder;
+        this.whpExcelReportBuilder = whpExcelReportBuilder;
     }
 
     public void build(OutputStream outputStream) {
-        excelReportBuilder.build(outputStream, getReportData(), CONTAINER_REPORT_TEMPLATE_FILE_NAME);
+        whpExcelReportBuilder.build(outputStream, getReportData(), CONTAINER_REPORT_TEMPLATE_FILE_NAME);
     }
 
     private Map<String, Object> getReportData() {

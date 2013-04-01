@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class ReportQueries {
+public class WhpReportQueries {
 
     @Value("#{reportSQLQueries['adherence.record.data.query']}")
     private String adherenceDataReportQuery;

@@ -22,7 +22,7 @@ public class ContainerReportBuilderTest {
     @Mock
     ReportQueryService reportQueryService;
     @Mock
-    ExcelReportBuilder excelExportBuilder;
+    WhpExcelReportBuilder excelExportBuilder;
     @Mock
     OutputStream outputStream;
 

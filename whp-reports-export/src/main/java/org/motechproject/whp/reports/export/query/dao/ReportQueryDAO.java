@@ -1,6 +1,6 @@
 package org.motechproject.whp.reports.export.query.dao;
 
-import org.motechproject.whp.reports.config.ReportQueries;
+import org.motechproject.whp.reports.config.WhpReportQueries;
 import org.motechproject.whp.reports.export.query.dao.query.builder.PatientReportsQueryBuilder;
 import org.motechproject.whp.reports.export.query.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +16,14 @@ public class ReportQueryDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    ReportQueries reportQueries;
+    WhpReportQueries whpReportQueries;
 
     ReportQueryDAO() {
     }
 
     @Autowired
-    public ReportQueryDAO(DataSource dataSource, ReportQueries reportQueries) {
-        this.reportQueries = reportQueries;
+    public ReportQueryDAO(DataSource dataSource, WhpReportQueries whpReportQueries) {
+        this.whpReportQueries = whpReportQueries;
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -33,18 +33,18 @@ public class ReportQueryDAO {
     }
 
     public List<AdherenceAuditLogSummary> getAdherenceAuditLogSummaries() {
-        return jdbcTemplate.query(reportQueries.getAdherenceAuditLogReportQuery(), new BeanPropertyRowMapper(AdherenceAuditLogSummary.class));
+        return jdbcTemplate.query(whpReportQueries.getAdherenceAuditLogReportQuery(), new BeanPropertyRowMapper(AdherenceAuditLogSummary.class));
     }
 
     public List<AdherenceRecordSummary> getAdherenceRecordSummaries() {
-        return jdbcTemplate.query(reportQueries.getAdherenceDataReportQuery(), new BeanPropertyRowMapper(AdherenceRecordSummary.class));
+        return jdbcTemplate.query(whpReportQueries.getAdherenceDataReportQuery(), new BeanPropertyRowMapper(AdherenceRecordSummary.class));
     }
 
     public List<ProviderReminderCallLogSummary> getProviderReminderCallLogSummaries() {
-        return jdbcTemplate.query(reportQueries.getProviderReminderCallLogQuery(), new BeanPropertyRowMapper(ProviderReminderCallLogSummary.class));
+        return jdbcTemplate.query(whpReportQueries.getProviderReminderCallLogQuery(), new BeanPropertyRowMapper(ProviderReminderCallLogSummary.class));
     }
 
     public List<ContainerSummary> getContainerSummaries() {
-        return jdbcTemplate.query(reportQueries.getContainerRecordQuery(), new BeanPropertyRowMapper(ContainerSummary.class));
+        return jdbcTemplate.query(whpReportQueries.getContainerRecordQuery(), new BeanPropertyRowMapper(ContainerSummary.class));
     }
 }

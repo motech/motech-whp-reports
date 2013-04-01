@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.motechproject.testing.utils.BaseUnitTest;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.date.WHPDateTime;
-import org.motechproject.whp.reports.export.query.service.ExcelExporter;
+import org.motechproject.whp.reports.export.query.service.WhpExcelExporter;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,19 +19,19 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ExcelReportBuilderTest extends BaseUnitTest{
+public class WhpExcelReportBuilderTest extends BaseUnitTest{
 
     @Mock
-    ExcelExporter excelExporter;
+    WhpExcelExporter whpExcelExporter;
     @Mock
     OutputStream outputStream;
 
-    ExcelReportBuilder excelReportBuilder;
+    WhpExcelReportBuilder whpExcelReportBuilder;
 
     @Before
     public void setUp() {
         initMocks(this);
-        excelReportBuilder = new ExcelReportBuilder(excelExporter);
+        whpExcelReportBuilder = new WhpExcelReportBuilder(whpExcelExporter);
     }
 
     @Test
@@ -42,10 +42,10 @@ public class ExcelReportBuilderTest extends BaseUnitTest{
         String templateFileName = "template";
         Map params = new HashMap();
 
-        excelReportBuilder.build(outputStream, params, templateFileName);
+        whpExcelReportBuilder.build(outputStream, params, templateFileName);
 
-        verify(excelExporter).export(templateFileName, params);
+        verify(whpExcelExporter).export(templateFileName, params);
         verify(outputStream).flush();
-        assertThat((String) params.get(ExcelReportBuilder.GENERATED_ON), is(generatedOn));
+        assertThat((String) params.get(WhpExcelReportBuilder.GENERATED_ON), is(generatedOn));
     }
 }

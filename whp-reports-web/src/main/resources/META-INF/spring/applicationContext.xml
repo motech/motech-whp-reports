@@ -10,6 +10,7 @@
     <context:property-placeholder location="classpath:whp-reports.properties"  ignore-unresolvable="true"/>
 
     <import resource="classpath*:applicationCallLogContext.xml"/>
+    <import resource="classpath*:applicationExcelBuilderContext.xml"/>
     <import resource="classpath*:applicationReportingDomainContext.xml" />
     <import resource="classpath*:applicationValidationContext.xml"/>
     <import resource="classpath*:applicationReportingBigQueryContext.xml" />

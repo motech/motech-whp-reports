@@ -25,7 +25,7 @@ public class AdherenceRecordsReportBuilderTest {
     @Mock
     private ReportQueryService reportQueryService;
     @Mock
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
     @Mock
     private OutputStream outputStream;
 
@@ -35,7 +35,7 @@ public class AdherenceRecordsReportBuilderTest {
     @Before
     public void setUp() {
         initMocks(this);
-        adherenceRecordsReportBuilder = new AdherenceRecordsReportBuilder(reportQueryService, excelReportBuilder);
+        adherenceRecordsReportBuilder = new AdherenceRecordsReportBuilder(reportQueryService, whpExcelReportBuilder);
         adherenceRecordSummaries = asList(new AdherenceRecordSummary());
 
         expectedParams = new HashMap();
@@ -48,7 +48,7 @@ public class AdherenceRecordsReportBuilderTest {
 
         adherenceRecordsReportBuilder.build(outputStream);
 
-        verify(excelReportBuilder).build(outputStream, expectedParams, AdherenceRecordsReportBuilder.ADHERENCE_RECORD_SUMMARY_TEMPLATE_FILE_NAME);
+        verify(whpExcelReportBuilder).build(outputStream, expectedParams, AdherenceRecordsReportBuilder.ADHERENCE_RECORD_SUMMARY_TEMPLATE_FILE_NAME);
     }
 
     @Test

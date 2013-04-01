@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.bigquery.controller;
 
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
-import org.motechproject.whp.reports.bigquery.service.QueryService;
+import org.motechproject.whp.reports.bigquery.service.WhpQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/bigquery")
 public class QueryController {
 
-    QueryService queryService;
+    WhpQueryService whpQueryService;
 
     @Autowired
-    public QueryController(QueryService queryService) {
-        this.queryService = queryService;
+    public QueryController(WhpQueryService whpQueryService) {
+        this.whpQueryService = whpQueryService;
     }
 
     @RequestMapping("/execute")
     @ResponseBody
     public QueryResult executeQuery(@RequestParam String queryName){
-          return queryService.executeQuery(queryName);
+          return whpQueryService.executeQuery(queryName);
     }
 
 }

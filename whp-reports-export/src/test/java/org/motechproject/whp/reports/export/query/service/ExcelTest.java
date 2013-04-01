@@ -12,7 +12,7 @@ import static bad.robot.excel.valuetypes.Coordinate.coordinate;
 
 public abstract class ExcelTest {
 
-    protected final ExcelExporter excelExporter = new ExcelExporter();
+    protected final WhpExcelExporter whpExcelExporter = new WhpExcelExporter();
 
     protected org.apache.poi.ss.usermodel.Cell getCellForCoordinate(Coordinate coordinate, Workbook workbook) throws IOException {
         org.apache.poi.ss.usermodel.Row row = getRowForCoordinate(coordinate, workbook);

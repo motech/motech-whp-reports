@@ -14,17 +14,17 @@ import java.util.Map;
 public class ProviderReminderCallLogReportBuilder implements ReportBuilder{
 
     private final ReportQueryService reportQueryService;
-    private ExcelReportBuilder excelReportBuilder;
+    private WhpExcelReportBuilder whpExcelReportBuilder;
     public static final String PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME = "/xls/templates/providerReminderCallLogReport.xls";
 
     @Autowired
-    public ProviderReminderCallLogReportBuilder(ReportQueryService reportQueryService, ExcelReportBuilder excelReportBuilder) {
+    public ProviderReminderCallLogReportBuilder(ReportQueryService reportQueryService, WhpExcelReportBuilder whpExcelReportBuilder) {
         this.reportQueryService = reportQueryService;
-        this.excelReportBuilder = excelReportBuilder;
+        this.whpExcelReportBuilder = whpExcelReportBuilder;
     }
 
     public void build(OutputStream outputStream) {
-        excelReportBuilder.build(outputStream,getReportData(), PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
+        whpExcelReportBuilder.build(outputStream,getReportData(), PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME);
     }
 
     private Map<String, Object> getReportData() {
