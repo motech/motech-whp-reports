@@ -60,6 +60,12 @@
         <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
             <artifactId>motech-call-log</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openmrs.hibernate</groupId>
+                    <artifactId>hibernate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
