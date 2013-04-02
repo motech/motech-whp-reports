@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <title>WHP Visualizations</title>
+    <meta charset="utf-8">
+    <style>
+
+
+        body {
+            font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+    </style>
+</head>
+<body>
+<div class="visualization" id="alertEffectiveness"></div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var dataArray = [
+            ['Week', 'Alerted Patients', 'Adherence Reported After Call']
+        ];
+
+        $.getJSON("/whp-reports/bigquery/execute?queryName=patient.ivrAlerts.effectiveness", function(data) {
+            var jsonData = data.content;
+            jsonData.forEach(function (d) {
+                dataArray.push([d.call_week_end_date, d.patient_with_ivr_calls, d.patients_with_adherence_given])
+            });
+
+            var data = google.visualization.arrayToDataTable(dataArray);
+
+            var options = {
+                title:'Patient IVR Alert Effectiveness',
+                hAxis:{title:'Week Ending Date', titleTextStyle:{color:'black'}}
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('alertEffectiveness'));
+            chart.draw(data, options);
+        });
+    }
+</script>

@@ -10,7 +10,8 @@ import org.motechproject.calllog.domain.CallLog;
 import org.motechproject.calllog.repository.GenericCallLogRepository;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
-import org.motechproject.whp.reports.bigquery.service.QueryService;
+import org.motechproject.whp.reports.bigquery.service.WhpQueryService;
+import org.motechproject.whp.reports.date.WHPDate;
 import org.motechproject.whp.reports.domain.TreatmentWeek;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
 import org.motechproject.whp.reports.repository.AdherenceRecordRepository;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class PatientIVRAlertEffectivenessQueryIT {
     GenericCallLogRepository genericCallLogRepository;
 
     @Autowired
-    QueryService queryService;
+    WhpQueryService queryService;
 
     @Test
     public void shouldCountNumberOfPatientsCalledAndGivenAdherenceEveryWeek() {
@@ -75,7 +76,7 @@ public class PatientIVRAlertEffectivenessQueryIT {
     private void assertResult(List<Map<String, Object>> result, int index, long patientsWithIvrCalls, long patientsWithAdherenceGiven, LocalDate callDate) {
         assertThat((Long)result.get(index).get("patient_with_ivr_calls"), is(patientsWithIvrCalls));
         assertThat((Long) result.get(index).get("patients_with_adherence_given"), is(patientsWithAdherenceGiven));
-        assertThat((Timestamp) result.get(index).get("call_week_end_date"), is(toSqlTimestamp(new TreatmentWeek(callDate).endDate())));
+        assertThat((Date) result.get(index).get("call_week_end_date"), is(WHPDate.toSqlDate(new TreatmentWeek(callDate).endDate())));
     }
 
     private CallLog createCallLog(DateTime callAttemptDateTime, String patientId1) {
