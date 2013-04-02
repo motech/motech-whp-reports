@@ -10,6 +10,8 @@
     <context:property-placeholder location="classpath*:whp-reports.properties" ignore-unresolvable="true"/>
 
     <import resource="classpath:applicationReportingBigQueryContext.xml"/>
+    <import resource="classpath:applicationCallLogContext.xml"/>
+    <import resource="classpath:applicationReportingDomainContext.xml"/>
 
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

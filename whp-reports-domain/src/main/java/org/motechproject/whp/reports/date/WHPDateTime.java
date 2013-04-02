@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.date;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.model.DayOfWeek;
@@ -86,5 +87,11 @@ public class WHPDateTime {
 
     public static String dayOfWeek(Timestamp timestamp) {
         return DayOfWeek.getDayOfWeek(new DateTime(timestamp).getDayOfWeek()).name();
+    }
+
+    public static Timestamp toSqlTimestamp(LocalDate date) {
+        if(date == null)
+            return null;
+        return new Timestamp(date.toDate().getTime());
     }
 }
