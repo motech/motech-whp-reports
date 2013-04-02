@@ -109,6 +109,12 @@
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-testing-utils</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openmrs.hibernate</groupId>
+                    <artifactId>hibernate</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>test</scope>
         </dependency>
     </dependencies>
