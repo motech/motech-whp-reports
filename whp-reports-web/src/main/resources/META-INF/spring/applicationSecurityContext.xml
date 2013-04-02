@@ -16,13 +16,15 @@
 
         <!--Only IT Admin-->
         <intercept-url pattern="/rest/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
-        <intercept-url pattern="/bigquery/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/diagnostics/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
 
         <!--Only CMF Admin-->
         <intercept-url pattern="/reports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/patientreports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/auditreports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
+
+        <!--both it admin and cmf admin-->
+        <intercept-url pattern="/bigquery/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
 
         <intercept-url pattern="/adherenceCallLog/**" access="permitAll"  requires-channel="any"/>
         <intercept-url pattern="/adherence/**" access="permitAll" requires-channel="any"/>
