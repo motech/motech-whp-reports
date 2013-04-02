@@ -120,17 +120,7 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
-            <artifactId>motech-platform-server-api</artifactId>
-            <version>${motech.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-common-api</artifactId>
-            <version>${motech.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.motechproject</groupId>
-            <artifactId>motech-platform-scheduler</artifactId>
             <version>${motech.version}</version>
         </dependency>
         <dependency>
