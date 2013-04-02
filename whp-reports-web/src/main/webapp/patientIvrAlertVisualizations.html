@@ -32,16 +32,22 @@
 
         $.getJSON("/whp-reports/bigquery/execute?queryName=patient.ivrAlerts.effectiveness", function(data) {
             var jsonData = data.content;
+
+            var options = {
+                title:'Patient IVR Alert Effectiveness',
+                hAxis:{title:'Week Ending Date', titleTextStyle:{color:'black'}}
+            };
+
+            if (jQuery.isEmptyObject(jsonData)) {
+                document.getElementById('alertEffectiveness').innerHTML = "<h1>"+ options.title +": NO DATA FOUND </h1>";
+                return;
+            }
             jsonData.forEach(function (d) {
                 dataArray.push([d.call_week_end_date, d.patient_with_ivr_calls, d.patients_with_adherence_given])
             });
 
             var data = google.visualization.arrayToDataTable(dataArray);
 
-            var options = {
-                title:'Patient IVR Alert Effectiveness',
-                hAxis:{title:'Week Ending Date', titleTextStyle:{color:'black'}}
-            };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('alertEffectiveness'));
             chart.draw(data, options);
