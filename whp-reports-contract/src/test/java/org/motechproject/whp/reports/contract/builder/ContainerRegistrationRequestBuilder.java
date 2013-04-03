@@ -1,7 +1,7 @@
 package org.motechproject.whp.reports.contract.builder;
 
 import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.UserGivenPatientDetails;
+import org.motechproject.whp.reports.contract.UserGivenPatientDetailsRequest;
 
 import java.util.Date;
 
@@ -20,12 +20,12 @@ public class ContainerRegistrationRequestBuilder {
         request.setStatus("Open");
         request.setSubmitterId("submitterId");
         request.setSubmitterRole("role");
-        request.setUserGivenPatientDetails(defaultUserGivenDetails());
+        request.setUserGivenPatientDetailsRequest(defaultUserGivenDetails());
         return request;
     }
 
-    private static UserGivenPatientDetails defaultUserGivenDetails() {
-        UserGivenPatientDetails details = new UserGivenPatientDetails();
+    private static UserGivenPatientDetailsRequest defaultUserGivenDetails() {
+        UserGivenPatientDetailsRequest details = new UserGivenPatientDetailsRequest();
         details.setPatientName("givenPatientName");
         details.setPatientId("givenPatientID");
         details.setPatientAge(21);

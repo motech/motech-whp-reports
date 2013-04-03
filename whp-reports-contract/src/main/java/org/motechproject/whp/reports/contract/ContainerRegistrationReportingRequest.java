@@ -20,5 +20,5 @@ public class ContainerRegistrationReportingRequest implements Serializable {
     private String status;
     private String diagnosis;
 
-    private UserGivenPatientDetails userGivenPatientDetails;
+    private UserGivenPatientDetailsRequest userGivenPatientDetailsRequest;
 }

@@ -1,10 +1,7 @@
 package org.motechproject.whp.reports.mapper;
 
 import org.joda.time.DateTime;
-import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
-import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 import org.springframework.stereotype.Component;
@@ -15,7 +12,7 @@ import java.sql.Timestamp;
 @Component
 public class ContainerReportingRequestMapper {
 
-    public  ContainerRecord mapContainerRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
+    public ContainerRecord mapContainerRecord(ContainerRegistrationReportingRequest containerRegistrationReportingRequest) {
         ContainerRecord containerRecord = new ContainerRecord();
         containerRecord.setContainerId(containerRegistrationReportingRequest.getContainerId());
         containerRecord.setIssuedOn(getDateIfNotNull(containerRegistrationReportingRequest.getIssuedOn()));
@@ -35,14 +32,14 @@ public class ContainerReportingRequestMapper {
 
     private void mapUserGivenPatientDetails(ContainerRegistrationReportingRequest request, ContainerRecord containerRecord) {
         UserGivenPatientDetails patientDetailsRecord = containerRecord.getUserGivenPatientDetails();
-        org.motechproject.whp.reports.contract.UserGivenPatientDetails patientDetailsRequest = request.getUserGivenPatientDetails();
+        UserGivenPatientDetailsRequest patientDetailsRequest = request.getUserGivenPatientDetailsRequest();
         patientDetailsRecord.setGender(patientDetailsRequest.getGender());
         patientDetailsRecord.setPatientId(patientDetailsRequest.getPatientId());
         patientDetailsRecord.setPatientAge(patientDetailsRequest.getPatientAge());
         patientDetailsRecord.setPatientName(patientDetailsRequest.getPatientName());
     }
 
-    public  void populateSputumLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {
+    public void populateSputumLabResults(SputumLabResultsCaptureReportingRequest request, ContainerRecord containerRecord) {
 
         containerRecord.setLabName(request.getLabName());
         containerRecord.setLabNumber(request.getLabNumber());
@@ -54,7 +51,7 @@ public class ContainerReportingRequestMapper {
         containerRecord.setLabResultsCapturedOn(getDateTimeIfNotNull(request.getLabResultsCapturedOn()));
     }
 
-    public  void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
+    public void updateContainerStatus(ContainerStatusReportingRequest containerStatusReportingRequest, ContainerRecord containerRecord) {
         containerRecord.setAlternateDiagnosisCode(containerStatusReportingRequest.getAlternateDiagnosisCode());
         containerRecord.setClosureDate(getDateTimeIfNotNull(containerStatusReportingRequest.getClosureDate()));
         containerRecord.setConsultationDate(getDateIfNotNull(containerStatusReportingRequest.getConsultationDate()));
@@ -63,7 +60,7 @@ public class ContainerReportingRequestMapper {
         containerRecord.setDiagnosis(containerStatusReportingRequest.getDiagnosis());
     }
 
-    public  void updateContainerPatientMapping(ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest, ContainerRecord containerRecord) {
+    public void updateContainerPatientMapping(ContainerPatientMappingReportingRequest containerPatientMappingReportingRequest, ContainerRecord containerRecord) {
         containerRecord.setPatientId(containerPatientMappingReportingRequest.getPatientId());
         containerRecord.setTbId(containerPatientMappingReportingRequest.getTbId());
         containerRecord.setMappingInstance(containerPatientMappingReportingRequest.getMappingInstance());
@@ -74,15 +71,24 @@ public class ContainerReportingRequestMapper {
         containerRecord.setDiagnosis(containerPatientMappingReportingRequest.getDiagnosis());
     }
 
-    private  Date getDateIfNotNull(java.util.Date date) {
-        if(date != null)
+    private Date getDateIfNotNull(java.util.Date date) {
+        if (date != null)
             return new Date(date.getTime());
         return null;
     }
 
-    private  Timestamp getDateTimeIfNotNull(DateTime dateTime) {
-        if(dateTime != null)
+    private Timestamp getDateTimeIfNotNull(DateTime dateTime) {
+        if (dateTime != null)
             return new Timestamp(dateTime.getMillis());
         return null;
+    }
+
+    public void updateUserGivenPatientDetails(UserGivenPatientDetailsReportingRequest request, ContainerRecord containerRecord) {
+        UserGivenPatientDetails userGivenPatientDetails = new UserGivenPatientDetails();
+        userGivenPatientDetails.setGender(request.getGender());
+        userGivenPatientDetails.setPatientAge(request.getPatientAge());
+        userGivenPatientDetails.setPatientId(request.getPatientId());
+        userGivenPatientDetails.setPatientName(request.getPatientName());
+        containerRecord.setUserGivenPatientDetails(userGivenPatientDetails);
     }
 }

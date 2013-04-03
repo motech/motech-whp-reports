@@ -1,14 +1,10 @@
 package org.motechproject.whp.reports.service;
 
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
-import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
 import org.motechproject.whp.reports.mapper.ContainerReportingRequestMapper;
@@ -50,53 +46,61 @@ public class ContainerRecordServiceTest {
     @Test
     public void shouldCaptureSputumLabResults() {
         ContainerRecord existingContainer = new ContainerRecord();
-        String containerId = "container";
-        existingContainer.setContainerId(containerId);
-        when(containerRecordRepository.findByContainerId(containerId)).thenReturn(existingContainer);
-
         SputumLabResultsCaptureReportingRequest request = new SputumLabResultsCaptureReportingRequest();
-        request.setSmearTestDate1(new Date());
-        request.setSmearTestDate2(new Date());
-        request.setContainerId(containerId);
+        request.setContainerId("container");
+
+        when(containerRecordRepository.findByContainerId(request.getContainerId())).thenReturn(existingContainer);
+
         containerRecordService.recordLabResults(request);
 
-        verify(containerRecordRepository).findByContainerId(containerId);
+        verify(containerRecordRepository).findByContainerId(request.getContainerId());
         verify(containerRecordRepository).save(existingContainer);
+        verify(requestMapper).populateSputumLabResults(request, existingContainer);
     }
 
     @Test
     public void shouldUpdateContainerStatus() {
         ContainerRecord existingContainer = new ContainerRecord();
-        String containerId = "container";
-        existingContainer.setContainerId(containerId);
-        when(containerRecordRepository.findByContainerId(containerId)).thenReturn(existingContainer);
-
         ContainerStatusReportingRequest request = new ContainerStatusReportingRequest();
-        request.setContainerId(containerId);
-        request.setClosureDate(DateTime.now());
-        request.setConsultationDate(new Date());
+        request.setContainerId("container");
+
+        when(containerRecordRepository.findByContainerId(request.getContainerId())).thenReturn(existingContainer);
+
         containerRecordService.updateContainerStatus(request);
 
-        verify(containerRecordRepository).findByContainerId(containerId);
+        verify(containerRecordRepository).findByContainerId(request.getContainerId());
         verify(containerRecordRepository).save(existingContainer);
-
+        verify(requestMapper).updateContainerStatus(request, existingContainer);
     }
 
     @Test
     public void shouldUpdateContainerPatientMapping() {
         ContainerRecord existingContainer = new ContainerRecord();
-        String containerId = "container";
-        existingContainer.setContainerId(containerId);
-        when(containerRecordRepository.findByContainerId(containerId)).thenReturn(existingContainer);
-
         ContainerPatientMappingReportingRequest request = new ContainerPatientMappingReportingRequest();
-        request.setClosureDate(DateTime.now());
-        request.setConsultationDate(new Date());
-        request.setContainerId(containerId);
+        request.setContainerId("container");
+
+        when(containerRecordRepository.findByContainerId(request.getContainerId())).thenReturn(existingContainer);
+
         containerRecordService.updateContainerPatientMapping(request);
 
-        verify(containerRecordRepository).findByContainerId(containerId);
+        verify(containerRecordRepository).findByContainerId(request.getContainerId());
         verify(containerRecordRepository).save(existingContainer);
+        verify(requestMapper).updateContainerPatientMapping(request, existingContainer);
+    }
+
+    @Test
+    public void shouldUpdateContainerUserGivenDetailsMapping() {
+        ContainerRecord existingContainer = new ContainerRecord();
+        UserGivenPatientDetailsReportingRequest request = new UserGivenPatientDetailsReportingRequest();
+        request.setContainerId("container");
+
+        when(containerRecordRepository.findByContainerId(request.getContainerId())).thenReturn(existingContainer);
+
+        containerRecordService.updateContainerUserGivenDetails(request);
+
+        verify(containerRecordRepository).findByContainerId(request.getContainerId());
+        verify(containerRecordRepository).save(existingContainer);
+        verify(requestMapper).updateUserGivenPatientDetails(request, existingContainer);
     }
     
     @Test

@@ -1,9 +1,6 @@
 package org.motechproject.whp.reports.service;
 
-import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
-import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.paging.ContainerRecordPageRequest;
 import org.motechproject.whp.reports.mapper.ContainerReportingRequestMapper;
@@ -57,5 +54,11 @@ public class ContainerRecordService {
     public List<ContainerRecord> getAll(int pageNo, int pageSize) {
         ContainerRecordPageRequest pageRequest = new ContainerRecordPageRequest(pageNo, pageSize);
         return containerRecordRepository.findAll(pageRequest).getContent();
+    }
+
+    public void updateContainerUserGivenDetails(UserGivenPatientDetailsReportingRequest request) {
+        ContainerRecord containerRecord = containerRecordRepository.findByContainerId(request.getContainerId());
+        requestMapper.updateUserGivenPatientDetails(request, containerRecord);
+        containerRecordRepository.save(containerRecord);
     }
 }

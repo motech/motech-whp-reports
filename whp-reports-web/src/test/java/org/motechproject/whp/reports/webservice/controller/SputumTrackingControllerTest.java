@@ -3,10 +3,7 @@ package org.motechproject.whp.reports.webservice.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
-import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.service.ContainerRecordService;
 import org.springframework.http.MediaType;
 
@@ -72,6 +69,19 @@ public class SputumTrackingControllerTest extends ControllerTest{
         standaloneSetup(sputumTrackingController).build()
                 .perform(post("/sputumTracking/containerPatientMappingMeasure").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldUpdateUserGivenPatientDetails() throws Exception {
+        UserGivenPatientDetailsReportingRequest request = new UserGivenPatientDetailsReportingRequest();
+
+        String requestJSON = getJSON(request);
+
+        standaloneSetup(sputumTrackingController).build()
+                .perform(post("/sputumTracking/updateUserGivenPatientDetails").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(containerRecordService).updateContainerUserGivenDetails(request);
     }
 
 }

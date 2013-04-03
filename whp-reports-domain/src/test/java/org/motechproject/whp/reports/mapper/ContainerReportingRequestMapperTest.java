@@ -2,10 +2,7 @@ package org.motechproject.whp.reports.mapper;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.whp.reports.contract.ContainerPatientMappingReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerRegistrationReportingRequest;
-import org.motechproject.whp.reports.contract.ContainerStatusReportingRequest;
-import org.motechproject.whp.reports.contract.SputumLabResultsCaptureReportingRequest;
+import org.motechproject.whp.reports.contract.*;
 import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
 import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 
@@ -33,7 +30,7 @@ public class ContainerReportingRequestMapperTest {
         assertThat(containerRecord.getSubmitterRole(), is(containerRegistrationReportingRequest.getSubmitterRole()));
         assertThat(containerRecord.getSubmitterId(), is(containerRegistrationReportingRequest.getSubmitterId()));
 
-        assertUserGivenPatientDetails(containerRegistrationReportingRequest.getUserGivenPatientDetails(), containerRecord.getUserGivenPatientDetails());
+        assertUserGivenPatientDetails(containerRegistrationReportingRequest.getUserGivenPatientDetailsRequest(), containerRecord.getUserGivenPatientDetails());
     }
 
     @Test
@@ -122,7 +119,29 @@ public class ContainerReportingRequestMapperTest {
         assertEquals(containerPatientMappingReportingRequest.getDiagnosis(), containerRecord.getDiagnosis());
     }
 
-    private void assertUserGivenPatientDetails(org.motechproject.whp.reports.contract.UserGivenPatientDetails expectedPatientDetails, UserGivenPatientDetails actualPatientDetails) {
+    @Test
+    public void shouldUpdateUserGivenPatientDetails() {
+        UserGivenPatientDetailsReportingRequest userGivenPatientDetailsReportingRequest = new UserGivenPatientDetailsReportingRequest();
+        userGivenPatientDetailsReportingRequest.setContainerId("containerId");
+        userGivenPatientDetailsReportingRequest.setPatientId("patientId");
+        userGivenPatientDetailsReportingRequest.setPatientName("patientName");
+        userGivenPatientDetailsReportingRequest.setPatientAge(45);
+        userGivenPatientDetailsReportingRequest.setGender("M");
+
+        ContainerRecord containerRecord = new ContainerRecord();
+        containerRecord.setContainerId(userGivenPatientDetailsReportingRequest.getContainerId());
+
+        requestMapper.updateUserGivenPatientDetails(userGivenPatientDetailsReportingRequest, containerRecord);
+
+        assertEquals(userGivenPatientDetailsReportingRequest.getContainerId(), containerRecord.getContainerId());
+        UserGivenPatientDetails userGivenPatientDetails = containerRecord.getUserGivenPatientDetails();
+        assertEquals(userGivenPatientDetailsReportingRequest.getPatientId(), userGivenPatientDetails.getPatientId());
+        assertEquals(userGivenPatientDetailsReportingRequest.getPatientName(), userGivenPatientDetails.getPatientName());
+        assertEquals(userGivenPatientDetailsReportingRequest.getGender(), userGivenPatientDetails.getGender());
+        assertEquals(userGivenPatientDetailsReportingRequest.getPatientAge(), userGivenPatientDetails.getPatientAge());
+    }
+
+    private void assertUserGivenPatientDetails(UserGivenPatientDetailsRequest expectedPatientDetails, org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails actualPatientDetails) {
         assertEquals(expectedPatientDetails.getPatientName(), actualPatientDetails.getPatientName());
         assertEquals(expectedPatientDetails.getPatientId(), actualPatientDetails.getPatientId());
         assertEquals(expectedPatientDetails.getPatientAge(), actualPatientDetails.getPatientAge());
