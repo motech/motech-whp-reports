@@ -10,7 +10,7 @@ import org.motechproject.calllog.domain.CallLog;
 import org.motechproject.calllog.repository.GenericCallLogRepository;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
-import org.motechproject.whp.reports.bigquery.service.WhpQueryService;
+import org.motechproject.whp.reports.bigquery.service.BigQueryService;
 import org.motechproject.whp.reports.date.WHPDate;
 import org.motechproject.whp.reports.domain.TreatmentWeek;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
@@ -39,7 +39,7 @@ public class PatientIVRAlertEffectivenessQueryIT {
     GenericCallLogRepository genericCallLogRepository;
 
     @Autowired
-    WhpQueryService queryService;
+    BigQueryService queryService;
 
     @Test
     public void shouldCountNumberOfPatientsCalledAndGivenAdherenceEveryWeek() {

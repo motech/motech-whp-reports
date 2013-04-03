@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class WhpQueryDAO {
+public class BigQueryDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    WhpQueryDAO() {
+    BigQueryDAO() {
     }
 
     @Autowired
-    public WhpQueryDAO(DataSource dataSource) {
+    public BigQueryDAO(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

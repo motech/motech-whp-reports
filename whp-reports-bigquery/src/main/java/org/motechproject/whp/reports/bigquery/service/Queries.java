@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,7 +20,7 @@ public class Queries {
         return queryProperties.getProperty(queryName);
     }
 
-    public Collection<String> all(){
+    public List<String> all(){
         List<String> queries = new ArrayList<>();
         for(String queryName : queryProperties.stringPropertyNames()){
             queries.add(queryProperties.getProperty(queryName));

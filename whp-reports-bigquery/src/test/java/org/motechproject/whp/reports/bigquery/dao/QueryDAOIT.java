@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertNotNull;
 public class QueryDAOIT {
 
     @Autowired
-    WhpQueryDAO whpQueryDAO;
+    BigQueryDAO bigQueryDAO;
 
     @Autowired
     Queries queries;
@@ -27,7 +27,7 @@ public class QueryDAOIT {
         Collection<String> allQueries = queries.all();
 
         for(String query : allQueries){
-            QueryResult queryResult = whpQueryDAO.executeQuery(query);
+            QueryResult queryResult = bigQueryDAO.executeQuery(query);
             assertNotNull(queryResult);
         }
     }
