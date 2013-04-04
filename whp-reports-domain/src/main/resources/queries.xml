@@ -74,7 +74,15 @@
         </named-query>
         <named-query name="patient.ivrAlerts.effectiveness">
             <query><![CDATA[
-                select count(distinct cl.custom_data -> 'patientId') as patient_with_ivr_calls, count(distinct patient_id) as patients_with_adherence_given, cast(date_trunc('week', attempt_date_time::timestamp) + '6 days'::interval AS DATE) as call_week_end_date from whp_reports.call_log cl left outer join whp_reports.adherence_record ar on ar.patient_id = cl.custom_data -> 'patientId'  and date_trunc('week', ar.pill_date::timestamp) + '6 days'::interval = date_trunc('week', attempt_date_time::timestamp) + '6 days'::interval and ar.pill_status = 'Taken' where age(attempt_date_time) < '3 mons' group by call_week_end_date order by call_week_end_date
+                select count(distinct cl.custom_data -> 'patientId') as patient_with_ivr_calls,
+                count(distinct patient_id) as patients_with_adherence_given,
+                cast(date_trunc('week', attempt_date_time::timestamp) + '6 days'::interval AS DATE) as call_week_end_date
+                from whp_reports.call_log cl left outer join whp_reports.adherence_record ar
+                on ar.patient_id = cl.custom_data -> 'patientId'
+                and date_trunc('week', ar.pill_date::timestamp) + '6 days'::interval = date_trunc('week', attempt_date_time::timestamp) + '6 days'::interval
+                and ar.pill_status = 'Taken'
+                where age(attempt_date_time) < '3 mons'
+                group by call_week_end_date order by call_week_end_date
             ]]></query>
         </named-query>
     </named-queries>

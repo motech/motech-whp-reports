@@ -50,4 +50,17 @@ public class BigQueryControllerTest {
                 .perform(get("/bigquery/execute").param("queryName", query).param("filterParams", filterParamJson))
                 .andExpect(content().string(expectedJson));
     }
+
+    @Test
+    public void shouldExecuteQueryWhenThereIsNoFilterParams() throws Exception {
+        QueryResult queryResult = new QueryResult(new ArrayList<Map<String, Object>>());
+        String expectedJson = new ObjectMapper().writer().writeValueAsString(queryResult);
+        String query = "query";
+
+        when(bigQueryService.executeQuery(query, new FilterParams())).thenReturn(queryResult);
+
+        standaloneSetup(bigQueryController).build()
+                .perform(get("/bigquery/execute").param("queryName", query))
+                .andExpect(content().string(expectedJson));
+    }
 }

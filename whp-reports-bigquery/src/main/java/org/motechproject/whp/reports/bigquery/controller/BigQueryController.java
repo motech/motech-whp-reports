@@ -25,7 +25,7 @@ public class BigQueryController {
 
     @RequestMapping("/execute")
     @ResponseBody
-    public QueryResult executeQuery(@RequestParam String queryName, @RequestParam String filterParams) throws IOException {
+    public QueryResult executeQuery(@RequestParam String queryName, @RequestParam(required = false, defaultValue = "{}") String filterParams) throws IOException {
           return bigQueryService.executeQuery(queryName, getFilterParams(filterParams));
     }
 
