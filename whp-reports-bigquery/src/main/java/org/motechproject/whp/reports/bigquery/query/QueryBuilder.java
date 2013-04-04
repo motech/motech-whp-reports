@@ -14,7 +14,7 @@ public class QueryBuilder {
         this.velocityTemplateBuilder = velocityTemplateBuilder;
     }
 
-    public String build(String sqlTemplate, FilterParams filterParams) throws Exception {
+    public String build(String sqlTemplate, FilterParams filterParams) {
         return velocityTemplateBuilder.evaluate(sqlTemplate, filterParams);
     }
 }
