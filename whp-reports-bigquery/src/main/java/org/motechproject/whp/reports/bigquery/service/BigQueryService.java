@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.bigquery.service;
 
 import org.motechproject.whp.reports.bigquery.dao.BigQueryDAO;
+import org.motechproject.whp.reports.bigquery.model.FilterParams;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class BigQueryService {
         this.bigQueryDAO = bigQueryDAO;
     }
 
-    public QueryResult executeQuery(String queryName) {
+    public QueryResult executeQuery(String queryName, FilterParams filterParams) {
         String query = queries.getQuery(queryName);
-        return bigQueryDAO.executeQuery(query);
+        return bigQueryDAO.executeQuery(query, filterParams);
     }
 }

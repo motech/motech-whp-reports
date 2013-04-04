@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.whp.reports.bigquery.model.FilterParams;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 import org.motechproject.whp.reports.bigquery.service.BigQueryService;
 
@@ -35,10 +36,15 @@ public class BigQueryControllerTest {
         String expectedJson = new ObjectMapper().writer().writeValueAsString(queryResult);
         String query = "query";
 
-        when(bigQueryService.executeQuery(query)).thenReturn(queryResult);
+        FilterParams filterParams = new FilterParams();
+        filterParams.put("key1", "value1");
+        filterParams.put("key2", "value2");
+        String filterParamJson = new ObjectMapper().writer().writeValueAsString(filterParams);
+
+        when(bigQueryService.executeQuery(query, filterParams)).thenReturn(queryResult);
 
         standaloneSetup(bigQueryController).build()
-                .perform(get("/bigquery/execute").param("queryName", query))
+                .perform(get("/bigquery/execute").param("queryName", query).param("filterParams", filterParamJson))
                 .andExpect(content().string(expectedJson));
     }
 }

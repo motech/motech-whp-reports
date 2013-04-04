@@ -9,6 +9,7 @@ import org.motechproject.calllog.builder.CallLogBuilder;
 import org.motechproject.calllog.domain.CallLog;
 import org.motechproject.calllog.repository.GenericCallLogRepository;
 import org.motechproject.util.DateUtil;
+import org.motechproject.whp.reports.bigquery.model.FilterParams;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 import org.motechproject.whp.reports.bigquery.service.BigQueryService;
 import org.motechproject.whp.reports.date.WHPDate;
@@ -64,7 +65,7 @@ public class PatientIVRAlertEffectivenessQueryIT {
         createCallLog(oneWeeksAgoTimestamp, patientId1);
         createCallLog(oneWeeksAgoTimestamp, patientId2);
 
-        QueryResult queryResult = queryService.executeQuery("patient.ivrAlerts.effectiveness");
+        QueryResult queryResult = queryService.executeQuery("patient.ivrAlerts.effectiveness", new FilterParams());
         List<Map<String,Object>> result = queryResult.getContent();
 
 

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.whp.reports.bigquery.dao.BigQueryDAO;
+import org.motechproject.whp.reports.bigquery.model.FilterParams;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 
 import static org.junit.Assert.assertEquals;
@@ -30,12 +31,14 @@ public class BigQueryServiceTest {
     public void shouldExecuteQueryForGivenQueryName() {
         String queryName = "queryName";
         String query = "query";
+        FilterParams filterParams = new FilterParams();
         QueryResult expectedQueryResult = mock(QueryResult.class);
 
         when(queries.getQuery(queryName)).thenReturn(query);
-        when(bigQueryDAO.executeQuery(query)).thenReturn(expectedQueryResult);
+        when(bigQueryDAO.executeQuery(query, filterParams)).thenReturn(expectedQueryResult);
 
-        assertEquals(expectedQueryResult, bigQueryService.executeQuery(queryName));
+        assertEquals(expectedQueryResult, bigQueryService.executeQuery(queryName, filterParams));
+
     }
 
 }
