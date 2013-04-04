@@ -4,7 +4,6 @@ package org.motechproject.whp.reports.bigquery.dao;
 import org.motechproject.whp.reports.bigquery.model.FilterParams;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,17 +15,20 @@ import java.util.Map;
 public class BigQueryDAO {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
+    private SqlQueryParamBuilder sqlQueryParamBuilder;
 
     BigQueryDAO() {
     }
 
     @Autowired
-    public BigQueryDAO(DataSource dataSource) {
+    public BigQueryDAO(DataSource dataSource, SqlQueryParamBuilder sqlQueryParamBuilder) {
+        this.sqlQueryParamBuilder = sqlQueryParamBuilder;
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     public QueryResult executeQuery(String query, FilterParams filterParams){
-        List<Map<String,Object>> list = jdbcTemplate.queryForList(query, filterParams);
+        Map<String, Object> queryParams = sqlQueryParamBuilder.buildQueryParams(filterParams);
+        List<Map<String,Object>> list = jdbcTemplate.queryForList(query, queryParams);
         return new QueryResult(list);
     }
 }
