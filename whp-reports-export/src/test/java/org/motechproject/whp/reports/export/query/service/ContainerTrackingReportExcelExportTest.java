@@ -45,27 +45,27 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
         assertThat(stringValue(E, 5), is(equalTo("submitterId")));
         assertThat(stringValue(F, 5), is("Instance"));
         assertThat(stringValue(G, 5), is("channelId"));
-        assertThat(stringValue(H, 5), is("patientId"));
-        assertThat(stringValue(I, 5), is("tbId"));
-        assertThat(stringValue(J, 5), is("mappingInstance"));
-        assertThat(dateValue(K, 5), is(now.toDate()));
-        assertThat(stringValue(L, 5), is("testResult1"));
-        assertThat(dateValue(M, 5), is(now.toDate()));
-        assertThat(stringValue(N, 5), is("testResult2"));
-        assertThat(stringValue(O, 5), is("labName"));
-        assertThat(stringValue(P, 5), is("labNumber"));
+        assertThat(stringValue(H, 5), is("name"));
+        assertThat(stringValue(I, 5), is("id"));
+        assertThat(numericValue(J, 5), is(98.0));
+        assertThat(stringValue(K, 5), is("gender"));
+        assertThat(stringValue(L, 5), is("patientId"));
+        assertThat(stringValue(M, 5), is("tbId"));
+        assertThat(stringValue(N, 5), is("mappingInstance"));
+        assertThat(dateValue(O, 5), is(now.toDate()));
+        assertThat(stringValue(P, 5), is("testResult1"));
         assertThat(dateValue(Q, 5), is(now.toDate()));
-        assertThat(stringValue(R, 5), is("status"));
-        assertThat(stringValue(S, 5), is("reasonForClosure"));
-        assertThat(dateValue(T, 5), is(now.toDate()));
+        assertThat(stringValue(R, 5), is("testResult2"));
+        assertThat(stringValue(S, 5), is("labName"));
+        assertThat(stringValue(T, 5), is("labNumber"));
         assertThat(dateValue(U, 5), is(now.toDate()));
-        assertThat(stringValue(V, 5), is("diagnosis"));
-        assertThat(stringValue(W, 5), is("alternateDiagnosisCode"));
-        assertThat(stringValue(X, 5), is("alternateDiagnosisName"));
-        assertThat(stringValue(Y, 5), is("name"));
-        assertThat(stringValue(Z, 5), is("id"));
-        assertThat(numericValue(AA, 5), is(98.0));
-        assertThat(stringValue(AB, 5), is("gender"));
+        assertThat(stringValue(V, 5), is("status"));
+        assertThat(stringValue(W, 5), is("reasonForClosure"));
+        assertThat(dateValue(X, 5), is(now.toDate()));
+        assertThat(dateValue(Y, 5), is(now.toDate()));
+        assertThat(stringValue(Z, 5), is("diagnosis"));
+        assertThat(stringValue(AA, 5), is("alternateDiagnosisCode"));
+        assertThat(stringValue(AB, 5), is("alternateDiagnosisName"));
     }
 
     public Workbook getWorkbook() {
