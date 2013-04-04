@@ -39,9 +39,12 @@ public class BigQueryControllerTest {
         FilterParams filterParams = new FilterParams();
         filterParams.put("key1", "value1");
         filterParams.put("key2", "value2");
+        filterParams.put("emptyValue", "");
+
         String filterParamJson = new ObjectMapper().writer().writeValueAsString(filterParams);
 
-        when(bigQueryService.executeQuery(query, filterParams)).thenReturn(queryResult);
+        FilterParams filterParamsWithoutEmptyValues = filterParams.removeEmptyParams();
+        when(bigQueryService.executeQuery(query, filterParamsWithoutEmptyValues)).thenReturn(queryResult);
 
         standaloneSetup(bigQueryController).build()
                 .perform(get("/bigquery/execute").param("queryName", query).param("filterParams", filterParamJson))

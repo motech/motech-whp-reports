@@ -30,7 +30,7 @@ public class BigQueryController {
     }
 
     private FilterParams getFilterParams(String filterParams) throws IOException {
-        return new ObjectMapper().readValue(filterParams, FilterParams.class);
+        return new ObjectMapper().readValue(filterParams, FilterParams.class).removeEmptyParams();
     }
 
 }
