@@ -92,6 +92,7 @@
         <property name="freemarkerVariables">
             <map>
                 <entry key="contextRoot" value="whp-reports"/>
+                <entry key="applicationVersion" value="#{whpReportsProperties['application.version']}"/>
             </map>
         </property>
     </bean>

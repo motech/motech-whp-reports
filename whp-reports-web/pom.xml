@@ -247,6 +247,11 @@
                     <warName>whp-reports-${version}</warName>
                     <attachClasses>true</attachClasses>
                     <classesClassifier>classes</classesClassifier>
+                    <archive>
+                        <manifestEntries>
+                            <Build-Number>${GO_PIPELINE_COUNTER}</Build-Number>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
