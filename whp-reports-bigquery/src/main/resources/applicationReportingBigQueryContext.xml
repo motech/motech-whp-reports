@@ -12,4 +12,12 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.motechproject.whp.reports.bigquery"/>
 
+    <bean id="querySource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg index="0" value="queries.xml" />
+    </bean>
+
+    <bean id="bigQueryJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
 </beans>

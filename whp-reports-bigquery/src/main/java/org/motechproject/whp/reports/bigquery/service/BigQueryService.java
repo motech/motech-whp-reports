@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BigQueryService {
 
-    Queries queries;
+
+    AllQueries allQueries;
     BigQueryDAO bigQueryDAO;
     private QueryBuilder queryBuilder;
 
@@ -18,14 +19,14 @@ public class BigQueryService {
     }
 
     @Autowired
-    public BigQueryService(Queries queries, BigQueryDAO bigQueryDAO, QueryBuilder queryBuilder) {
-        this.queries = queries;
+    public BigQueryService(AllQueries allQueries, BigQueryDAO bigQueryDAO, QueryBuilder queryBuilder) {
+        this.allQueries = allQueries;
         this.bigQueryDAO = bigQueryDAO;
         this.queryBuilder = queryBuilder;
     }
 
     public QueryResult executeQuery(String queryName, FilterParams filterParams) {
-        String sqlTemplate = queries.getQuery(queryName);
+        String sqlTemplate = allQueries.getQuery(queryName);
         String sql = queryBuilder.build(sqlTemplate, filterParams);
         return bigQueryDAO.executeQuery(sql, filterParams);
     }

@@ -42,6 +42,21 @@
             <artifactId>whp-reports-migration</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.motechproject.whp.reports</groupId>
+            <artifactId>whp-reports-bigquery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-call-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-call-log</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-common-api</artifactId>
         </dependency>

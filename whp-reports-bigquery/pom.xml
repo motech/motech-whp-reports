@@ -16,23 +16,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.motechproject.whp.reports</groupId>
-            <artifactId>whp-reports-domain</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.motechproject.whp-contrib</groupId>
-            <artifactId>motech-call-log</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.motechproject.whp-contrib</groupId>
-            <artifactId>motech-call-log</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
         </dependency>
@@ -108,6 +91,14 @@
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,14 +1,14 @@
-package org.motechproject.whp.reports.bigquery.dao;
+package org.motechproject.whp.reports.query;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.motechproject.calllog.builder.CallLogBuilder;
 import org.motechproject.calllog.domain.CallLog;
 import org.motechproject.calllog.repository.GenericCallLogRepository;
 import org.motechproject.util.DateUtil;
+import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.bigquery.model.FilterParams;
 import org.motechproject.whp.reports.bigquery.response.QueryResult;
 import org.motechproject.whp.reports.bigquery.service.BigQueryService;
@@ -17,8 +17,6 @@ import org.motechproject.whp.reports.domain.TreatmentWeek;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
 import org.motechproject.whp.reports.repository.AdherenceRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
 import java.util.List;
@@ -29,9 +27,7 @@ import static org.junit.Assert.assertThat;
 import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 import static org.motechproject.whp.reports.date.WHPDateTime.toSqlTimestamp;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-applicationReportingBigQueryContext.xml")
-public class PatientIVRAlertEffectivenessQueryIT {
+public class PatientIVRAlertEffectivenessQueryIT extends IntegrationTest{
 
     @Autowired
     AdherenceRecordRepository adherenceRecordRepository;
@@ -101,7 +97,7 @@ public class PatientIVRAlertEffectivenessQueryIT {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         adherenceRecordRepository.deleteAll();
         genericCallLogRepository.deleteAll();
     }

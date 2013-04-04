@@ -20,14 +20,14 @@ public class BigQueryServiceTest {
     @Mock
     BigQueryDAO bigQueryDAO;
     @Mock
-    Queries queries;
+    AllQueries allQueries;
     @Mock
     QueryBuilder queryBuilder;
 
     @Before
     public void setUp() {
         initMocks(this);
-        bigQueryService = new BigQueryService(queries, bigQueryDAO, queryBuilder);
+        bigQueryService = new BigQueryService(allQueries, bigQueryDAO, queryBuilder);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class BigQueryServiceTest {
         FilterParams filterParams = new FilterParams();
         QueryResult expectedQueryResult = mock(QueryResult.class);
 
-        when(queries.getQuery(queryName)).thenReturn(query);
+        when(allQueries.getQuery(queryName)).thenReturn(query);
         when(queryBuilder.build(query, filterParams)).thenReturn(evaluatedQuery);
         when(bigQueryDAO.executeQuery(evaluatedQuery, filterParams)).thenReturn(expectedQueryResult);
 

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +17,13 @@ public class BigQueryDAO {
     private SqlQueryParamBuilder sqlQueryParamBuilder;
 
     BigQueryDAO() {
+        //for spring proxy
     }
 
     @Autowired
-    public BigQueryDAO(DataSource dataSource, SqlQueryParamBuilder sqlQueryParamBuilder) {
+    public BigQueryDAO(NamedParameterJdbcTemplate bigQueryJdbcTemplate, SqlQueryParamBuilder sqlQueryParamBuilder) {
         this.sqlQueryParamBuilder = sqlQueryParamBuilder;
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        this.jdbcTemplate = bigQueryJdbcTemplate;
     }
 
     public QueryResult executeQuery(String query, FilterParams filterParams){

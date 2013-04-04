@@ -1,8 +1,11 @@
 package org.motechproject.whp.reports.bigquery.response;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.List;
 import java.util.Map;
 
+@EqualsAndHashCode
 public class QueryResult {
     List<Map<String,Object>> content;
 

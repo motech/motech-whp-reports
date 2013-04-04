@@ -1,0 +1,81 @@
+<query-definitions>
+    <named-queries>
+        <named-query name="flashing.calls.per.day">
+            <query><![CDATA[
+                    select count(1) as no_of_calls, CAST(call_Time AS DATE) as call_date
+                        from whp_reports.flashing_log group by call_date
+                            order by call_date desc limit 100
+            ]]></query>
+        </named-query>
+        <named-query name="flashing.calls.per.dayofweek">
+            <query><![CDATA[
+                    SELECT EXTRACT(DOW FROM call_time) as day_of_week, count(1) as no_of_calls from whp_reports.flashing_log where age(call_time) < '12 mons' group by day_of_week order by day_of_week
+            ]]></query>
+        </named-query>
+        <named-query name="adherence.calls.per.week">
+            <query><![CDATA[
+                    select count(1) as no_of_calls, EXTRACT(WEEK FROM start_date ) as week_of_year from whp_reports.adherence_call_log group by week_of_year order by week_of_year
+            ]]></query>
+        </named-query>
+        <named-query name="adherence.captured.per.week">
+            <query><![CDATA[
+                    select sum(adherence_captured_count) as total_adherence, EXTRACT(WEEK FROM start_date ) as week_of_year from whp_reports.adherence_call_log group by week_of_year order by week_of_year
+            ]]></query>
+        </named-query>
+        <named-query name="adherence.count.input.types">
+            <query><![CDATA[
+                    select count(1) input_count, status from whp_reports.patient_adherence_submission group by status
+            ]]></query>
+        </named-query>
+        <named-query name="adherence.call.status">
+            <query><![CDATA[
+                    select count(1) status_count, call_status from whp_reports.adherence_call_log group by call_status
+            ]]></query>
+        </named-query>
+        <named-query name="flashing.calls.by.provider">
+            <query><![CDATA[
+                    SELECT count(1) num_of_calls, provider_id from whp_reports.flashing_log group by provider_id order by num_of_calls desc
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.adherenceGivenAfterReminder">
+            <query><![CDATA[
+                    select count(1) as no_of_providers, CAST(attempt_date_time AS DATE) as call_date from whp_reports.provider_reminder_call_log  where adherence_reported = 'Y' and age(attempt_date_time) < '1 mons' group by call_date  order by call_date
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.allCalls">
+            <query><![CDATA[
+                    select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log where age(attempt_date_time) < '1 mons'  group by attempt_date  order by attempt_date
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.status.didNotReach">
+            <query><![CDATA[
+                    select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'NETWORK_ERROR' and attempt  = 3  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.status.callComplete">
+            <query><![CDATA[
+                    select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'CALL_COMPLETE'  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.status.providerHungUp">
+            <query><![CDATA[
+                select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'PROVIDER_HANGUP'  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.status.networkError">
+            <query><![CDATA[
+                select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'NETWORK_ERROR'  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
+            ]]></query>
+        </named-query>
+        <named-query name="providerReminders.status.didNotAnswer">
+            <query><![CDATA[
+                select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'DID_NOT_ANSWER'  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
+            ]]></query>
+        </named-query>
+        <named-query name="patient.ivrAlerts.effectiveness">
+            <query><![CDATA[
+                select count(distinct cl.custom_data -> 'patientId') as patient_with_ivr_calls, count(distinct patient_id) as patients_with_adherence_given, cast(date_trunc('week', attempt_date_time::timestamp) + '6 days'::interval AS DATE) as call_week_end_date from whp_reports.call_log cl left outer join whp_reports.adherence_record ar on ar.patient_id = cl.custom_data -> 'patientId'  and date_trunc('week', ar.pill_date::timestamp) + '6 days'::interval = date_trunc('week', attempt_date_time::timestamp) + '6 days'::interval and ar.pill_status = 'Taken' where age(attempt_date_time) < '3 mons' group by call_week_end_date order by call_week_end_date
+            ]]></query>
+        </named-query>
+    </named-queries>
+</query-definitions>
