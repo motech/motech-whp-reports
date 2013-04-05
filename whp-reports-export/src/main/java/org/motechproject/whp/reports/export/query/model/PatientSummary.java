@@ -29,6 +29,7 @@ public class PatientSummary {
     private Integer cpPillsTaken;
     private Integer cpTotalDoses;
     private Integer cumulativeMissedDoses;
+    private Date creationDate;
     private String treatmentOutcome;
     private Date treatmentClosingDate;
     private String preTreatmentSputumResult;
