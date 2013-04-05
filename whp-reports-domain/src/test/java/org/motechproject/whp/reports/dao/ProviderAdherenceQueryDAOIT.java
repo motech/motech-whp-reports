@@ -63,6 +63,7 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
     @Before
     public void setUp() {
 
+
         mockCurrentDate(new LocalDate(2013, 1, 27));
 
         providerWithoutAdherence = createProvider("provider1", DISTRICT);
@@ -200,5 +201,6 @@ public class ProviderAdherenceQueryDAOIT extends IntegrationTest {
         patientRepository.deleteAll();
         providerRepository.deleteAll();
         adherenceRecordRepository.deleteAll();
+        resetDateTimeSource();
     }
 }
