@@ -8,7 +8,7 @@
 
     <beans:import resource="classpath:applicationWebSecurityContext.xml"/>
 
-    <http auto-config="false" use-expressions="true" entry-point-ref="basicAuthenticationEntryPoint">
+    <http auto-config="false" use-expressions="true" entry-point-ref="ajaxAwareAuthenticationProcessingFilterEntryPoint">
         <http-basic/>
         <form-login login-processing-url="/security/j_spring_security_check" login-page="/login"
                     authentication-failure-handler-ref="loginFailureHandler"
@@ -18,6 +18,9 @@
 
         <logout logout-url="/security/j_spring_security_logout" invalidate-session="false"
                 success-handler-ref="logoutSuccessHandler"/>
+
+        <intercept-url pattern="/" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
+        <intercept-url pattern="/home" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
 
         <!--Only IT Admin-->
         <intercept-url pattern="/rest/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
@@ -48,8 +51,11 @@
         <authentication-provider ref="motechAuthenticationProvider"/>
     </authentication-manager>
 
-    <beans:bean id="basicAuthenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
-        <beans:property name="realmName" value="WHP - Reports"/>
+    <beans:bean id="ajaxAwareAuthenticationProcessingFilterEntryPoint"
+                class="org.motechproject.security.authentication.AjaxAwareAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/login"/>
+        <beans:property name="forceHttps" value="false"/>
     </beans:bean>
+
 
 </beans:beans>
