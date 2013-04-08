@@ -3,7 +3,7 @@
 
 <div id="links" class="navbar navbar-fixed-top">
     <div id="navbarInner" class="navbar-inner">
-        <a href="/whp" class="brand pull-left">MoTeCH-WHP</a>
+        <a href="/whp-reports" class="brand pull-left">MoTeCH-WHP Reports</a>
 
         <#if path != "">
             <#include path>

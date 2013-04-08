@@ -17,6 +17,9 @@
             <li>
                 <a href="<@spring.message 'whp.reports.patient.alert.call.log.report'/>">Patient alert call logs</a>
             </li>
+            <li>
+                <a href="/whp-reports/patientReportsFilter">Patient Reports</a>
+            </li>
         </ul>
     </li>
 </ul>
