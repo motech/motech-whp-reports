@@ -280,7 +280,7 @@ public class AdherenceCallStatusRequestTest {
         request.setAttemptTime("12/12/2011 11:11:11");
         request.setCallAnswered("YES");
         request.setCallStatus("SUCCESS");
-        request.setDisconnectionType("PROVIDER_HANGUP");
+        request.setDisconnectionType("PROVIDER_HUNGUP");
         request.setFlashingCallId("flashingCallId");
         request.setAdherenceNotCaptured("0");
         request.setTotalPatients("1");

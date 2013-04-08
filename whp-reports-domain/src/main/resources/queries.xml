@@ -59,7 +59,7 @@
         </named-query>
         <named-query name="providerReminders.status.providerHungUp">
             <query><![CDATA[
-                select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'PROVIDER_HANGUP'  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
+                select count(1) as no_of_calls, CAST(attempt_date_time AS DATE) as attempt_date from whp_reports.provider_reminder_call_log  where disconnection_type= 'PROVIDER_HUNGUP'  and age(attempt_date_time) < '1 mons' group by attempt_date  order by attempt_date
             ]]></query>
         </named-query>
         <named-query name="providerReminders.status.networkError">
