@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,10 +30,14 @@ public class HomeController extends BaseController {
         response.sendRedirect(request.getContextPath() + response.encodeURL(homePage));
     }
 
-    @RequestMapping(value="/patientReportsFilter")
-    public String patientReportsPage(Model uiModel) throws IOException {
+    @RequestMapping(value="/reportsFilter", method = RequestMethod.GET)
+    public String patientReportsPage(Model uiModel, @RequestParam(value = "reportType") String reportType) throws IOException {
         uiModel.addAttribute("districts", districtService.getAllDistricts());
-        return "home/patientReportsFilter";
+        uiModel.addAttribute("reportType", reportType);
+        return "home/reportsFilter";
     }
+
 }
+
+
 

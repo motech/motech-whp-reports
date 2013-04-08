@@ -13,9 +13,13 @@
 
                     <div class="controls">
                         <select id="report" name="report">
+                            <#if reportType == "patientReports">
                             <option value="patientreports/patientSummary.xls">Patient Summary Report</option>
                             <option value="patientreports/patientRegistrations.xls">Patient Registrations Report</option>
                             <option value="patientreports/patientClosedTreatments.xls">Patient Closed Treatments Report</option>
+                            <#elseif reportType == "containerReport">
+                              <option value="<@spring.message 'whp.reports.container.report'/>">Container Tracking Report</option>
+                            </#if>
                         </select>
                     </div>
 

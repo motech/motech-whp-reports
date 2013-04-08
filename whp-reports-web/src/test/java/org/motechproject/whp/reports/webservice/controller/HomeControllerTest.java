@@ -29,9 +29,9 @@ public class HomeControllerTest {
     public void shouldReturnAllDistrictsOnReportsPageLoad() throws Exception {
         standaloneSetup(homeController)
                 .build()
-                .perform(get("/patientReportsFilter"))
+                .perform(get("/reportsFilter").param("reportType", "patientReports"))
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("home/patientReportsFilter"));
+                .andExpect(forwardedUrl("home/reportsFilter"));
 
         verify(districtService).getAllDistricts();
 

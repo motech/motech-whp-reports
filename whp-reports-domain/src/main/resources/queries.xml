@@ -85,5 +85,20 @@
                 group by call_week_end_date order by call_week_end_date
             ]]></query>
         </named-query>
+        <named-query name="container.tracking.query">
+            <query><![CDATA[
+                   SELECT  container_id, date_issued_on, provider_id, submitter_id, registration_instance,
+                   channel_id, call_id, smear_test_date1 as smear_test_date_1, smear_test_result1 as smear_test_result_1,
+                   smear_test_date2 as smear_test_date_2, smear_test_result2 as smear_test_result_2, lab_name, lab_number,
+                   lab_results_captured_on, container_status as status, rc.text as reason_for_closure, diagnosis,
+                   alternate_diagnosis_code, ad.text as alternate_diagnosis_name, closure_date, patient_id, tb_id,
+                   consultation_date, mapping_instance, provider_district, given_patient_id, given_patient_name,
+                   given_patient_age, given_gender
+                   FROM whp_reports.sputum_tracking st
+                   left outer join whp_reports.alternate_diagnosis ad on st.alternate_diagnosis_code =  ad.code
+                   left outer join  whp_reports.reasons_for_closure rc on st.reason_for_closure = rc.code
+                   where provider_district != 'TestDistrict' order by st.date_issued_on DESC limit 65000
+            ]]></query>
+        </named-query>
     </named-queries>
 </query-definitions>
