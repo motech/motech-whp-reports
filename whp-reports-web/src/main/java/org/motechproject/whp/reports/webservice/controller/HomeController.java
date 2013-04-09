@@ -34,7 +34,7 @@ public class HomeController extends BaseController {
     public String patientReportsPage(Model uiModel, @RequestParam(value = "reportType") String reportType) throws IOException {
         uiModel.addAttribute("districts", districtService.getAllDistricts());
         uiModel.addAttribute("reportType", reportType);
-        return "home/reportsFilter";
+        return "reports/reportsFilter";
     }
 
 }

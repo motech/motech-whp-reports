@@ -1,8 +1,8 @@
 <#import "/spring.ftl" as spring />
 <#import "../layout/default-with-menu.ftl" as layout>
-<@layout.defaultLayout title="Patient Reports" entity="home">
+<@layout.defaultLayout title="Reports Filter">
 
-<h1>Patient Reports</h1>
+<h1>Reports Filter</h1>
 <form name="reportsFilter">
 
     <div class="row-fluid">
@@ -23,7 +23,7 @@
                         </select>
                     </div>
 
-                    <label class="control-label">Provider District</label>
+                    <label class="control-label">District</label>
 
                    <div class="controls">
                         <select id="district" name="district">

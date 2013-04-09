@@ -1,8 +1,8 @@
 <#import "/spring.ftl" as spring />
 <#import "header.ftl" as header/>
-<#macro defaultLayout entity title="WHP-Reports" >
+<#macro defaultLayout title="WHP-Reports" >
 <!DOCTYPE html>
-<html ng-app="whp-reports">
+<html>
 <head>
     <title> ${title} </title>
     <#include "scripts.ftl"/>
@@ -11,7 +11,7 @@
 <body class="main">
 
 <div class="row-fluid" id="headerContent">
-    <@header.header path="../${entity}/menu.ftl"/>
+    <@header.header path="menu.ftl"/>
 </div>
 
 <div class="row-fluid">
