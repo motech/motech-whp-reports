@@ -97,7 +97,10 @@
                    FROM whp_reports.sputum_tracking st
                    left outer join whp_reports.alternate_diagnosis ad on st.alternate_diagnosis_code =  ad.code
                    left outer join  whp_reports.reasons_for_closure rc on st.reason_for_closure = rc.code
-                   where provider_district != 'TestDistrict' order by st.date_issued_on DESC limit 65000
+                   where provider_district != 'TestDistrict'
+                   #chunk($district) and provider_district = :district #end
+                   #chunk($from_date) and st.date_issued_on between :from_date and :to_date #end
+                   order by st.date_issued_on DESC limit 65000
             ]]></query>
         </named-query>
         <named-query name="patientAlertCallLog">
