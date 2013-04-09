@@ -27,6 +27,9 @@
     <context:component-scan base-package="org.motechproject.excel.builder" use-default-filters="false">
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
+    <context:component-scan base-package="org.motechproject.bigquery" use-default-filters="false">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
     <context:annotation-config/>
 
 
@@ -120,5 +123,5 @@
     <!-- selects a static view for rendering without the need for an explicit controller -->
     <mvc:view-controller path="/login"/>
     <mvc:view-controller path="/home"/>
-    <mvc:view-controller path="/trends/tbRegistration"/>
+    <!--<mvc:view-controller path="/trends/tbRegistration"/>-->
 </beans>

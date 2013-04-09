@@ -42,4 +42,17 @@ public class HomeControllerTest {
         verify(districtService).getAllDistricts();
     }
 
+    @Test
+    public void shouldReturnAllDistrictsOnTbRegistrationsPageLoad() throws Exception {
+        List districts = mock(List.class);
+        when(districtService.getAllDistricts()).thenReturn(districts);
+        standaloneSetup(homeController)
+                .build()
+                .perform(get("/trends/tbRegistration"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("districts", districts))
+                .andExpect(forwardedUrl("trends/tbRegistration"));
+
+        verify(districtService).getAllDistricts();
+    }
 }

@@ -37,6 +37,11 @@ public class HomeController extends BaseController {
         return "reports/reportsFilter";
     }
 
+    @RequestMapping(value="/trends/tbRegistration", method = RequestMethod.GET)
+    public String tbRegistrationPage(Model uiModel) throws IOException {
+        uiModel.addAttribute("districts", districtService.getAllDistricts());
+        return "trends/tbRegistration";
+    }
 }
 
 
