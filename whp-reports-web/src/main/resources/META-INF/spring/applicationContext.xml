@@ -14,7 +14,6 @@
     <import resource="classpath*:applicationExcelBuilderContext.xml"/>
     <import resource="classpath*:applicationReportingDomainContext.xml" />
     <import resource="classpath*:applicationValidationContext.xml"/>
-    <import resource="classpath*:applicationReportingBigQueryContext.xml" />
     <import resource="classpath*:applicationContext-DiagnosticsWeb.xml"/>
     <import resource="classpath*:applicationReportingExportContext.xml"/>
     <import resource="classpath*:applicationContext-Paginator.xml"/>

@@ -13,7 +13,6 @@
         <module>whp-reports-web</module>
         <module>whp-reports-contract</module>
         <module>whp-reports-config</module>
-        <module>whp-reports-bigquery</module>
         <module>whp-reports-export</module>
         <module>motech-donotcall-register</module>
     </modules>
@@ -228,9 +227,9 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.motechproject.whp.reports</groupId>
-                <artifactId>whp-reports-bigquery</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.motechproject.whp-contrib</groupId>
+                <artifactId>motech-bigquery</artifactId>
+                <version>${motech.contrib.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.whp-contrib</groupId>

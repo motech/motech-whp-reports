@@ -54,8 +54,8 @@
             <artifactId>whp-reports-domain</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.motechproject.whp.reports</groupId>
-            <artifactId>whp-reports-bigquery</artifactId>
+            <groupId>org.motechproject.whp-contrib</groupId>
+            <artifactId>motech-bigquery</artifactId>
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp-contrib</groupId>
