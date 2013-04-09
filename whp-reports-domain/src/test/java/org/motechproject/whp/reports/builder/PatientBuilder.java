@@ -228,8 +228,18 @@ public class PatientBuilder {
     }
 
     public PatientBuilder withTbId(String tbId) {
+        Treatment treatment = getLatestTreatment();
+        treatment.setTbId(tbId);
+        return this;
+    }
+
+    private Treatment getLatestTreatment() {
         List<Treatment> treatmentList = patient.getTherapies().get(0).getTreatments();
-        treatmentList.get(treatmentList.size() - 1).setTbId(tbId);
+        return treatmentList.get(treatmentList.size() - 1);
+    }
+
+    public PatientBuilder withTreatmentOutcome(String outcome) {
+        getLatestTreatment().setTreatmentOutcome(outcome);
         return this;
     }
 }

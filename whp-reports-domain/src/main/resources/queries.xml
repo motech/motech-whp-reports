@@ -125,5 +125,14 @@
                 #end
             ]]></query>
         </named-query>
+        <named-query name="number.of.tb.registrations.by.outcome">
+            <query><![CDATA[
+                select count(distinct tb_id) as tb_registration_count, treatment_outcome as outcome from whp_reports.patient_treatment
+                where end_date is not null
+                #chunk($district) and provider_district = :district #end
+                #chunk($from_date) and end_date between :from_date and :to_date #end
+                group by treatment_outcome
+            ]]></query>
+        </named-query>
     </named-queries>
 </query-definitions>
