@@ -86,7 +86,13 @@ public class PatientBuilder {
         return treatments;
     }
 
-    private Treatment defaultTreatment() {
+    public PatientBuilder addTreatment(Treatment treatment){
+        patient.getTherapies().get(0).getTreatments().add(treatment);
+        return this;
+    }
+
+
+    public static Treatment defaultTreatment() {
         Treatment treatment = new Treatment();
         treatment.setCurrentTreatment("Y");
         treatment.setEndDate(toSQLDate(new LocalDate().minusDays(2)));
@@ -107,7 +113,7 @@ public class PatientBuilder {
         return treatment;
     }
 
-    private TreatmentDetails setDefaultTreatmentDetails() {
+    private static TreatmentDetails setDefaultTreatmentDetails() {
 
         TreatmentDetails treatmentDetails = new TreatmentDetails();
         treatmentDetails.setDistrictWithCode("district_with_code");
@@ -168,7 +174,7 @@ public class PatientBuilder {
         return this;
     }
 
-    private Date toSQLDate(LocalDate date) {
+    private static Date toSQLDate(LocalDate date) {
         return new Date(DateTimeZone.UTC.convertUTCToLocal(date.toDate().getTime()));
     }
 
@@ -218,6 +224,12 @@ public class PatientBuilder {
 
     public PatientBuilder withInactiveStatus() {
         patient.setOnActiveTreatment("N");
+        return this;
+    }
+
+    public PatientBuilder withTbId(String tbId) {
+        List<Treatment> treatmentList = patient.getTherapies().get(0).getTreatments();
+        treatmentList.get(treatmentList.size() - 1).setTbId(tbId);
         return this;
     }
 }

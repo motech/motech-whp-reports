@@ -112,7 +112,17 @@
                    from whp_reports.call_log c LEFT OUTER JOIN (select p.patient_id, pt.provider_id, pt.provider_district
                    FROM whp_reports.patient p, whp_reports.patient_therapy pth, whp_reports.patient_treatment pt
                    where p.patient_pk = pth.patient_fk and pth.therapy_pk = pt.therapy_fk) as pt
-                   on c.custom_data -> 'patient_id' = pt.patient_id limit 65000;
+                   on c.custom_data -> 'patient_id' = pt.patient_id limit 65000
+                   ]]>
+            </query>
+        </named-query>
+        <named-query name="number.of.tb.registrations">
+            <query><![CDATA[
+                select count(distinct tb_id) as tb_registration_count from whp_reports.patient_treatment
+                #chain('AND' 'WHERE')
+                    #chunk($district) provider_district = :district #end
+                    #chunk($from_date) start_date between :from_date and :to_date #end
+                #end
             ]]></query>
         </named-query>
     </named-queries>
