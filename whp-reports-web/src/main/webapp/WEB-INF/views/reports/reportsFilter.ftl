@@ -18,7 +18,7 @@
                             <option value="patientreports/patientRegistrations.xls">Patient Registrations Report</option>
                             <option value="patientreports/patientClosedTreatments.xls">Patient Closed Treatments Report</option>
                             <#elseif reportType == "containerReport">
-                              <option value="<@spring.message 'whp.reports.container.report'/>">Container Tracking Report</option>
+                              <option value="<@spring.message 'whp.reports.container.tracking.report'/>">Container Tracking Report</option>
                             </#if>
                         </select>
                     </div>

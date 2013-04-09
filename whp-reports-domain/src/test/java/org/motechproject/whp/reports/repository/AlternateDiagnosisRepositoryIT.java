@@ -18,7 +18,7 @@ public class AlternateDiagnosisRepositoryIT  extends IntegrationTest {
     AlternateDiagnosisRepository alternateDiagnosisRepository;
 
     @Test
-    public void shouldFetchAlternateDiagnosis() {
+    public void shouldFetchSeededAlternateDiagnosis() {
         List<AlternateDiagnosis> all = alternateDiagnosisRepository.findAll();
         assertThat(all.size(), greaterThan(0));
     }

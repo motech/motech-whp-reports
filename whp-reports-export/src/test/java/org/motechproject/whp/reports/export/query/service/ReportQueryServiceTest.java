@@ -71,16 +71,4 @@ public class ReportQueryServiceTest {
         assertEquals(expectedProviderReminderCallLogSummaries, providerReminderCallLogSummaries);
         verify(reportQueryDAO).getProviderReminderCallLogSummaries();
     }
-
-    @Test
-    public void shouldReturnContainerSummaries() {
-        List expectedContainerSummaries = mock(List.class);
-        when(reportQueryDAO.getContainerSummaries()).thenReturn(expectedContainerSummaries);
-
-        List<ContainerSummary> containerSummaries = reportQueryService.getContainerSummaries();
-
-        assertEquals(expectedContainerSummaries, containerSummaries);
-        verify(reportQueryDAO).getContainerSummaries();
-    }
-
 }

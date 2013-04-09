@@ -18,7 +18,7 @@ public class ReasonForClosureRepositoryIT  extends IntegrationTest {
     ReasonForClosureRepository reasonForClosureRepository;
 
     @Test
-    public void shouldFetchReasonForClosures() {
+    public void shouldSeededFetchReasonForClosures() {
         List<ReasonForClosure> all = reasonForClosureRepository.findAll();
         assertThat(all.size(), greaterThan(0));
     }

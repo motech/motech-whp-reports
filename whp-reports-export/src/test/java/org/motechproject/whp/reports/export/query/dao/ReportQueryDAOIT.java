@@ -8,18 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.util.DateUtil;
 import org.motechproject.whp.reports.builder.AdherenceAuditLogBuilder;
-import org.motechproject.whp.reports.builder.ContainerRecordBuilder;
 import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.contract.enums.YesNo;
 import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.adherence.AdherenceAuditLog;
 import org.motechproject.whp.reports.domain.adherence.AdherenceRecord;
-import org.motechproject.whp.reports.domain.dimension.AlternateDiagnosis;
 import org.motechproject.whp.reports.domain.dimension.Provider;
-import org.motechproject.whp.reports.domain.dimension.ReasonForClosure;
 import org.motechproject.whp.reports.domain.measure.calllog.ProviderReminderCallLog;
-import org.motechproject.whp.reports.domain.measure.container.ContainerRecord;
-import org.motechproject.whp.reports.domain.measure.container.UserGivenPatientDetails;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Therapy;
 import org.motechproject.whp.reports.domain.patient.Treatment;
@@ -342,77 +337,6 @@ public class ReportQueryDAOIT {
         assertThat(callLog.getProviderId(), is(providerReminderCallLog.getProviderId()));
         assertThat(callLog.getDisconnectionType(), is(providerReminderCallLog.getDisconnectionType()));
         assertThat(callLog.getDistrict(), is("district"));
-    }
-
-    @Test
-    public void shouldReturnContainerRecords() {
-
-        createTestProvider();
-
-        AlternateDiagnosis alternateDiagnosis = new AlternateDiagnosis("ac", "alternateDiagnosisText");
-        ReasonForClosure reasonForClosure = new ReasonForClosure("rc", "reasonText");
-
-        alternateDiagnosisRepository.save(alternateDiagnosis);
-        reasonForClosureRepository.save(reasonForClosure);
-
-        ContainerRecord containerRecord = new ContainerRecordBuilder().withDefaults()
-                .withAlternateDiagnosisCode(alternateDiagnosis.getCode())
-                .withReasonForClosureCode(reasonForClosure.getCode())
-                .withIssuedOnDate(toSqlDate(DateTime.now())).build();
-
-        ContainerRecord testContainerRecord = new ContainerRecordBuilder().withDefaults()
-                .withAlternateDiagnosisCode(alternateDiagnosis.getCode())
-                .withReasonForClosureCode(reasonForClosure.getCode())
-                .withIssuedOnDate(toSqlDate(DateTime.now())).build();
-        testContainerRecord.setProviderId(testProvider.getProviderId());
-        testContainerRecord.setProviderDistrict(testProvider.getDistrict());
-
-        containerRecordRepository.save(asList(containerRecord, testContainerRecord));
-
-        List<ContainerSummary> containerSummaries = reportQueryDAO.getContainerSummaries();
-
-        assertThat(containerSummaries.size(), is(1));
-        ContainerSummary summary = containerSummaries.get(0);
-        assertThat(summary.getPatientId(), is(containerRecord.getPatientId()));
-        assertThat(summary.getReasonForClosure(), is(reasonForClosure.getText()));
-        assertThat(summary.getAlternateDiagnosisCode(), is(containerRecord.getAlternateDiagnosisCode()));
-        assertThat(summary.getAlternateDiagnosisName(), is(alternateDiagnosis.getText()));
-        assertThat(summary.getChannelId(), is(containerRecord.getChannelId()));
-        assertThat(summary.getClosureDate(), is(getSqlDate(containerRecord.getClosureDate())));
-        assertThat(summary.getConsultationDate(), is(getSqlDate(containerRecord.getConsultationDate())));
-        assertThat(summary.getContainerId(), is(containerRecord.getContainerId()));
-        assertThat(summary.getDateIssuedOn(), is(getSqlDate(containerRecord.getIssuedOn())));
-        assertThat(summary.getDiagnosis(), is(containerRecord.getDiagnosis()));
-        assertThat(summary.getLabName(), is(containerRecord.getLabName()));
-        assertThat(summary.getLabNumber(), is(containerRecord.getLabNumber()));
-        assertThat(summary.getLabResultsCapturedOn(), is(getSqlDate(containerRecord.getLabResultsCapturedOn())));
-        assertThat(summary.getMappingInstance(), is(containerRecord.getMappingInstance()));
-        assertThat(summary.getProviderDistrict(), is(containerRecord.getProviderDistrict()));
-        assertThat(summary.getProviderId(), is(containerRecord.getProviderId()));
-        assertThat(summary.getRegistrationInstance(), is(containerRecord.getRegistrationInstance()));
-        assertThat(summary.getSmearTestDate1(), is(getSqlDate(containerRecord.getSmearTestDate1())));
-        assertThat(summary.getSmearTestDate2(), is(getSqlDate(containerRecord.getSmearTestDate2())));
-        assertThat(summary.getSmearTestResult1(), is(containerRecord.getSmearTestResult1()));
-        assertThat(summary.getSmearTestResult2(), is(containerRecord.getSmearTestResult2()));
-        assertThat(summary.getStatus(), is(containerRecord.getStatus()));
-        assertThat(summary.getSubmitterId(), is(containerRecord.getSubmitterId()));
-        assertUserGivenDetails(summary, containerRecord);
-    }
-
-    private void assertUserGivenDetails(ContainerSummary summary, ContainerRecord containerRecord) {
-        UserGivenPatientDetails expectedDetails = containerRecord.getUserGivenPatientDetails();
-        assertThat(summary.getGivenPatientName(), is(expectedDetails.getPatientName()));
-        assertThat(summary.getGivenPatientId(), is(expectedDetails.getPatientId()));
-        assertThat(summary.getGivenPatientAge(), is(expectedDetails.getPatientAge()));
-        assertThat(summary.getGivenGender(), is(expectedDetails.getGender()));
-    }
-
-    private java.sql.Date getSqlDate(java.sql.Date date) {
-        return new java.sql.Date(new LocalDate(date.getTime()).toDate().getTime());
-    }
-
-    private java.sql.Date getSqlDate(Timestamp timestamp) {
-        return new java.sql.Date(new LocalDate(timestamp.getTime()).toDate().getTime());
     }
 
     private ProviderReminderCallLog createProviderReminderCallLog() {

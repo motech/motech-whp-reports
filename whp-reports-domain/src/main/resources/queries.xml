@@ -85,7 +85,7 @@
                 group by call_week_end_date order by call_week_end_date
             ]]></query>
         </named-query>
-        <named-query name="container.tracking.query">
+        <named-query name="containerReport">
             <query><![CDATA[
                    SELECT  container_id, date_issued_on, provider_id, submitter_id, registration_instance,
                    channel_id, call_id, smear_test_date1 as smear_test_date_1, smear_test_result1 as smear_test_result_1,
@@ -112,7 +112,7 @@
                    from whp_reports.call_log c LEFT OUTER JOIN (select p.patient_id, pt.provider_id, pt.provider_district
                    FROM whp_reports.patient p, whp_reports.patient_therapy pth, whp_reports.patient_treatment pt
                    where p.patient_pk = pth.patient_fk and pth.therapy_pk = pt.therapy_fk) as pt
-                   on c.custom_data -> 'patient_id' = pt.patient_id limit 65000
+                   on c.custom_data -> 'patient_id' = pt.patient_id order by call_attempt_time limit 65000
                    ]]>
             </query>
         </named-query>
