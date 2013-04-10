@@ -48,10 +48,10 @@ public class HomeControllerTest {
         when(districtService.getAllDistricts()).thenReturn(districts);
         standaloneSetup(homeController)
                 .build()
-                .perform(get("/trends/tbRegistration"))
+                .perform(get("/dashboard/tbRegistration"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("districts", districts))
-                .andExpect(forwardedUrl("trends/tbRegistration"));
+                .andExpect(forwardedUrl("dashboard/tbRegistration"));
 
         verify(districtService).getAllDistricts();
     }
