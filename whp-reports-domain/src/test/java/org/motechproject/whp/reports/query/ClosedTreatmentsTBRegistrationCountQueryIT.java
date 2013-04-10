@@ -27,7 +27,6 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest{
     BigQueryService queryService;
     @Autowired
     PatientRepository patientRepository;
-    private final FilterParams emptyFilterParams = new FilterParams();
 
     @Test
     public void shouldGetCountOfTBRegistrationsGroupByTreatmentOutcome() {

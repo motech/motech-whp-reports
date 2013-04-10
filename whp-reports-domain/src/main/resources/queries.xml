@@ -124,8 +124,31 @@
                 select count(distinct tb_id) as tb_registration_count from whp_reports.patient_treatment
                 #chain('AND' 'WHERE')
                     #chunk($district) provider_district = :district #end
-                    #chunk($from_date) start_date between :from_date and :to_date #end
+                    #chunk($from_date) start_date >= :from_date #end
+                    #chunk($to_date) start_date < :to_date #end
                 #end
+            ]]></query>
+        </named-query>
+        <named-query name="number.of.tb.registrations.by.district">
+            <query><![CDATA[
+                select count(distinct tb_id) as tb_registration_count, provider_district as district from whp_reports.patient_treatment
+                #chain('AND' 'WHERE')
+                    #chunk($from_date) start_date >= :from_date #end
+                    #chunk($to_date) start_date < :to_date #end
+                #end
+                group by district order by tb_registration_count desc
+            ]]></query>
+        </named-query>
+        <named-query name="number.of.tb.registrations.by.provider.by.district">
+            <query><![CDATA[
+                select count(distinct provider_id) as provider_count, provider_district as district
+                from whp_reports.patient_treatment
+                #chain('AND' 'WHERE')
+                    #chunk($from_date) start_date >= :from_date #end
+                    #chunk($to_date) start_date < :to_date #end
+                #end
+                group by district
+                order by provider_count desc
             ]]></query>
         </named-query>
         <named-query name="number.of.tb.registrations.by.outcome">
@@ -133,7 +156,8 @@
                 select count(distinct tb_id) as tb_registration_count, treatment_outcome as outcome from whp_reports.patient_treatment
                 where end_date is not null
                 #chunk($district) and provider_district = :district #end
-                #chunk($from_date) and end_date between :from_date and :to_date #end
+                #chunk($from_date) and end_date >= :from_date #end
+                #chunk($to_date) and end_date < :to_date #end
                 group by treatment_outcome
             ]]></query>
         </named-query>
