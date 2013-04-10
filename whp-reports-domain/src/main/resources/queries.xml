@@ -108,14 +108,14 @@
                    select c.call_id as call_id, c.custom_data -> 'patient_id' as patient_id, pt.provider_id as provider_id,
                    pt.provider_district as provider_district,c.start_date_time as call_start_time,
                    extract ('epoch' from (c.end_date_time - c.start_date_time)::interval) as duration,
-                   c.attempt_date_time as call_attempt_time, to_char(c.attempt_date_time, 'Day') as alert_day,
+                   c.attempt_date_time as call_attempt_time, trim(to_char(c.attempt_date_time, 'Day')) as alert_day,
                    CASE WHEN c.call_events -> 'tb_acknowledgement' = '1' THEN 'YES' WHEN c.call_events -> 'tb_acknowledgement' = '2'
                    THEN 'NO' END AS alert_listened, c.disposition as disconnection_type, c.error_message as error_message,
                    c.attempt_number as call_attempt_number, c.custom_data -> 'adherence_missing_weeks' as adherence_missing_weeks
                    from whp_reports.call_log c LEFT OUTER JOIN (select p.patient_id, pt.provider_id, pt.provider_district
                    FROM whp_reports.patient p, whp_reports.patient_therapy pth, whp_reports.patient_treatment pt
-                   where p.patient_pk = pth.patient_fk and pth.therapy_pk = pt.therapy_fk) as pt
-                   on c.custom_data -> 'patient_id' = pt.patient_id order by call_attempt_time limit 65000
+                   where p.patient_pk = pth.patient_fk and pth.therapy_pk = pt.therapy_fk order by therapy_fk desc limit 1) as pt
+                   on c.custom_data -> 'patient_id' = pt.patient_id order by call_attempt_time DESC limit 65000
                    ]]>
             </query>
         </named-query>

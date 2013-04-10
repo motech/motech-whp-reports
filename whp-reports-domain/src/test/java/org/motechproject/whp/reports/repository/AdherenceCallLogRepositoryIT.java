@@ -11,7 +11,7 @@ import java.util.Date;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.motechproject.whp.reports.builder.CallLogBuilder.newCallLog;
+import static org.motechproject.whp.reports.builder.AdherenceCallLogBuilder.newCallLog;
 
 public class AdherenceCallLogRepositoryIT extends IntegrationTest {
 

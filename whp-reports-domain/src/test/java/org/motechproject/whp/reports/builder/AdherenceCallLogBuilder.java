@@ -5,7 +5,7 @@ import org.motechproject.whp.reports.domain.measure.calllog.AdherenceCallLog;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class CallLogBuilder {
+public class AdherenceCallLogBuilder {
 
     private String providerId;
     private Date from;
@@ -16,20 +16,20 @@ public class CallLogBuilder {
     private int duration;
     private String flashingCallId;
 
-    public static CallLogBuilder newCallLog() {
-        return new CallLogBuilder();
+    public static AdherenceCallLogBuilder newCallLog() {
+        return new AdherenceCallLogBuilder();
     }
 
-    public CallLogBuilder forProvider(String provideId) {
+    public AdherenceCallLogBuilder forProvider(String provideId) {
         this.providerId = provideId;
         return this;
     }
 
-    public CallLogBuilder withNumber() {
+    public AdherenceCallLogBuilder withNumber() {
         return this;
     }
 
-    public CallLogBuilder starting(Date from) {
+    public AdherenceCallLogBuilder starting(Date from) {
         this.from = from;
         return this;
     }
@@ -50,32 +50,32 @@ public class CallLogBuilder {
         return callLog;
     }
 
-    public CallLogBuilder withTotalPatients(int totalPatients) {
+    public AdherenceCallLogBuilder withTotalPatients(int totalPatients) {
         this.totalPatients = totalPatients;
         return this;
     }
 
-    public CallLogBuilder withAdherenceCaptured(int adherenceCaptured) {
+    public AdherenceCallLogBuilder withAdherenceCaptured(int adherenceCaptured) {
         this.adherenceCaptured = adherenceCaptured;
         return this;
     }
 
-    public CallLogBuilder withAdherenceNotCaptured(int adherenceNotCaptured) {
+    public AdherenceCallLogBuilder withAdherenceNotCaptured(int adherenceNotCaptured) {
         this.adherenceNotCaptured = adherenceNotCaptured;
         return this;
     }
 
-    public CallLogBuilder withCallId(String callId) {
+    public AdherenceCallLogBuilder withCallId(String callId) {
         this.callId = callId;
         return this;
     }
 
-    public CallLogBuilder withDuration(int duration) {
+    public AdherenceCallLogBuilder withDuration(int duration) {
         this.duration = duration;
         return this;
     }
 
-    public CallLogBuilder withFlashingCallId(String flashingCallId) {
+    public AdherenceCallLogBuilder withFlashingCallId(String flashingCallId) {
         this.flashingCallId = flashingCallId;
         return this;
     }
