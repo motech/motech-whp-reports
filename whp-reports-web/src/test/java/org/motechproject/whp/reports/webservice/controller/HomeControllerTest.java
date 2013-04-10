@@ -29,15 +29,27 @@ public class HomeControllerTest {
     @Test
     public void shouldReturnAllDistrictsOnReportsPageLoad() throws Exception {
         List districts = mock(List.class);
-        String reportType = "patientReports";
         when(districtService.getAllDistricts()).thenReturn(districts);
         standaloneSetup(homeController)
                 .build()
-                .perform(get("/reportsFilter").param("reportType", reportType))
+                .perform(get("/patientReportsFilter"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("districts", districts))
-                .andExpect(model().attribute("reportType", reportType))
-                .andExpect(forwardedUrl("reports/reportsFilter"));
+                .andExpect(forwardedUrl("reports/patientReportsFilter"));
+
+        verify(districtService).getAllDistricts();
+    }
+
+    @Test
+    public void shouldProvideDistrictsToContainerReportsPageLoad() throws Exception {
+        List districts = mock(List.class);
+        when(districtService.getAllDistricts()).thenReturn(districts);
+        standaloneSetup(homeController)
+                .build()
+                .perform(get("/containerReports"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("districts", districts))
+                .andExpect(forwardedUrl("dashboard/dashboardFilter"));
 
         verify(districtService).getAllDistricts();
     }

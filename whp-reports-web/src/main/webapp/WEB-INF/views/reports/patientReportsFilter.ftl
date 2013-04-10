@@ -2,8 +2,8 @@
 <#import "../layout/default-with-menu.ftl" as layout>
 <@layout.defaultLayout title="Reports Filter">
 
-<h1>Reports Filter</h1>
-<form name="reportsFilter">
+<h1>Patient Reports</h1>
+<form name="patientReportsFilter">
 
     <div class="row-fluid">
         <div class="well">
@@ -13,13 +13,9 @@
 
                     <div class="controls">
                         <select id="report" name="report">
-                            <#if reportType == "patientReports">
                             <option value="patientreports/patientSummary.xls">Patient Summary Report</option>
                             <option value="patientreports/patientRegistrations.xls">Patient Registrations Report</option>
                             <option value="patientreports/patientClosedTreatments.xls">Patient Closed Treatments Report</option>
-                            <#elseif reportType == "containerReport">
-                              <option value="<@spring.message 'whp.reports.container.tracking.report'/>">Container Tracking Report</option>
-                            </#if>
                         </select>
                     </div>
 
