@@ -1,9 +1,11 @@
 package org.motechproject.whp.reports.export.query.service;
 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.motechproject.excel.builder.service.ExcelExporter;
+import org.motechproject.util.DateUtil;
 
 import java.io.IOException;
 import java.util.*;
@@ -23,6 +25,10 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
     private Workbook workbook;
     private String TEMPLATE_RESULT_KEY = "data";
     public static final String CONTAINER_REPORT_TEMPLATE_FILE_NAME = "/xls/templates/containerReport.xls";
+    public static final String START_DATE = "from_date";
+    public static final String END_DATE = "to_date";
+    public static final String PROVIDER_DISTRICT = "district";
+    public static final String GENERATED_ON = "generated_on";
 
     @Test
     public void shouldCreateContainerTrackingReport() throws IOException {
@@ -64,41 +70,53 @@ public class ContainerTrackingReportExcelExportTest extends ExcelTest {
 
         Map params = new HashMap();
         params.put(TEMPLATE_RESULT_KEY, resultSet);
+        DateTime generatedOn = new LocalDate().toDateTime(DateUtil.now());
+        params.put(GENERATED_ON, generatedOn);
+        String filtered_start_date = "2013-04-09 19:54:03.126";
+        params.put(START_DATE, filtered_start_date);
+        String filtered_end_date = "2014-04-09 19:54:03.126";
+        params.put(END_DATE, filtered_end_date);
+        String filtered_district = "Provider District";
+        params.put(PROVIDER_DISTRICT, filtered_district);
 
         ExcelExporter excelExporter = new ExcelExporter();
 
 
         workbook = excelExporter.export(CONTAINER_REPORT_TEMPLATE_FILE_NAME, params);
         assertThat(stringValue(A, 1), is(equalTo("Container Tracking Report")));
-//        assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));
-        assertThat(stringValue(A, 5), is(equalTo("containerId")));
-        assertEquals(dateValue(B, 5), date);
-        assertThat(stringValue(C, 5), is(equalTo("providerId")));
-        assertThat(stringValue(D, 5), is(equalTo("Patna")));
-        assertThat(stringValue(E, 5), is(equalTo("admin")));
-        assertThat(stringValue(F, 5), is("Instance"));
-        assertThat(stringValue(G, 5), is("IVR"));
-        assertThat(stringValue(H, 5), is("givenPatientName"));
-        assertThat(stringValue(I, 5), is("givenPatientId"));
-        assertThat(numericValue(J, 5), is(45.0));
-        assertThat(stringValue(K, 5), is("gender"));
-        assertThat(stringValue(L, 5), is("patientId"));
-        assertThat(stringValue(M, 5), is("tbId"));
-        assertThat(stringValue(N, 5), is(""));
-        assertThat(dateValue(O, 5), is(date));
-        assertThat(stringValue(P, 5), is("result1"));
-        assertThat(dateValue(Q, 5), is(date));
-        assertThat(stringValue(R, 5), is("result2"));
-        assertThat(stringValue(S, 5), is("labName"));
-        assertThat(stringValue(T, 5), is("labNumber"));
-        assertThat(stringValue(U, 5), is(timeStamp));
-        assertThat(stringValue(V, 5), is("status"));
-        assertThat(stringValue(W, 5), is("reasonForClosure"));
-        assertThat(stringValue(X, 5), is(timeStamp));
-        assertThat(dateValue(Y, 5), is(date));
-        assertThat(stringValue(Z, 5), is("positive"));
-        assertThat(stringValue(AA, 5), is("ac"));
-        assertThat(stringValue(AB, 5), is("alternateDiagnosisText"));
+        assertThat(stringValue(A, 2), is(equalTo("Generated as on "+ generatedOn)));
+        assertThat(stringValue(A, 3), is(equalTo("Start Date: "+ filtered_start_date )));
+        assertThat(stringValue(A, 4), is(equalTo("End Date: "+ filtered_end_date )));
+        assertThat(stringValue(A, 5), is(equalTo("Provider District: "+ filtered_district)));
+
+        assertThat(stringValue(A, 8), is(equalTo("containerId")));
+        assertEquals(dateValue(B, 8), date);
+        assertThat(stringValue(C, 8), is(equalTo("providerId")));
+        assertThat(stringValue(D, 8), is(equalTo("Patna")));
+        assertThat(stringValue(E, 8), is(equalTo("admin")));
+        assertThat(stringValue(F, 8), is("Instance"));
+        assertThat(stringValue(G, 8), is("IVR"));
+        assertThat(stringValue(H, 8), is("givenPatientName"));
+        assertThat(stringValue(I, 8), is("givenPatientId"));
+        assertThat(numericValue(J, 8), is(45.0));
+        assertThat(stringValue(K, 8), is("gender"));
+        assertThat(stringValue(L, 8), is("patientId"));
+        assertThat(stringValue(M, 8), is("tbId"));
+        assertThat(stringValue(N, 8), is(""));
+        assertThat(dateValue(O, 8), is(date));
+        assertThat(stringValue(P, 8), is("result1"));
+        assertThat(dateValue(Q, 8), is(date));
+        assertThat(stringValue(R, 8), is("result2"));
+        assertThat(stringValue(S, 8), is("labName"));
+        assertThat(stringValue(T, 8), is("labNumber"));
+        assertThat(stringValue(U, 8), is(timeStamp));
+        assertThat(stringValue(V, 8), is("status"));
+        assertThat(stringValue(W, 8), is("reasonForClosure"));
+        assertThat(stringValue(X, 8), is(timeStamp));
+        assertThat(dateValue(Y, 8), is(date));
+        assertThat(stringValue(Z, 8), is("positive"));
+        assertThat(stringValue(AA, 8), is("ac"));
+        assertThat(stringValue(AB, 8), is("alternateDiagnosisText"));
     }
 
     public Workbook getWorkbook() {
