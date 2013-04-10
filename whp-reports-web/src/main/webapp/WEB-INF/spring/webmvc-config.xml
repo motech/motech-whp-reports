@@ -105,6 +105,7 @@
             <map>
                 <entry key="contextRoot" value="whp-reports"/>
                 <entry key="applicationVersion" value="#{whpReportsProperties['application.version']}"/>
+                <entry key="whpURL" value="#{whpReportsProperties['whp.url']}"/>
             </map>
         </property>
     </bean>
