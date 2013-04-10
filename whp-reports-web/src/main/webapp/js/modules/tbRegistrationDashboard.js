@@ -1,6 +1,6 @@
 $(function () {
     $(document).on("filterUpdated", function(event){
-        $.getJSON($('#allRegistrations').data('url') + "&filterParams={}", function (data) {
+        $.getJSON($('#allRegistrations').data('url') + "&filterParams=" + event.message, function (data) {
             $("#allRegistrations").html(data.content[0].tb_registration_count);
         });
 

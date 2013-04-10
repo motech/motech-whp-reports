@@ -1320,26 +1320,44 @@ pre {
     display: inline-block;
     text-align: center;
     padding: 10px;
-    height: 80px;
-    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
 }
-.statistics li:last-child {
+.statistics > li {
+    height: 100px;
+    line-height: 40px;
+}
+.statistics  li:first-child {
     border: 0;
+}
+.statistics > li:last-child {
     padding: 0;
-    margin: 0;
+    line-height: normal;
 }
 .statistics li .nested-header{
     padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: block;
 }
 .statistics li .count{
    display: block;
    font-weight: bold;
-   font-size: 1.5em;
+   font-size: 2em;
 }
+
 .statistics li .outcome{
     display: block;
 }
-
-.statistics ul li {
+.statistics ul {
+    border: 0;
+}
+.statistics li li {
     height: auto;
+    min-width: 18%;
+    line-height: 23px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.statistics li li .count {
+    font-size: 1.5em;
 }
