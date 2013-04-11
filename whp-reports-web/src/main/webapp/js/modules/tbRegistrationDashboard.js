@@ -4,6 +4,7 @@ $(function () {
         loadAllTbRegistrationCounts(filterParams);
         loadClosedTbRegistrationCounts(filterParams)
         renderTbRegistrationByDistrictChart(filterParams);
+        renderProvidersByDistrictChart(filterParams);
     });
 
     function loadClosedTbRegistrationCounts(filterParams) {
@@ -85,5 +86,59 @@ $(function () {
         });
     }
 
+    function renderProvidersByDistrictChart(filterParams) {
+        $.getJSON($('#providersByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
+            var results = data.content;
+            var districts = []
+            var providerCounts = []
+
+            $.each(results, function (index, row) {
+                districts.push(row.district)
+                providerCounts.push(row.provider_count)
+            });
+
+
+            $('#providersByDistrict').highcharts({
+                chart:{
+                    type:'bar'
+                },
+                title:{
+                    text:'TB Registrations By Provider per District'
+                },
+                xAxis:{
+                    categories:districts
+                },
+                yAxis:{
+                    min:0,
+                    title:{
+                        text:'Number of Providers',
+                        align:'high'
+                    },
+                    labels:{
+                        overflow:'justify'
+                    }
+                },
+                plotOptions:{
+                    bar:{
+                        dataLabels:{
+                            enabled:true
+                        }
+                    }
+                },
+                legend:{
+                    enabled: false
+                },
+                credits:{
+                    enabled:false
+                },
+                series:[
+                    {
+                        name:'Number of TB Registrations',
+                        data:providerCounts
+                    }
+                ]
+            });
+        });
+    }
 })
 

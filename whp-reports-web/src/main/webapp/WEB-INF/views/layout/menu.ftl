@@ -25,5 +25,7 @@
             </li>
         </ul>
     </li>
+
+    <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Registration Summary</a></li>
 </ul>
 

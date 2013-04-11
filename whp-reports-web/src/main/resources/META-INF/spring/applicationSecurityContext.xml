@@ -20,6 +20,7 @@
                 success-handler-ref="logoutSuccessHandler"/>
 
         <intercept-url pattern="/" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
+        <intercept-url pattern="/dashboard/*" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
         <intercept-url pattern="/home" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
 
         <!--Only IT Admin-->

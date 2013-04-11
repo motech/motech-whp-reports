@@ -34,6 +34,14 @@ $(function () {
         relatedDateField.datepicker("option", "maxDate", "");
     });
 
+    function resetDates() {
+        $("#from_date").datepicker("option", "maxDate", null);
+        $("#to_date").datepicker("option", "minDate", null);
+    }
+
+    $("#clearFilter").click(function() {
+        resetDates();
+    });
 
     function applyFilter(){
         var dataString = JSON.stringify($("#dashboardFilter").serializeJSON());
@@ -43,7 +51,7 @@ $(function () {
         });
     }
 
-    $('#dashboardFilter').bind('click', function (event) {
+    $('#filter').bind('click', function (event) {
         applyFilter();
     });
 
