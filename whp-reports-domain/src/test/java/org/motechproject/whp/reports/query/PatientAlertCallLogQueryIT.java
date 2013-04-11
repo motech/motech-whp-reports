@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.query;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.motechproject.bigquery.model.FilterParams;
 import org.motechproject.bigquery.response.QueryResult;
@@ -43,6 +44,7 @@ public class PatientAlertCallLogQueryIT extends IntegrationTest{
 
     Patient patient;
 
+    @Ignore
     @Test
     public void shouldReturnPatientAlertCallLog(){
          callLog1 = new CallLogBuilder()

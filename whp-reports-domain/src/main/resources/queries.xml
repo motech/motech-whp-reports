@@ -114,7 +114,7 @@
                    c.attempt_number as call_attempt_number, c.custom_data -> 'adherence_missing_weeks' as adherence_missing_weeks
                    from whp_reports.call_log c LEFT OUTER JOIN (select p.patient_id, pt.provider_id, pt.provider_district
                    FROM whp_reports.patient p, whp_reports.patient_therapy pth, whp_reports.patient_treatment pt
-                   where p.patient_pk = pth.patient_fk and pth.therapy_pk = pt.therapy_fk order by therapy_fk desc limit 1) as pt
+                   where p.patient_pk = pth.patient_fk and pth.therapy_pk = pt.therapy_fk) as pt
                    on c.custom_data -> 'patient_id' = pt.patient_id order by call_attempt_time DESC limit 65000
                    ]]>
             </query>
