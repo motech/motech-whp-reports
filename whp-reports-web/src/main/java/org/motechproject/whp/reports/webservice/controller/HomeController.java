@@ -38,7 +38,7 @@ public class HomeController extends BaseController {
     @RequestMapping(value="/containerReports", method = RequestMethod.GET)
     public String containerReportsPage(Model uiModel) throws IOException {
         uiModel.addAttribute("districts", districtService.getAllDistricts());
-        return "dashboard/dashboardFilter";
+        return "dashboard/containerTracking";
     }
 
     @RequestMapping(value="/dashboard/tbRegistration", method = RequestMethod.GET)

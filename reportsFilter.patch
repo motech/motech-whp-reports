@@ -1,0 +1,377 @@
+From 10c1114ed31e4c45df3547603a792e1f77ace1d7 Mon Sep 17 00:00:00 2001
+From: Abhishek <asharma@thoughtworks.com>
+Date: Wed, 10 Apr 2013 23:26:22 +0530
+Subject: [PATCH] Abhi #0 Refactored PatientReportsFilter and Writing
+ filterUpdated handler for ContainerTrackingReport.
+
+---
+ .../webservice/controller/HomeController.java      |   14 ++-
+ .../src/main/webapp/WEB-INF/views/layout/menu.ftl  |    4 +-
+ .../WEB-INF/views/reports/patientReportsFilter.ftl |  118 +++++++++++++++++++
+ .../webapp/WEB-INF/views/reports/reportsFilter.ftl |  122 --------------------
+ .../main/webapp/js/modules/containerTracking.js    |    5 +
+ .../webservice/controller/HomeControllerTest.java  |   20 +++-
+ 6 files changed, 150 insertions(+), 133 deletions(-)
+ create mode 100644 whp-reports-web/src/main/webapp/WEB-INF/views/reports/patientReportsFilter.ftl
+ delete mode 100644 whp-reports-web/src/main/webapp/WEB-INF/views/reports/reportsFilter.ftl
+ create mode 100644 whp-reports-web/src/main/webapp/js/modules/containerTracking.js
+
+diff --git a/whp-reports-web/src/main/java/org/motechproject/whp/reports/webservice/controller/HomeController.java b/whp-reports-web/src/main/java/org/motechproject/whp/reports/webservice/controller/HomeController.java
+index 14a2f28..e626254 100644
+--- a/whp-reports-web/src/main/java/org/motechproject/whp/reports/webservice/controller/HomeController.java
++++ b/whp-reports-web/src/main/java/org/motechproject/whp/reports/webservice/controller/HomeController.java
+@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
+-import org.springframework.web.bind.annotation.RequestParam;
+ 
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpServletResponse;
+@@ -30,11 +29,16 @@ public class HomeController extends BaseController {
+         response.sendRedirect(request.getContextPath() + response.encodeURL(homePage));
+     }
+ 
+-    @RequestMapping(value="/reportsFilter", method = RequestMethod.GET)
+-    public String patientReportsPage(Model uiModel, @RequestParam(value = "reportType") String reportType) throws IOException {
++    @RequestMapping(value="/patientReportsFilter", method = RequestMethod.GET)
++    public String patientReportsPage(Model uiModel) throws IOException {
+         uiModel.addAttribute("districts", districtService.getAllDistricts());
+-        uiModel.addAttribute("reportType", reportType);
+-        return "reports/reportsFilter";
++        return "reports/patientReportsFilter";
++    }
++
++    @RequestMapping(value="/containerReports", method = RequestMethod.GET)
++    public String containerReportsPage(Model uiModel) throws IOException {
++        uiModel.addAttribute("districts", districtService.getAllDistricts());
++        return "dashboard/dashboardFilter";
+     }
+ 
+     @RequestMapping(value="/dashboard/tbRegistration", method = RequestMethod.GET)
+diff --git a/whp-reports-web/src/main/webapp/WEB-INF/views/layout/menu.ftl b/whp-reports-web/src/main/webapp/WEB-INF/views/layout/menu.ftl
+index a7f3529..5b8073b 100644
+--- a/whp-reports-web/src/main/webapp/WEB-INF/views/layout/menu.ftl
++++ b/whp-reports-web/src/main/webapp/WEB-INF/views/layout/menu.ftl
+@@ -12,7 +12,7 @@
+                 <a href="<@spring.message 'whp.reports.adherence.audit.report'/>">All adherence audit data</a>
+             </li>
+             <li>
+-                <a href="/whp-reports/reportsFilter?reportType=<@spring.message 'whp.reports.type.container'/>">Container tracking data</a>
++                <a href="/whp-reports/containerReports">Container tracking data</a>
+             </li>
+             <li>
+                 <a href="<@spring.message 'whp.reports.provider.reminder.call.report'/>">Provider reminder call logs</a>
+@@ -21,7 +21,7 @@
+                 <a href="<@spring.message 'whp.reports.patient.alert.call.log.report'/>">Patient alert call logs</a>
+             </li>
+             <li>
+-                <a href="/whp-reports/reportsFilter?reportType=<@spring.message 'whp.reports.type.patient'/>">Patient Reports</a>
++                <a href="/whp-reports/patientReportsFilter">Patient Reports</a>
+             </li>
+         </ul>
+     </li>
+diff --git a/whp-reports-web/src/main/webapp/WEB-INF/views/reports/patientReportsFilter.ftl b/whp-reports-web/src/main/webapp/WEB-INF/views/reports/patientReportsFilter.ftl
+new file mode 100644
+index 0000000..83ff895
+--- /dev/null
++++ b/whp-reports-web/src/main/webapp/WEB-INF/views/reports/patientReportsFilter.ftl
+@@ -0,0 +1,118 @@
++<#import "/spring.ftl" as spring />
++<#import "../layout/default-with-menu.ftl" as layout>
++<@layout.defaultLayout title="Reports Filter">
++
++<h1>Patient Reports</h1>
++<form name="patientReportsFilter">
++
++    <div class="row-fluid">
++        <div class="well">
++            <fieldset class="filters">
++                <div class="control-group span2">
++                    <label class="control-label">Select Report</label>
++
++                    <div class="controls">
++                        <select id="report" name="report">
++                            <option value="patientreports/patientSummary.xls">Patient Summary Report</option>
++                            <option value="patientreports/patientRegistrations.xls">Patient Registrations Report</option>
++                            <option value="patientreports/patientClosedTreatments.xls">Patient Closed Treatments Report</option>
++                        </select>
++                    </div>
++
++                    <label class="control-label">District</label>
++
++                   <div class="controls">
++                        <select id="district" name="district">
++                            <option value="">All</option>
++                            <#list districts as district>
++                                <option value="${district.name}">${district.name}</option>
++                            </#list>
++                        </select>
++                    </div>
++
++                    <div class="controls">
++                        <label class="control-label  date-field">Date From</label>
++
++                        <div class="input-append input-prepend">
++                            <span class="add-on show-date-button"><i class="icon-calendar"></i></span>
++                            <input class="dates" type="text" placeholder="From: dd/mm/yyyy"
++                                   data-date-format="dd/mm/yyyy" id="from" name="from" data-date-range="to">
++                            <span class="add-on clear-date-button"><i class="icon-remove-sign"></i></span>
++                        </div>
++                    </div>
++                    <label class="control-label  date-field">Date To</label>
++
++                    <div class="controls">
++                        <div class="input-append input-prepend">
++                            <span class="add-on show-date-button"><i class="icon-calendar"></i></span>
++                            <input class="dates" type="text" placeholder="To: dd/mm/yyyy" data-date-format="dd/mm/yyyy"
++                                   id="to" name="to"  data-date-range="from">
++                            <span class="add-on clear-date-button"><i class="icon-remove-sign"></i></span>
++                        </div>
++                    </div>
++                </div>
++        </div>
++    </div>
++    <div class="control-group buttons-group row-fluid">
++        <div class="controls pull-left">
++            <button id="clearFilter" type="reset" class="btn">Clear All</button>
++            <button type="button" id="download" class="btn btn-primary">Download <i
++                    class="icon-download icon-white"></i></button>
++        </div>
++    </div>
++</form>
++
++
++<script type="text/javascript">
++    $(function () {
++
++        $("#from").datepicker({
++            dateFormat:'dd/mm/yy',
++            onClose:function (selectedDate) {
++                $("#to").datepicker("option", "minDate", selectedDate);
++                $("#to").datepicker("option", "maxDate", getDate(selectedDate, 180));
++            }
++        });
++        $("#to").datepicker({
++            dateFormat:'dd/mm/yy',
++            onClose:function (selectedDate) {
++                $("#from").datepicker("option", "minDate", getDate(selectedDate, -180));
++                $("#from").datepicker("option", "maxDate", selectedDate);
++            }
++        });
++
++        getDate = function(dtString, deltaDays){
++            var dateParts = dtString.split("/");
++            var newDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
++            newDate.setDate(parseInt(dateParts[0]) + deltaDays)
++
++            return newDate;
++        }
++
++       // $("#district").combobox();
++
++        $("#district").bind("autocomplete-selected", function (event, ui) {
++            $("#district").val($(this).val());
++        });
++
++        $(".show-date-button").click(function () {
++            $(this).parent().find(".dates").focus();
++        });
++
++        $(".clear-date-button").click(function () {
++            var dateElement = $(this).parent().find(".dates");
++            dateElement.val("");
++
++            var relatedDateField = $("#" + dateElement.data("date-range"));
++            relatedDateField.datepicker("option", "minDate", "");
++            relatedDateField.datepicker("option", "maxDate", "");
++        });
++
++        $('#download').bind('click', function (event) {
++            $("#district").val($("#district-autocomplete").val());
++            window.open($("#report").val() + "?" + $("#district, #from, #to").serialize());
++            return false;
++        });
++    });
++</script>
++</@layout.defaultLayout>
+\ No newline at end of file
+diff --git a/whp-reports-web/src/main/webapp/WEB-INF/views/reports/reportsFilter.ftl b/whp-reports-web/src/main/webapp/WEB-INF/views/reports/reportsFilter.ftl
+deleted file mode 100644
+index 5cd373d..0000000
+--- a/whp-reports-web/src/main/webapp/WEB-INF/views/reports/reportsFilter.ftl
++++ /dev/null
+@@ -1,122 +0,0 @@
+-<#import "/spring.ftl" as spring />
+-<#import "../layout/default-with-menu.ftl" as layout>
+-<@layout.defaultLayout title="Reports Filter">
+-
+-<h1>Reports Filter</h1>
+-<form name="reportsFilter">
+-
+-    <div class="row-fluid">
+-        <div class="well">
+-            <fieldset class="filters">
+-                <div class="control-group span2">
+-                    <label class="control-label">Select Report</label>
+-
+-                    <div class="controls">
+-                        <select id="report" name="report">
+-                            <#if reportType == "patientReports">
+-                            <option value="patientreports/patientSummary.xls">Patient Summary Report</option>
+-                            <option value="patientreports/patientRegistrations.xls">Patient Registrations Report</option>
+-                            <option value="patientreports/patientClosedTreatments.xls">Patient Closed Treatments Report</option>
+-                            <#elseif reportType == "containerReport">
+-                              <option value="<@spring.message 'whp.reports.container.tracking.report'/>">Container Tracking Report</option>
+-                            </#if>
+-                        </select>
+-                    </div>
+-
+-                    <label class="control-label">District</label>
+-
+-                   <div class="controls">
+-                        <select id="district" name="district">
+-                            <option value="">All</option>
+-                            <#list districts as district>
+-                                <option value="${district.name}">${district.name}</option>
+-                            </#list>
+-                        </select>
+-                    </div>
+-
+-                    <div class="controls">
+-                        <label class="control-label  date-field">Date From</label>
+-
+-                        <div class="input-append input-prepend">
+-                            <span class="add-on show-date-button"><i class="icon-calendar"></i></span>
+-                            <input class="dates" type="text" placeholder="From: dd/mm/yyyy"
+-                                   data-date-format="dd/mm/yyyy" id="from" name="from" data-date-range="to">
+-                            <span class="add-on clear-date-button"><i class="icon-remove-sign"></i></span>
+-                        </div>
+-                    </div>
+-                    <label class="control-label  date-field">Date To</label>
+-
+-                    <div class="controls">
+-                        <div class="input-append input-prepend">
+-                            <span class="add-on show-date-button"><i class="icon-calendar"></i></span>
+-                            <input class="dates" type="text" placeholder="To: dd/mm/yyyy" data-date-format="dd/mm/yyyy"
+-                                   id="to" name="to"  data-date-range="from">
+-                            <span class="add-on clear-date-button"><i class="icon-remove-sign"></i></span>
+-                        </div>
+-                    </div>
+-                </div>
+-        </div>
+-    </div>
+-    <div class="control-group buttons-group row-fluid">
+-        <div class="controls pull-left">
+-            <button id="clearFilter" type="reset" class="btn">Clear All</button>
+-            <button type="button" id="download" class="btn btn-primary">Download <i
+-                    class="icon-download icon-white"></i></button>
+-        </div>
+-    </div>
+-</form>
+-
+-
+-<script type="text/javascript">
+-    $(function () {
+-
+-        $("#from").datepicker({
+-            dateFormat:'dd/mm/yy',
+-            onClose:function (selectedDate) {
+-                $("#to").datepicker("option", "minDate", selectedDate);
+-                $("#to").datepicker("option", "maxDate", getDate(selectedDate, 180));
+-            }
+-        });
+-        $("#to").datepicker({
+-            dateFormat:'dd/mm/yy',
+-            onClose:function (selectedDate) {
+-                $("#from").datepicker("option", "minDate", getDate(selectedDate, -180));
+-                $("#from").datepicker("option", "maxDate", selectedDate);
+-            }
+-        });
+-
+-        getDate = function(dtString, deltaDays){
+-            var dateParts = dtString.split("/");
+-            var newDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+-            newDate.setDate(parseInt(dateParts[0]) + deltaDays)
+-
+-            return newDate;
+-        }
+-
+-       // $("#district").combobox();
+-
+-        $("#district").bind("autocomplete-selected", function (event, ui) {
+-            $("#district").val($(this).val());
+-        });
+-
+-        $(".show-date-button").click(function () {
+-            $(this).parent().find(".dates").focus();
+-        });
+-
+-        $(".clear-date-button").click(function () {
+-            var dateElement = $(this).parent().find(".dates");
+-            dateElement.val("");
+-
+-            var relatedDateField = $("#" + dateElement.data("date-range"));
+-            relatedDateField.datepicker("option", "minDate", "");
+-            relatedDateField.datepicker("option", "maxDate", "");
+-        });
+-
+-        $('#download').bind('click', function (event) {
+-            $("#district").val($("#district-autocomplete").val());
+-            window.open($("#report").val() + "?" + $("#district, #from, #to").serialize());
+-            return false;
+-        });
+-    });
+-</script>
+-</@layout.defaultLayout>
+\ No newline at end of file
+diff --git a/whp-reports-web/src/main/webapp/js/modules/containerTracking.js b/whp-reports-web/src/main/webapp/js/modules/containerTracking.js
+new file mode 100644
+index 0000000..697041c
+--- /dev/null
++++ b/whp-reports-web/src/main/webapp/js/modules/containerTracking.js
+@@ -0,0 +1,5 @@
++$(function () {
++    $(document).on("filterUpdated", function(event){
++        window.open($('#filter').data('url') + "&filterParams=" + event.message).serialize();
++    });
++})
+diff --git a/whp-reports-web/src/test/java/org/motechproject/whp/reports/webservice/controller/HomeControllerTest.java b/whp-reports-web/src/test/java/org/motechproject/whp/reports/webservice/controller/HomeControllerTest.java
+index 88947a4..adfe846 100644
+--- a/whp-reports-web/src/test/java/org/motechproject/whp/reports/webservice/controller/HomeControllerTest.java
++++ b/whp-reports-web/src/test/java/org/motechproject/whp/reports/webservice/controller/HomeControllerTest.java
+@@ -29,15 +29,27 @@ public class HomeControllerTest {
+     @Test
+     public void shouldReturnAllDistrictsOnReportsPageLoad() throws Exception {
+         List districts = mock(List.class);
+-        String reportType = "patientReports";
+         when(districtService.getAllDistricts()).thenReturn(districts);
+         standaloneSetup(homeController)
+                 .build()
+-                .perform(get("/reportsFilter").param("reportType", reportType))
++                .perform(get("/patientReportsFilter"))
+                 .andExpect(status().isOk())
+                 .andExpect(model().attribute("districts", districts))
+-                .andExpect(model().attribute("reportType", reportType))
+-                .andExpect(forwardedUrl("reports/reportsFilter"));
++                .andExpect(forwardedUrl("reports/patientReportsFilter"));
++
++        verify(districtService).getAllDistricts();
++    }
++
++    @Test
++    public void shouldProvideDistrictsToContainerReportsPageLoad() throws Exception {
++        List districts = mock(List.class);
++        when(districtService.getAllDistricts()).thenReturn(districts);
++        standaloneSetup(homeController)
++                .build()
++                .perform(get("/containerReports"))
++                .andExpect(status().isOk())
++                .andExpect(model().attribute("districts", districts))
++                .andExpect(forwardedUrl("dashboard/dashboardFilter"));
+ 
+         verify(districtService).getAllDistricts();
+     }
+-- 
+1.7.7.5 (Apple Git-26)
+

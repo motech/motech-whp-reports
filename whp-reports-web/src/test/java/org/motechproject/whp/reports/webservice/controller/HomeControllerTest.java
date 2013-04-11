@@ -49,7 +49,7 @@ public class HomeControllerTest {
                 .perform(get("/containerReports"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("districts", districts))
-                .andExpect(forwardedUrl("dashboard/dashboardFilter"));
+                .andExpect(forwardedUrl("dashboard/containerTracking"));
 
         verify(districtService).getAllDistricts();
     }
