@@ -1,14 +1,17 @@
 $(function () {
-    $(document).on("filterUpdated", function(event){
-        $.getJSON($('#allRegistrations').data('url') + "&filterParams=" + event.message, function (data) {
-            $("#allRegistrations").html(data.content[0].tb_registration_count);
-        });
+    $(document).on("filterUpdated", function (event) {
+        var filterParams = event.message;
+        loadAllTbRegistrationCounts(filterParams);
+        loadClosedTbRegistrationCounts(filterParams)
+        renderTbRegistrationByDistrictChart(filterParams);
+    });
 
-        $.getJSON($('#closedRegistrations').data('url') + "&filterParams=" + event.message, function (data) {
+    function loadClosedTbRegistrationCounts(filterParams) {
+        $.getJSON($('#closedRegistrations').data('url') + "&filterParams=" + filterParams, function (data) {
             var rows = data.content;
             var totalClosedRegistrations = 0;
 
-            $.each(rows, function(index, row) {
+            $.each(rows, function (index, row) {
                 totalClosedRegistrations += row.tb_registration_count;
             });
 
@@ -19,5 +22,68 @@ $(function () {
             $("#tbRegistrationsByOutcome").html(tbOutcomes);
             $("#closedRegistrations").html(totalClosedRegistrations);
         });
-    });
+    }
+
+    function loadAllTbRegistrationCounts(filterParams) {
+        $.getJSON($('#allRegistrations').data('url') + "&filterParams=" + filterParams, function (data) {
+            $("#allRegistrations").html(data.content[0].tb_registration_count);
+        });
+    }
+
+    function renderTbRegistrationByDistrictChart(filterParams) {
+        $.getJSON($('#tbRegistrationsByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
+            var results = data.content;
+            var districts = []
+            var tbRegistrationCounts = []
+
+            $.each(results, function (index, row) {
+                districts.push(row.district)
+                tbRegistrationCounts.push(row.tb_registration_count)
+            });
+
+
+            $('#tbRegistrationsByDistrict').highcharts({
+                chart:{
+                    type:'bar'
+                },
+                title:{
+                    text:'TB Registrations By District'
+                },
+                xAxis:{
+                    categories:districts
+                },
+                yAxis:{
+                    min:0,
+                    title:{
+                        text:'Number of TB Registrations',
+                        align:'high'
+                    },
+                    labels:{
+                        overflow:'justify'
+                    }
+                },
+                plotOptions:{
+                    bar:{
+                        dataLabels:{
+                            enabled:true
+                        }
+                    }
+                },
+                legend:{
+                    enabled: false
+                },
+                credits:{
+                    enabled:false
+                },
+                series:[
+                    {
+                        name:'Number of TB Registrations',
+                        data:tbRegistrationCounts
+                    }
+                ]
+            });
+        });
+    }
+
 })
+
