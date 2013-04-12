@@ -14,6 +14,8 @@ import org.motechproject.whp.reports.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
@@ -21,7 +23,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.motechproject.whp.reports.builder.PatientBuilder.defaultTreatment;
 import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 
-public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest{
+public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest {
 
     @Autowired
     BigQueryService queryService;
@@ -39,7 +41,7 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest{
 
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", new FilterParams());
 
-        QueryResult expectedResult = new QueryResult(asList(row("Cured", 2), row("Died", 1), row("Treatment Completed", 1)));
+        QueryResult expectedResult = buildExpectedQueryResult(asList(row("Cured", 2), row("Died", 1), row("Treatment Completed", 1)));
         assertEquals(expectedResult, queryResult);
     }
 
@@ -62,7 +64,7 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest{
         filterParams.put("district", filteredDistrict);
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", filterParams);
 
-        QueryResult expectedResult = new QueryResult(asList(row("Cured", 1), row("Died", 1)));
+        QueryResult expectedResult = buildExpectedQueryResult(asList(row("Cured", 1), row("Died", 1)));
         assertEquals(expectedResult, queryResult);
     }
 
@@ -94,7 +96,7 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest{
         filterParams.put("to_date", "02/03/2013");
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", filterParams);
 
-        QueryResult expectedResult = new QueryResult(asList(row("Cured", 1), row("Died", 1)));
+        QueryResult expectedResult = buildExpectedQueryResult(asList(row("Cured", 1), row("Died", 1)));
         assertEquals(expectedResult, queryResult);
     }
 
@@ -127,8 +129,25 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest{
         filterParams.put("to_date", "02/03/2013");
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", filterParams);
 
-        QueryResult expectedResult = new QueryResult(asList(row("Died", 1)));
+        QueryResult expectedResult = buildExpectedQueryResult(asList(row("Died", 1)));
         assertEquals(expectedResult, queryResult);
+    }
+
+    private List<String> ALL_TB_OUTCOMES = asList("Cured", "Defaulted", "Died" , "Failure",
+            "Switched Over To MDR-TB Treatment","Transferred Out", "Treatment Completed");
+
+    private QueryResult buildExpectedQueryResult(List<Map<String, Object>> expectations) {
+        List<Map<String, Object>> rows = new ArrayList<>();
+        for(int i =0, j=0 ; i < ALL_TB_OUTCOMES.size(); i++ ){
+            String outcome = ALL_TB_OUTCOMES.get(i);
+            if(expectations.size() > j && expectations.get(j).containsValue(outcome)){
+                rows.add(expectations.get(j));
+                j++;
+            } else {
+                rows.add(row(outcome, 0));
+            }
+        }
+        return new QueryResult(rows);
     }
 
     private Map<String, Object> row(String outcome, int count) {
