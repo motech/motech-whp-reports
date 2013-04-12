@@ -1316,6 +1316,14 @@ pre {
     padding: 0;
     border: 1px solid #ccc;
 }
+.statistics .span2 {
+    width: 14%;
+    margin: 0;
+}
+.statistics .span8 {
+    width: 72%;
+    margin: 0;
+}
 .statistics li {
     display: inline-block;
     text-align: center;
@@ -1323,7 +1331,7 @@ pre {
     border-left: 1px solid #ccc;
 }
 .statistics > li {
-    height: 100px;
+    height: 110px;
     line-height: 40px;
 }
 .statistics  li:first-child {
@@ -1341,23 +1349,34 @@ pre {
 .statistics li .count{
    display: block;
    font-weight: bold;
-   font-size: 2em;
+   font-size: 3em;
 }
 
-.statistics li .outcome{
-    display: block;
-}
 .statistics ul {
     border: 0;
 }
 .statistics li li {
-    height: auto;
-    min-width: 18%;
-    line-height: 23px;
+    height: 75px;
+    min-width: 14%;
+    padding: 10px 0;
+    line-height: 25px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+
+    word-wrap: break-word;
+    white-space: normal;
+    vertical-align: top;
+}
+.statistics li li span {
+    width: 110px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
 }
 .statistics li li .count {
-    font-size: 1.5em;
+    font-size: 2em;
+}
+.statistics li li .outcome{
+    line-height: normal;
 }
