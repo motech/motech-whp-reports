@@ -23,8 +23,8 @@
         <div id = "providersByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.provider.by.district'/>"></div>
 </div>
 
-<script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/modules/tbRegistrationDashboard.js'/>"></script>
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/dashboardFilter.js'/>"></script>
+<script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/modules/tbRegistrationDashboard.js'/>"></script>
 <script id="tbOutcomes" type="text/html">
     <ul class="unstyled">
         {{#rows}}

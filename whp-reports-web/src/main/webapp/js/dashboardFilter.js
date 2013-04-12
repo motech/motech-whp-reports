@@ -43,17 +43,15 @@ $(function () {
         resetDates();
     });
 
-    function applyFilter(){
-        var dataString = JSON.stringify($("#dashboardFilter").serializeJSON());
-        $.event.trigger({
-            type: "filterUpdated",
-            message: dataString
-        });
-    }
-
     $('#filter').bind('click', function (event) {
         applyFilter();
     });
-
-    applyFilter();
 });
+
+function applyFilter(){
+    var dataString = JSON.stringify($("#dashboardFilter").serializeJSON());
+    $.event.trigger({
+        type: "filterUpdated",
+        message: dataString
+    });
+}

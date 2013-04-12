@@ -140,5 +140,6 @@ $(function () {
             });
         });
     }
+    applyFilter();
 })
 
