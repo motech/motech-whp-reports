@@ -39,6 +39,62 @@ public class PatientAlertCallLogQueryIT extends IntegrationTest{
     BigQueryService bigQueryService;
 
     @Test
+    public void shouldReturnCallLogSummary() {
+        DateTime treatmentStartDate = new DateTime(2013, 4, 12, 0, 0, 0);
+        Patient patient = new PatientBuilder().withDefaults()
+                .withTreatmentStartDate(getRelativeDate(treatmentStartDate, 0))
+                .withTreatmentEndDate(null)
+                .build();
+
+        DateTime callLog1AttemptTime = new DateTime(getRelativeDate(treatmentStartDate, 5).getTime());
+        CallLog callLogForAnsweredCall = new CallLogBuilder()
+                .withDefaults()
+                .withCallId("call1")
+                .withCustomData("patient_id", "patientid")
+                .withCustomData("adherence_missing_weeks", "2")
+                .withAttemptDateTime(toSqlTimestamp(callLog1AttemptTime))
+                .withStartDateTime(toSqlTimestamp(callLog1AttemptTime.plusSeconds(5)))
+                .withEndDateTime(toSqlTimestamp(callLog1AttemptTime.plusMinutes(5)))
+                .build();
+
+        DateTime notAnsweredCallAttemptTime = callLog1AttemptTime.plusDays(1);
+        CallLog callLogForNotAnsweredCall = new CallLogBuilder()
+                .withDefaults()
+                .withCallId("call2")
+                .withCustomData("patient_id", "patientid")
+                .withCustomData("adherence_missing_weeks", "2")
+                .withCallEvents("tb_acknowledgement", "1")
+                .withAttemptDateTime(toSqlTimestamp(notAnsweredCallAttemptTime))
+                .withStartDateTime(toSqlTimestamp(notAnsweredCallAttemptTime.plusSeconds(5)))
+                .withEndDateTime(toSqlTimestamp(notAnsweredCallAttemptTime.plusMinutes(5)))
+                .build();
+
+        DateTime invalidTbAcknowledgementAttemptTime = callLog1AttemptTime.plusDays(2);
+        CallLog callLogWithInvalidTbAcknowledgement = new CallLogBuilder()
+                .withDefaults()
+                .withCallId("call3")
+                .withCustomData("patient_id", "patientid")
+                .withCustomData("adherence_missing_weeks", "2")
+                .withCallEvents("tb_acknowledgement", "3")
+                .withAttemptDateTime(toSqlTimestamp(invalidTbAcknowledgementAttemptTime))
+                .withStartDateTime(toSqlTimestamp(invalidTbAcknowledgementAttemptTime.plusSeconds(5)))
+                .withEndDateTime(toSqlTimestamp(invalidTbAcknowledgementAttemptTime.plusMinutes(5)))
+                .build();
+
+        patientRepository.save(patient);
+        callLogRepository.save(asList(callLogForAnsweredCall, callLogForNotAnsweredCall, callLogWithInvalidTbAcknowledgement));
+
+        QueryResult queryResult = bigQueryService.executeQuery("patientAlertCallLog", new FilterParams());
+        List<Map<String, Object>> actualCallLogs = queryResult.getContent();
+        assertThat(actualCallLogs.size(), is(3));
+
+        Treatment treatment = patient.getTherapies().get(0).getTreatments().get(0);
+        assertPatientAlertCallLog(callLogWithInvalidTbAcknowledgement, treatment, actualCallLogs.get(0));
+        assertPatientAlertCallLog(callLogForNotAnsweredCall, treatment, actualCallLogs.get(1));
+        assertPatientAlertCallLog(callLogForAnsweredCall, treatment, actualCallLogs.get(2));
+    }
+
+    @Test
     public void shouldReturnPatientAlertCallLogWhenPatientHasBeenTransferredOutToAnotherProvider(){
         DateTime currentTreatmentCallAttemptTime = new DateTime(2013, 4, 12, 0, 0, 0);
         CallLog callLogForCurrentTreatment = new CallLogBuilder()
@@ -103,14 +159,17 @@ public class PatientAlertCallLogQueryIT extends IntegrationTest{
         assertThat((Double) callLog.get("duration"), is(durationInSeconds));
         assertThat((Timestamp) callLog.get("call_attempt_time"), is(calLog.getAttemptTime()));
         assertThat((String) callLog.get("alert_day"), is(WHPDateTime.dayOfWeek(calLog.getAttemptTime())));
-        String tb_acknowledgement = calLog.getCallEvents().get("tb_acknowledgement");
-        String expectedTbAcknowledgement = "1".equals(tb_acknowledgement) ? "YES" : "NO";
 
-        assertThat((String) callLog.get("alert_listened"), is(expectedTbAcknowledgement));
+        String tb_acknowledgement = calLog.getCallEvents().get("tb_acknowledgement");
+        assertThat((String) callLog.get("alert_listened"), is(getExpectedTbAcknowledgement(tb_acknowledgement)));
         assertThat((String) callLog.get("disconnection_type"), is(calLog.getDisposition()));
         assertThat((String) callLog.get("error_message"), is(calLog.getErrorMessage()));
         assertThat((String) callLog.get("call_attempt_number"), is(calLog.getAttempt()));
         assertThat((String) callLog.get("adherence_missing_weeks"), is(calLog.getCustomData().get("adherence_missing_weeks")));
+    }
+
+    private String getExpectedTbAcknowledgement(String tb_acknowledgement) {
+        return "1".equals(tb_acknowledgement) ? "YES" : "2".equals(tb_acknowledgement) ? "NO" : null;
     }
 
     public Treatment createOpenTreatmentWithProvider(String providerId, Date treatmentStartDate) {
