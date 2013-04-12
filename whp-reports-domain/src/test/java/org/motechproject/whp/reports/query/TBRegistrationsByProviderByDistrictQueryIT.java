@@ -41,9 +41,9 @@ public class TBRegistrationsByProviderByDistrictQueryIT extends IntegrationTest{
 
         patientRepository.save(asList(patient1, patient2, patient3));
 
-        QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.provider.by.district", new FilterParams());
+        QueryResult queryResult = queryService.executeQuery("number.of.providers.by.district", new FilterParams());
 
-        QueryResult expectedResult = new QueryResult(asList(row("district2", 2), row("district1", 1)));
+        QueryResult expectedResult = new QueryResult(asList(row("district1", 1), row("district2", 2)));
         assertEquals(expectedResult, queryResult);
     }
 
@@ -71,7 +71,7 @@ public class TBRegistrationsByProviderByDistrictQueryIT extends IntegrationTest{
         FilterParams filterParams = new FilterParams();
         filterParams.put("from_date", "02/02/2013");
         filterParams.put("to_date", "02/03/2013");
-        QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.provider.by.district", filterParams);
+        QueryResult queryResult = queryService.executeQuery("number.of.providers.by.district", filterParams);
 
         QueryResult expectedResult = new QueryResult(asList(row("district1", 1), row("district2", 1)));
         assertEquals(expectedResult, queryResult);

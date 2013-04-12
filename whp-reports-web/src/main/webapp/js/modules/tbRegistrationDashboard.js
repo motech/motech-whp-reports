@@ -103,7 +103,7 @@ $(function () {
                     type:'bar'
                 },
                 title:{
-                    text:'TB Registrations By Provider per District'
+                    text:'Providers per District'
                 },
                 xAxis:{
                     categories:districts
@@ -133,7 +133,7 @@ $(function () {
                 },
                 series:[
                     {
-                        name:'Number of TB Registrations',
+                        name:'Number of Providers',
                         data:providerCounts
                     }
                 ]

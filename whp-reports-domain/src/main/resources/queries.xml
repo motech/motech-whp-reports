@@ -152,7 +152,7 @@
                 group by district order by tb_registration_count desc
             ]]></query>
         </named-query>
-        <named-query name="number.of.tb.registrations.by.provider.by.district">
+        <named-query name="number.of.providers.by.district">
             <query><![CDATA[
                 select count(distinct provider_id) as provider_count, provider_district as district
                 from whp_reports.patient_treatment
@@ -161,7 +161,7 @@
                     #chunk($to_date) start_date < :to_date #end
                 #end
                 group by district
-                order by provider_count desc
+                order by district
             ]]></query>
         </named-query>
         <named-query name="number.of.tb.registrations.by.outcome">

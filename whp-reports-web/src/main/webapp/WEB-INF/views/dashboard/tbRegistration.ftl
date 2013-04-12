@@ -20,7 +20,7 @@
             </li>
         </ul>
         <div id = "tbRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.district'/>"></div>
-        <div id = "providersByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.provider.by.district'/>"></div>
+        <div id = "providersByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.providers.by.district'/>"></div>
 </div>
 
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/dashboardFilter.js'/>"></script>
