@@ -1,5 +1,5 @@
 $(function () {
     $(document).on("filterUpdated", function(event){
-        window.open($('#filter').data('url') + "&filterParams=" + event.message).serialize();
+        window.open($('#containerTracking').data('url') + "?" + $.param(JSON.parse(event.message)));
     });
 })
