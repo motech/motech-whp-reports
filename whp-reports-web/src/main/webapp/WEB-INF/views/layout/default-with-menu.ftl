@@ -7,6 +7,7 @@
     <title> ${title} </title>
     <#include "scripts.ftl"/>
     <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/util.js'/>"></script>
+    <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/autoComplete.js'/>"></script>
 </head>
 <body class="main">
 

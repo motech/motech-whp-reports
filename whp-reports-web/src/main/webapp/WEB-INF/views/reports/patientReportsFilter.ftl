@@ -89,7 +89,7 @@
             return newDate;
         }
 
-       // $("#district").combobox();
+       $("#district").combobox();
 
         $("#district").bind("autocomplete-selected", function (event, ui) {
             $("#district").val($(this).val());
