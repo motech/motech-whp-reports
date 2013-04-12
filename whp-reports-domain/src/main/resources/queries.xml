@@ -99,16 +99,20 @@
                    left outer join  whp_reports.reasons_for_closure rc on st.reason_for_closure = rc.code
                    where provider_district != 'TestDistrict'
                    #chunk($district) and provider_district = :district #end
-                   #chunk($from_date) and st.date_issued_on between :from_date and :to_date #end
+                   #chunk($from_date) and st.date_issued_on >= :from_date #end
+                   #chunk($to_date) and st.date_issued_on <= :to_date #end
                    order by st.date_issued_on DESC limit 65000
             ]]></query>
         </named-query>
         <named-query name="patientAlertCallLog">
             <query><![CDATA[
-select             c.call_id as call_id, c.custom_data -> 'patient_id' as patient_id, d.provider_id as provider_id,
-                   d.provider_district as provider_district, c.start_date_time as call_start_time,
-                   extract ('epoch' from (c.end_date_time - c.start_date_time)::interval) as duration,
-                   c.attempt_date_time as call_attempt_time, d.end_date
+                   select c.call_id as call_id, c.custom_data -> 'patient_id' as patient_id, d.provider_id as provider_id,
+                  d.provider_district as provider_district, c.start_date_time as call_start_time,
+                  extract ('epoch' from (c.end_date_time - c.start_date_time)::interval) as duration,
+                  c.attempt_date_time as call_attempt_time, trim(to_char(c.attempt_date_time, 'Day')) as alert_day,
+                  CASE WHEN c.call_events -> 'tb_acknowledgement' = '1' THEN 'YES' WHEN c.call_events -> 'tb_acknowledgement' = '2'
+                  THEN 'NO' END AS alert_listened, c.disposition as disconnection_type, c.error_message as error_message,
+                  c.attempt_number as call_attempt_number, c.custom_data -> 'adherence_missing_weeks' as adherence_missing_weeks
                    from whp_reports.call_log c LEFT OUTER JOIN
 				   (select  p.patient_id, pt.provider_id, pt.provider_district, pt.start_date, pt.end_date
 				   FROM whp_reports.patient p, whp_reports.patient_therapy pth, whp_reports.patient_treatment pt
