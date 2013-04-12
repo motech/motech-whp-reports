@@ -11,11 +11,11 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 @Service
-public class DistrictCrudService extends JpaCrudEntity<District, Long>{
+public class DistrictCrudService extends JpaCrudEntity<District, String>{
 
     @Autowired
     public DistrictCrudService(DistrictRepository districtRepository) {
-        super(districtRepository, Long.class);
+        super(districtRepository, String.class);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class DistrictCrudService extends JpaCrudEntity<District, Long>{
 
     @Override
     public String getIdFieldName() {
-        return "id";
+        return "name";
     }
 
     @Override

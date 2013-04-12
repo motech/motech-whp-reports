@@ -1,5 +1,4 @@
 CREATE TABLE whp_reports.district (
-    district_id serial NOT NULL,
     name varchar(100) UNIQUE NOT NULL
 );
 
