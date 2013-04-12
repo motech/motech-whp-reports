@@ -144,24 +144,25 @@
         </named-query>
         <named-query name="number.of.tb.registrations.by.district">
             <query><![CDATA[
-                select count(distinct tb_id) as tb_registration_count, provider_district as district from whp_reports.patient_treatment
-                #chain('AND' 'WHERE')
-                    #chunk($from_date) start_date >= :from_date #end
-                    #chunk($to_date) start_date < :to_date #end
-                #end
-                group by district order by tb_registration_count desc
+                select district.name as district,
+                (select count(distinct tb_id) from whp_reports.patient_treatment
+                    where provider_district = district.name
+                    #chunk($from_date) and start_date >= :from_date #end
+                    #chunk($to_date) and start_date < :to_date #end
+                ) as tb_registration_count
+                from whp_reports.district
+                order by district.name
             ]]></query>
         </named-query>
         <named-query name="number.of.providers.by.district">
             <query><![CDATA[
-                select count(distinct provider_id) as provider_count, provider_district as district
-                from whp_reports.patient_treatment
-                #chain('AND' 'WHERE')
-                    #chunk($from_date) start_date >= :from_date #end
-                    #chunk($to_date) start_date < :to_date #end
-                #end
-                group by district
-                order by district
+                select d.name as district,
+                (select count(distinct provider_id)
+	            from whp_reports.patient_treatment as pt where d.name = pt.provider_district
+	            #chunk($from_date) and start_date >= :from_date #end
+	            #chunk($to_date) and start_date < :to_date #end) as provider_count
+                FROM whp_reports.district as d
+                order by d.name
             ]]></query>
         </named-query>
         <named-query name="number.of.tb.registrations.by.outcome">

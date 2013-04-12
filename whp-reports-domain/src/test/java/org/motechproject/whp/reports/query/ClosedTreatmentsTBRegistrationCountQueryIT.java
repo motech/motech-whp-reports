@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.motechproject.bigquery.model.FilterParams;
 import org.motechproject.bigquery.response.QueryResult;
 import org.motechproject.bigquery.service.BigQueryService;
-import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.domain.patient.Patient;
 import org.motechproject.whp.reports.domain.patient.Treatment;
@@ -14,7 +13,6 @@ import org.motechproject.whp.reports.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +21,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.motechproject.whp.reports.builder.PatientBuilder.defaultTreatment;
 import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 
-public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest {
+public class ClosedTreatmentsTBRegistrationCountQueryIT extends BigQueryIntegrationTest {
 
     @Autowired
     BigQueryService queryService;
@@ -136,25 +134,16 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest 
     private List<String> ALL_TB_OUTCOMES = asList("Cured", "Defaulted", "Died" , "Failure",
             "Switched Over To MDR-TB Treatment","Transferred Out", "Treatment Completed");
 
-    private QueryResult buildExpectedQueryResult(List<Map<String, Object>> expectations) {
-        List<Map<String, Object>> rows = new ArrayList<>();
-        for(int i =0, j=0 ; i < ALL_TB_OUTCOMES.size(); i++ ){
-            String outcome = ALL_TB_OUTCOMES.get(i);
-            if(expectations.size() > j && expectations.get(j).containsValue(outcome)){
-                rows.add(expectations.get(j));
-                j++;
-            } else {
-                rows.add(row(outcome, 0));
-            }
-        }
-        return new QueryResult(rows);
-    }
-
-    private Map<String, Object> row(String outcome, int count) {
+    protected Map<String, Object> row(String outcome, int count) {
         Map<String, Object> row1 = new LinkedCaseInsensitiveMap<>();
         row1.put("tb_registration_count", Long.valueOf(count));
         row1.put("outcome", outcome);
         return row1;
+    }
+
+
+    private QueryResult buildExpectedQueryResult(List<Map<String, Object>> rows) {
+        return super.buildExpectedQueryResult(rows, ALL_TB_OUTCOMES);
     }
 
     @After
