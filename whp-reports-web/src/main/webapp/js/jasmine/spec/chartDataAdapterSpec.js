@@ -1,4 +1,4 @@
-describe("extractData", function() {
+describe("chartDataAdapter", function() {
 
     it("should convert data", function() {
         var results =

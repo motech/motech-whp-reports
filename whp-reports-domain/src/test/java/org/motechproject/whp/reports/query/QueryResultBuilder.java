@@ -32,13 +32,16 @@ public class QueryResultBuilder {
             } else {
                 rowValues = defaultValues(primaryColumn, columns.length);
             }
-            for(int k=0;k<columns.length; k++){
-                row1.put(columns[k], rowValues[k]);
-            }
+            updateValuesIntoRow(row1, rowValues);
             rows.add(row1);
-
         }
         return new QueryResult(rows);
+    }
+
+    private void updateValuesIntoRow(Map<String, Object> row1, Object[] rowValues) {
+        for(int k=0;k<columns.length; k++){
+            row1.put(columns[k], rowValues[k]);
+        }
     }
 
     public QueryResult build(){
@@ -46,9 +49,7 @@ public class QueryResultBuilder {
         for(int i = 0 ; i < values.size(); i ++){
             Map<String, Object> row1 = new LinkedCaseInsensitiveMap<>();
             Object[] rowValues = values.get(i);
-            for(int j=0;j<columns.length; j++){
-                row1.put(columns[j], rowValues[j]);
-            }
+            updateValuesIntoRow(row1, rowValues);
             rows.add(row1);
         }
         return new QueryResult(rows);

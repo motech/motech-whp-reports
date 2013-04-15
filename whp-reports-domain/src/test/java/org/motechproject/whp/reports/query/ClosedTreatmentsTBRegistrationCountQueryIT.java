@@ -27,6 +27,9 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest 
     @Autowired
     PatientRepository patientRepository;
 
+    private List<String> ALL_TB_OUTCOMES = asList("Cured", "Defaulted", "Died" , "Failure",
+            "Switched Over To MDR-TB Treatment","Transferred Out", "Treatment Completed");
+
     @Test
     public void shouldGetCountOfTBRegistrationsGroupByTreatmentOutcome() {
         Patient patient1 = new PatientBuilder().withDefaults().withPatientId("patient1").withTreatmentOutcome("Cured").withTbId("tb1")
@@ -38,7 +41,7 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest 
 
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", new FilterParams());
 
-        QueryResult expectedResult = new QueryResultBuilder("outcome", "tb_registration_count")
+        QueryResult expectedResult = queryResultBuilder()
                 .row("Cured", 2L)
                 .row("Died", 1L)
                 .row("Treatment Completed", 1L)
@@ -66,7 +69,7 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest 
         filterParams.put("district", filteredDistrict);
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", filterParams);
 
-        QueryResult expectedResult = new QueryResultBuilder("outcome", "tb_registration_count")
+        QueryResult expectedResult = queryResultBuilder()
                 .row("Cured", 1L)
                 .row("Died", 1L)
                 .build(ALL_TB_OUTCOMES);
@@ -102,7 +105,7 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest 
         filterParams.put("to_date", "02/03/2013");
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", filterParams);
 
-        QueryResult expectedQueryResult = new QueryResultBuilder("outcome", "tb_registration_count")
+        QueryResult expectedQueryResult = queryResultBuilder()
                 .row("Cured", 1L)
                 .row("Died", 1L)
                 .build(ALL_TB_OUTCOMES);
@@ -139,19 +142,20 @@ public class ClosedTreatmentsTBRegistrationCountQueryIT extends IntegrationTest 
         filterParams.put("to_date", "02/03/2013");
         QueryResult queryResult = queryService.executeQuery("number.of.tb.registrations.by.outcome", filterParams);
 
-        QueryResult expectedResult = new QueryResultBuilder("outcome", "tb_registration_count")
+        QueryResult expectedResult = queryResultBuilder()
                 .row("Died", 1L)
                 .build(ALL_TB_OUTCOMES);
 
         assertEquals(expectedResult, queryResult);
     }
 
-    private List<String> ALL_TB_OUTCOMES = asList("Cured", "Defaulted", "Died" , "Failure",
-            "Switched Over To MDR-TB Treatment","Transferred Out", "Treatment Completed");
-
     @After
     public void tearDown() {
         patientRepository.deleteAll();
+    }
+
+    private QueryResultBuilder queryResultBuilder() {
+        return new QueryResultBuilder("outcome", "tb_registration_count");
     }
 }
 

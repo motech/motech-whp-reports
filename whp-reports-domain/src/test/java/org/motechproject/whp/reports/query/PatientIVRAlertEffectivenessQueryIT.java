@@ -19,11 +19,8 @@ import org.motechproject.whp.reports.repository.AdherenceRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 import static org.motechproject.whp.reports.date.WHPDateTime.toSqlTimestamp;
 
@@ -62,18 +59,18 @@ public class PatientIVRAlertEffectivenessQueryIT extends IntegrationTest{
         createCallLog(oneWeeksAgoTimestamp, patientId2);
 
         QueryResult queryResult = queryService.executeQuery("patient.ivrAlerts.effectiveness", new FilterParams());
-        List<Map<String,Object>> result = queryResult.getContent();
 
+        QueryResult expectedQueryResult = new QueryResultBuilder("patient_with_ivr_calls", "patients_with_adherence_given", "call_week_end_date")
+                .row(1L, 1L, sqlDate(threeWeeksAgo))
+                .row(2L, 2L, sqlDate(twoWeeksAgo))
+                .row(2L, 0L, sqlDate(oneWeeksAgo))
+                .build();
 
-        assertResult(result, 0, 1L, 1L, threeWeeksAgo);
-        assertResult(result, 1, 2L, 2L, twoWeeksAgo);
-        assertResult(result, 2, 2L, 0L, oneWeeksAgo);
+        assertEquals(expectedQueryResult, queryResult);
     }
 
-    private void assertResult(List<Map<String, Object>> result, int index, long patientsWithIvrCalls, long patientsWithAdherenceGiven, LocalDate callDate) {
-        assertThat((Long)result.get(index).get("patient_with_ivr_calls"), is(patientsWithIvrCalls));
-        assertThat((Long) result.get(index).get("patients_with_adherence_given"), is(patientsWithAdherenceGiven));
-        assertThat((Date) result.get(index).get("call_week_end_date"), is(WHPDate.toSqlDate(new TreatmentWeek(callDate).endDate())));
+    private Date sqlDate(LocalDate threeWeeksAgo) {
+        return WHPDate.toSqlDate(new TreatmentWeek(threeWeeksAgo).endDate());
     }
 
     private CallLog createCallLog(DateTime callAttemptDateTime, String patientId1) {
