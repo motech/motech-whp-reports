@@ -11,7 +11,6 @@ $(function () {
         $.getJSON($('#closedRegistrations').data('url') + "&filterParams=" + filterParams, function (data) {
             var rows = data.content;
             var totalClosedRegistrations = 0;
-
             $.each(rows, function (index, row) {
                 totalClosedRegistrations += row.tb_registration_count;
             });
@@ -33,111 +32,31 @@ $(function () {
 
     function renderTbRegistrationByDistrictChart(filterParams) {
         $.getJSON($('#tbRegistrationsByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var results = data.content;
-            var districts = []
-            var tbRegistrationCounts = []
-
-            $.each(results, function (index, row) {
-                districts.push(row.district)
-                tbRegistrationCounts.push(row.tb_registration_count)
-            });
-
-
-            $('#tbRegistrationsByDistrict').highcharts({
-                chart:{
-                    type:'bar'
-                },
-                title:{
-                    text:'TB Registrations By District'
-                },
-                xAxis:{
-                    categories:districts
-                },
-                yAxis:{
-                    min:0,
-                    title:{
-                        text:'Number of TB Registrations',
-                        align:'high'
-                    },
-                    labels:{
-                        overflow:'justify'
-                    }
-                },
-                plotOptions:{
-                    bar:{
-                        dataLabels:{
-                            enabled:true
-                        }
-                    }
-                },
-                legend:{
-                    enabled: false
-                },
-                credits:{
-                    enabled:false
-                },
-                series:[
-                    {
-                        name:'Number of TB Registrations',
-                        data:tbRegistrationCounts
-                    }
-                ]
-            });
+            var adaptedData = extractData(data.content, "district", "tb_registration_count");
+            var chartData = {
+                yAxisTitle : 'Number of TB Registrations',
+                title : 'TB Registrations By District',
+                xAxisTitle: 'Number of TB Registrations',
+                xAxis:adaptedData.xAxis,
+                yAxis:adaptedData.yAxis,
+                target: 'tbRegistrationsByDistrict'
+            }
+            renderBarChart(chartData);
         });
     }
 
     function renderProvidersByDistrictChart(filterParams) {
         $.getJSON($('#providersByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var results = data.content;
-            var districts = []
-            var providerCounts = []
-
-            $.each(results, function (index, row) {
-                districts.push(row.district)
-                providerCounts.push(row.provider_count)
-            });
-
-
-            $('#providersByDistrict').highcharts({
-                chart:{
-                    type:'bar'
-                },
-                title:{
-                    text:'Providers per District'
-                },
-                xAxis:{
-                    categories:districts
-                },
-                yAxis:{
-                    min:0,
-                    title:{
-                        text:'Number of Providers',
-                        align:'high'
-                    },
-                    labels:{
-                        overflow:'justify'
-                    }
-                },
-                plotOptions:{
-                    bar:{
-                        dataLabels:{
-                            enabled:true
-                        }
-                    }
-                },
-                legend:{
-                    enabled: false
-                },
-                credits:{
-                    enabled:false
-                },
-                series:[
-                    {
-                        name:'Number of Providers',
-                        data:providerCounts
-                    }
-                ]
-            });
+            var adaptedData = extractData(data.content, "district", "provider_count");
+            var chartData= {
+                yAxisTitle :'Number of Providers',
+                title : 'Providers per District',
+                xAxisTitle: 'Number of Providers',
+                xAxis:adaptedData.xAxis,
+                yAxis:adaptedData.yAxis,
+                target: 'providersByDistrict'
+            }
+            renderBarChart(chartData);
         });
     }
     applyFilter();
