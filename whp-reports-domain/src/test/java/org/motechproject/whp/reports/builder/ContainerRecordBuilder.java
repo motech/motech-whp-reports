@@ -26,7 +26,7 @@ public class ContainerRecordBuilder {
     }
 
     public ContainerRecordBuilder withIssuedOnDate(Date dateIssuedOn) {
-        containerRecord.setIssuedOn(new java.sql.Date(dateIssuedOn.getTime()));
+        containerRecord.setIssuedOn(sqlDate(dateIssuedOn));
         return this;
     }
 
@@ -105,9 +105,9 @@ public class ContainerRecordBuilder {
     }
 
     public ContainerRecordBuilder withSmearTestResults(Date resultsDate1, String result1, Date resultsDate2, String result2) {
-        containerRecord.setSmearTestDate1(new java.sql.Date(resultsDate1.getTime()));
+        containerRecord.setSmearTestDate1(sqlDate(resultsDate1));
         containerRecord.setSmearTestResult1(result1);
-        containerRecord.setSmearTestDate2(new java.sql.Date(resultsDate2.getTime()));
+        containerRecord.setSmearTestDate2(sqlDate(resultsDate2));
         containerRecord.setSmearTestResult2(result2);
         return this;
     }
@@ -123,7 +123,7 @@ public class ContainerRecordBuilder {
     }
 
     public ContainerRecordBuilder withLabResultsCapturedOn(Date date) {
-        containerRecord.setLabResultsCapturedOn(new Timestamp(date.getTime()));
+        containerRecord.setLabResultsCapturedOn(timestamp(date));
         return this;
     }
 
@@ -133,7 +133,7 @@ public class ContainerRecordBuilder {
     }
 
     public ContainerRecordBuilder withClosureDate(Date date) {
-        containerRecord.setClosureDate(new Timestamp(date.getTime()));
+        containerRecord.setClosureDate(timestamp(date));
         return this;
     }
 
@@ -143,7 +143,7 @@ public class ContainerRecordBuilder {
     }
 
     public ContainerRecordBuilder withConsultationDate(Date consultationDate) {
-        containerRecord.setConsultationDate(new java.sql.Date(consultationDate.getTime()));
+        containerRecord.setConsultationDate(sqlDate(consultationDate));
         return this;
     }
 
@@ -187,5 +187,15 @@ public class ContainerRecordBuilder {
 
         containerRecord.setUserGivenPatientDetails(userGivenPatientDetails);
         return  this;
+    }
+
+    private Timestamp timestamp(Date date) {
+        if(date == null) return null;
+        return new Timestamp(date.getTime());
+    }
+
+    private java.sql.Date sqlDate(Date date) {
+        if(date == null) return null;
+        return new java.sql.Date(date.getTime());
     }
 }

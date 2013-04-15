@@ -138,7 +138,7 @@
                 #chain('AND' 'WHERE')
                     #chunk($district) provider_district = :district #end
                     #chunk($from_date) start_date >= :from_date #end
-                    #chunk($to_date) start_date < :to_date #end
+                    #chunk($to_date) start_date <= :to_date #end
                 #end
             ]]></query>
         </named-query>
@@ -148,7 +148,7 @@
                 (select count(distinct tb_id) from whp_reports.patient_treatment
                     where provider_district = district.name
                     #chunk($from_date) and start_date >= :from_date #end
-                    #chunk($to_date) and start_date < :to_date #end
+                    #chunk($to_date) and start_date <= :to_date #end
                 ) as tb_registration_count
                 from whp_reports.district
                 order by district.name
@@ -160,7 +160,7 @@
                 (select count(distinct provider_id)
 	            from whp_reports.patient_treatment as pt where d.name = pt.provider_district
 	            #chunk($from_date) and start_date >= :from_date #end
-	            #chunk($to_date) and start_date < :to_date #end) as provider_count
+	            #chunk($to_date) and start_date <= :to_date #end) as provider_count
                 FROM whp_reports.district as d
                 order by d.name
             ]]></query>
@@ -172,8 +172,44 @@
                     where patient_treatment.treatment_outcome = treatment_outcome.name  and end_date is not null
                     #chunk($district) and provider_district = :district #end
                     #chunk($from_date) and end_date >= :from_date #end
-                    #chunk($to_date) and end_date < :to_date #end ) as tb_registration_count
+                    #chunk($to_date) and end_date <= :to_date #end ) as tb_registration_count
                 from  whp_reports.treatment_outcome  order by treatment_outcome
+            ]]></query>
+        </named-query>
+        <named-query name="number.of.container.registrations">
+            <query><![CDATA[
+                select count(container_id) as container_registration_count from whp_reports.sputum_tracking
+                #chain('AND' 'WHERE')
+                    #chunk($district) provider_district = :district #end
+                    #chunk($from_date) date_issued_on >= :from_date #end
+                    #chunk($to_date) date_issued_on <= :to_date #end
+                #end
+            ]]></query>
+        </named-query>
+        <named-query name="number.of.container.registrations.by.status">
+            <query><![CDATA[
+                select
+                    sum(case when container_status = 'Open' then 1 else 0 end) as active,
+                    sum(case when container_status = 'Closed' then 1 else 0 end) as closed,
+                    sum(case when lab_results_captured_on is null then 1 else 0 end) as lab_results_pending,
+                    sum(case when consultation_date is null then 1 else 0 end) as consultation_pending
+                    from whp_reports.sputum_tracking
+                    #chain('AND' 'WHERE')
+                        #chunk($district) provider_district = :district #end
+                        #chunk($from_date) date_issued_on >= :from_date #end
+                        #chunk($to_date) date_issued_on <= :to_date #end
+                    #end
+            ]]></query>
+        </named-query>
+        <named-query name="number.of.container.registrations.by.district">
+            <query><![CDATA[
+                select d.name as district,
+                coalesce(sum(case when container_status = 'Open' then 1 else 0 end), 0) as active,
+                coalesce(sum(case when container_status = 'Closed' then 1 else 0 end), 0) as closed
+                from whp_reports.district d left outer join whp_reports.sputum_tracking st on  st.provider_district = d.name
+                    #chunk($from_date) AND date_issued_on >= :from_date #end
+                    #chunk($to_date) AND date_issued_on <= :to_date #end
+                group by d.name order by d.name
             ]]></query>
         </named-query>
     </named-queries>

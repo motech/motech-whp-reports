@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.motechproject.bigquery.model.FilterParams;
 import org.motechproject.bigquery.response.QueryResult;
 import org.motechproject.bigquery.service.BigQueryService;
+import org.motechproject.whp.reports.IntegrationTest;
 import org.motechproject.whp.reports.builder.PatientBuilder;
 import org.motechproject.whp.reports.domain.dimension.District;
 import org.motechproject.whp.reports.domain.patient.Patient;
@@ -15,10 +16,8 @@ import org.motechproject.whp.reports.repository.DistrictRepository;
 import org.motechproject.whp.reports.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.util.List;
-import java.util.Map;
 
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.on;
@@ -27,7 +26,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.motechproject.whp.reports.builder.PatientBuilder.defaultTreatment;
 import static org.motechproject.whp.reports.date.WHPDate.toSqlDate;
 
-public class ProvidersPerDistrictQueryIT extends BigQueryIntegrationTest{
+public class ProvidersPerDistrictQueryIT extends IntegrationTest {
 
     @Autowired
     BigQueryService queryService;
@@ -57,8 +56,11 @@ public class ProvidersPerDistrictQueryIT extends BigQueryIntegrationTest{
         patientRepository.save(asList(patient1, patient2, patient3));
 
         QueryResult queryResult = queryService.executeQuery("number.of.providers.by.district", new FilterParams());
+        QueryResult expectedResult = new QueryResultBuilder("district", "provider_count")
+                .row("Begusarai", 1L)
+                .row("Bhagalpur", 2L)
+                .build(allDistrictNames);
 
-        QueryResult expectedResult = buildExpectedQueryResult(asList(row("Begusarai", 1), row("Bhagalpur", 2)), allDistrictNames);
         assertEquals(expectedResult, queryResult);
     }
 
@@ -88,17 +90,13 @@ public class ProvidersPerDistrictQueryIT extends BigQueryIntegrationTest{
         filterParams.put("to_date", "02/03/2013");
         QueryResult queryResult = queryService.executeQuery("number.of.providers.by.district", filterParams);
 
-        QueryResult expectedResult = buildExpectedQueryResult(asList(row("Begusarai", 1), row("Bhagalpur", 1)), allDistrictNames);
+        QueryResult expectedResult = new QueryResultBuilder("district", "provider_count")
+                .row("Begusarai", 1L)
+                .row("Bhagalpur", 1L)
+                .build(allDistrictNames);
+
         assertEquals(expectedResult, queryResult);
     }
-
-    protected Map<String, Object> row(String outcome, int count) {
-        Map<String, Object> row1 = new LinkedCaseInsensitiveMap<>();
-        row1.put("provider_count", Long.valueOf(count));
-        row1.put("district", outcome);
-        return row1;
-    }
-
     @After
     public void tearDown() {
         patientRepository.deleteAll();
