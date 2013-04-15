@@ -6,8 +6,6 @@
     <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/jquery/jquery-1.8.2.min.js'/>"></script>
     <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/jquery/jquery.validate.js'/>"></script>
     <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/jquery/jquery.metadata.js'/>"></script>
-    <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/ICanHaz.min.js'/>"></script>
-    <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/highcharts.js'/>"></script>
 
     <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/bootstrap/bootstrap.min.js'/>"></script>
     <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/jquery/jquery-ui-1.9.1.custom.min.js'/>"></script>

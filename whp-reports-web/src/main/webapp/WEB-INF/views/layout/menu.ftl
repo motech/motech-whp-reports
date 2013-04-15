@@ -27,5 +27,6 @@
     </li>
 
     <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Registration Summary</a></li>
+    <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registration</a></li>
 </ul>
 

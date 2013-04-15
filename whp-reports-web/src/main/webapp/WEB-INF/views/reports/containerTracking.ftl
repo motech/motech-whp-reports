@@ -5,7 +5,7 @@
 
 
 <div id = "containerTracking" data-url="<@spring.url '/download/containerReport.xls' />">
-    <#include "dashboardFilter.ftl"/>
+    <#include "../dashboard/dashboardFilter.ftl"/>
 </div>
 
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/dashboardFilter.js'/>"></script>

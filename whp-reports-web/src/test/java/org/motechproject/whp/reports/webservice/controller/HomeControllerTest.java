@@ -49,7 +49,7 @@ public class HomeControllerTest {
                 .perform(get("/containerReports"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("districts", districts))
-                .andExpect(forwardedUrl("dashboard/containerTracking"));
+                .andExpect(forwardedUrl("reports/containerTracking"));
 
         verify(districtService).getAllDistricts();
     }
@@ -64,6 +64,20 @@ public class HomeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("districts", districts))
                 .andExpect(forwardedUrl("dashboard/tbRegistration"));
+
+        verify(districtService).getAllDistricts();
+    }
+
+    @Test
+    public void shouldReturnAllDistrictsOnContainerRegistrationsPageLoad() throws Exception {
+        List districts = mock(List.class);
+        when(districtService.getAllDistricts()).thenReturn(districts);
+        standaloneSetup(homeController)
+                .build()
+                .perform(get("/dashboard/containerRegistration"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("districts", districts))
+                .andExpect(forwardedUrl("dashboard/containerRegistration"));
 
         verify(districtService).getAllDistricts();
     }

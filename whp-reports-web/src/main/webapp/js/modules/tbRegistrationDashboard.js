@@ -32,13 +32,13 @@ $(function () {
 
     function renderTbRegistrationByDistrictChart(filterParams) {
         $.getJSON($('#tbRegistrationsByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var adaptedData = extractData(data.content, "district", "tb_registration_count");
+            var adaptedData = extractData(data.content, "district", ["tb_registration_count"]);
             var chartData = {
                 yAxisTitle : 'Number of TB Registrations',
                 title : 'TB Registrations By District',
                 xAxisTitle: 'Number of TB Registrations',
                 xAxis:adaptedData.xAxis,
-                yAxis:adaptedData.yAxis,
+                series: [ {name:'Number of TB Registrations', data:adaptedData.series.tb_registration_count}],
                 target: 'tbRegistrationsByDistrict'
             }
             renderBarChart(chartData);
@@ -47,13 +47,14 @@ $(function () {
 
     function renderProvidersByDistrictChart(filterParams) {
         $.getJSON($('#providersByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var adaptedData = extractData(data.content, "district", "provider_count");
+            var adaptedData = extractData(data.content, "district", ["provider_count"]);
             var chartData= {
                 yAxisTitle :'Number of Providers',
                 title : 'Providers per District',
                 xAxisTitle: 'Number of Providers',
                 xAxis:adaptedData.xAxis,
-                yAxis:adaptedData.yAxis,
+                series: [ {name:'Number of Providers', data:adaptedData.series.provider_count}],
+                yAxis:adaptedData.series.provider_count,
                 target: 'providersByDistrict'
             }
             renderBarChart(chartData);

@@ -4,6 +4,7 @@ import org.motechproject.whp.reports.service.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,13 +39,13 @@ public class HomeController extends BaseController {
     @RequestMapping(value="/containerReports", method = RequestMethod.GET)
     public String containerReportsPage(Model uiModel) throws IOException {
         uiModel.addAttribute("districts", districtService.getAllDistricts());
-        return "dashboard/containerTracking";
+        return "reports/containerTracking";
     }
 
-    @RequestMapping(value="/dashboard/tbRegistration", method = RequestMethod.GET)
-    public String tbRegistrationPage(Model uiModel) throws IOException {
+    @RequestMapping(value="/dashboard/{visualizationName}", method = RequestMethod.GET)
+    public String allVisualizations(Model uiModel, @PathVariable String visualizationName) throws IOException {
         uiModel.addAttribute("districts", districtService.getAllDistricts());
-        return "dashboard/tbRegistration";
+        return "dashboard/" + visualizationName;
     }
 }
 

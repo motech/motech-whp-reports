@@ -1,15 +1,21 @@
 
-function extractData(results, xAxis, yAxis){
+function extractData(results, xAxis, series){
     xAxisData=[]
-    yAxisData=[]
+    seriesData = {}
+
+    $.each(series, function (index, value){
+        seriesData[value] = []
+    });
 
     $.each(results, function (index, row) {
         xAxisData.push(row[xAxis])
-        yAxisData.push(row[yAxis])
+        $.each(series, function (index, value){
+            seriesData[value].push(row[value])
+        });
     });
 
     return {
         xAxis:xAxisData,
-        yAxis:yAxisData
+        series:seriesData
     }
 }
