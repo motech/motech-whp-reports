@@ -34,6 +34,7 @@
 
         <!--both it admin and cmf admin-->
         <intercept-url pattern="/bigquery/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
+        <intercept-url pattern="/visualization/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/crud/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
 
         <intercept-url pattern="/adherenceCallLog/**" access="permitAll"  requires-channel="any"/>
