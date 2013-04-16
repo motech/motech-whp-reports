@@ -15,7 +15,11 @@
                 <div id = "containerRegistrationsByStatus" class="row-fluid"  data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations.by.status'/>">></div>
             </li>
         </ul>
-    <div id = "containerRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations.by.district'/>"></div>
+    <div>
+        <label for="containerRegistrationsByDistrictFlag">Show Districts with zero count</label>
+        <input type="checkbox" id="containerRegistrationsByDistrictFlag" name="containerRegistrationsByDistrictFlag" value="false"/>
+        <div id = "containerRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations.by.district'/>"></div>
+    </div>
 </div>
 
 <#include "../layout/visualizationScripts.ftl"/>

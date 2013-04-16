@@ -1,6 +1,7 @@
 $(function () {
+    var filterParams;
     $(document).on("filterUpdated", function (event) {
-        var filterParams = event.message;
+        filterParams = event.message;
         loadAllContainerRegistrationsCount(filterParams);
         loadContainerRegistrationsByStatus(filterParams);
         renderContainerRegistrationByDistrictChart(filterParams);
@@ -19,9 +20,9 @@ $(function () {
         });
     }
 
-    function renderContainerRegistrationByDistrictChart(filterParams) {
+    function renderContainerRegistrationByDistrictChart(filterParams, hideDistrictWihZeroCountflag) {
         $.getJSON($('#containerRegistrationsByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var adaptedData = extractData(data.content, "district", ["active", "closed"]);
+            var adaptedData = extractData(data.content, "district", ["active", "closed"], hideDistrictWihZeroCountflag);
             var chartData = {
                 yAxisTitle : 'Number of Container Registrations',
                 title : 'Container Registrations By District',
@@ -33,6 +34,14 @@ $(function () {
             renderStackedBarChart(chartData);
         });
     }
+
+    $("#containerRegistrationsByDistrictFlag").click(function() {
+        if ($(this).is('input:checked')) {
+            renderContainerRegistrationByDistrictChart(filterParams, false);
+        } else {
+            renderContainerRegistrationByDistrictChart(filterParams, true);
+        }
+    });
 
     applyFilter();
 })

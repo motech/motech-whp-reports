@@ -1,6 +1,7 @@
 $(function () {
+    var filterParams;
     $(document).on("filterUpdated", function (event) {
-        var filterParams = event.message;
+        filterParams = event.message;
         loadAllTbRegistrationCounts(filterParams);
         loadClosedTbRegistrationCounts(filterParams)
         renderTbRegistrationByDistrictChart(filterParams);
@@ -30,9 +31,9 @@ $(function () {
         });
     }
 
-    function renderTbRegistrationByDistrictChart(filterParams) {
+    function renderTbRegistrationByDistrictChart(filterParams, hideDistrictWihZeroCountflag) {
         $.getJSON($('#tbRegistrationsByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var adaptedData = extractData(data.content, "district", ["tb_registration_count"]);
+            var adaptedData = extractData(data.content, "district", ["tb_registration_count"], hideDistrictWihZeroCountflag);
             var chartData = {
                 yAxisTitle : 'Number of TB Registrations',
                 title : 'TB Registrations By District',
@@ -45,9 +46,9 @@ $(function () {
         });
     }
 
-    function renderProvidersByDistrictChart(filterParams) {
+    function renderProvidersByDistrictChart(filterParams, hideDistrictWihZeroCountflag) {
         $.getJSON($('#providersByDistrict').data('url') + "&filterParams=" + filterParams, function (data) {
-            var adaptedData = extractData(data.content, "district", ["provider_count"]);
+            var adaptedData = extractData(data.content, "district", ["provider_count"], hideDistrictWihZeroCountflag);
             var chartData= {
                 yAxisTitle :'Number of Providers',
                 title : 'Providers per District',
@@ -60,6 +61,23 @@ $(function () {
             renderBarChart(chartData);
         });
     }
+
+    $("#tbRegistrationsByDistrictFlag").click(function() {
+        if ($(this).is('input:checked')) {
+            renderTbRegistrationByDistrictChart(filterParams, false);
+        } else {
+            renderTbRegistrationByDistrictChart(filterParams, true);
+        }
+    });
+
+    $("#providersByDistrictFlag").click(function() {
+        if ($(this).is('input:checked')) {
+            renderProvidersByDistrictChart(filterParams, false);
+        } else {
+            renderProvidersByDistrictChart(filterParams, true);
+        }
+    });
+
     applyFilter();
 })
 

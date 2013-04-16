@@ -19,8 +19,17 @@
                 <div id = "tbRegistrationsByOutcome" class="row-fluid"></div>
             </li>
         </ul>
-        <div id = "tbRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.district'/>"></div>
+    <div>
+        <label for="tbRegistrationsByDistrictFlag">Show Districts with zero count</label>
+        <input type="checkbox" id="tbRegistrationsByDistrictFlag" name="tbRegistrationsByDistrictFlag" value="false"/>
+        <div id = "tbRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.district'/>">
+        </div>
+    </div>
+    <div>
+        <label for="providersByDistrictFlag">Show Districts with zero count</label>
+        <input type="checkbox" id="providersByDistrictFlag" name="providersByDistrictFlag" value="false"/>
         <div id = "providersByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.providers.by.district'/>"></div>
+    </div>
 </div>
 
 <#include "../layout/visualizationScripts.ftl"/>
