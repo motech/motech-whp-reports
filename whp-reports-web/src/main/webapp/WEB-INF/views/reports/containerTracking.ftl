@@ -10,5 +10,8 @@
 
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/dashboardFilter.js'/>"></script>
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/modules/containerTracking.js'/>"></script>
+<script type="text/javascript">
+    document.getElementById("filter").innerText = 'Download';
+</script>
 
 </@layout.defaultLayout>
