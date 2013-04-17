@@ -33,7 +33,10 @@ function defaultHighchartsConfig(chartData){
         credits:{
             enabled:false
         },
-        series: chartData.series
+        series: chartData.series,
+        exporting: {
+            url: 'http://' + window.location.host + '/highcharts-export/'
+        }
     };
 }
 
