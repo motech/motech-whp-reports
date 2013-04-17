@@ -19,22 +19,21 @@
         <logout logout-url="/security/j_spring_security_logout" invalidate-session="false"
                 success-handler-ref="logoutSuccessHandler"/>
 
-        <intercept-url pattern="/" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
-        <intercept-url pattern="/dashboard/*" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
-        <intercept-url pattern="/home" access="hasAnyRole('PROVIDER','CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF')" requires-channel="any"/>
+        <intercept-url pattern="/" access="hasAnyRole('CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/dashboard/*" access="hasAnyRole('CMF_ADMIN','IT_ADMIN', 'REPORT_USER')" requires-channel="any"/>
 
         <!--Only IT Admin-->
         <intercept-url pattern="/rest/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/diagnostics/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
 
         <!--Only CMF Admin-->
-        <intercept-url pattern="/reports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
-        <intercept-url pattern="/patientreports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
-        <intercept-url pattern="/auditreports/**" access="hasRole('CMF_ADMIN')" requires-channel="any"/>
+        <intercept-url pattern="/reports/**" access="hasAnyRole('CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/patientreports/**" access="hasAnyRole('CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/auditreports/**" access="hasAnyRole('CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
 
         <!--both it admin and cmf admin-->
-        <intercept-url pattern="/bigquery/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
-        <intercept-url pattern="/visualization/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
+        <intercept-url pattern="/bigquery/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/visualization/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
         <intercept-url pattern="/crud/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
 
         <intercept-url pattern="/adherenceCallLog/**" access="permitAll"  requires-channel="any"/>

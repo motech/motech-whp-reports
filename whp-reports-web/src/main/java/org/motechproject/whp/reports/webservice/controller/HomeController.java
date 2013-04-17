@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
@@ -24,10 +22,8 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public void homePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String homePage = "/home";
-
-        response.sendRedirect(request.getContextPath() + response.encodeURL(homePage));
+    public String homePage() throws IOException {
+        return "home";
     }
 
     @RequestMapping(value="/patientReportsFilter", method = RequestMethod.GET)

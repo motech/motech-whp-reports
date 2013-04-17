@@ -1,6 +1,10 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <ul class="nav nav-pills pull-left">
 
+
+<@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN">
     <li><a id="whpUrl" href="${whpURL}" target="_blank" >WHP Application</a></li>
+</@security.authorize>
 
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-download-alt icon-white"></i> Downloads <b class="caret"></b></a>
