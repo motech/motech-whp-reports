@@ -13,7 +13,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
 @RequestMapping(value = "/providerAdherenceSummary", produces = APPLICATION_JSON_VALUE)
-public class ProviderAdherenceSummaryController {
+public class ProviderAdherenceSummaryController  extends BaseController{
 
     private ProviderAdherenceDataService providerAdherenceDataService;
 

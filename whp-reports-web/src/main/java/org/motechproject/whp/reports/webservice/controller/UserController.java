@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Controller
-public class UserController {
+public class UserController extends BaseController{
 
     @RequestMapping("/login")
     public void login(HttpServletRequest request) throws IOException {

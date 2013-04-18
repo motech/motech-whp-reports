@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class AdherenceRecordController {
+public class AdherenceRecordController extends BaseController{
 
     private AdherenceRecordService adherenceRecordService;
 

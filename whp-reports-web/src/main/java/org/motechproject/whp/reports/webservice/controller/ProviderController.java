@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class ProviderController {
+public class ProviderController extends BaseController {
 
     private ProviderService providerService;
 

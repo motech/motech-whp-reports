@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/adherence")
-public class AdherenceAuditLogController {
+public class AdherenceAuditLogController extends BaseController{
 
 
     private AdherenceAuditLogService adherenceAuditLogService;

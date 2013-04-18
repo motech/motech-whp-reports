@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/sputumTracking")
-public class SputumTrackingController {
+public class SputumTrackingController  extends BaseController{
 
     private ContainerRecordService containerRecordService;
 

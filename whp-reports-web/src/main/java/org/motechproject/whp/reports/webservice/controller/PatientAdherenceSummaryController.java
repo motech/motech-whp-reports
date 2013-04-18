@@ -14,7 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
-public class PatientAdherenceSummaryController {
+public class PatientAdherenceSummaryController  extends BaseController{
     private PatientAdherenceDataService patientAdherenceDataService;
 
     @Autowired
