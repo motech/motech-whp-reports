@@ -58,12 +58,6 @@ public class ReportQueryDAOIT {
     @Autowired
     ProviderReminderCallLogRepository providerReminderCallLogRepository;
     @Autowired
-    private ContainerRecordRepository containerRecordRepository;
-    @Autowired
-    private AlternateDiagnosisRepository alternateDiagnosisRepository;
-    @Autowired
-    private ReasonForClosureRepository reasonForClosureRepository;
-    @Autowired
     WhpExcelReportBuilder whpExcelReportBuilder;
 
     PatientReportRequest patientReportRequest;
@@ -168,7 +162,6 @@ public class ReportQueryDAOIT {
     @Test
     public void shouldReturnPatientForGivenTbRegistrationDate() {
         Patient patientWithNewTbRegistrationDate = new PatientBuilder().withDefaults().withTbRegistrationDate(new LocalDate(2012, 12, 25)).withPatientId("patient2").build();
-//        Patient testPatientWithNewTbRegistrationDate = new PatientBuilder().withDefaults().withTbRegistrationDate(new LocalDate(2012, 12, 25)).withPatientId("testPatient").withDistrict("TestDistrict").build();
         patientRepository.save(asList(patientWithNewTbRegistrationDate));
 
         PatientReportRequest patientReportRequest = new PatientReportRequest();
@@ -388,9 +381,6 @@ public class ReportQueryDAOIT {
         adherenceAuditLogRepository.deleteAll();
         adherenceRecordRepository.deleteAll();
         providerReminderCallLogRepository.deleteAll();
-        containerRecordRepository.deleteAll();
-        alternateDiagnosisRepository.deleteAll();
-        reasonForClosureRepository.deleteAll();
         patientRepository.deleteAll();
         providerRepository.deleteAll();
     }

@@ -16,9 +16,19 @@
             </li>
             <li class="span8">
                 <span class="nested-header">TB Registrations Grouped By Outcome</span>
-                <div id = "tbRegistrationsByOutcome" class="row-fluid"></div>
+
+                <div id = "tbRegistrationsByOutcome" class="row-fluid">
+                <ul class="unstyled" id="tbOutcomes">
+                    <li>
+                        <span class="count tb_registration_count"></span>
+                        <span class="outcome"></span>
+                    </li>
+                </ul>
+                </div>
             </li>
         </ul>
+
+
     <div>
         <label for="tbRegistrationsByDistrictFlag">Show Districts with zero count</label>
         <input type="checkbox" id="tbRegistrationsByDistrictFlag" name="tbRegistrationsByDistrictFlag" value="false"/>
@@ -35,14 +45,4 @@
 <#include "../layout/visualizationScripts.ftl"/>
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/dashboardFilter.js'/>"></script>
 <script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/modules/tbRegistrationDashboard.js'/>"></script>
-<script id="tbOutcomes" type="text/html">
-    <ul class="unstyled">
-        {{#rows}}
-            <li class='item'>
-                <span class="count">{{ tb_registration_count }}</span>
-                <span class="outcome">{{ outcome }} </span>
-            </li>
-        {{/rows}}
-    </ul>
-</script>
 </@layout.defaultLayout>

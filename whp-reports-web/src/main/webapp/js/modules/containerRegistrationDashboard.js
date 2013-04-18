@@ -15,8 +15,7 @@ $(function () {
 
     function loadContainerRegistrationsByStatus(filterParams) {
         $.getJSON($('#containerRegistrationsByStatus').data('url') + "&filterParams=" + filterParams, function (data) {
-            var containerStatuses = ich.containerStatuses(data.content[0]);
-            $("#containerRegistrationsByStatus").html(containerStatuses);
+            $('#containerRegistrationsByStatusData').render(data.content[0]);
         });
     }
 

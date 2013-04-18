@@ -16,11 +16,7 @@ $(function () {
                 totalClosedRegistrations += row.tb_registration_count;
             });
 
-            var tbOutcomes = ich.tbOutcomes({
-                rows:rows
-            });
-
-            $("#tbRegistrationsByOutcome").html(tbOutcomes);
+            $('#tbOutcomes').render(rows);
             $("#closedRegistrations").html(totalClosedRegistrations);
         });
     }
