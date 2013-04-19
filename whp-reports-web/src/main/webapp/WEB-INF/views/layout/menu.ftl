@@ -3,7 +3,8 @@
 
 <@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN">
     <li><a id="whpUrl" href="${whpURL}" target="_blank" >WHP Application</a></li>
-
+</@security.authorize>
+ <@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN, REPORT_USER">
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-download-alt icon-white"></i> Downloads <b class="caret"></b></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="Menu" id="downloadLinks">
@@ -31,7 +32,6 @@
     <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Registration Summary</a></li>
     <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registration</a></li>
     <li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
-
 </@security.authorize>
 </ul>
 
