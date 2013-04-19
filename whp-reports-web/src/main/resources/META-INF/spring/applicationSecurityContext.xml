@@ -19,7 +19,7 @@
         <logout logout-url="/security/j_spring_security_logout" invalidate-session="false"
                 success-handler-ref="logoutSuccessHandler"/>
 
-        <intercept-url pattern="/" access="hasAnyRole('CMF_ADMIN','IT_ADMIN', 'FIELD_STAFF', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/" access="hasAnyRole('CMF_ADMIN','IT_ADMIN', 'REPORT_USER')" requires-channel="any"/>
         <intercept-url pattern="/dashboard/*" access="hasAnyRole('CMF_ADMIN','IT_ADMIN', 'REPORT_USER')" requires-channel="any"/>
 
         <!--Only IT Admin-->

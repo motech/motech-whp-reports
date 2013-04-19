@@ -21,9 +21,6 @@
         </#if>
 
     </div>
-    <#if Session.loggedInUser?exists>
-
-    </#if>
 </div>
 </#macro>
 
