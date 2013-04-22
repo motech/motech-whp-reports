@@ -8,8 +8,8 @@
 
 
     <context:property-placeholder location="classpath:whp-reports.properties" ignore-unresolvable="true"/>
-    <import resource="classpath*:applicationHibernateContext.xml" />
     <import resource="classpath*:applicationDoNotCallRegisterContext.xml" />
+    <import resource="classpath*:applicationHibernateContext.xml" />
     <import resource="classpath:applicationCallLogContext.xml"/>
     <import resource="classpath:applicationReportingBigQueryContext.xml"/>
 

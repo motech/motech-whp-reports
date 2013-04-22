@@ -9,12 +9,15 @@
 
     <context:component-scan base-package="org.motechproject.whp.reports"/>
 
-    <jpa:repositories base-package="org.motechproject.whp.reports.repository" entity-manager-factory-ref="entityManagerFactory"></jpa:repositories>
+    <jpa:repositories base-package="org.motechproject.whp.reports.repository" entity-manager-factory-ref="entityManagerFactory"/>
+    <jpa:repositories base-package="org.motechproject.donotcall.repository" entity-manager-factory-ref="entityManagerFactory"/>
+    <jpa:repositories base-package="org.motechproject.calllog.repository" entity-manager-factory-ref="entityManagerFactory"/>
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="whpReports" />
-        <property name="packagesToScan" value="org.motechproject.whp.reports.domain"/>
+        <property name="packagesToScan" value="org.motechproject.whp.reports.domain">
+        </property>
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

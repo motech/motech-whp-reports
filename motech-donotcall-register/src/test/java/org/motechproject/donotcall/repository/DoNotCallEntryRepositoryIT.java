@@ -18,9 +18,8 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationDoNotCallRegisterContext.xml")
+@ContextConfiguration("classpath:test-applicationDoNotCallRegisterContext.xml")
 public class DoNotCallEntryRepositoryIT{
-
     @Autowired
     DoNotCallEntryRepository doNotCallEntryRepository;
 
