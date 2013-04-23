@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ProviderService {
@@ -38,5 +40,9 @@ public class ProviderService {
 
         providerMapper.map(providerDTO, provider);
         providerRepository.save(provider);
+    }
+
+    public List<Provider> findAll() {
+        return providerRepository.findAll();
     }
 }

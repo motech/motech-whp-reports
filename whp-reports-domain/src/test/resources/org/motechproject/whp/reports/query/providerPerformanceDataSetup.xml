@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <provider id="1" provider_id="provider1" district="district1" />
+    <provider id="2" provider_id="provider2" district="district1" />
+
+
+</dataset>

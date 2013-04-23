@@ -8,10 +8,12 @@ import org.motechproject.whp.reports.domain.dimension.Provider;
 import org.motechproject.whp.reports.mapper.ProviderMapper;
 import org.motechproject.whp.reports.repository.ProviderRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ProviderServiceTest {
@@ -68,5 +70,20 @@ public class ProviderServiceTest {
 
         verify(providerMapper).map(providerDTO, expectedProvider);
         verify(providerRepository).save(expectedProvider);
+    }
+
+    @Test
+    public void shouldFindAllProviders(){
+        Provider provider1 = mock(Provider.class);
+        Provider provider2 = mock(Provider.class);
+        Provider provider3 = mock(Provider.class);
+        ArrayList<Provider> expectedProviders = new ArrayList<>();
+        expectedProviders.addAll(asList(provider1, provider2, provider3));
+
+        when(providerRepository.findAll()).thenReturn(expectedProviders);
+        List<Provider> providers = providerService.findAll();
+
+        assertEquals(expectedProviders, providers);
+
     }
 }
