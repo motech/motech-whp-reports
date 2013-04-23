@@ -1,0 +1,1 @@
+CREATE OR REPLACE VIEW treatment_dates AS select * FROM generate_series(cast(date_trunc('week', current_date::timestamp - interval '1 week') as date) - INTERVAL '7 week' , cast(date_trunc('week',current_date::timestamp  - interval '1 week') as date), '1 week') as week_date;

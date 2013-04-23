@@ -29,9 +29,10 @@
         </ul>
     </li>
 
-    <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Registration Summary</a></li>
+    <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Summary</a></li>
     <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registration</a></li>
     <li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
+    <li><a id="providerPerformanceSummary" href="/whp-reports/dashboard/providerPerformance" >Provider Performance </a></li>
 </@security.authorize>
 </ul>
 
