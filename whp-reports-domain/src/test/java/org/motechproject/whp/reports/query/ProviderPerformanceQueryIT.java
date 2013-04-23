@@ -127,6 +127,5 @@ public class ProviderPerformanceQueryIT extends IntegrationTest{
         adherenceAuditLogRepository.deleteAll();
         patientRepository.deleteAll();
         providerRepository.deleteAll();
-        resetDateTimeSource();
     }
 }
