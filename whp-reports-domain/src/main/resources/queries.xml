@@ -214,26 +214,51 @@
         </named-query>
         <named-query name="provider.performance.by.district">
             <query><![CDATA[
-                select ai.district,
-                    sum(case when ai.adherence_missing_weeks between 0 and 2 then 1 else 0 end) as two_week_bucket,
-                    sum(case when ai.adherence_missing_weeks between 3 and 5 then 1 else 0 end) as three_to_five_week_bucket,
-                    sum(case when ai.adherence_missing_weeks between 6 and 8 then 1 else 0 end) as five_to_eight_week_bucket
-                from (select count(*) as adherence_missing_weeks, provider_id, district
-                      from treatment_dates, whp_reports.provider
-                      where provider_id not in (select provider_id from whp_reports.adherence_audit_log
-							where provider.provider_id = adherence_audit_log.user_id
-							and adherence_audit_log.creation_time  -  interval '1 week'  between treatment_dates.week_date and treatment_dates.week_date + interval '6 days')
-	                    	and exists(
-			                         select 1 from  whp_reports.patient_therapy all_therapy
-			                         inner join whp_reports.patient_treatment all_treatment on all_treatment.therapy_fk = all_therapy.therapy_pk
-			                         where all_treatment.provider_id = provider.provider_id
-				                     and ((all_therapy.start_date >= all_treatment.start_date and all_therapy.start_date <=  treatment_dates.week_date + interval '6 days')
-					                 OR  (all_therapy.start_date < all_treatment.start_date and all_treatment.start_date <=  treatment_dates.week_date + interval '6 days'))
-				                     and (all_therapy.close_date is null or  all_therapy.close_date >= treatment_dates.week_date + interval '6 days') and  (all_treatment.end_date is  null or all_treatment.end_date >= treatment_dates.week_date + interval '6 days')
-		                             )
-		                group by provider_id, district) as ai
-		        group by district
-		        order by district
+                SELECT district,
+                       sum(CASE WHEN adherence_missing_weeks = 0 THEN 1 ELSE 0 END) AS zero_week_bucket,
+                       sum(CASE WHEN adherence_missing_weeks BETWEEN 1 AND 2 THEN 1 ELSE 0 END) AS two_week_bucket,
+                       sum(CASE WHEN adherence_missing_weeks BETWEEN 3 AND 5 THEN 1 ELSE 0 END) AS three_to_five_week_bucket,
+                       sum(CASE WHEN adherence_missing_weeks BETWEEN 6 AND 8 THEN 1 ELSE 0 END) AS five_to_eight_week_bucket
+                FROM
+                  (SELECT weekly_stats.district,
+                          provider_id,
+                          sum(patient_exists) - sum(adherence_given) AS adherence_missing_weeks
+                   FROM
+                     ( SELECT provider_id,
+                              district,
+                              treatment_dates.week_date,
+                              CASE WHEN EXISTS
+                                (SELECT 1
+                                 FROM whp_reports.adherence_audit_log
+                                 WHERE provider.provider_id = adherence_audit_log.user_id
+                                   AND adherence_audit_log.creation_time - interval '1 week' BETWEEN treatment_dates.week_date AND treatment_dates.week_date + interval '6 days')
+                            THEN 1 ELSE 0 END AS adherence_given,
+                                                                                                                                                                                               CASE WHEN EXISTS
+                                (SELECT 1
+                                 FROM whp_reports.patient_therapy all_therapy
+                                 INNER JOIN whp_reports.patient_treatment all_treatment ON all_treatment.therapy_fk = all_therapy.therapy_pk
+                                 WHERE all_treatment.provider_id = provider.provider_id
+                                   AND ((all_therapy.start_date >= all_treatment.start_date
+                                         AND all_therapy.start_date <= treatment_dates.week_date + interval '6 days')
+                                        OR (all_therapy.start_date < all_treatment.start_date
+                                            AND all_treatment.start_date <= treatment_dates.week_date + interval '6 days'))
+                                   AND (all_therapy.close_date IS NULL
+                                        OR all_therapy.close_date >= treatment_dates.week_date + interval '6 days')
+                                   AND (all_treatment.end_date IS NULL
+                                        OR all_treatment.end_date >= treatment_dates.week_date + interval '6 days'))
+                            THEN 1 ELSE 0 END AS patient_exists
+                            FROM treatment_dates, whp_reports.provider
+                            GROUP BY provider_id,
+                                     district,
+                                     treatment_dates.week_date,
+                                     adherence_given,
+                                     patient_exists
+                            ORDER BY district,
+                               provider_id,
+                               treatment_dates.week_date ) AS weekly_stats
+                            GROUP BY provider_id, district
+                            ORDER BY district) AS week_count
+                   GROUP BY district
             ]]></query>
         </named-query>
     </named-queries>

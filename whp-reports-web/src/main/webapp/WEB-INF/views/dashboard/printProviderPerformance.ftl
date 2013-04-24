@@ -7,7 +7,7 @@
 <#include "../layout/scripts.ftl"/>
 </head>
 <body class="printable-version">
-<span id="providerPerformance"
+<span id="printProviderPerformance"
       data-url="<@spring.url '/bigquery/execute?queryName=provider.performance.by.district'/>"></span>
 <div class="container">
     <div id="navibar" class="navbar-fixed-top">
@@ -21,9 +21,9 @@
 
         <div class="row-fluid">
             <table class="table table-bordered sharp fixed text-center">
-                <table class="table table-bordered table-striped">
                     <tr>
                         <th>District</th>
+                        <th>zero_week_bucket</th>
                         <th>two_week_bucket</th>
                         <th>three_to_five_week_bucket</th>
                         <th>five_to_eight_week_bucket</th>
@@ -32,12 +32,13 @@
                     <!-- Generate an empty template row which can be applied on -->
                     <tr class="listing-entry">
                         <td><span class="district"></span></td>
+                        <td><span class="zero_week_bucket"></span></td>
                         <td><span class="two_week_bucket"></span></td>
                         <td><span class="three_to_five_week_bucket"></span></td>
                         <td><span class="five_to_eight_week_bucket"></span></td>
                     </tr>
                     </tbody>
-                </table>
+             </table>
         </div>
     </div>
 </div>
@@ -45,6 +46,6 @@
 <script type="text/javascript"
         src="<@spring.url '/resources-${applicationVersion}/js/transparency/transparency.min.js'/>"></script>
 <script type="text/javascript"
-        src="<@spring.url '/resources-${applicationVersion}/js/modules/providerPerformanceTable.js'/>"></script>
+        src="<@spring.url '/resources-${applicationVersion}/js/modules/printProviderPerformanceTable.js'/>"></script>
 </html>
 

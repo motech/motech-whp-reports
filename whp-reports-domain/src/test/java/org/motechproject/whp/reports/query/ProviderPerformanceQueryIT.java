@@ -103,9 +103,9 @@ public class ProviderPerformanceQueryIT extends IntegrationTest{
 
         QueryResult queryResult = queryService.executeQuery("provider.performance.by.district", new FilterParams());
 
-        QueryResult expectedQueryResult = new QueryResultBuilder("district", "two_week_bucket", "three_to_five_week_bucket", "five_to_eight_week_bucket")
-                .row(DISTRICT1, 2L, 0L, 0L)
-                .row(DISTRICT2, 0L, 1L, 2L)
+        QueryResult expectedQueryResult = new QueryResultBuilder("district", "zero_week_bucket", "two_week_bucket", "three_to_five_week_bucket", "five_to_eight_week_bucket")
+                .row(DISTRICT1, 1L, 2L, 0L, 0L)
+                .row(DISTRICT2, 0L, 0L, 1L, 2L)
                 .build();
 
         assertThat(queryResult.getContent().size(), is(2));
