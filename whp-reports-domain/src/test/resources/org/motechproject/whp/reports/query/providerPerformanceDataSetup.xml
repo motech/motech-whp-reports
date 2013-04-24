@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
     <provider id="1" provider_id="provider1" district="district1" />
-    <provider id="2" provider_id="provider2" district="district1" />
-
     <patient patient_pk="1" patient_id="patientWithoutAdherence"/>
-    <patient_therapy therapy_pk="1" patient_fk="1" therapy_id="therapy1" start_date="[CURRENT_DATE]"/>
-    <patient_treatment treatment_pk="1" therapy_fk="1" provider_id="provider1"/>
+    <patient_therapy therapy_pk="1" patient_fk="1" therapy_id="therapy1" start_date="[CURRENT_TREATMENT_MINUS_2]"/>
+    <patient_treatment treatment_pk="1" therapy_fk="1" provider_id="provider1" start_date="[CURRENT_TREATMENT_MINUS_2]" end_date="[NULL]"/>
+
+    <provider id="2" provider_id="provider2" district="district1" />
+    <patient patient_pk="2" patient_id="patientWithAdherence"/>
+    <patient_therapy therapy_pk="2" patient_fk="2" therapy_id="therapy2" start_date="[CURRENT_TREATMENT_MINUS_2]"/>
+    <patient_treatment treatment_pk="2" therapy_fk="2" provider_id="provider2" start_date="[CURRENT_TREATMENT_MINUS_2]" end_date="[NULL]"/>
+
+    <provider id="3" provider_id="provider3" district="district1" />
+    <patient patient_pk="3" patient_id="patientWithClosedTreatment"/>
+    <patient_therapy therapy_pk="3" patient_fk="3" therapy_id="therapy3" start_date="[CURRENT_TREATMENT_MINUS_2]"/>
+    <patient_treatment treatment_pk="3" therapy_fk="3" provider_id="provider3" start_date="[CURRENT_TREATMENT_MINUS_2]" end_date="[CURRENT_TREATMENT_MINUS_1]"/>
+
+    <provider id="4" provider_id="provider4" district="district2" />
+    <patient patient_pk="4" patient_id="dt2patient4"/>
+    <patient_therapy therapy_pk="4" patient_fk="4" therapy_id="therapy4" start_date="[CURRENT_TREATMENT_MINUS_3]"/>
+    <patient_treatment treatment_pk="4" therapy_fk="4" provider_id="provider4" start_date="[CURRENT_TREATMENT_MINUS_3]" end_date="[NULL]"/>
+
+    <provider id="5" provider_id="provider5" district="district2" />
+    <patient patient_pk="5" patient_id="d2patient5WithNoAdherence"/>
+    <patient_therapy therapy_pk="5" patient_fk="5" therapy_id="therapy5" start_date="[CURRENT_TREATMENT_MINUS_7]"/>
+    <patient_treatment treatment_pk="5" therapy_fk="5" provider_id="provider5" start_date="[CURRENT_TREATMENT_MINUS_7]" end_date="[NULL]"/>
+
+    <provider id="6" provider_id="provider6" district="district2" />
+    <patient patient_pk="6" patient_id="d2patient6WithNoAdherence"/>
+    <patient_therapy therapy_pk="6" patient_fk="6" therapy_id="therapy6" start_date="[CURRENT_TREATMENT_MINUS_8]"/>
+    <patient_treatment treatment_pk="6" therapy_fk="6" provider_id="provider6" start_date="[CURRENT_TREATMENT_MINUS_8]" end_date="[CURRENT_TREATMENT_WEEK]"/>
+
+    <adherence_audit_log audit_log_id="1" provider_id="provider2" user_id="provider2" creation_time="[CURRENT_TREATMENT_WEEK_TMSTP]"/>
+    <adherence_audit_log audit_log_id="2" provider_id="provider2" user_id="provider2" creation_time="[CURRENT_DATE_TMSTP]"/>
+    <adherence_audit_log audit_log_id="3" provider_id="provider1" user_id="provider1" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]"/>
+    <adherence_audit_log audit_log_id="4" provider_id="provider4" user_id="provider4" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]"/>
+    <adherence_audit_log audit_log_id="5" provider_id="provider3" user_id="provider3" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]"/>
+
 </dataset>
