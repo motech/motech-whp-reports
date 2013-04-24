@@ -3,5 +3,7 @@
     <provider id="1" provider_id="provider1" district="district1" />
     <provider id="2" provider_id="provider2" district="district1" />
 
-
+    <patient patient_pk="1" patient_id="patientWithoutAdherence"/>
+    <patient_therapy therapy_pk="1" patient_fk="1" therapy_id="therapy1" start_date="[CURRENT_DATE]"/>
+    <patient_treatment treatment_pk="1" therapy_fk="1" provider_id="provider1"/>
 </dataset>
