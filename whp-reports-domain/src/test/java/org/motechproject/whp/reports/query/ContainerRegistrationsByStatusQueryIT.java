@@ -29,17 +29,18 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
 
     @Before
     public void setUp() {
-        ContainerRecord containerRecordWithClosedStatus = createContainer("containerId1", "Patna", new LocalDate(2013, 10, 12), "Closed", new LocalDate(2013, 12, 10), new LocalDate(2013, 10, 10));
-        ContainerRecord containerRecordWithLabResults = createContainer("containerId2", "Patna", new LocalDate(2013, 11, 12), "Open", new LocalDate(2013, 12, 10), null);
-        ContainerRecord containerRecordWithNoLabResults = createContainer("containerId3", "Begusarai", new LocalDate(2013, 12, 12), "Open", null, null);
+        ContainerRecord containerRecordWithClosedStatus = createContainer("containerId1", "Patna", new LocalDate(2013, 10, 12), "Closed", new LocalDate(2013, 12, 10), new LocalDate(2013, 10, 10), "PreTreatment");
+        ContainerRecord containerRecordWithLabResults = createContainer("containerId2", "Patna", new LocalDate(2013, 11, 12), "Open", new LocalDate(2013, 12, 10), null, "PreTreatment");
+        ContainerRecord containerRecordWithNoLabResults = createContainer("containerId3", "Begusarai", new LocalDate(2013, 12, 12), "Open", null, null, "PreTreatment");
+        ContainerRecord inTreatmentContainerRecordWithNoLabResults = createContainer("containerId4", "Samastipur", new LocalDate(2013, 12, 12), "Open", null, null, "InTreatment");
 
-        containerRecordRepository.save(asList(containerRecordWithClosedStatus, containerRecordWithLabResults, containerRecordWithNoLabResults));
+        containerRecordRepository.save(asList(containerRecordWithClosedStatus, containerRecordWithLabResults, containerRecordWithNoLabResults, inTreatmentContainerRecordWithNoLabResults));
     }
 
     @Test
     public void shouldReturnCountOfContainerRegistrations() {
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, emptyFilterParams);
-        QueryResult expectedQueryResult = expectedQueryResult(active(2), closed(1), pendingLabResults(1), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(3), closed(1), pendingLabResults(2), pendingConsultationDate(2));
         assertEquals(expectedQueryResult, queryResult);
     }
 
@@ -74,7 +75,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
         filterParamsWithDate.put("from_date", "10/11/2013");
         filterParamsWithDate.put("to_date", "15/12/2013");
 
-        QueryResult expectedQueryResult = expectedQueryResult(active(2), closed(0), pendingLabResults(1), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(3), closed(0), pendingLabResults(2), pendingConsultationDate(2));
 
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, filterParamsWithDate);
 
@@ -86,7 +87,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
         containerRecordRepository.deleteAll();
     }
 
-    private ContainerRecord createContainer(String containerId, String district, LocalDate issuedOnDate, String status, LocalDate labResultsCapturedOn, LocalDate consultationDate) {
+    private ContainerRecord createContainer(String containerId, String district, LocalDate issuedOnDate, String status, LocalDate labResultsCapturedOn, LocalDate consultationDate, String registrationInstance) {
         return new ContainerRecordBuilder().withDefaults()
                 .withContainerId(containerId)
                 .withProviderDistrict(district)
@@ -94,6 +95,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
                 .withStatus(status)
                 .withLabResultsCapturedOn(labResultsCapturedOn != null ? labResultsCapturedOn.toDate() : null)
                 .withConsultationDate(consultationDate != null ? consultationDate.toDate(): null)
+                .withRegistrationInstance(registrationInstance)
                 .build();
     }
 
