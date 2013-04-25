@@ -7,7 +7,7 @@
     <#include "dashboardFilter.ftl"/>
         <ul class="row-fluid statistics">
             <li class="span2">
-                All
+                Total Container Registrations
                 <span class="count" id = "allContainerRegistrations" data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations'/>"></span>
             </li>
             <li class="span8">
