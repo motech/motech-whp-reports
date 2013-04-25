@@ -16,7 +16,7 @@
     <patient_therapy therapy_pk="3" patient_fk="3" therapy_id="therapy3" start_date="[CURRENT_TREATMENT_MINUS_2]"/>
     <patient_treatment treatment_pk="3" therapy_fk="3" provider_id="provider3" start_date="[CURRENT_TREATMENT_MINUS_2]" end_date="[CURRENT_TREATMENT_MINUS_1]"/>
 
-    <!--Patient was TB registered but treatment is still not started – Count should start from treatment start date not TB registration date-->
+    <!--Patient was TB registered but treatment started later – Count should start from treatment start date not TB registration date-->
     <provider id="4" provider_id="provider4" district="district2" />
     <patient patient_pk="4" patient_id="dt2patient4"/>
     <patient_therapy therapy_pk="4" patient_fk="4" therapy_id="therapy4" start_date="[CURRENT_TREATMENT_MINUS_7]"/>
@@ -27,10 +27,13 @@
     <patient_therapy therapy_pk="5" patient_fk="5" therapy_id="therapy5" start_date="[CURRENT_TREATMENT_MINUS_7]"/>
     <patient_treatment treatment_pk="5" therapy_fk="5" provider_id="provider5" start_date="[CURRENT_TREATMENT_MINUS_7]" end_date="[NULL]"/>
 
+    <!--Patient was under Provider 1 since 8 weeks and adherence was not reported for some of the weeks,
+    now the patient got transferred to provider P2 – Older count should not be considered for P2, for P1 those weeks should still be included-->
     <provider id="6" provider_id="provider6" district="district2" />
     <patient patient_pk="6" patient_id="d2p6NoAdherenceStoppedTrtmt"/>
     <patient_therapy therapy_pk="6" patient_fk="6" therapy_id="therapy6" start_date="[CURRENT_TREATMENT_MINUS_9]"/>
-    <patient_treatment treatment_pk="6" therapy_fk="6" provider_id="provider6" start_date="[CURRENT_TREATMENT_MINUS_9]" end_date="[CURRENT_TREATMENT_WEEK]"/>
+    <patient_treatment treatment_pk="6" therapy_fk="6" provider_id="provider6" start_date="[CURRENT_TREATMENT_MINUS_9]" end_date="[CURRENT_TREATMENT_MINUS_1]"/>
+    <patient_treatment treatment_pk="61" therapy_fk="6" provider_id="provider3" start_date="[CURRENT_TREATMENT_MINUS_1]" end_date="[NULL]"/>
 
     <!--Patient is registered under a provider with treatment start date before the TB registration date, weeks should be considered from Tb registration date-->
     <provider id="7" provider_id="provider7" district="district2" />
@@ -38,17 +41,25 @@
     <patient_therapy therapy_pk="7" patient_fk="7" therapy_id="therapy7" start_date="[CURRENT_TREATMENT_MINUS_3]"/>
     <patient_treatment treatment_pk="7" therapy_fk="7" provider_id="provider7" start_date="[CURRENT_TREATMENT_MINUS_9]" end_date="[NULL]"/>
 
+    <!--treatment has not started yet btu has been registered, provider should not appear-->
+    <provider id="8" provider_id="provider8" district="district2" />
+    <patient patient_pk="8" patient_id="dt2patient8"/>
+    <patient_therapy therapy_pk="8" patient_fk="8" therapy_id="therapy8" start_date="[NULL]"/>
+    <patient_treatment treatment_pk="8" therapy_fk="8" provider_id="provider8" start_date="[CURRENT_TREATMENT_MINUS_3]" end_date="[NULL]"/>
 
-    <adherence_audit_log audit_log_id="1" provider_id="provider2" user_id="provider2" creation_time="[CURRENT_TREATMENT_WEEK_TMSTP]" pill_status="Taken" is_given_by_provider="Y"/>
-    <adherence_audit_log audit_log_id="2" provider_id="provider2" user_id="provider2" creation_time="[CURRENT_DATE_TMSTP]" is_given_by_provider="Y"/>
-    <adherence_audit_log audit_log_id="3" provider_id="provider1" user_id="provider1" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]" is_given_by_provider="Y"/>
-    <adherence_audit_log audit_log_id="4" provider_id="provider4" user_id="provider4" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]" is_given_by_provider="Y"/>
+    <!--adherence can be given only on sunday,monday and tuesday by provider-->
+    <adherence_audit_log audit_log_id="1" provider_id="provider2" user_id="provider2" creation_time="[CURRENT_TREATMENT_WEEK_TMSTP_MONDAY]" pill_status="Taken" is_given_by_provider="Y"/>
+    <adherence_audit_log audit_log_id="2" provider_id="provider2" user_id="provider2" creation_time="[CURRENT_DATE_TMSTP_MONDAY]" is_given_by_provider="Y"/>
+    <adherence_audit_log audit_log_id="3" provider_id="provider1" user_id="provider1" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP_MONDAY]" is_given_by_provider="Y"/>
+    <adherence_audit_log audit_log_id="4" provider_id="provider4" user_id="provider4" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP_MONDAY]" is_given_by_provider="Y"/>
+    <adherence_audit_log audit_log_id="6" provider_id="provider3" user_id="provider3" creation_time="[CURRENT_TREATMENT_WEEK_TMSTP_MONDAY]" is_given_by_provider="Y"/>
+    <adherence_audit_log audit_log_id="61" provider_id="provider3" user_id="provider3" creation_time="[CURRENT_DATE_TMSTP_SUNDAY]" is_given_by_provider="Y"/>
 
     <!--Adherence for a week is reported by provider, but updated by admin as unknown/not taken. – Should still be considered as adherence reported week-->
-    <adherence_audit_log audit_log_id="5" provider_id="provider3" user_id="provider3" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]" is_given_by_provider="Y"/>
-    <adherence_audit_log audit_log_id="6" provider_id="provider3" user_id="cmfAdmin" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]" is_given_by_provider="N" pill_status="Unknown"/>
+    <adherence_audit_log audit_log_id="7" provider_id="provider3" user_id="provider3" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP_MONDAY]" is_given_by_provider="Y"/>
+    <adherence_audit_log audit_log_id="8" provider_id="provider3" user_id="cmfAdmin" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP_MONDAY]" is_given_by_provider="N" pill_status="Unknown"/>
     <!--Adherence for a week is reported by admin – Consider it as Adherence missing week-->
-    <adherence_audit_log audit_log_id="7" provider_id="provider7" user_id="cmfAdmin" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP]" is_given_by_provider="N"/>
-    <adherence_audit_log audit_log_id="8" provider_id="provider7" user_id="cmfAdmin" creation_time="[CURRENT_TREATMENT_WEEK_TMSTP]" is_given_by_provider="N"/>
+    <adherence_audit_log audit_log_id="9" provider_id="provider7" user_id="cmfAdmin" creation_time="[CURRENT_TREATMENT_MINUS_1_TMSTP_MONDAY]" is_given_by_provider="N"/>
+    <adherence_audit_log audit_log_id="10" provider_id="provider7" user_id="cmfAdmin" creation_time="[CURRENT_TREATMENT_WEEK_TMSTP_MONDAY]" is_given_by_provider="N"/>
 
 </dataset>

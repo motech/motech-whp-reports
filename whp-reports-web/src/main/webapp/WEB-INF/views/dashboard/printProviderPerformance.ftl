@@ -35,7 +35,7 @@
                         <td><span class="zero_week_bucket"></span></td>
                         <td><span class="two_week_bucket"></span></td>
                         <td><span class="three_to_five_week_bucket"></span></td>
-                        <td><span class="five_to_eight_week_bucket"></span></td>
+                        <td><span class="six_to_eight_week_bucket"></span></td>
                     </tr>
                     </tbody>
              </table>

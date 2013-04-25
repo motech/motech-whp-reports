@@ -43,7 +43,7 @@ public class ProviderPerformanceQueryScenariosIT {
 
         QueryResult queryResult = queryService.executeQuery("provider.performance.by.district", new FilterParams());
 
-        QueryResult expectedQueryResult = new QueryResultBuilder("district", "zero_week_bucket", "two_week_bucket", "three_to_five_week_bucket", "five_to_eight_week_bucket")
+        QueryResult expectedQueryResult = new QueryResultBuilder("district", "zero_week_bucket", "two_week_bucket", "three_to_five_week_bucket", "six_to_eight_week_bucket")
                 .row(DISTRICT1, 1L, 2L, 0L, 0L)
                 .row(DISTRICT2, 0L, 0L, 2L, 2L)
                 .build();
