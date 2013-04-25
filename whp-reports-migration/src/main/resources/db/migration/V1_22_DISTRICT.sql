@@ -40,6 +40,5 @@ INSERT INTO whp_reports.district(name) VALUES ('Shiekhpura');
 INSERT INTO whp_reports.district(name) VALUES ('Sitamarhi');
 INSERT INTO whp_reports.district(name) VALUES ('Siwan');
 INSERT INTO whp_reports.district(name) VALUES ('Supaul');
-INSERT INTO whp_reports.district(name) VALUES ('TestDistrict');
 INSERT INTO whp_reports.district(name) VALUES ('Vaishali');
 INSERT INTO whp_reports.district(name) VALUES ('West Champaran');
