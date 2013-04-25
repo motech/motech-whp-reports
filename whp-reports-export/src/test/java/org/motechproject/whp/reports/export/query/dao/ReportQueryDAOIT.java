@@ -238,10 +238,12 @@ public class ReportQueryDAOIT {
         AdherenceAuditLog adherenceGivenByProvider = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceGivenByProvider.setCreationTime(WHPDateTime.toSqlTimestamp(today));
         adherenceGivenByProvider.setPatientId("patient1");
+        adherenceGivenByProvider.setIsGivenByProvider("Y");
 
         AdherenceAuditLog adherenceGivenByAdmin = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceGivenByAdmin.setCreationTime(WHPDateTime.toSqlTimestamp(today.minusMinutes(35)));
         adherenceGivenByAdmin.setPatientId("patient2");
+        adherenceGivenByProvider.setIsGivenByProvider("N");
 
         AdherenceAuditLog adherenceGivenBy4MonthsAgo = new AdherenceAuditLogBuilder().withDefaults().build();
         adherenceGivenBy4MonthsAgo.setCreationTime(WHPDateTime.toSqlTimestamp(today.minusMonths(4)));

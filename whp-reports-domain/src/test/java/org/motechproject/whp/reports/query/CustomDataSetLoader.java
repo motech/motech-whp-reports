@@ -23,7 +23,7 @@ public class CustomDataSetLoader extends AbstractDataSetLoader {
         replacementDataSet.addReplacementObject("[CURRENT_TREATMENT_MINUS_2]", WHPDate.toSqlDate(currentTreatmentWeek.minusWeeks(2)));
         replacementDataSet.addReplacementObject("[CURRENT_TREATMENT_MINUS_3]", WHPDate.toSqlDate(currentTreatmentWeek.minusWeeks(3)));
         replacementDataSet.addReplacementObject("[CURRENT_TREATMENT_MINUS_7]", WHPDate.toSqlDate(currentTreatmentWeek.minusWeeks(7)));
-        replacementDataSet.addReplacementObject("[CURRENT_TREATMENT_MINUS_8]", WHPDate.toSqlDate(currentTreatmentWeek.minusWeeks(8)));
+        replacementDataSet.addReplacementObject("[CURRENT_TREATMENT_MINUS_9]", WHPDate.toSqlDate(currentTreatmentWeek.minusWeeks(9)));
 
         replacementDataSet.addReplacementObject("[CURRENT_DATE_TMSTP]", WHPDateTime.toSqlTimestamp(currentDate));
         replacementDataSet.addReplacementObject("[CURRENT_TREATMENT_WEEK_TMSTP]", WHPDateTime.toSqlTimestamp(currentTreatmentWeek));
