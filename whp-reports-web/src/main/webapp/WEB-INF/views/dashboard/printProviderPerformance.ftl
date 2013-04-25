@@ -26,7 +26,7 @@
                         <th>zero_week_bucket</th>
                         <th>two_week_bucket</th>
                         <th>three_to_five_week_bucket</th>
-                        <th>five_to_eight_week_bucket</th>
+                        <th>six_to_eight_week_bucket</th>
                     </tr>
                     <tbody id="providerPerformances" class="providerPerformances">
                     <!-- Generate an empty template row which can be applied on -->
