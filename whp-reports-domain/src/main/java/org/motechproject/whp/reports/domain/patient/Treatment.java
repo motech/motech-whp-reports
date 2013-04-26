@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -69,6 +70,9 @@ public class Treatment {
 
     @Column(name = "close_treatment_remarks")
     private String closeTreatmentRemarks;
+
+    @Column(name = "creation_date")
+    private Timestamp creationDate;
 
     @Embedded
     private TreatmentDetails treatmentDetails = new TreatmentDetails();

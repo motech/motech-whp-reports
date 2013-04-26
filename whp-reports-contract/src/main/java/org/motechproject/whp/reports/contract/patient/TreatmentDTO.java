@@ -1,9 +1,11 @@
 package org.motechproject.whp.reports.contract.patient;
 
 import lombok.Data;
+import org.joda.time.LocalDateTime;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class TreatmentDTO implements Serializable {
@@ -28,5 +30,6 @@ public class TreatmentDTO implements Serializable {
     private int totalPausedDuration;//days
     private String closeTreatmentRemarks;
     private TreatmentDetailsDTO treatmentDetails = new TreatmentDetailsDTO();
+    private Timestamp creationDate;
 
 }

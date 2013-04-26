@@ -1,0 +1,1 @@
+ALTER TABLE whp_reports.patient_treatment add column creation_date timestamp;

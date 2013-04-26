@@ -3,6 +3,7 @@ package org.motechproject.whp.reports.builder;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.motechproject.whp.reports.contract.patient.*;
+import org.motechproject.whp.reports.date.WHPDateTime;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -94,6 +95,7 @@ public class PatientRequestBuilder {
         treatment.setIsPaused("Y");
         treatment.setPatientType("type");
         treatment.setPausedDate(today(new LocalDate()));
+        treatment.setCreationDate(WHPDateTime.toSqlTimestamp(new LocalDate().minusDays(4)));
         treatment.setPreTreatmentSmearTestResult("Positive");
         treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");

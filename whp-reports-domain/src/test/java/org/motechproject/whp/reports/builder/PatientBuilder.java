@@ -2,6 +2,7 @@ package org.motechproject.whp.reports.builder;
 
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
+import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.domain.patient.*;
 
 import java.sql.Date;
@@ -97,6 +98,7 @@ public class PatientBuilder {
         treatment.setCurrentTreatment("Y");
         treatment.setEndDate(toSQLDate(new LocalDate().minusDays(2)));
         treatment.setStartDate(toSQLDate(new LocalDate().minusDays(4)));
+        treatment.setCreationDate(WHPDateTime.toSqlTimestamp(new LocalDate().minusDays(4)));
         treatment.setIsPaused("Y");
         treatment.setPatientType("type");
         treatment.setPausedDate(toSQLDate(new LocalDate()));

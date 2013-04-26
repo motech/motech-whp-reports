@@ -13,7 +13,7 @@ public class PatientReportsQueryBuilder {
             "treatment.tb_id, treatment.provider_id, treatment.provider_district, therapy.treatment_category, " +
             "treatment.start_date as tb_registration_date, therapy.start_date as treatment_start_date, therapy.disease_class, treatment.patient_type, " +
             "therapy.ip_pills_taken, therapy.ip_total_doses, therapy.eip_pills_taken, therapy.eip_total_doses, therapy.cp_pills_taken, " +
-            "therapy.cp_total_doses, therapy.cumulative_missed_doses, therapy.creation_date, " +
+            "therapy.cp_total_doses, therapy.cumulative_missed_doses, treatment.creation_date, " +
             "treatment.treatment_outcome, treatment.end_date as treatment_closing_date, treatment.pretreatment_result as pre_treatment_sputum_result, " +
             "treatment.pretreatment_weight as pre_treatment_weight, therapy.patient_age as age, address.village, treatment.close_treatment_remarks, " +
             "treatment.district_with_code, treatment.tb_unit_with_code, treatment.ep_site, treatment.other_investigations, treatment.previous_treatment_history, " +
