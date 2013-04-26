@@ -51,7 +51,7 @@ function renderStackedBarChart(chartData){
     config.plotOptions = {
         bar:{
             dataLabels:{
-                enabled:true
+                enabled:false
             }
         },
         series: {
