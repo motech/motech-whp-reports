@@ -1,37 +1,22 @@
 package org.motechproject.whp.reports.query;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.motechproject.bigquery.model.FilterParams;
 import org.motechproject.bigquery.response.QueryResult;
 import org.motechproject.bigquery.service.BigQueryService;
+import org.motechproject.whp.reports.DBUnitTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationReportingDomainContext.xml")
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
-@DbUnitConfiguration(databaseConnection = "dbUnitDatabaseConnection", dataSetLoader = CustomDataSetLoader.class)
-public class ProviderPerformanceQueryScenariosIT {
+public class ProviderPerformanceQueryScenariosIT extends DBUnitTest {
 
     private static final String DISTRICT1 = "district1";
     private static final String DISTRICT2 = "district2";
-
-    @Autowired
-    BasicDataSource dataSource;
 
     @Autowired
     private BigQueryService queryService;

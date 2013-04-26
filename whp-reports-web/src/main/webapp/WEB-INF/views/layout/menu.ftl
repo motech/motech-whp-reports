@@ -33,6 +33,7 @@
     <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registration</a></li>
     <li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
     <li><a id="providerPerformanceSummary" href="/whp-reports/dashboard/providerPerformance" >Provider Performance </a></li>
+    <li><a href="/whp-reports/stats">Stats</a></li>
 </@security.authorize>
 </ul>
 

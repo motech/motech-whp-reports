@@ -20,8 +20,4 @@
 
     <context:annotation-config/>
 
-    <bean id="dbUnitDatabaseConnection" class="org.dbunit.database.DatabaseDataSourceConnection">
-        <constructor-arg ref="dataSource"/>
-        <constructor-arg value="${jdbc.schema}"/>
-    </bean>
 </beans>

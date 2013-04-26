@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <provider id="1" provider_id="provider1" district="district1" />
+    <patient patient_pk="1" patient_id="patient1" is_active = "Y"/>
+    <patient_therapy therapy_pk="1" patient_fk="1" therapy_id="therapy1"/>
+    <patient_treatment treatment_pk="1" therapy_fk="1" provider_id="provider1" provider_type = "TPC" is_current_treatment="Y"/>
+    <patient_treatment treatment_pk="11" therapy_fk="1" provider_id="provider2" provider_type = "TPC" is_current_treatment="N"/>
+
+    <patient patient_pk="2" patient_id="patient2" is_active = "N"/>
+    <patient_therapy therapy_pk="2" patient_fk="2" therapy_id="therapy2"/>
+    <patient_treatment treatment_pk="2" therapy_fk="2" provider_id="provider1" provider_type = "TPC" is_current_treatment="Y"/>
+
+    <patient patient_pk="3" patient_id="patient3" is_active = "Y"/>
+    <patient_therapy therapy_pk="3" patient_fk="3" therapy_id="therapy3"/>
+    <patient_treatment treatment_pk="3" therapy_fk="3" provider_id="provider1" provider_type = "RHP" is_current_treatment="Y"/>
+
+    <provider id="2" provider_id="provider2" district="district1" />
+    <patient patient_pk="4" patient_id="patient4" is_active = "N"/>
+    <patient_therapy therapy_pk="4" patient_fk="4" therapy_id="therapy4"/>
+    <patient_treatment treatment_pk="4" therapy_fk="4" provider_id="provider2" provider_type = "TPC" is_current_treatment="Y"/>
+
+</dataset>

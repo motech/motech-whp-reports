@@ -264,5 +264,28 @@
                    GROUP BY district
             ]]></query>
         </named-query>
+        <named-query name="whp.reports.stats">
+            <query><![CDATA[
+                select count(distinct provider_id) as count, 'active_providers' as subject  from whp_reports.patient
+                inner join whp_reports.patient_therapy on patient_fk=  patient_pk
+                inner join whp_reports.patient_treatment treatment on therapy_fk= therapy_pk where
+                is_active = 'Y' and treatment.is_current_treatment = 'Y'
+                union
+                select count(1) as count, 'active_patients' as subject  from whp_reports.patient
+                where is_active = 'Y'
+                union
+                select count(1) as count, 'all_patients' as subject  from whp_reports.patient
+                union
+                select count(distinct provider_id) as count, 'active_tpc_providers' as subject  from whp_reports.patient
+                inner join whp_reports.patient_therapy on patient_fk=  patient_pk
+                inner join whp_reports.patient_treatment treatment on therapy_fk= therapy_pk where
+                is_active = 'Y' and treatment.is_current_treatment = 'Y' and provider_type = 'TPC'
+                union
+                select count(distinct provider_id) as count, 'active_rhp_providers' as subject  from whp_reports.patient
+                inner join whp_reports.patient_therapy on patient_fk=  patient_pk
+                inner join whp_reports.patient_treatment treatment on therapy_fk= therapy_pk where
+                is_active = 'Y' and treatment.is_current_treatment = 'Y' and provider_type = 'RHP'
+            ]]></query>
+        </named-query>
     </named-queries>
 </query-definitions>

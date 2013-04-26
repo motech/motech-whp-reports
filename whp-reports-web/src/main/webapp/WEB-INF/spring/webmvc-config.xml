@@ -124,5 +124,6 @@
     <!-- selects a static view for rendering without the need for an explicit controller -->
     <mvc:view-controller path="/login"/>
     <mvc:view-controller path="/visualization/patientIvrAlerts"/>
+    <mvc:view-controller path="/stats"/>
     <mvc:view-controller path="/errors/*"/>
 </beans>
