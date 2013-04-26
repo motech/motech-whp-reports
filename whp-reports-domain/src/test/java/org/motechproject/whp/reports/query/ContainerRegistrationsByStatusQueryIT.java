@@ -41,7 +41,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
     @Test
     public void shouldReturnCountOfContainerRegistrations() {
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, emptyFilterParams);
-        QueryResult expectedQueryResult = expectedQueryResult(active(3), closed(1), pendingLabResults(2), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(1), pendingLabResults(3), pendingConsultationDate(2));
         assertEquals(expectedQueryResult, queryResult);
     }
 
@@ -76,7 +76,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
         filterParamsWithDate.put("from_date", "10/11/2013");
         filterParamsWithDate.put("to_date", "15/12/2013");
 
-        QueryResult expectedQueryResult = expectedQueryResult(active(3), closed(0), pendingLabResults(2), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(0), pendingLabResults(3), pendingConsultationDate(2));
 
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, filterParamsWithDate);
 
@@ -86,7 +86,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
     @Test
     public void shouldNotConsiderContainersWithMappingInstanceAsOneOfInTreatmentValues() {
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, emptyFilterParams);
-        QueryResult expectedQueryResult = expectedQueryResult(active(3), closed(1), pendingLabResults(2), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(1), pendingLabResults(3), pendingConsultationDate(2));
         assertEquals(expectedQueryResult, queryResult);
     }
 
@@ -128,5 +128,4 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
     private int active(int active) {
         return active;
     }
-
 }
