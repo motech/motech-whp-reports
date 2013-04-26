@@ -4,10 +4,12 @@ import bad.robot.excel.valuetypes.ExcelColumnIndex;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.motechproject.whp.reports.date.WHPDateTime;
 import org.motechproject.whp.reports.export.query.builder.PatientReportBuilder;
 import org.motechproject.whp.reports.export.query.model.PatientSummary;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
     private Workbook workbook;
     private DateTime now = now();
     private Date testDate = now.toDate();
+    private Timestamp testDateTime = WHPDateTime.toSqlTimestamp(now);
 
     @Test
     public void shouldCreateWorkbookForSummaryReport() throws IOException {
@@ -42,7 +45,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         patientSummary.setProviderDistrict("providerDistrict");
         patientSummary.setTreatmentCategory("treatmentCategory");
         patientSummary.setTbRegistrationDate(testDate);
-        patientSummary.setCreationDate(testDate);
+        patientSummary.setCreationDate(testDateTime);
         patientSummary.setTreatmentStartDate(testDate);
         patientSummary.setDiseaseClass("disease class");
         patientSummary.setPatientType("patientType");
@@ -101,7 +104,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.J, 9), is(equalTo("preTreatmentResult")));
         assertThat(numericValue(ExcelColumnIndex.K, 9), is(equalTo((double) 1)));
         assertThat(dateValue(ExcelColumnIndex.L, 9), is(testDate));
-        assertThat(dateValue(ExcelColumnIndex.M, 9), is(testDate));
+        assertThat(dateValue(ExcelColumnIndex.M, 9), is(new Date(testDateTime.getTime())));
         assertThat(dateValue(ExcelColumnIndex.N, 9), is(testDate));
         assertThat(stringValue(ExcelColumnIndex.O, 9), is(equalTo("disease class")));
         assertThat(stringValue(ExcelColumnIndex.P, 9), is(equalTo("patientType")));

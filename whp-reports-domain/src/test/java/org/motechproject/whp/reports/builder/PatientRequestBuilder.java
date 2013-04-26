@@ -95,7 +95,6 @@ public class PatientRequestBuilder {
         treatment.setIsPaused("Y");
         treatment.setPatientType("type");
         treatment.setPausedDate(today(new LocalDate()));
-        treatment.setCreationDate(WHPDateTime.toSqlTimestamp(new LocalDate().minusDays(4)));
         treatment.setPreTreatmentSmearTestResult("Positive");
         treatment.setPreTreatmentWeight(80.0);
         treatment.setProviderDistrict("Begusarai");
@@ -106,7 +105,7 @@ public class PatientRequestBuilder {
         treatment.setTreatmentOutcome("treatment outcome");
         treatment.setCloseTreatmentRemarks("you are free my child");
         treatment.setTreatmentDetails(setDefaultTreatmentDetails());
-
+        treatment.setCreationDate(WHPDateTime.toSqlTimestamp(new LocalDate().minusDays(4)));
         return treatment;
     }
 

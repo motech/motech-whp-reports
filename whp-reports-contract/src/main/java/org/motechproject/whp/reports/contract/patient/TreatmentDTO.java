@@ -1,7 +1,6 @@
 package org.motechproject.whp.reports.contract.patient;
 
 import lombok.Data;
-import org.joda.time.LocalDateTime;
 
 import java.io.Serializable;
 import java.sql.Date;
