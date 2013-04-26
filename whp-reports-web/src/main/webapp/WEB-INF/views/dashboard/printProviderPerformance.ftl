@@ -23,10 +23,10 @@
             <table class="table table-bordered sharp fixed text-center">
                     <tr>
                         <th>District</th>
-                        <th>zero_week_bucket</th>
-                        <th>two_week_bucket</th>
-                        <th>three_to_five_week_bucket</th>
-                        <th>six_to_eight_week_bucket</th>
+                        <th>No. of Providers with 0 adherence missing weeks</th>
+                        <th>No. of Providers with 1-2 adherence missing weeks</th>
+                        <th>No. of Providers with 3-5 adherence missing weeks</th>
+                        <th>No. of Providers with 6-8 adherence missing weeks</th>
                     </tr>
                     <tbody id="providerPerformances" class="providerPerformances">
                     <!-- Generate an empty template row which can be applied on -->
