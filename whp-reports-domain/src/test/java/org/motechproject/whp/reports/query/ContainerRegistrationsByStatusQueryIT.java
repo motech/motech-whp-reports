@@ -29,12 +29,13 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
 
     @Before
     public void setUp() {
-        ContainerRecord containerRecordWithClosedStatus = createContainer("containerId1", "Patna", new LocalDate(2013, 10, 12), "Closed", new LocalDate(2013, 12, 10), new LocalDate(2013, 10, 10), "PreTreatment");
-        ContainerRecord containerRecordWithLabResults = createContainer("containerId2", "Patna", new LocalDate(2013, 11, 12), "Open", new LocalDate(2013, 12, 10), null, "PreTreatment");
-        ContainerRecord containerRecordWithNoLabResults = createContainer("containerId3", "Begusarai", new LocalDate(2013, 12, 12), "Open", null, null, "PreTreatment");
-        ContainerRecord inTreatmentContainerRecordWithNoLabResults = createContainer("containerId4", "Samastipur", new LocalDate(2013, 12, 12), "Open", null, null, "InTreatment");
+        ContainerRecord containerRecordWithClosedStatus = createContainer("containerId1", "Patna", new LocalDate(2013, 10, 12), "Closed", new LocalDate(2013, 12, 10), new LocalDate(2013, 10, 10), "PreTreatment", null);
+        ContainerRecord containerRecordWithLabResults = createContainer("containerId2", "Patna", new LocalDate(2013, 11, 12), "Open", new LocalDate(2013, 12, 10), null, "PreTreatment", null);
+        ContainerRecord containerRecordWithNoLabResults = createContainer("containerId3", "Begusarai", new LocalDate(2013, 12, 12), "Open", null, null, "PreTreatment", null);
+        ContainerRecord inTreatmentContainerRecordWithNoLabResults = createContainer("containerId4", "Samastipur", new LocalDate(2013, 12, 12), "Open", null, null, "InTreatment", null);
+        ContainerRecord preTreatmentContainerWithInTreatmentMappingInstance = createContainer("containerId4", "Samastipur", new LocalDate(2013, 12, 12), "Open", null, null, "PreTreatment", "EndIP");
 
-        containerRecordRepository.save(asList(containerRecordWithClosedStatus, containerRecordWithLabResults, containerRecordWithNoLabResults, inTreatmentContainerRecordWithNoLabResults));
+        containerRecordRepository.save(asList(containerRecordWithClosedStatus, containerRecordWithLabResults, containerRecordWithNoLabResults, inTreatmentContainerRecordWithNoLabResults, preTreatmentContainerWithInTreatmentMappingInstance));
     }
 
     @Test
@@ -82,12 +83,19 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
         assertEquals(expectedQueryResult, queryResult);
     }
 
+    @Test
+    public void shouldNotConsiderContainersWithMappingInstanceAsOneOfInTreatmentValues() {
+        QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, emptyFilterParams);
+        QueryResult expectedQueryResult = expectedQueryResult(active(3), closed(1), pendingLabResults(2), pendingConsultationDate(2));
+        assertEquals(expectedQueryResult, queryResult);
+    }
+
     @After
     public void tearDown() {
         containerRecordRepository.deleteAll();
     }
 
-    private ContainerRecord createContainer(String containerId, String district, LocalDate issuedOnDate, String status, LocalDate labResultsCapturedOn, LocalDate consultationDate, String registrationInstance) {
+    private ContainerRecord createContainer(String containerId, String district, LocalDate issuedOnDate, String status, LocalDate labResultsCapturedOn, LocalDate consultationDate, String registrationInstance, String mappingInstance) {
         return new ContainerRecordBuilder().withDefaults()
                 .withContainerId(containerId)
                 .withProviderDistrict(district)
@@ -96,6 +104,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
                 .withLabResultsCapturedOn(labResultsCapturedOn != null ? labResultsCapturedOn.toDate() : null)
                 .withConsultationDate(consultationDate != null ? consultationDate.toDate(): null)
                 .withRegistrationInstance(registrationInstance)
+                .withMappingInstance(mappingInstance)
                 .build();
     }
 

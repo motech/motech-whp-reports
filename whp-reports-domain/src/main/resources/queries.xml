@@ -192,7 +192,7 @@
                     sum(case when container_status = 'Open' then 1 else 0 end) as active,
                     sum(case when container_status = 'Closed' then 1 else 0 end) as closed,
                     sum(case when lab_results_captured_on is null then 1 else 0 end) as lab_results_pending,
-                    sum(case when (consultation_date is null and registration_instance = 'PreTreatment') then 1 else 0 end) as consultation_pending
+                    sum(case when (consultation_date is null and registration_instance = 'PreTreatment' and (mapping_instance is null OR mapping_instance = 'PreTreatment')) then 1 else 0 end) as consultation_pending
                     from whp_reports.sputum_tracking
                     #chain('AND' 'WHERE')
                         #chunk($district) provider_district = :district #end
