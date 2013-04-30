@@ -28,12 +28,16 @@
             </li>
         </ul>
     </li>
-
-    <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Summary</a></li>
-    <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registration</a></li>
+ <li class="dropdown">
+     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-white"></i> Summary <b class="caret"></b></a>
+     <ul class="dropdown-menu" role="menu" aria-labelledby="Menu" id="summaryLinks">
+        <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Registrations</a></li>
+        <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registrations</a></li>
+        <li><a id="providerPerformanceSummary" href="/whp-reports/dashboard/providerPerformance" >Provider Performance </a></li>
+     </ul>
+ </li>
     <li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
-    <li><a id="providerPerformanceSummary" href="/whp-reports/dashboard/providerPerformance" >Provider Performance </a></li>
-    <li><a href="/whp-reports/stats">Stats</a></li>
+    <li><a href="/whp-reports/stats">Statistics</a></li>
 </@security.authorize>
 </ul>
 
