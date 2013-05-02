@@ -25,16 +25,19 @@
             <!-- Generate an empty template row which can be applied on -->
             <tr class="listing-entry" id="providerPerformances" >
                 <td><span class="district"></span></td>
-                <td><span class="zero_week_bucket"></span></td>
-                <td><span class="two_week_bucket"></span></td>
-                <td><span class="three_to_five_week_bucket"></span></td>
-                <td><span class="six_to_eight_week_bucket"></span></td>
+                <td><span class="zero_week_bucket"></span>&nbsp;(<span class="zeroProviderPercentage"></span>)%</td>
+                <td><span class="two_week_bucket"></span>&nbsp;(<span class="twoWeekProviderPercentage"></span>)%</td>
+                <td><span class="three_to_five_week_bucket"></span>&nbsp;(<span class="fiveWeekProviderPercentage"></span>)%</td>
+                <td><span class="six_to_eight_week_bucket"></span>&nbsp;(<span class="eightWeekProviderPercentage"></span>)%</td>
             </tr>
 
             </tbody>
 
         </table>
         </div>
+    <div>
+        * Percentage out of total providers active in the past 8 weeks
+    </div>
 </div>
 <script type="text/javascript"
         src="<@spring.url '/resources-${applicationVersion}/js/transparency/transparency.min.js'/>"></script>
