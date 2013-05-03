@@ -2,7 +2,7 @@ function defaultHighchartsConfig(chartData){
     return {
         chart:{
             type:'bar',
-            height: (chartData.xAxis.length * 20 < 200) ? 200 : chartData.xAxis.length * 20
+            height: (chartData.xAxis.length * 20 < 300) ? 300 : chartData.xAxis.length * 20
         },
         title:{
             text: chartData.title

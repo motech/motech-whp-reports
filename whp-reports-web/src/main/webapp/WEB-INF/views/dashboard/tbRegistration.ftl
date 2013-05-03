@@ -30,14 +30,12 @@
 
 
     <div>
-        <label for="tbRegistrationsByDistrictFlag">Show Districts with zero count</label>
-        <input type="checkbox" id="tbRegistrationsByDistrictFlag" name="tbRegistrationsByDistrictFlag" value="false"/>
+        <input type="checkbox" id="tbRegistrationsByDistrictFlag" name="tbRegistrationsByDistrictFlag" value="false"/><label for="tbRegistrationsByDistrictFlag">Show Districts with zero count</label>
         <div id = "tbRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.district'/>">
         </div>
     </div>
     <div>
-        <label for="providersByDistrictFlag">Show Districts with zero count</label>
-        <input type="checkbox" id="providersByDistrictFlag" name="providersByDistrictFlag" value="false"/>
+        <input type="checkbox" id="providersByDistrictFlag" name="providersByDistrictFlag" value="false"/><label for="providersByDistrictFlag">Show Districts with zero count</label>
         <div id = "providersByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.providers.by.district'/>"></div>
     </div>
 </div>

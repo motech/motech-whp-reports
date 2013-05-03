@@ -35,8 +35,8 @@
             </li>
         </ul>
     <div>
-        <label for="containerRegistrationsByDistrictFlag">Show Districts with zero count</label>
-        <input type="checkbox" id="containerRegistrationsByDistrictFlag" name="containerRegistrationsByDistrictFlag" value="false"/>
+
+        <input type="checkbox" id="containerRegistrationsByDistrictFlag" name="containerRegistrationsByDistrictFlag" value="false"/><label for="containerRegistrationsByDistrictFlag">Show Districts with zero count</label>
         <div id = "containerRegistrationsByDistrict" data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations.by.district'/>"></div>
     </div>
 </div>
