@@ -7,8 +7,8 @@
     <context:component-scan base-package="org.motechproject.donotcall"/>
     <context:property-placeholder location="classpath:whp-reports.properties" ignore-unresolvable="true"/>
 
+    <context:annotation-config/>
 
-    <import resource="classpath*:applicationPlatformServerAPI.xml"/>
     <import resource="classpath*:applicationValidationContext.xml"/>
 
 
