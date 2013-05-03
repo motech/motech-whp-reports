@@ -5,3 +5,6 @@ CREATE INDEX ad_code_idx ON whp_reports.sputum_tracking (alternate_diagnosis_cod
 CREATE INDEX rc_code_idx ON whp_reports.sputum_tracking (reason_for_closure);
 CREATE INDEX therapy_fk_idx ON whp_reports.patient_treatment (therapy_fk);
 CREATE INDEX patient_fk_idx ON whp_reports.patient_therapy(patient_fk);
+CREATE INDEX adherence_audit_log_user_id_idx ON whp_reports.adherence_audit_log(user_id);
+CREATE INDEX patient_therapy_start_date_idx ON whp_reports.patient_therapy (start_date);
+CREATE INDEX patient_therapy_end_date_idx ON whp_reports.patient_therapy (close_date);

@@ -41,7 +41,7 @@
     <patient_therapy therapy_pk="7" patient_fk="7" therapy_id="therapy7" start_date="[CURRENT_TREATMENT_MINUS_3]"/>
     <patient_treatment treatment_pk="7" therapy_fk="7" provider_id="provider7" start_date="[CURRENT_TREATMENT_MINUS_9]" end_date="[NULL]"/>
 
-    <!--treatment has not started yet btu has been registered, provider should not appear-->
+    <!--treatment has not started yet but has been registered, provider should not appear-->
     <provider id="8" provider_id="provider8" district="district2" />
     <patient patient_pk="8" patient_id="dt2patient8"/>
     <patient_therapy therapy_pk="8" patient_fk="8" therapy_id="therapy8" start_date="[NULL]"/>
