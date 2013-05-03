@@ -29,5 +29,9 @@ $(function () {
         };
 
         $('#providerPerformances').render(rows, directives);
+
+        $.event.trigger({
+            type: "renderedProviderPerformance"
+        });
     });
 });

@@ -7,7 +7,7 @@
 <#include "../layout/scripts.ftl"/>
 </head>
 <body class="printable-version">
-<span id="printProviderPerformance"
+<span id="providerPerformance"
       data-url="<@spring.url '/bigquery/execute?queryName=provider.performance.by.district'/>"></span>
 <div class="container">
     <div id="navibar" class="navbar-fixed-top">
@@ -48,7 +48,7 @@
 </body>
 <script type="text/javascript"
         src="<@spring.url '/resources-${applicationVersion}/js/transparency/transparency.min.js'/>"></script>
-<script type="text/javascript"
-        src="<@spring.url '/resources-${applicationVersion}/js/modules/printProviderPerformanceTable.js'/>"></script>
+<script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/modules/providerPerformanceTable.js'/>"></script>
+<script type="text/javascript" src="<@spring.url '/resources-${applicationVersion}/js/modules/printProviderPerformanceTable.js'/>"></script>
 </html>
 
