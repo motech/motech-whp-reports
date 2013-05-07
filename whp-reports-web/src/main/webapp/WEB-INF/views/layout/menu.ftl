@@ -39,5 +39,8 @@
     <li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
     <li><a href="/whp-reports/stats">Statistics</a></li>
 </@security.authorize>
+<@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN">
+    <li><a  href = "/whp-reports/crud/DoNotCallEntry/list" >Do Not Call List</a></li>
+</@security.authorize>
 </ul>
 
