@@ -1380,3 +1380,8 @@ pre {
 .statistics li li .outcome{
     line-height: normal;
 }
+
+.spanHeight {
+    line-height: 140%;
+}
+

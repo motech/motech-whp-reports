@@ -6,14 +6,16 @@
 <div>
     <#include "dashboardFilter.ftl"/>
         <ul class="row-fluid statistics">
+            <div>
             <li class="span2">
                 Total TB Registrations
-                <span class="count" id = "allRegistrations" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations'/>"></span>
+                <span class="spanHeight count" id = "allRegistrations" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations'/>"></span>
             </li>
             <li class="span2">
                 Closed TB Registrations
-                <span class="count" id = "closedRegistrations" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.outcome'/>"></span>
+                <span class="spanHeight count" id = "closedRegistrations" data-url="<@spring.url '/bigquery/execute?queryName=number.of.tb.registrations.by.outcome'/>"></span>
             </li>
+            </div>
             <li class="span8">
                 <span class="nested-header">TB Registrations Grouped By Outcome</span>
 

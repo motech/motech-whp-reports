@@ -5,13 +5,18 @@
 
 <div>
     <#include "dashboardFilter.ftl"/>
-        <ul class="row-fluid statistics">
-            <li class="span2">
-                Total Container Registrations
-                <span class="count" id = "allContainerRegistrations" data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations'/>"></span>
-            </li>
-            <li class="span8">
-                <span class="nested-header">Container Registrations By Status</span>
+    <ul class="row-fluid statistics">
+        <div>
+        <li  class="span2" >
+
+            Total Container Registrations
+            <span class="spanHeight count" id="allContainerRegistrations"
+                  data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations'/>"></span>
+
+        </li>
+        </div>
+        <li class="span8">
+            <span class="nested-header">Container Registrations By Status</span>
                 <div id = "containerRegistrationsByStatus" class="row-fluid"  data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations.by.status'/>">
                     <ul class="unstyled" id="containerRegistrationsByStatusData">
                         <li class='item'>
