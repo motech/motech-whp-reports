@@ -14,7 +14,7 @@
         <module>whp-reports-contract</module>
         <module>whp-reports-config</module>
         <module>whp-reports-export</module>
-        <module>motech-donotcall-register</module>
+        <module>whp-donotcall-register</module>
     </modules>
 
     <properties>

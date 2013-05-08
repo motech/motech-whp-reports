@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>motech-donotcall-register</artifactId>
-    <name>motech-donotcall-register</name>
+    <artifactId>whp-donotcall-register</artifactId>
+    <name>WHP Do Not Call Register</name>
 
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
