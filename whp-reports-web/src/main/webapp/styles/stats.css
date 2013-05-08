@@ -1,0 +1,9 @@
+table td.fixedWidth
+{
+    width: 20%;
+}
+
+.cellText
+{
+    font-size: medium;
+}
