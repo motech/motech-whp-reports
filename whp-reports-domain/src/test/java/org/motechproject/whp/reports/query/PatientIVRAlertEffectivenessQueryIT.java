@@ -74,7 +74,7 @@ public class PatientIVRAlertEffectivenessQueryIT extends IntegrationTest{
     }
 
     private CallLog createCallLog(DateTime callAttemptDateTime, String patientId1) {
-        CallLog callLog = new CallLogBuilder().withDefaults().withAttemptDateTime(toSqlTimestamp(callAttemptDateTime)).withCustomData("patientId", patientId1).build();
+        CallLog callLog = new CallLogBuilder().withDefaults().withAttemptDateTime(toSqlTimestamp(callAttemptDateTime)).withCustomData("patient_id", patientId1).build();
         genericCallLogRepository.save(callLog);
         return callLog;
     }
