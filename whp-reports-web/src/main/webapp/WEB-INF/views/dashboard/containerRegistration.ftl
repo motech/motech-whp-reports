@@ -15,7 +15,7 @@
 
         </li>
         </div>
-        <li class="span8">
+        <li class="span10">
             <span class="nested-header">Container Registrations By Status</span>
                 <div id = "containerRegistrationsByStatus" class="row-fluid"  data-url="<@spring.url '/bigquery/execute?queryName=number.of.container.registrations.by.status'/>">
                     <ul class="unstyled" id="containerRegistrationsByStatusData">

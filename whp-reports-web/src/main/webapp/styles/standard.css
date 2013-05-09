@@ -1325,6 +1325,7 @@ pre {
     margin: 0;
 }
 .statistics li {
+    height: 120px;
     display: inline-block;
     text-align: center;
     padding: 10px;
@@ -1356,7 +1357,7 @@ pre {
     border: 0;
 }
 .statistics li li {
-    height: 100px;
+    height: 85px;
     min-width: 12%;
     padding: 10px 0;
     line-height: 25px;
