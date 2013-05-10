@@ -7,7 +7,7 @@ $(function () {
             xAxisTitle: 'Weekending Date',
             xAxis:adaptedData.xAxis,
             series: [ {name:'Alerted Patients', data:adaptedData.series.patient_with_ivr_calls},
-                      {name:'Adherence Reported After Call', data:adaptedData.series.patients_with_adherence_given}],
+                      {name:'Patients With Resolved Alerts After Call', data:adaptedData.series.patients_with_adherence_given}],
             target: 'alertEffectiveness',
             chartHeight: adaptedData.xAxis.length * 75
         }
