@@ -26,12 +26,11 @@
         <intercept-url pattern="/rest/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
         <intercept-url pattern="/diagnostics/**" access="hasRole('IT_ADMIN')" requires-channel="any"/>
 
-        <!--Only CMF Admin-->
-        <intercept-url pattern="/reports/**" access="hasAnyRole('CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
-        <intercept-url pattern="/patientreports/**" access="hasAnyRole('CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
-        <intercept-url pattern="/auditreports/**" access="hasAnyRole('CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
+        <!--Report URLs-->
+        <intercept-url pattern="/reports/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/patientreports/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
+        <intercept-url pattern="/auditreports/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
 
-        <!--both it admin and cmf admin-->
         <intercept-url pattern="/bigquery/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
         <intercept-url pattern="/visualization/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN', 'REPORT_USER')" requires-channel="any"/>
         <intercept-url pattern="/crud/**" access="hasAnyRole('IT_ADMIN', 'CMF_ADMIN')" requires-channel="any"/>
