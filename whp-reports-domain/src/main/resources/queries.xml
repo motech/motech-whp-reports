@@ -241,6 +241,7 @@
                                    AND (all_treatment.end_date IS NULL
                                         OR all_treatment.end_date >= treatment_dates.week_date + interval '6 days'))
                                         group by district, provider_id order by adherence_missing desc) AS weekly_stats
+                                        where district <> 'TestDistrict'
                                         group by district
                                         order by district
             ]]></query>
