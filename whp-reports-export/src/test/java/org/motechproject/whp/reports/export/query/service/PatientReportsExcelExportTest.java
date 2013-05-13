@@ -111,21 +111,21 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.Q, 9), is(equalTo("15/20 (75.00%)")));
         assertThat(stringValue(ExcelColumnIndex.R, 9), is(equalTo("13/16 (81.25%)")));
         assertThat(numericValue(ExcelColumnIndex.S, 9), is(equalTo((double) 1)));
-        assertThat(stringValue(ExcelColumnIndex.T, 9), is(equalTo("treatmentOutcome")));
-        assertThat(dateValue(ExcelColumnIndex.U, 9), is(testDate));
-        assertThat(stringValue(ExcelColumnIndex.V, 9), is(equalTo("district_with_code")));
-        assertThat(stringValue(ExcelColumnIndex.W, 9), is(equalTo("tb_with_code")));
-        assertThat(stringValue(ExcelColumnIndex.X, 9), is(equalTo("ep_site")));
-        assertThat(stringValue(ExcelColumnIndex.Y, 9), is(equalTo("others")));
-        assertThat(stringValue(ExcelColumnIndex.Z, 9), is(equalTo("treatment_history")));
-        assertThat(stringValue(ExcelColumnIndex.AA, 9), is(equalTo("hiv_status")));
-        assertThat(numericValue(ExcelColumnIndex.AB, 9), is(equalTo((double)6)));
-        assertThat(stringValue(ExcelColumnIndex.AC, 9), is(equalTo("cmf doctor")));
-        assertThat(stringValue(ExcelColumnIndex.AD, 9), is(equalTo("provider_type")));
-        assertThat(stringValue(ExcelColumnIndex.AE, 9), is(equalTo("xpert device number")));
-        assertThat(dateValue(ExcelColumnIndex.AF, 9), is(testDate));
-        assertThat(stringValue(ExcelColumnIndex.AG, 9), is(equalTo("xpert test result")));
-        assertThat(stringValue(ExcelColumnIndex.AH, 9), is(equalTo("rif resistance result")));
+        assertThat(stringValue(ExcelColumnIndex.T, 9), is(equalTo("district_with_code")));
+        assertThat(stringValue(ExcelColumnIndex.U, 9), is(equalTo("tb_with_code")));
+        assertThat(stringValue(ExcelColumnIndex.V, 9), is(equalTo("ep_site")));
+        assertThat(stringValue(ExcelColumnIndex.W, 9), is(equalTo("others")));
+        assertThat(stringValue(ExcelColumnIndex.X, 9), is(equalTo("treatment_history")));
+        assertThat(stringValue(ExcelColumnIndex.Y, 9), is(equalTo("hiv_status")));
+        assertThat(numericValue(ExcelColumnIndex.Z, 9), is(equalTo((double)6)));
+        assertThat(stringValue(ExcelColumnIndex.AA, 9), is(equalTo("cmf doctor")));
+        assertThat(stringValue(ExcelColumnIndex.AB, 9), is(equalTo("provider_type")));
+        assertThat(stringValue(ExcelColumnIndex.AC, 9), is(equalTo("xpert device number")));
+        assertThat(dateValue(ExcelColumnIndex.AD, 9), is(testDate));
+        assertThat(stringValue(ExcelColumnIndex.AE, 9), is(equalTo("xpert test result")));
+        assertThat(stringValue(ExcelColumnIndex.AF, 9), is(equalTo("rif resistance result")));
+        assertThat(stringValue(ExcelColumnIndex.AG, 9), is(equalTo("treatmentOutcome")));
+        assertThat(dateValue(ExcelColumnIndex.AH, 9), is(testDate));
         assertThat(stringValue(ExcelColumnIndex.AI, 9), is(equalTo("you are free my child")));
     }
 
@@ -250,6 +250,7 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.C, 8), is(equalTo("M")));
         assertThat(stringValue(ExcelColumnIndex.D, 8), is(equalTo("patientId")));
         assertThat(stringValue(ExcelColumnIndex.E, 8), is(equalTo("tbId")));
+        assertThat(dateValue(ExcelColumnIndex.F, 8), is(equalTo(testDate)));
         assertThat(stringValue(ExcelColumnIndex.G, 8), is(equalTo("providerId")));
         assertThat(stringValue(ExcelColumnIndex.H, 8), is(equalTo("village")));
         assertThat(stringValue(ExcelColumnIndex.I, 8), is(equalTo("providerDistrict")));
@@ -257,11 +258,12 @@ public class PatientReportsExcelExportTest extends ExcelTest{
         assertThat(stringValue(ExcelColumnIndex.K, 8), is(equalTo("preTreatmentResult")));
         assertThat(stringValue(ExcelColumnIndex.L, 8), is(equalTo("disease class")));
         assertThat(stringValue(ExcelColumnIndex.M, 8), is(equalTo("patientType")));
-        assertThat(stringValue(ExcelColumnIndex.O, 8), is(equalTo("treatmentOutcome")));
-        assertThat(stringValue(ExcelColumnIndex.P, 8), is(equalTo("xpert device number")));
-        assertThat(dateValue(ExcelColumnIndex.Q, 8), is(testDate));
-        assertThat(stringValue(ExcelColumnIndex.R, 8), is(equalTo("xpert test result")));
-        assertThat(stringValue(ExcelColumnIndex.S, 8), is(equalTo("rif resistance result")));
+        assertThat(stringValue(ExcelColumnIndex.N, 8), is(equalTo("xpert device number")));
+        assertThat(dateValue(ExcelColumnIndex.O, 8), is(testDate));
+        assertThat(stringValue(ExcelColumnIndex.P, 8), is(equalTo("xpert test result")));
+        assertThat(stringValue(ExcelColumnIndex.Q, 8), is(equalTo("rif resistance result")));
+        assertThat(stringValue(ExcelColumnIndex.R, 8), is(equalTo("treatmentOutcome")));
+        assertThat(dateValue(ExcelColumnIndex.S, 8), is(equalTo(testDate)));
     }
 
     @Override
