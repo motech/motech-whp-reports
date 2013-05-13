@@ -1,8 +1,10 @@
-package org.motechproject.whp.reports.webservice.controller;
+package org.motechproject.whp.reports.webservice.controller.it;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.whp.reports.contract.ContainerRegistrationCallDetailsLogRequest;
+import org.motechproject.whp.reports.webservice.controller.ContainerRegistrationCallLogController;
+import org.motechproject.whp.reports.webservice.controller.ControllerTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;

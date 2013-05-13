@@ -1,4 +1,4 @@
-package org.motechproject.whp.reports.crud;
+package org.motechproject.whp.reports.webservice.crud;
 
 import org.motechproject.crud.builder.CrudModelBuilder;
 import org.motechproject.crud.service.CrudEntity;

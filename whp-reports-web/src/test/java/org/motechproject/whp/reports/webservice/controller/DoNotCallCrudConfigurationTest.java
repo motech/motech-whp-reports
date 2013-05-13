@@ -1,4 +1,4 @@
-package org.motechproject.whp.reports.service;
+package org.motechproject.whp.reports.webservice.controller;
 
 import org.junit.Test;
 import org.motechproject.crud.builder.CrudModelBuilder;
@@ -6,7 +6,7 @@ import org.motechproject.crud.model.CrudModel;
 import org.motechproject.crud.service.CrudEntity;
 import org.motechproject.donotcall.domain.DoNotCallEntry;
 import org.motechproject.donotcall.repository.DoNotCallEntryRepository;
-import org.motechproject.whp.reports.crud.DoNotCallCrudConfiguration;
+import org.motechproject.whp.reports.webservice.crud.DoNotCallCrudConfiguration;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
