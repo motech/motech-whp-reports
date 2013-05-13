@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
-            <artifactId>motech-donotcall-register</artifactId>
+            <artifactId>whp-donotcall-register</artifactId>
         </dependency>
         <dependency>
             <groupId>org.motechproject.whp.reports</groupId>
