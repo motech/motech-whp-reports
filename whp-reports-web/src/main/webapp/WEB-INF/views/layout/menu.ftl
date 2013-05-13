@@ -40,7 +40,7 @@
     <li><a href="/whp-reports/stats">Statistics</a></li>
 </@security.authorize>
 <@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN">
-    <li><a  href = "/whp-reports/crud/DoNotCallEntry/list" >Do Not Call List</a></li>
+    <li><a  href = "/whp-reports/crud/DoNotCallEntry/list" target="_blank">Do Not Call List</a></li>
 </@security.authorize>
 <@security.authorize ifAnyGranted="IT_ADMIN">
     <li><a  href = "/whp-reports/crud/District/list" target="_blank" >Manage Districts</a></li>
