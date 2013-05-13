@@ -12,7 +12,7 @@ import static org.motechproject.crud.builder.CrudEntityBuilder.newCrudEntity;
 @Configuration
 public class DistrictCrudConfiguration {
 
-    @Bean
+    @Bean(name = "districtCrudEntity")
     CrudEntity<District> build(DistrictRepository districtRepository){
         return newCrudEntity(District.class)
                 .jpaCrudRepository(districtRepository, String.class)

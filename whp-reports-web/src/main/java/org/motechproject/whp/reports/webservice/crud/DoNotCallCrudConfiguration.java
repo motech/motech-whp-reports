@@ -12,7 +12,7 @@ import static org.motechproject.crud.builder.CrudEntityBuilder.newCrudEntity;
 @Configuration
 public class DoNotCallCrudConfiguration {
 
-    @Bean
+    @Bean(name = "doNotCallEntryCrudEntity")
     public CrudEntity<DoNotCallEntry> build(DoNotCallEntryRepository doNotCallEntryRepository){
         return newCrudEntity(DoNotCallEntry.class)
                 .jpaCrudRepository(doNotCallEntryRepository, Long.class)
