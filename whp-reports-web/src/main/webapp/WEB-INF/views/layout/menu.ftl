@@ -34,10 +34,12 @@
         <li><a id="tbRegistrationSummary" href="/whp-reports/dashboard/tbRegistration" >TB Registrations</a></li>
         <li><a id="containerRegistrationVisualization" href="/whp-reports/dashboard/containerRegistration" >Container Registrations</a></li>
         <li><a id="providerPerformanceSummary" href="/whp-reports/dashboard/providerPerformance" >Provider Performance </a></li>
+        <li><a href="/whp-reports/stats">Statistics</a></li>
      </ul>
  </li>
-    <li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
-    <li><a href="/whp-reports/stats">Statistics</a></li>
+
+<li><a id="patientIvrAlertsVisualization" href="/whp-reports/visualization/patientIvrAlerts" >Patient IVR Alerts </a></li>
+
 </@security.authorize>
 <@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN">
     <li><a  href = "/whp-reports/crud/DoNotCallEntry/list" target="_blank">Do Not Call List</a></li>
