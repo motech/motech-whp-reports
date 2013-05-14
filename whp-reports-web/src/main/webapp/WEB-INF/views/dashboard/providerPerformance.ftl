@@ -36,7 +36,9 @@
         </table>
         </div>
     <div>
-        * Percentage out of total providers active in the past 8 weeks
+        * Provider performance count for past 8 treatment weeks
+        <br>
+        ** Percentage out of total providers active in the past 8 treatment weeks
     </div>
 </div>
 <script type="text/javascript"
