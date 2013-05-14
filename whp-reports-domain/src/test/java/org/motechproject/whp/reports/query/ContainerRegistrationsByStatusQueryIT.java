@@ -32,16 +32,22 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
         ContainerRecord containerRecordWithClosedStatus = createContainer("containerId1", "Patna", new LocalDate(2013, 10, 12), "Closed", new LocalDate(2013, 12, 10), new LocalDate(2013, 10, 10), "PreTreatment", null);
         ContainerRecord containerRecordWithLabResults = createContainer("containerId2", "Patna", new LocalDate(2013, 11, 12), "Open", new LocalDate(2013, 12, 10), null, "PreTreatment", null);
         ContainerRecord containerRecordWithNoLabResults = createContainer("containerId3", "Begusarai", new LocalDate(2013, 12, 12), "Open", null, null, "PreTreatment", null);
+        ContainerRecord containerRecordWithNoLabResultsAndClosedStatus = createContainer("containerId3", "Begusarai", new LocalDate(2013, 12, 12), "Closed", null, null, "PreTreatment", null);
         ContainerRecord inTreatmentContainerRecordWithNoLabResults = createContainer("containerId4", "Samastipur", new LocalDate(2013, 12, 12), "Open", null, null, "InTreatment", null);
         ContainerRecord preTreatmentContainerWithInTreatmentMappingInstance = createContainer("containerId4", "Samastipur", new LocalDate(2013, 12, 12), "Open", null, null, "PreTreatment", "EndIP");
 
-        containerRecordRepository.save(asList(containerRecordWithClosedStatus, containerRecordWithLabResults, containerRecordWithNoLabResults, inTreatmentContainerRecordWithNoLabResults, preTreatmentContainerWithInTreatmentMappingInstance));
+        containerRecordRepository.save(asList(containerRecordWithClosedStatus,
+                containerRecordWithLabResults,
+                containerRecordWithNoLabResults,
+                inTreatmentContainerRecordWithNoLabResults,
+                preTreatmentContainerWithInTreatmentMappingInstance,
+                containerRecordWithNoLabResultsAndClosedStatus));
     }
 
     @Test
     public void shouldReturnCountOfContainerRegistrations() {
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, emptyFilterParams);
-        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(1), pendingLabResults(3), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(2), pendingLabResults(3), pendingConsultationDate(2));
         assertEquals(expectedQueryResult, queryResult);
     }
 
@@ -54,7 +60,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
 
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, filterParamsWithDateAndDistrict);
 
-        QueryResult expectedQueryResult = expectedQueryResult(active(1), closed(0), pendingLabResults(1), pendingConsultationDate(1));
+        QueryResult expectedQueryResult = expectedQueryResult(active(1), closed(1), pendingLabResults(1), pendingConsultationDate(1));
         assertEquals(expectedQueryResult, queryResult);
     }
 
@@ -76,7 +82,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
         filterParamsWithDate.put("from_date", "10/11/2013");
         filterParamsWithDate.put("to_date", "15/12/2013");
 
-        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(0), pendingLabResults(3), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(1), pendingLabResults(3), pendingConsultationDate(2));
 
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, filterParamsWithDate);
 
@@ -86,7 +92,7 @@ public class ContainerRegistrationsByStatusQueryIT extends IntegrationTest{
     @Test
     public void shouldNotConsiderContainersWithMappingInstanceAsOneOfInTreatmentValues() {
         QueryResult queryResult = queryService.executeQuery(NUMBER_OF_CONTAINER_REGISTRATIONS_BY_STATUS_QUERY, emptyFilterParams);
-        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(1), pendingLabResults(3), pendingConsultationDate(2));
+        QueryResult expectedQueryResult = expectedQueryResult(active(4), closed(2), pendingLabResults(3), pendingConsultationDate(2));
         assertEquals(expectedQueryResult, queryResult);
     }
 
