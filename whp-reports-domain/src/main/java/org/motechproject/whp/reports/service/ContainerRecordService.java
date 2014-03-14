@@ -61,4 +61,12 @@ public class ContainerRecordService {
         requestMapper.updateUserGivenPatientDetails(request, containerRecord);
         containerRecordRepository.save(containerRecord);
     }
+
+    public void deleteContainerUserGivenDetails(UserGivenPatientDetailsReportingRequest request){
+        ContainerRecord containerRecord = containerRecordRepository.findByContainerId(request.getContainerId());
+        if(containerRecord!=null){
+        requestMapper.updateUserGivenPatientDetails(request, containerRecord);
+        containerRecordRepository.delete(containerRecord);
+        }
+    }
 }

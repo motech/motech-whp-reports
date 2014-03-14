@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class AdherenceRecordController extends BaseController{
 
@@ -22,5 +24,11 @@ public class AdherenceRecordController extends BaseController{
     @ResponseBody
     public void adherenceRecord(@RequestBody AdherenceRecordDTO adherenceRecordDTO){
         adherenceRecordService.save(adherenceRecordDTO);
+    }
+
+    @RequestMapping("/adherence/delete")
+    @ResponseBody
+    public void adherenceRecordDelete(@RequestBody List<AdherenceRecordDTO> adherenceRecordDTO){
+        adherenceRecordService.delete(adherenceRecordDTO);
     }
 }

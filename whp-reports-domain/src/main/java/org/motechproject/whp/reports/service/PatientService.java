@@ -38,4 +38,12 @@ public class PatientService {
         patientMapper.map(patientDTO, patient);
         patientRepository.save(patient);
     }
+
+    public void delete(PatientDTO patientDTO) {
+        Patient patient = patientRepository.findByPatientId(patientDTO.getPatientId());
+        if(patient != null){
+           patientRepository.delete(patient);
+        }
+    }
+
 }

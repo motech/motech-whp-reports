@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -40,6 +42,21 @@ public class AdherenceRecordControllerTest extends ControllerTest {
 
         verify(adherenceRecordService).save(adherenceRecordDTO);
     }
+
+    @Test
+    public void shouldDeleteAdherenceRecord() throws Exception {
+        AdherenceRecordDTO adherenceRecordDTO = createAdherenceRecordDTO();
+        List<AdherenceRecordDTO> adherenceRecordDTOs = Arrays.asList(adherenceRecordDTO);
+
+        String requestJSON = getJSON(adherenceRecordDTOs);
+
+        MockMvcBuilders.standaloneSetup(adherenceRecordController).build()
+                .perform(post("/adherence/delete").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(adherenceRecordService).delete(adherenceRecordDTOs);
+    }
+
 
     private AdherenceRecordDTO createAdherenceRecordDTO() {
         AdherenceRecordDTO adherenceRecordDTO = new AdherenceRecordDTO();

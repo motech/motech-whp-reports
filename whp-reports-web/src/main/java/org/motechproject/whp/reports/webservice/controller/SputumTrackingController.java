@@ -49,4 +49,10 @@ public class SputumTrackingController  extends BaseController{
     public void updateUserGivenPatientDetails(@RequestBody UserGivenPatientDetailsReportingRequest userGivenPatientDetailsReportingRequest) {
         containerRecordService.updateContainerUserGivenDetails(userGivenPatientDetailsReportingRequest);
     }
+
+    @RequestMapping(value = "/deleteUserGivenPatientDetails", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteUserGivenPatientDetails(@RequestBody UserGivenPatientDetailsReportingRequest userGivenPatientDetailsReportingRequest) {
+        containerRecordService.deleteContainerUserGivenDetails(userGivenPatientDetailsReportingRequest);
+    }
 }

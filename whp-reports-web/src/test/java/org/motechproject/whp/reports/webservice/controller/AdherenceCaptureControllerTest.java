@@ -58,4 +58,16 @@ public class AdherenceCaptureControllerTest extends ControllerTest{
                 )
                 .andExpect(status().isInternalServerError());
     }
+
+
+    @Test
+    public void shouldCaptureAdherenceDeletion() throws Exception {
+        String patientId = "patientId";
+
+        String requestJson = getJSON(patientId);
+        standaloneSetup(controller).build()
+                .perform(post("/adherence/measureDelete").content(requestJson.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(adherenceSubmissionService).delete(requestJson);
+    }
 }

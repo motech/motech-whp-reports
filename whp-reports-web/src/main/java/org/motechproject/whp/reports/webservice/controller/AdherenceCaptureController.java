@@ -27,4 +27,10 @@ public class AdherenceCaptureController extends BaseController {
     public void callLogs(@RequestBody AdherenceCaptureRequest adherenceRequest) {
         adherenceSubmissionService.save(domainMapper.mapAdherenceSubmission(adherenceRequest));
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "measureDelete")
+    @ResponseBody
+    public void deleteCallLogs(@RequestBody String patientId) {
+        adherenceSubmissionService.delete(patientId);
+    }
 }

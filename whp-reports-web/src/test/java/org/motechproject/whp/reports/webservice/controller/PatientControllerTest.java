@@ -10,6 +10,8 @@ import org.motechproject.whp.reports.service.PatientService;
 import org.springframework.http.MediaType;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,6 +44,21 @@ public class PatientControllerTest extends ControllerTest{
         verify(patientService).update(patientDTOArgumentCaptor.capture());
 
         assertEquals(patientDTO.getPatientId(), patientDTOArgumentCaptor.getValue().getPatientId());
+    }
+
+    @Test
+    public void shouldDeletePatient() throws Exception {
+        PatientDTO patientDTO = new PatientRequestBuilder().withDefaults().build();
+        String requestJSON = getJSON(patientDTO);
+
+        standaloneSetup(patientController).build()
+                .perform(post("/patient/delete").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        ArgumentCaptor<PatientDTO> patientDTOArgumentCaptor = ArgumentCaptor.forClass(PatientDTO.class);
+        verify(patientService).delete(patientDTOArgumentCaptor.capture());
+
+       assertNull(patientService.getPatient(patientDTOArgumentCaptor.getValue().getPatientId()));
     }
     
 }

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class AdherenceAuditLogService {
@@ -29,4 +32,13 @@ public class AdherenceAuditLogService {
         AdherenceAuditLog auditLog = adherenceAuditLogMapper.map(adherenceAuditLogDTO);
         adherenceAuditLogRepository.save(auditLog);
     }
+
+    public void delete(List<AdherenceAuditLogDTO> adherenceAuditLogDTOs) {
+        for (AdherenceAuditLogDTO adherenceAuditLogDTO : adherenceAuditLogDTOs) {
+           List<AdherenceAuditLog> auditLogs = adherenceAuditLogRepository.findByPatientIdAndTbId(adherenceAuditLogDTO.getPatientId(),adherenceAuditLogDTO.getTbId());
+            adherenceAuditLogRepository.delete(auditLogs);
+        }
+
+    }
 }
+

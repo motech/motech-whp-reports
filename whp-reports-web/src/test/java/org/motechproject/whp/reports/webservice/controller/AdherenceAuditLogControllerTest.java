@@ -8,6 +8,9 @@ import org.motechproject.whp.reports.service.AdherenceAuditLogService;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,5 +41,20 @@ public class AdherenceAuditLogControllerTest extends ControllerTest{
                 .andExpect(status().isOk());
 
         verify(adherenceAuditLogService).save(adherenceAuditLogDTO);
+    }
+
+    @Test
+    public void shouldHandleAdherenceAuditLogDeleteRequest() throws Exception {
+
+        AdherenceAuditLogDTO adherenceAuditLogDTO = new AdherenceAuditLogDTO();
+        List<AdherenceAuditLogDTO> adherenceAuditLogDTOs = Arrays.asList(adherenceAuditLogDTO);
+
+        String requestJSON = getJSON(adherenceAuditLogDTOs);
+
+        MockMvcBuilders.standaloneSetup(adherenceAuditLogController).build()
+                .perform(post("/adherence/deleteAuditLog").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(adherenceAuditLogService).delete(adherenceAuditLogDTOs);
     }
 }

@@ -66,4 +66,18 @@ public class PatientServiceTest {
         verify(patientRepository).save(patient);
     }
 
+    @Test
+    public void shouldDeletePatient() {
+        PatientDTO patientDTO = mock(PatientDTO.class);
+        patientDTO.setPatientId("patientID");
+        Patient patient = new Patient();
+        patient.setPatientId("patientID");
+        when(patientRepository.findByPatientId(patientDTO.getPatientId())).thenReturn(patient);
+
+        patientService.delete(patientDTO);
+        verify(patientRepository).findByPatientId(patientDTO.getPatientId());
+        verify(patientRepository).delete(patient);
+    }
+
+
 }

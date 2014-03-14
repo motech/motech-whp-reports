@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class AdherenceRecordService {
@@ -28,5 +30,12 @@ public class AdherenceRecordService {
     public void save(AdherenceRecordDTO adherenceRecordDTO) {
         AdherenceRecord adherenceRecord = adherenceRecordMapper.map(adherenceRecordDTO);
         adherenceRecordRepository.save(adherenceRecord);
+    }
+
+    public void delete(List<AdherenceRecordDTO> adherenceRecordDTOs) {
+        for (AdherenceRecordDTO adherenceRecordDTO : adherenceRecordDTOs) {
+            AdherenceRecord adherenceRecord = adherenceRecordMapper.map(adherenceRecordDTO);
+            adherenceRecordRepository.delete(adherenceRecord);
+        }
     }
 }

@@ -129,6 +129,21 @@ public class ContainerRecordServiceTest {
         verify(page2).getContent();
     }
 
+    @Test
+    public void shouldDeleteContainer() {
+        ContainerRecord existingContainer = new ContainerRecord();
+        existingContainer.setContainerId("container");
+        UserGivenPatientDetailsReportingRequest userGivenPatientDetailsReportingRequest = new UserGivenPatientDetailsReportingRequest();
+        userGivenPatientDetailsReportingRequest.setContainerId(existingContainer.getContainerId());
+
+        when(containerRecordRepository.findByContainerId(userGivenPatientDetailsReportingRequest.getContainerId())).thenReturn(existingContainer);
+
+        containerRecordService.deleteContainerUserGivenDetails(userGivenPatientDetailsReportingRequest);
+
+        verify(containerRecordRepository).findByContainerId(userGivenPatientDetailsReportingRequest.getContainerId());
+        verify(containerRecordRepository).delete(existingContainer);
+    }
+
     @After
     public void tearDown() {
         verifyNoMoreInteractions(containerRecordRepository);

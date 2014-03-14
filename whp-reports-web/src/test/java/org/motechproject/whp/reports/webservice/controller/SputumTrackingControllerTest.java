@@ -84,4 +84,16 @@ public class SputumTrackingControllerTest extends ControllerTest{
         verify(containerRecordService).updateContainerUserGivenDetails(request);
     }
 
+    @Test
+    public void shouldDeleteUserGivenPatientDetails() throws Exception {
+        UserGivenPatientDetailsReportingRequest request = new UserGivenPatientDetailsReportingRequest();
+
+        String requestJSON = getJSON(request);
+
+        standaloneSetup(sputumTrackingController).build()
+                .perform(post("/sputumTracking/deleteUserGivenPatientDetails").content(requestJSON.getBytes()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(containerRecordService).deleteContainerUserGivenDetails(request);
+    }
 }

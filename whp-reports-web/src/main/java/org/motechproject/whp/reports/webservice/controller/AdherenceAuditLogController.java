@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/adherence")
 public class AdherenceAuditLogController extends BaseController{
@@ -24,5 +26,11 @@ public class AdherenceAuditLogController extends BaseController{
     @ResponseBody
     public void updateProvider(@RequestBody AdherenceAuditLogDTO adherenceAuditLogDTO){
         adherenceAuditLogService.save(adherenceAuditLogDTO);
+    }
+
+    @RequestMapping("/deleteAuditLog")
+    @ResponseBody
+    public void adherenceRecordDelete(@RequestBody List<AdherenceAuditLogDTO> adherenceAuditLogDTOs){
+        adherenceAuditLogService.delete(adherenceAuditLogDTOs);
     }
 }

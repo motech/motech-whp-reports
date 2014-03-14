@@ -24,4 +24,10 @@ public class PatientController extends BaseController{
         patientService.update(patientDTO);
     }
 
+    @RequestMapping(value = "/patient/delete")
+    @ResponseBody
+    public void delete(@RequestBody PatientDTO patientDTO) {
+        patientService.delete(patientDTO);
+    }
+
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PatientAdherenceSubmissionService {
@@ -23,5 +25,9 @@ public class PatientAdherenceSubmissionService {
 
     public void save(PatientAdherenceSubmission adherenceSubmission) {
         patientAdherenceSubmissionRepository.save(adherenceSubmission);
+    }
+    public void delete(String patientId){
+        List<PatientAdherenceSubmission> patientAdherenceSubmissions = patientAdherenceSubmissionRepository.findByPatientId(patientId);
+       patientAdherenceSubmissionRepository.deleteInBatch(patientAdherenceSubmissions);
     }
 }
