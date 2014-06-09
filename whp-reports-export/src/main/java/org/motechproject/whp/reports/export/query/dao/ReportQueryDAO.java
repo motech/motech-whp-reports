@@ -43,5 +43,8 @@ public class ReportQueryDAO {
     public List<ProviderReminderCallLogSummary> getProviderReminderCallLogSummaries() {
         return jdbcTemplate.query(whpReportQueries.getProviderReminderCallLogQuery(), new BeanPropertyRowMapper(ProviderReminderCallLogSummary.class));
     }
-
+    
+    public List<PatientReminderCallLogSummary> getPatientReminderCallLogSummaries() {
+        return jdbcTemplate.query(whpReportQueries.getPatientReminderCallLogQuery(), new BeanPropertyRowMapper(PatientReminderCallLogSummary.class));
+    }
 }

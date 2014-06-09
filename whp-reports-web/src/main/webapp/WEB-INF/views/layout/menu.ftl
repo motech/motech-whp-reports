@@ -26,6 +26,9 @@
             <li>
                 <a href="/whp-reports/patientReportsFilter">Patient Reports</a>
             </li>
+            <li>
+                <a href="/whp-reports/reports/patientReminderCallLogReport">Patient Reminder Call Logs</a>
+            </li>
         </ul>
     </li>
  <li class="dropdown">
