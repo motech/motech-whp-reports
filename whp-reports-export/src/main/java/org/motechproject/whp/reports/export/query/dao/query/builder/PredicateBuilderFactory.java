@@ -9,8 +9,12 @@ public class PredicateBuilderFactory {
             return new PatientCloseTreatmentPredicateBuilder(patientReportRequest);
         }
 
-        if (patientReportRequest.getReportType() == PatientReportType.SUMMARY_REPORT){
+        else if (patientReportRequest.getReportType() == PatientReportType.SUMMARY_REPORT){
             return new PatientSummaryPredicateBuilder(patientReportRequest);
+        }
+        
+        else if(patientReportRequest.getReportType().equals(PatientReportType.CALL_LOG)){
+        	return new PatientCallLogSummaryPredicateBuilder(patientReportRequest);
         }
         return null;
     }

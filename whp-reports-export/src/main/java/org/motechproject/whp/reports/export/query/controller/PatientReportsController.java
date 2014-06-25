@@ -44,7 +44,14 @@ public class PatientReportsController {
         request.setReportType(PatientReportType.CLOSED_TREATMENT);
         patientReportBuilder.buildClosedTreatmentsReport(request, response.getOutputStream());
     }
-
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/patientReminderCallLogs.xls")
+    public void createPatientReminderCallLogReport(PatientReportRequest request, HttpServletResponse response) throws IOException {
+        initializeExcelResponse(response, "patientReminderCallLogReports.xls");
+        request.setReportType(PatientReportType.CALL_LOG);
+        patientReportBuilder.buildPatientReminderCallLogReport(request, response.getOutputStream());
+    }
+    
     private void initializeExcelResponse(HttpServletResponse response, String fileName) {
         response.setHeader(CONTENT_DISPOSITION, "inline; filename=" + fileName);
         response.setContentType(APPLICATION_VND_MS_EXCEL);

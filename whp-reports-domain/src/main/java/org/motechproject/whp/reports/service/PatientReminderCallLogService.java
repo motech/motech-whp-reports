@@ -29,7 +29,5 @@ public class PatientReminderCallLogService {
 	    		e.printStackTrace();
 	    	}
 	    }
-	    
-	    //TODO 
 
 }

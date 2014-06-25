@@ -22,8 +22,5 @@ public class PatientReminderCallLogSummary {
         return WHPDateTime.dayOfWeek(attemptDateTime);
     }
 
-    public Integer getDuration() {
-        return WHPDateTime.getDuration(startDateTime, endDateTime);
-    }
 
 }

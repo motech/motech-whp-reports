@@ -1,6 +1,7 @@
 package org.motechproject.whp.reports.export.query.dao.query.builder;
 
 import org.apache.commons.lang3.StringUtils;
+import org.motechproject.whp.reports.export.query.dao.PatientReportType;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 import java.util.ArrayList;
@@ -23,11 +24,19 @@ public class PatientReportsQueryBuilder {
             "join whp_reports.patient_therapy therapy on p.patient_pk=therapy.patient_fk " +
             "join whp_reports.patient_treatment treatment on therapy.therapy_pk = treatment.therapy_fk " +
             "join whp_reports.patient_address address on p.patient_address_fk = address.address_pk " ;
-
+    
+    public static final String PATIENT_CALLLOG_SELECT_SQL = "SELECT call_log.call_id, call_log.patient_id, call_log.start_date_time,"+
+    														" call_log.end_date_time, call_log.attempt_date_time, call_log.attempt,"+
+    														" call_log.disconnection_type, call_log.reminder_type,call_log.call_answered, call_log.mobile_number, "+
+    														" address.district FROM whp_reports.patient_reminder_call_log call_log " +
+    														" inner join whp_reports.patient on patient.patient_id = call_log.patient_id "+
+    														" inner join whp_reports.patient_address address on address.address_pk = patient.patient_address_fk ";
     public static final String PATIENT_SUMMARY_SORT_SQL = " order by treatment_start_date ";
     public static final String LIMIT_ROWS = " limit 65000";
     public static final String WHERE_CLAUSE = "where";
     private static final String DEFAULT_TEST_DISTRICT_FILTER = " provider_district != 'TestDistrict'";
+    public static final String PATIENT_CALL_LOG_SUMMARY_SORT_SQL = " order by call_log.attempt_date_time ";
+    
 
     private PatientReportRequest patientReportRequest;
 
@@ -36,8 +45,13 @@ public class PatientReportsQueryBuilder {
     }
 
     public String build() {
-        return PATIENT_SUMMARY_SELECT_SQL + buildPredicate() + PATIENT_SUMMARY_SORT_SQL + LIMIT_ROWS;
+    	if(patientReportRequest.getReportType().equals(PatientReportType.CALL_LOG))
+    		return PATIENT_CALLLOG_SELECT_SQL + buildPredicateForCallLogs() + PATIENT_CALL_LOG_SUMMARY_SORT_SQL;
+    	else 
+    		return PATIENT_SUMMARY_SELECT_SQL + buildPredicate() + PATIENT_SUMMARY_SORT_SQL + LIMIT_ROWS;
     }
+    
+    
 
     private String buildPredicate() {
         List<String> predicates = new ArrayList<>();
@@ -46,6 +60,21 @@ public class PatientReportsQueryBuilder {
 
         if(StringUtils.isNotEmpty(patientReportRequest.getDistrict())){
             predicates.add(String.format(" provider_district = '%s'", patientReportRequest.getDistrict()));
+        }
+
+        PredicateBuilder predicateBuilder = new PredicateBuilderFactory().getBuilder(patientReportRequest);
+        if(predicateBuilder != null)
+            predicates.addAll(predicateBuilder.getPredicates());
+
+        return WHERE_CLAUSE + StringUtils.join(predicates, " AND");
+    }
+    
+    private String buildPredicateForCallLogs() {
+        List<String> predicates = new ArrayList<>();
+
+       
+        if(StringUtils.isNotEmpty(patientReportRequest.getDistrict())){
+            predicates.add(String.format(" address.district = '%s'", patientReportRequest.getDistrict()));
         }
 
         PredicateBuilder predicateBuilder = new PredicateBuilderFactory().getBuilder(patientReportRequest);

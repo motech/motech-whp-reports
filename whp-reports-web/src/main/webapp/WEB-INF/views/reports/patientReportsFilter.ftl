@@ -16,6 +16,7 @@
                             <option value="patientreports/patientSummary.xls">Patient Summary Report</option>
                             <option value="patientreports/patientRegistrations.xls">Patient Registrations Report</option>
                             <option value="patientreports/patientClosedTreatments.xls">Patient Closed Treatments Report</option>
+                            <option value="patientreports/patientReminderCallLogs.xls">Patient Reminder Call Log Report</option>
                         </select>
                     </div>
 

@@ -16,8 +16,6 @@ public class WhpReportQueries {
 
     @Value("#{reportSQLQueries['provider.reminder.call.log.query']}")
     private String providerReminderCallLogQuery;
-    
-    @Value("#{reportSQLQueries['patient.reminder.call.log.query']}")
-    private String patientReminderCallLogQuery;
+
     
 }
