@@ -5,6 +5,7 @@ import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 
 public class PredicateBuilderFactory {
     public PredicateBuilder getBuilder(PatientReportRequest patientReportRequest) {
+    	if(patientReportRequest.getReportType() != null){
         if (patientReportRequest.getReportType() == PatientReportType.CLOSED_TREATMENT){
             return new PatientCloseTreatmentPredicateBuilder(patientReportRequest);
         }
@@ -16,6 +17,7 @@ public class PredicateBuilderFactory {
         else if(patientReportRequest.getReportType().equals(PatientReportType.CALL_LOG)){
         	return new PatientCallLogSummaryPredicateBuilder(patientReportRequest);
         }
+    	}
         return null;
     }
 }
