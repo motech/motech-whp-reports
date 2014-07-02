@@ -6,7 +6,7 @@
     <artifactId>motech-whp-reports</artifactId>
     <name>WHP Reports</name>
     <packaging>pom</packaging>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.8</version>
     <modules>
         <module>whp-reports-migration</module>
         <module>whp-reports-domain</module>
