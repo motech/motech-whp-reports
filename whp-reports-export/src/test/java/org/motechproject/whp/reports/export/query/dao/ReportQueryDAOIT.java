@@ -61,6 +61,7 @@ public class ReportQueryDAOIT {
     WhpExcelReportBuilder whpExcelReportBuilder;
 
     PatientReportRequest patientReportRequest;
+    ProviderReportRequest providerReportRequest;
 
     Patient patient;
     Patient testPatient;
@@ -79,6 +80,8 @@ public class ReportQueryDAOIT {
         patientRepository.save(asList(patient, testPatient));
         patientReportRequest = new PatientReportRequest();
         patientReportRequest.setReportType(PatientReportType.SUMMARY_REPORT);
+        
+        providerReportRequest = new ProviderReportRequest();
 
         now = DateTime.now();
     }
@@ -304,6 +307,27 @@ public class ReportQueryDAOIT {
     }
 
     @Test
+    public void shouldReturnProviderForGivenDistrict() {
+        String newDistrict = "newDistrict";
+        String primaryMobile = "1234567890";
+        String providerId = "provider1";
+        Provider providerInNewDistrict = new Provider();
+        providerInNewDistrict.setDistrict(newDistrict);
+        providerInNewDistrict.setPrimaryMobile(primaryMobile);
+        providerInNewDistrict.setProviderId(providerId);
+       // Patient provid2erInNewDistrict = new PatientBuilder().withDefaults().withDistrict(newDistrict).withPatientId("patient2").build();
+       // patientRepository.save(patientInNewDistrict);
+        providerRepository.save(providerInNewDistrict);
+
+        ProviderReportRequest providerReportRequest = new ProviderReportRequest();
+        providerReportRequest.setDistrict(newDistrict);
+        List<ProviderReminderCallLogSummary> providerList = reportQueryDAO.getProviderReminderCallLogSummaries(providerReportRequest);
+
+        assertEquals(1, providerList.size());
+        assertEquals(providerInNewDistrict.getProviderId(), providerList.get(0).getProviderId());
+    }
+
+    @Test
     public void shouldReturnProviderReminderCallLogRecords() {
         createProvider();
         createTestProvider();
@@ -315,7 +339,7 @@ public class ReportQueryDAOIT {
 
         providerReminderCallLogRepository.save(asList(providerReminderCallLog, testProviderReminderCallLog));
 
-        List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO.getProviderReminderCallLogSummaries();
+        List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO.getProviderReminderCallLogSummaries(providerReportRequest);
 
         assertThat(providerReminderCallLogSummaries.size(), is(1));
         ProviderReminderCallLogSummary callLog = providerReminderCallLogSummaries.get(0);

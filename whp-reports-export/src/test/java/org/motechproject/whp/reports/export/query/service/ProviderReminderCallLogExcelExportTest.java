@@ -1,20 +1,17 @@
 package org.motechproject.whp.reports.export.query.service;
 
-import org.apache.poi.ss.usermodel.Workbook;
-import org.joda.time.DateTime;
-import org.junit.Test;
-import org.motechproject.whp.reports.date.WHPDateTime;
-import org.motechproject.whp.reports.export.query.builder.WhpExcelReportBuilder;
-import org.motechproject.whp.reports.export.query.builder.ProviderReminderCallLogReportBuilder;
-import org.motechproject.whp.reports.export.query.model.ProviderReminderCallLogSummary;
-
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static bad.robot.excel.valuetypes.ExcelColumnIndex.*;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.A;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.B;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.C;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.D;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.E;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.F;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.G;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.H;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.I;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.J;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.K;
+import static bad.robot.excel.valuetypes.ExcelColumnIndex.L;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -22,6 +19,20 @@ import static org.hamcrest.Matchers.is;
 import static org.joda.time.DateTime.now;
 import static org.motechproject.model.DayOfWeek.Wednesday;
 import static org.motechproject.whp.reports.date.WHPDateTime.date;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.joda.time.DateTime;
+import org.junit.Test;
+import org.motechproject.whp.reports.date.WHPDateTime;
+import org.motechproject.whp.reports.export.query.builder.ProviderReportBuilder;
+import org.motechproject.whp.reports.export.query.builder.WhpExcelReportBuilder;
+import org.motechproject.whp.reports.export.query.model.ProviderReminderCallLogSummary;
 
 public class ProviderReminderCallLogExcelExportTest extends ExcelTest {
 
@@ -40,7 +51,7 @@ public class ProviderReminderCallLogExcelExportTest extends ExcelTest {
         String generatedDateTimeValue = date(now).value();
         params.put(WhpExcelReportBuilder.GENERATED_ON, generatedDateTimeValue);
 
-        workbook = whpExcelExporter.export(ProviderReminderCallLogReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME, params);
+        workbook = whpExcelExporter.export(ProviderReportBuilder.PROVIDER_REMINDER_CALL_LOG_TEMPLATE_NAME, params);
 
         assertThat(stringValue(A, 1), is(equalTo("Provider Reminder Call Logs")));
         assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));

@@ -32,6 +32,12 @@ public class HomeController extends BaseController {
         return "reports/patientReportsFilter";
     }
 
+    @RequestMapping(value="/providerReminderReportsFilter", method = RequestMethod.GET)
+    public String providerReminderReportsPage(Model uiModel) throws IOException {
+        uiModel.addAttribute("districts", districtService.getAllDistricts());
+        return "reports/providerReminderReportsFilter";
+    }
+
     @RequestMapping(value="/containerReports", method = RequestMethod.GET)
     public String containerReportsPage(Model uiModel) throws IOException {
         uiModel.addAttribute("districts", districtService.getAllDistricts());

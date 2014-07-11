@@ -1,15 +1,23 @@
 package org.motechproject.whp.reports.export.query.dao;
 
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.motechproject.whp.reports.config.WhpReportQueries;
 import org.motechproject.whp.reports.export.query.dao.query.builder.PatientReportsQueryBuilder;
-import org.motechproject.whp.reports.export.query.model.*;
+import org.motechproject.whp.reports.export.query.dao.query.builder.ProviderReportsQueryBuilder;
+import org.motechproject.whp.reports.export.query.model.AdherenceAuditLogSummary;
+import org.motechproject.whp.reports.export.query.model.AdherenceRecordSummary;
+import org.motechproject.whp.reports.export.query.model.PatientReminderCallLogSummary;
+import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
+import org.motechproject.whp.reports.export.query.model.PatientSummary;
+import org.motechproject.whp.reports.export.query.model.ProviderReminderCallLogSummary;
+import org.motechproject.whp.reports.export.query.model.ProviderReportRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import javax.sql.DataSource;
-import java.util.List;
 
 @Repository
 public class ReportQueryDAO {
@@ -40,8 +48,8 @@ public class ReportQueryDAO {
         return jdbcTemplate.query(whpReportQueries.getAdherenceDataReportQuery(), new BeanPropertyRowMapper(AdherenceRecordSummary.class));
     }
 
-    public List<ProviderReminderCallLogSummary> getProviderReminderCallLogSummaries() {
-        return jdbcTemplate.query(whpReportQueries.getProviderReminderCallLogQuery(), new BeanPropertyRowMapper(ProviderReminderCallLogSummary.class));
+    public List<ProviderReminderCallLogSummary> getProviderReminderCallLogSummaries(ProviderReportRequest providerReportRequest) {
+        return jdbcTemplate.query(new ProviderReportsQueryBuilder(providerReportRequest).build(), new BeanPropertyRowMapper(ProviderReminderCallLogSummary.class));
     }
     
     public List<PatientReminderCallLogSummary> getPatientReminderCallLogSummaries(PatientReportRequest patientReportRequest) {

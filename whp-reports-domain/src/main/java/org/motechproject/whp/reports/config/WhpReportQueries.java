@@ -13,9 +13,5 @@ public class WhpReportQueries {
 
     @Value("#{reportSQLQueries['adherence.audit.data.query']}")
     private String adherenceAuditLogReportQuery;
-
-    @Value("#{reportSQLQueries['provider.reminder.call.log.query']}")
-    private String providerReminderCallLogQuery;
-
     
 }

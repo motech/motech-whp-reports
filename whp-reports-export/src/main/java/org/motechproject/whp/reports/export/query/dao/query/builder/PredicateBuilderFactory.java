@@ -1,7 +1,9 @@
 package org.motechproject.whp.reports.export.query.dao.query.builder;
 
 import org.motechproject.whp.reports.export.query.dao.PatientReportType;
+import org.motechproject.whp.reports.export.query.dao.ProviderReportType;
 import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
+import org.motechproject.whp.reports.export.query.model.ProviderReportRequest;
 
 public class PredicateBuilderFactory {
     public PredicateBuilder getBuilder(PatientReportRequest patientReportRequest) {
@@ -20,4 +22,13 @@ public class PredicateBuilderFactory {
     	}
         return null;
     }
+
+	public PredicateBuilder getBuilder(ProviderReportRequest providerReportRequest) {
+		if(providerReportRequest.getReportType() != null){
+	        if (providerReportRequest.getReportType() == ProviderReportType.REMINDER_CALL_LOG){
+	            return new ProviderReminderCallLogSummaryPredicateBuilder(providerReportRequest);
+	    	}
+		}
+	    return null;
+	}
 }

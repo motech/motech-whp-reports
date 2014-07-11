@@ -20,11 +20,13 @@ public class ReportQueryServiceTest {
 
     @Mock
     ReportQueryDAO reportQueryDAO;
+    ProviderReportRequest providerReportRequest;
 
     @Before
     public void setUp() {
         initMocks(this);
         reportQueryService = new ReportQueryService(reportQueryDAO);
+        providerReportRequest = new ProviderReportRequest();
     }
 
     @Test
@@ -64,11 +66,11 @@ public class ReportQueryServiceTest {
     @Test
     public void shouldProviderReminderCallLogSummaries() {
         List expectedProviderReminderCallLogSummaries = mock(List.class);
-        when(reportQueryDAO.getProviderReminderCallLogSummaries()).thenReturn(expectedProviderReminderCallLogSummaries);
+        when(reportQueryDAO.getProviderReminderCallLogSummaries(providerReportRequest)).thenReturn(expectedProviderReminderCallLogSummaries);
 
-        List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryService.getProviderReminderCallLogSummaries();
+        List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryService.getProviderReminderCallLogSummaries(providerReportRequest);
 
         assertEquals(expectedProviderReminderCallLogSummaries, providerReminderCallLogSummaries);
-        verify(reportQueryDAO).getProviderReminderCallLogSummaries();
+        verify(reportQueryDAO).getProviderReminderCallLogSummaries(providerReportRequest);
     }
 }
