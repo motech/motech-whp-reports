@@ -55,18 +55,22 @@ public class ProviderReminderCallLogExcelExportTest extends ExcelTest {
 
         assertThat(stringValue(A, 1), is(equalTo("Provider Reminder Call Logs")));
         assertThat(stringValue(A, 3), is(equalTo("Generated as on " + generatedDateTimeValue)));
-        assertThat(stringValue(A, 5), is(equalTo("callId")));
-        assertThat(stringValue(B, 5), is(equalTo("providerId")));
-        assertThat(stringValue(C, 5), is(equalTo("district")));
-        assertThat(stringValue(D, 5), is(equalTo("reminderType")));
-        assertThat(stringValue(E, 5), is(Wednesday.name()));
-        assertThat(numericValue(F, 5), is(41619.0));
-        assertThat(numericValue(G, 5), is(41621.0));
-        assertThat(stringValue(H, 5), is(equalTo("Yes")));
-        assertThat(numericValue(I, 5), is(new Double(3)));
-        assertThat(stringValue(J, 5), is(equalTo("Yes")));
-        assertThat(stringValue(K, 5), is(equalTo("type")));
-        assertThat(numericValue(L, 5), is(new Double(1)));
+        assertThat(stringValue(A, 4), is(equalTo("Provider District: ")));
+        assertThat(stringValue(A, 5), is(equalTo("Start Date: ")));
+        assertThat(stringValue(A, 6), is(equalTo("End Date: ")));
+        assertThat(stringValue(A, 7), is(equalTo("Number of records: ")));
+        assertThat(stringValue(A, 9), is(equalTo("Call Id")));
+        assertThat(stringValue(B, 9), is(equalTo("Provider Id")));
+        assertThat(stringValue(C, 9), is(equalTo("Provider district")));
+        assertThat(stringValue(D, 9), is(equalTo("Reminder Type")));
+        assertThat(stringValue(E, 9), is("Reminder Day"));
+        assertThat(stringValue(F, 9), is("Call Attempt Time"));
+        assertThat(stringValue(G, 9), is("Call Start Time"));
+        assertThat(stringValue(H, 9), is("Call Answered"));
+        assertThat(stringValue(I, 9), is("Duration Of Call (seconds)"));
+        assertThat(stringValue(J, 9), is("Adherence Reported After Call"));
+        assertThat(stringValue(K, 9), is("Disconnection Type"));
+        assertThat(stringValue(L, 9), is("Call Attempt Number"));
     }
 
     private ProviderReminderCallLogSummary createProviderReminderCallLog() {

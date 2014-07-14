@@ -306,25 +306,35 @@ public class ReportQueryDAOIT {
         assertThat(adherenceRecordSummaries.get(2).getPatientId(), is("patientId1"));
     }
 
-    @Test
-    public void shouldReturnProviderForGivenDistrict() {
-        String newDistrict = "newDistrict";
-        String primaryMobile = "1234567890";
-        String providerId = "provider1";
-        Provider providerInNewDistrict = new Provider();
-        providerInNewDistrict.setDistrict(newDistrict);
-        providerInNewDistrict.setPrimaryMobile(primaryMobile);
-        providerInNewDistrict.setProviderId(providerId);
-       // Patient provid2erInNewDistrict = new PatientBuilder().withDefaults().withDistrict(newDistrict).withPatientId("patient2").build();
-       // patientRepository.save(patientInNewDistrict);
-        providerRepository.save(providerInNewDistrict);
+	@Test
+	public void shouldReturnProviderForGivenDistrict() {
 
-        ProviderReportRequest providerReportRequest = new ProviderReportRequest();
-        providerReportRequest.setDistrict(newDistrict);
-        List<ProviderReminderCallLogSummary> providerList = reportQueryDAO.getProviderReminderCallLogSummaries(providerReportRequest);
+		createProvider();
+		ProviderReminderCallLog providerReminderCallLog = createProviderReminderCallLog();
+		providerReminderCallLogRepository.save(providerReminderCallLog);
 
-        assertEquals(1, providerList.size());
-        assertEquals(providerInNewDistrict.getProviderId(), providerList.get(0).getProviderId());
+		ProviderReportRequest providerReportRequest = new ProviderReportRequest();
+		providerReportRequest.setDistrict("district");
+		providerReportRequest
+				.setReportType(ProviderReportType.REMINDER_CALL_LOG);
+		List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO
+				.getProviderReminderCallLogSummaries(providerReportRequest);
+
+		 assertThat(providerReminderCallLogSummaries.size(), is(1));
+	        ProviderReminderCallLogSummary callLog = providerReminderCallLogSummaries.get(0);
+        assertThat(callLog.getCallId(), is(providerReminderCallLog.getCallId()));
+        assertThat(callLog.getAdherenceReportedDisplayText(), is(YesNo.valueFromCode(providerReminderCallLog.getAdherenceReported()).getText()));
+        assertThat(callLog.getAttempt(), is(providerReminderCallLog.getAttempt()));
+        assertThat(callLog.getAttemptDateTime(), is(providerReminderCallLog.getAttemptTime()));
+        assertThat(callLog.getStartDateTime(), is(providerReminderCallLog.getStartTime()));
+        assertThat(callLog.getEndDateTime(), is(providerReminderCallLog.getEndTime()));
+        assertThat(callLog.getDuration(), is(3));
+        assertThat(callLog.getCallAnswered(), is(providerReminderCallLog.getCallAnswered()));
+        assertThat(callLog.getReminderType(), is(providerReminderCallLog.getReminderType()));
+        assertThat(callLog.getReminderDay(), notNullValue());
+        assertThat(callLog.getProviderId(), is(providerReminderCallLog.getProviderId()));
+        assertThat(callLog.getDisconnectionType(), is(providerReminderCallLog.getDisconnectionType()));
+        assertThat(callLog.getDistrict(), is("district"));
     }
 
     @Test
@@ -339,6 +349,8 @@ public class ReportQueryDAOIT {
 
         providerReminderCallLogRepository.save(asList(providerReminderCallLog, testProviderReminderCallLog));
 
+		providerReportRequest
+				.setReportType(ProviderReportType.REMINDER_CALL_LOG);
         List<ProviderReminderCallLogSummary> providerReminderCallLogSummaries = reportQueryDAO.getProviderReminderCallLogSummaries(providerReportRequest);
 
         assertThat(providerReminderCallLogSummaries.size(), is(1));

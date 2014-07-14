@@ -18,7 +18,7 @@ public class ProviderReportsQueryBuilder {
 	public static final String PROVIDER_SUMMARY_SORT_SQL = " order by treatment_start_date ";
 	public static final String LIMIT_ROWS = " limit 65000";
 	public static final String WHERE_CLAUSE = " where";
-	private static final String DEFAULT_TEST_DISTRICT_FILTER = " provider.district != 'TestDistrict'";
+	public static final String DEFAULT_TEST_DISTRICT_FILTER = " provider.district != 'TestDistrict'";
 	public static final String PROVIDER_CALL_LOG_SUMMARY_SORT_SQL = " order by call_log.attempt_date_time";
 
 	private ProviderReportRequest providerReportRequest;

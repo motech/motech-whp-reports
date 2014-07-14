@@ -21,15 +21,12 @@ public class ReportsControllerIT {
     AdherenceAuditLogReportBuilder adherenceAuditLogReportBuilder;
     @Autowired
     AdherenceRecordsReportBuilder adherenceRecordsReportBuilder;
-   //TODO @Autowired
-   // ProviderReminderCallLogReportBuilder providerReminderCallLogReportBuilder;
 
     @Test
     public void shouldContainAllReportBuilders() {
-        assertEquals(3, whpReportsController.reportBuilders.size());
+        assertEquals(2, whpReportsController.reportBuilders.size());
         assertEquals(adherenceRecordsReportBuilder, whpReportsController.reportBuilders.get(adherenceRecordsReportBuilder.getReportName()));
         assertEquals(adherenceAuditLogReportBuilder, whpReportsController.reportBuilders.get(adherenceAuditLogReportBuilder.getReportName()));
-    //TODO    assertEquals(providerReminderCallLogReportBuilder, whpReportsController.reportBuilders.get(providerReminderCallLogReportBuilder.getReportName()));
     }
 
 
