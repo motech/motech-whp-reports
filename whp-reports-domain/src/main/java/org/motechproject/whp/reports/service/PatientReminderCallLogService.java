@@ -22,12 +22,7 @@ public class PatientReminderCallLogService {
 	    }
 	
 	    public void save(PatientReminderCallLog callLog) {
-	    	try{
 	    	patientReminderCallLogRepository.save(callLog);
-	    	}
-	    	catch(Exception e){
-	    		e.printStackTrace();
-	    	}
 	    }
 
 }

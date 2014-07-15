@@ -2,7 +2,7 @@ CREATE TABLE whp_reports.patient_reminder_call_log
 (
   call_log_id serial NOT NULL,
   call_id character varying(32),
-  request_id character varying(32),
+  request_id character varying(100),
   patient_id character varying(20),
   start_date_time timestamp without time zone,
   call_answered character varying(20),
