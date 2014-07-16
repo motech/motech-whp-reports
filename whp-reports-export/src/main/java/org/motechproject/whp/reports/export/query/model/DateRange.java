@@ -21,18 +21,18 @@ public class DateRange {
         boolean validToDate = StringUtils.isNotEmpty(strTo);
         if (validFromDate && validToDate) {
             this.from = parseDate(strFrom);
-            this.to = parseDate(strTo);
+            this.to = parseDate(strTo).plusDays(1);
             return;
         }
 
         if (validFromDate) {
             this.from = parseDate(strFrom);
-            this.to = this.from.plusDays(180);
+            this.to = this.from.plusDays(181);
             return;
         }
 
         if (validToDate) {
-            this.to = parseDate(strTo);
+            this.to = parseDate(strTo).plusDays(1);
             this.from = this.to.minusDays(180);
             return;
         }
