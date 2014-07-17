@@ -21,18 +21,18 @@ public class DateRange {
         boolean validToDate = StringUtils.isNotEmpty(strTo);
         if (validFromDate && validToDate) {
             this.from = parseDate(strFrom);
-            this.to = parseDate(strTo).plusDays(1);
+            this.to = parseDate(strTo);
             return;
         }
 
         if (validFromDate) {
             this.from = parseDate(strFrom);
-            this.to = this.from.plusDays(181);
+            this.to = this.from.plusDays(180);
             return;
         }
 
         if (validToDate) {
-            this.to = parseDate(strTo).plusDays(1);
+            this.to = parseDate(strTo);
             this.from = this.to.minusDays(180);
             return;
         }
@@ -48,7 +48,7 @@ public class DateRange {
     }
 
     public String getEndDateInSqlFormat() {
-        return to.toString(SQL_DATE_FORMAT);
+        return to.plusDays(1).toString(SQL_DATE_FORMAT);
     }
 
     public String getStartDate() {
