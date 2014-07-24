@@ -48,7 +48,7 @@ public class DateRange {
     }
 
     public String getEndDateInSqlFormat() {
-        return to.plusDays(1).toString(SQL_DATE_FORMAT);
+        return to.toString(SQL_DATE_FORMAT);
     }
 
     public String getStartDate() {
