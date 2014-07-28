@@ -3,9 +3,7 @@ package org.motechproject.whp.reports.export.query.dao;
 import static junit.framework.Assert.assertEquals;
 
 import org.junit.Test;
-import org.motechproject.whp.reports.export.query.dao.query.builder.PatientReportsQueryBuilder;
 import org.motechproject.whp.reports.export.query.dao.query.builder.ProviderReportsQueryBuilder;
-import org.motechproject.whp.reports.export.query.model.PatientReportRequest;
 import org.motechproject.whp.reports.export.query.model.ProviderReportRequest;
 
 public class ProviderReportsQueryBuilderTest {
@@ -42,7 +40,7 @@ public class ProviderReportsQueryBuilderTest {
         String expectedQuery = ProviderReportsQueryBuilder.PROVIDER_CALLLOG_SELECT_SQL
         		+ ProviderReportsQueryBuilder.WHERE_CLAUSE
                 + ProviderReportsQueryBuilder.DEFAULT_TEST_DISTRICT_FILTER
-                + " AND call_log.attempt_date_time between '2013-01-01' AND '2013-01-02'"
+                + " AND call_log.attempt_date_time between '2013-01-01' AND '2013-01-03'"
                 + ProviderReportsQueryBuilder.PROVIDER_CALL_LOG_SUMMARY_SORT_SQL;
 
         ProviderReportRequest requestWithDates = new ProviderReportRequest();
@@ -58,7 +56,7 @@ public class ProviderReportsQueryBuilderTest {
         		+ ProviderReportsQueryBuilder.WHERE_CLAUSE
                 + ProviderReportsQueryBuilder.DEFAULT_TEST_DISTRICT_FILTER
                 + " AND provider.district = 'Begusarai'"
-                + " AND call_log.attempt_date_time between '2013-01-01' AND '2013-01-02'"
+                + " AND call_log.attempt_date_time between '2013-01-01' AND '2013-01-03'"
                 + ProviderReportsQueryBuilder.PROVIDER_CALL_LOG_SUMMARY_SORT_SQL;
 
         ProviderReportRequest request = new ProviderReportRequest();
