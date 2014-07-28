@@ -17,7 +17,7 @@ public class ProviderReminderCallLogSummaryPredicateBuilder implements Predicate
     }   
 	@Override
 	public List<String> getPredicates() {
-		DateRange dateRange = new DateRange(providerReportRequest.getFrom(), providerReportRequest.getTo());
+		DateRange dateRange = new DateRange(providerReportRequest.getFrom(), providerReportRequest.getTo(), true);
         if(dateRange.hasValidRange())
             return asList(String.format(" call_log.attempt_date_time between '%s' AND '%s'",
                     dateRange.getStartDateInSqlFormat(),

@@ -17,7 +17,7 @@ public class PatientCallLogSummaryPredicateBuilder implements PredicateBuilder {
     }   
 	@Override
 	public List<String> getPredicates() {
-		DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+		DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo(), true);
         if(dateRange.hasValidRange())
             return asList(String.format(" call_log.attempt_date_time between '%s' AND '%s'",
                     dateRange.getStartDateInSqlFormat(),

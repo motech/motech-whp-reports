@@ -18,7 +18,7 @@ public class PatientCloseTreatmentPredicateBuilder implements PredicateBuilder{
 
     @Override
     public List<String> getPredicates() {
-        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo(), false);
         if(dateRange.hasValidRange()){
             return asList(String.format(" treatment.end_date between '%s' AND '%s'",
                 dateRange.getStartDateInSqlFormat(),

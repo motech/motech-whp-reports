@@ -12,13 +12,15 @@ public class DateRange {
 
     LocalDate from;
     LocalDate to;
+    Boolean hasTime;
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     private DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
 
-    public DateRange(String strFrom, String strTo) {
+    public DateRange(String strFrom, String strTo, boolean hasTime) {
         boolean validFromDate = StringUtils.isNotEmpty(strFrom);
         boolean validToDate = StringUtils.isNotEmpty(strTo);
+        this.hasTime = hasTime;
         if (validFromDate && validToDate) {
             this.from = parseDate(strFrom);
             this.to = parseDate(strTo);
@@ -48,7 +50,10 @@ public class DateRange {
     }
 
     public String getEndDateInSqlFormat() {
-        return to.toString(SQL_DATE_FORMAT);
+    	if(!hasTime)
+    		return to.toString(SQL_DATE_FORMAT);
+    	else
+    		return to.plusDays(1).toString(SQL_DATE_FORMAT);
     }
 
     public String getStartDate() {

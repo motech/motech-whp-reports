@@ -65,7 +65,7 @@ public class PatientReportBuilder {
     private Map<String, Object> setReportParameters(PatientReportRequest patientReportRequest, List<PatientSummary> patientSummaries) {
         Map<String, Object> params = new HashMap<>();
 
-        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo(), false);
         if(dateRange.hasValidRange()){
             params.put(FROM_DATE, dateRange.getStartDate());
             params.put(TO_DATE, dateRange.getEndDate());
@@ -79,7 +79,7 @@ public class PatientReportBuilder {
     private Map<String, Object> setCallLogReportParameters(PatientReportRequest patientReportRequest, List<PatientReminderCallLogSummary> patientSummaries) {
         Map<String, Object> params = new HashMap<>();
 
-        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo());
+        DateRange dateRange = new DateRange(patientReportRequest.getFrom(), patientReportRequest.getTo(), true);
         if(dateRange.hasValidRange()){
             params.put(FROM_DATE, dateRange.getStartDate());
             params.put(TO_DATE, dateRange.getEndDate());

@@ -57,7 +57,7 @@ public class ProviderReportBuilder {
 		Map<String, Object> params = new HashMap<>();
 
 		DateRange dateRange = new DateRange(providerReportRequest.getFrom(),
-				providerReportRequest.getTo());
+				providerReportRequest.getTo(), true);
 		if (dateRange.hasValidRange()) {
 			params.put(FROM_DATE, dateRange.getStartDate());
 			params.put(TO_DATE, dateRange.getEndDate());
