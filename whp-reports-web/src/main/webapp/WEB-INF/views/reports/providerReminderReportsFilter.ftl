@@ -47,7 +47,7 @@
     <div class="control-group buttons-group row-fluid">
         <div class="controls pull-left">
             <button id="clearFilter" type="reset" class="btn">Clear All</button>
-            <button type="button" id="download" class="btn btn-primary">Download <i
+            <button type="button" id="download" class="btn btn-primary downloadLinks">Download <i
                     class="icon-download icon-white"></i></button>
         </div>
     </div>

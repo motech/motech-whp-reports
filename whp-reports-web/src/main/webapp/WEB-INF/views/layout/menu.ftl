@@ -7,12 +7,12 @@
  <@security.authorize ifAnyGranted="IT_ADMIN, CMF_ADMIN, REPORT_USER">
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-download-alt icon-white"></i> Downloads <b class="caret"></b></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="Menu" id="downloadLinks">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="Menu">
             <li>
-                <a href="<@spring.message 'whp.reports.adherence.report'/>">All adherence data</a>
+                <a class="downloadLinks" href="<@spring.message 'whp.reports.adherence.report'/>">All adherence data</a>
             </li>
             <li>
-                <a href="<@spring.message 'whp.reports.adherence.audit.report'/>">All adherence audit data</a>
+                <a class="downloadLinks" href="<@spring.message 'whp.reports.adherence.audit.report'/>">All adherence audit data</a>
             </li>
             <li>
                 <a href="/whp-reports/containerReports">Container tracking data</a>
@@ -21,7 +21,7 @@
                 <a href="<@spring.message 'whp.reports.provider.reminder.call.report.filter'/>">Provider reminder call logs</a>
             </li>
             <li>
-                <a href="<@spring.message 'whp.reports.patient.alert.call.log.report'/>">Patient alert call logs</a>
+                <a class="downloadLinks" href="<@spring.message 'whp.reports.patient.alert.call.log.report'/>">Patient alert call logs</a>
             </li>
             <li>
                 <a href="<@spring.message 'whp.reports.patient.report.filter'/>">Patient Reports</a>

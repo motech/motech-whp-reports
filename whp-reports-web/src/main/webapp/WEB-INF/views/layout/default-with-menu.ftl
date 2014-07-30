@@ -33,7 +33,7 @@
 <!--To trigger file download via JS -->
 <iframe id="dummyIframe" frameborder="0" src="" style="visibility: hidden"></iframe>
 <script type="text/javascript">
-    $('#downloadLinks a').click( function(){
+    $('.downloadLinks').click( function(){
         DownloadAndAlert($(this).attr('href'), $(this).text());
     });
 </script>
