@@ -43,6 +43,8 @@
     </div>
     <div>
         * Percentage out of total providers active in the past 8 weeks
+        <br>
+        ** Percentage out of total providers active in the past 8 treatment weeks
     </div>
 </div>
 </body>

@@ -18,13 +18,13 @@
                 <a href="/whp-reports/containerReports">Container tracking data</a>
             </li>
              <li>
-                <a href="/whp-reports/providerReminderReportsFilter">Provider reminder call logs</a>
+                <a href="<@spring.message 'whp.reports.provider.reminder.call.report.filter'/>">Provider reminder call logs</a>
             </li>
             <li>
                 <a href="<@spring.message 'whp.reports.patient.alert.call.log.report'/>">Patient alert call logs</a>
             </li>
             <li>
-                <a href="/whp-reports/patientReportsFilter">Patient Reports</a>
+                <a href="<@spring.message 'whp.reports.patient.report.filter'/>">Patient Reports</a>
             </li>
         </ul>
     </li>
