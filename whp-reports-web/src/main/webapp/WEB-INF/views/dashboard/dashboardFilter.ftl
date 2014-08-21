@@ -22,7 +22,7 @@
                                id="to_date" name="to_date" data-date-range="from_date">
                         <span class="add-on clear-date-button"><i class="icon-remove-sign"></i></span>
                     </div>
-                <button type="button" id="filter" class="btn btn-primary downloadLinks">Filter
+                <button type="button" id="filter" class="btn btn-primary">Filter
                     <i class="icon-download icon-white"></i></button>
                 <button id="clearFilter" type="reset" class="btn">Clear All</button>
             </fieldset>
