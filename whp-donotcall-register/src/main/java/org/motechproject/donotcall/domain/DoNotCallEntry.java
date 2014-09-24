@@ -22,8 +22,14 @@ public class DoNotCallEntry {
     @Column(name = "entity_id")
     private String entityId;
 
+    /**
+     * @author atish
+     * @since 22/09/2014
+     * Changed entity to supply mobile number as a number rather than a
+     * String  
+     */
     @Column(name = "mobile_number")
-    private String mobileNumber;
+    private Long mobileNumber;
 
     @Column(name = "updated_by")
     private String updatedBy;
