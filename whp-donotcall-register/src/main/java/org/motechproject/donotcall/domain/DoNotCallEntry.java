@@ -29,7 +29,7 @@ public class DoNotCallEntry {
      * String  
      */
     @Column(name = "mobile_number")
-    private Long mobileNumber;
+    private String mobileNumber;
 
     @Column(name = "updated_by")
     private String updatedBy;

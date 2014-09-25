@@ -17,6 +17,6 @@ public class DoNotCallEntryContract {
 	private String entityId;
 	
 	@Column(name="mobile_number")
-	private Long mobileNumber;
+	private String mobileNumber;
 
 }
