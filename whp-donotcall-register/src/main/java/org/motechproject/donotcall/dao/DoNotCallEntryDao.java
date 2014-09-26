@@ -21,7 +21,7 @@ public class DoNotCallEntryDao {
 	
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL="select entity_id, mobile_number from whp_reports.do_not_call";
+	private static final String FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL="select entity_id, mobile_number from whp_reports.do_not_call where entity = 'Patient'";
 	
 	DoNotCallEntryDao(){
 		
