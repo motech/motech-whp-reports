@@ -14,7 +14,8 @@ import static org.motechproject.crud.service.CrudActions.Delete;
 @Configuration
 public class DistrictCrudConfiguration {
 
-    @Bean(name = "districtCrudEntity")
+    @SuppressWarnings("rawtypes")
+	@Bean(name = "districtCrudEntity")
     CrudEntity build(DistrictRepository districtRepository){
         return newCrudEntity(District.class)
                 .jpaCrudRepository(districtRepository, String.class)
