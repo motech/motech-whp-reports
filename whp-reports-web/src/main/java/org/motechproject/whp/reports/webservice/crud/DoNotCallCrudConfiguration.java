@@ -18,7 +18,7 @@ public class DoNotCallCrudConfiguration {
         return newCrudEntity(DoNotCallEntry.class)
                 .jpaCrudRepository(doNotCallEntryRepository, Long.class)
                 .model(CrudModelBuilder.jpaCrudModel()
-                        .displayFields("entityId", "entity", "mobileNumber")
+                        .displayFields("entityId", "entity", "mobileNumber","alertType")
                         .hiddenFields("id", "updatedOn")
                         .filterFields("entityId")
                         .idFieldName("id"))

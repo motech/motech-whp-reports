@@ -39,8 +39,16 @@ public class DoNotCallEntryService {
 	 * Returing donotcall patients
 	 * @return {@link List}
 	 */
-	public List<DoNotCallEntryContract> getAllPatients(){
-		return doNotCallEntryDao.findAllPatients();
+	public List<DoNotCallEntryContract> getAllPatientsByIvrAlert(){
+		return doNotCallEntryDao.findDonotCallPatientByPatientIvrAlert();
+	}
+	
+	/**
+	 * Returing donotcall patients
+	 * @return {@link List}
+	 */
+	public List<DoNotCallEntryContract> getAllPatientsByReminderAlert(){
+		return doNotCallEntryDao.findDonotCallPatientByPatientReminderAlert();
 	}
 
 }

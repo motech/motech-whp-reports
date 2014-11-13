@@ -15,6 +15,10 @@ public class DoNotCallEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "alertType")
+    @Enumerated(EnumType.STRING)
+    private AlertType alertType;
+    
     @Column(name = "entity")
     @Enumerated(EnumType.STRING)
     private EntityType entity;

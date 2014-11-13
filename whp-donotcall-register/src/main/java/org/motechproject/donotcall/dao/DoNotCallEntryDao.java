@@ -23,6 +23,10 @@ public class DoNotCallEntryDao {
 	
 	private static final String FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL="select distinct entity_id, mobile_number from whp_reports.do_not_call where entity = 'Patient'";
 	
+	private static final String PATIENT_REMINDER_ALERT_FILTER = " and alertType = 'PATIENT_REMINDER_ALERT'";
+	
+	private static final String PATIENT_IVR_ALERT_FILTER = " and alertType = 'PATIENT_IVR_ALERT'";
+	
 	DoNotCallEntryDao(){
 		
 	}
@@ -36,12 +40,21 @@ public class DoNotCallEntryDao {
 	}
 
     /**
-     * Returing donotcall patients list. 
+     * Returing donotcall patients list filtered by AlertType Patient Reminder Alert.
      * @return {@link List}
      */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<DoNotCallEntryContract> findAllPatients(){
-	 	return this.jdbcTemplate.query(FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL, new BeanPropertyRowMapper(DoNotCallEntryContract.class));
+	public List<DoNotCallEntryContract> findDonotCallPatientByPatientReminderAlert(){
+	 	return this.jdbcTemplate.query(FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL+PATIENT_REMINDER_ALERT_FILTER, new BeanPropertyRowMapper(DoNotCallEntryContract.class));
+	}
+	
+    /**
+     * Returing donotcall patients list filtered by Patient Ivr Alert.  
+     * @return {@link List}
+     */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<DoNotCallEntryContract> findDonotCallPatientByPatientIvrAlert(){
+	 	return this.jdbcTemplate.query(FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL+PATIENT_IVR_ALERT_FILTER, new BeanPropertyRowMapper(DoNotCallEntryContract.class));
 	}
 
 }

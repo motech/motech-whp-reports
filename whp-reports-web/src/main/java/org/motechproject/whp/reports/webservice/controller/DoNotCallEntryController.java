@@ -39,10 +39,20 @@ public class DoNotCallEntryController {
 	 * Controller 
 	 * @return {@link List}
 	 */
-	@RequestMapping(value="/patients", method = RequestMethod.GET)
+	@RequestMapping(value="/patients/reminder", method = RequestMethod.GET)
 	@ResponseBody
-	public List<DoNotCallEntryContract> showAllPatientOptedForDoNotCallOption() {
-		return doNotCallEntryService.getAllPatients();
+	public List<DoNotCallEntryContract> showAllPatientOptedForDoNotCallOptionWithReminderAlert() {
+		return doNotCallEntryService.getAllPatientsByReminderAlert();
+	}
+	
+	/**
+	 * Controller 
+	 * @return {@link List}
+	 */
+	@RequestMapping(value="/patients/ivr", method = RequestMethod.GET)
+	@ResponseBody
+	public List<DoNotCallEntryContract> showAllPatientOptedForDoNotCallOptionWithIvrAlert() {
+		return doNotCallEntryService.getAllPatientsByIvrAlert();
 	}
 	
 }
