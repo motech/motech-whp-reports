@@ -23,9 +23,9 @@ public class DoNotCallEntryDao {
 	
 	private static final String FIND_ALL_PATIENT_REGISTERED_FOR_DO_NOT_CALL="select distinct entity_id, mobile_number from whp_reports.do_not_call where entity = 'Patient'";
 	
-	private static final String PATIENT_REMINDER_ALERT_FILTER = " and alertType = 'PATIENT_REMINDER_ALERT'";
+	private static final String PATIENT_REMINDER_ALERT_FILTER = " and alert_type = 'PATIENT_REMINDER_ALERT'";
 	
-	private static final String PATIENT_IVR_ALERT_FILTER = " and alertType = 'PATIENT_IVR_ALERT'";
+	private static final String PATIENT_IVR_ALERT_FILTER = " and alert_type = 'PATIENT_IVR_ALERT'";
 	
 	DoNotCallEntryDao(){
 		
