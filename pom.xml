@@ -6,7 +6,7 @@
     <artifactId>motech-whp-reports</artifactId>
     <name>WHP Reports</name>
     <packaging>pom</packaging>
-    <version>0.8</version>
+    <version>0.9</version>
     <modules>
         <module>whp-reports-migration</module>
         <module>whp-reports-domain</module>
@@ -21,7 +21,7 @@
         <spring.version>3.2.0.RELEASE</spring.version>
         <spring-security.version>3.1.0.RELEASE</spring-security.version>
         <motech.version>0.12.3-whp</motech.version>
-        <motech.contrib.version>0.17-SNAPSHOT</motech.contrib.version>
+        <motech.contrib.version>0.5</motech.contrib.version>
         <slf4j.version>1.6.1</slf4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <build.dir>build</build.dir>
