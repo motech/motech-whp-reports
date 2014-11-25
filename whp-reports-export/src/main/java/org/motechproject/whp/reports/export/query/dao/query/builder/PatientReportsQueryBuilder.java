@@ -34,7 +34,7 @@ public class PatientReportsQueryBuilder {
 	public static final String LIMIT_ROWS = " limit 65000";
 	public static final String WHERE_CLAUSE = "where";
 	private static final String DEFAULT_TEST_DISTRICT_FILTER = " provider_district != 'TestDistrict'";
-	public static final String PATIENT_CALL_LOG_SUMMARY_SORT_SQL = " order by call_log.attempt_date_time ";
+	public static final String PATIENT_CALL_LOG_SUMMARY_SORT_SQL = " order by call_log.attempt_date_time desc ";
 
 	private PatientReportRequest patientReportRequest;
 
@@ -47,7 +47,7 @@ public class PatientReportsQueryBuilder {
 				&& patientReportRequest.getReportType().equals(
 						PatientReportType.CALL_LOG))
 			return PATIENT_CALLLOG_SELECT_SQL + buildPredicateForCallLogs()
-					+ PATIENT_CALL_LOG_SUMMARY_SORT_SQL;
+					+ PATIENT_CALL_LOG_SUMMARY_SORT_SQL + LIMIT_ROWS;
 		else
 			return PATIENT_SUMMARY_SELECT_SQL + buildPredicate()
 					+ PATIENT_SUMMARY_SORT_SQL + LIMIT_ROWS;

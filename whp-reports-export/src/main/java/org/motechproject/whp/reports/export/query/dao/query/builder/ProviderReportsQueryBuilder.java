@@ -19,7 +19,7 @@ public class ProviderReportsQueryBuilder {
 	public static final String LIMIT_ROWS = " limit 65000";
 	public static final String WHERE_CLAUSE = " where";
 	public static final String DEFAULT_TEST_DISTRICT_FILTER = " provider.district != 'TestDistrict'";
-	public static final String PROVIDER_CALL_LOG_SUMMARY_SORT_SQL = " order by call_log.attempt_date_time";
+	public static final String PROVIDER_CALL_LOG_SUMMARY_SORT_SQL = " order by call_log.attempt_date_time desc ";
 
 	private ProviderReportRequest providerReportRequest;
 
@@ -32,7 +32,7 @@ public class ProviderReportsQueryBuilder {
 				&& providerReportRequest.getReportType().equals(
 						ProviderReportType.REMINDER_CALL_LOG))
 			return PROVIDER_CALLLOG_SELECT_SQL + buildPredicateForCallLogs()
-					+ PROVIDER_CALL_LOG_SUMMARY_SORT_SQL;
+					+ PROVIDER_CALL_LOG_SUMMARY_SORT_SQL+LIMIT_ROWS;
 		else
 			return "";
 	}
